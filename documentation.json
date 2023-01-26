@@ -1,0 +1,2381 @@
+{
+  "pipes": [],
+  "interfaces": [
+    {
+      "name": "AttenbaseStore",
+      "id": "interface-AttenbaseStore-a3d52324e708b22d796cfaed2379b741f39aba9b03adb9e605af2e4cea2749e84daf444285c3c6c154c1fe5d1ef70677cda00b864f03f283aa5fc3134aa62b05",
+      "file": "src/app/core/models/attenbase-store.ts",
+      "deprecated": false,
+      "deprecationMessage": "",
+      "type": "interface",
+      "sourceCode": "import { AuthenticationState } from 'src/app/store/reducers/authentication.reducers';\r\n\r\nexport interface AttenbaseStore {\r\n  auth: AuthenticationState;\r\n}\r\n",
+      "properties": [
+        {
+          "name": "auth",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "AuthenticationState",
+          "optional": false,
+          "description": "",
+          "line": 4
+        }
+      ],
+      "indexSignatures": [],
+      "kind": 165,
+      "methods": []
+    },
+    {
+      "name": "Authentication",
+      "id": "interface-Authentication-f647c8e5974071785f481b4579cbe405dcc64e5876869396bdf02e00ee3a2b4bd7a982af227c61f82f3f97fc562e27a4b48aecb5064bf41440f411e36fe196a6",
+      "file": "src/app/core/models/authentication.dto.ts",
+      "deprecated": false,
+      "deprecationMessage": "",
+      "type": "interface",
+      "sourceCode": "import { UserDTO } from './user.dto';\r\n\r\nexport interface Authentication {\r\n  permissions: string[];\r\n  token: string;\r\n  user: UserDTO;\r\n}\r\n",
+      "properties": [
+        {
+          "name": "permissions",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "string[]",
+          "optional": false,
+          "description": "",
+          "line": 4
+        },
+        {
+          "name": "token",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "string",
+          "optional": false,
+          "description": "",
+          "line": 5
+        },
+        {
+          "name": "user",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "UserDTO",
+          "optional": false,
+          "description": "",
+          "line": 6
+        }
+      ],
+      "indexSignatures": [],
+      "kind": 165,
+      "methods": []
+    },
+    {
+      "name": "AuthenticationState",
+      "id": "interface-AuthenticationState-83516a87a7b6c7720078e055540b142f9d323848dc017d7e1e6104587709878ac327b0341e2196d280bc8a9e1841d1de8d16b2fa8e16730b5fef1c1f8c01b32a",
+      "file": "src/app/store/reducers/authentication.reducers.ts",
+      "deprecated": false,
+      "deprecationMessage": "",
+      "type": "interface",
+      "sourceCode": "import { createReducer, on } from '@ngrx/store';\r\nimport { Authentication } from 'src/app/core/models/authentication.dto';\r\nimport { authApiActions } from '../actions/authentication.actions';\r\n\r\nexport interface AuthenticationState {\r\n  isLoggingIn: boolean;\r\n  isAuthenticated: boolean;\r\n  user?: Authentication;\r\n}\r\n\r\nexport const initialState: AuthenticationState = {\r\n  isLoggingIn: false,\r\n  isAuthenticated: false,\r\n};\r\n\r\nexport const authenticationReducer = createReducer(\r\n  initialState,\r\n  on(\r\n    authApiActions.loginRequest,\r\n    (state): AuthenticationState => ({ ...state, isLoggingIn: true })\r\n  ),\r\n  on(\r\n    authApiActions.loginFailure,\r\n    (state): AuthenticationState => ({ ...state, isLoggingIn: false })\r\n  ),\r\n  on(\r\n    authApiActions.loginSuccess,\r\n    (state, user): AuthenticationState => ({\r\n      ...state,\r\n      user,\r\n      isAuthenticated: true,\r\n      isLoggingIn: false,\r\n    })\r\n  ),\r\n  on(authApiActions.logout, (state): AuthenticationState => initialState)\r\n);\r\n\r\nexport const authFeatureKey = 'auth';\r\n",
+      "properties": [
+        {
+          "name": "isAuthenticated",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "boolean",
+          "optional": false,
+          "description": "",
+          "line": 7
+        },
+        {
+          "name": "isLoggingIn",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "boolean",
+          "optional": false,
+          "description": "",
+          "line": 6
+        },
+        {
+          "name": "user",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Authentication",
+          "optional": true,
+          "description": "",
+          "line": 8
+        }
+      ],
+      "indexSignatures": [],
+      "kind": 165,
+      "methods": []
+    },
+    {
+      "name": "LoginPayload",
+      "id": "interface-LoginPayload-b02d90913ae73bcdf9e95b04f2654278ccad73fbcaf3599f495e78e6bc302c8aa8fe7ef421ce6fd59ca5425f7a3ab7edcc9f9c032a4563227fb042c63ac7e6f0",
+      "file": "src/app/core/services/authentication.service.ts",
+      "deprecated": false,
+      "deprecationMessage": "",
+      "type": "interface",
+      "sourceCode": "import { HttpClient } from '@angular/common/http';\r\nimport { Injectable } from '@angular/core';\r\nimport { Observable } from 'rxjs';\r\nimport { environment } from 'src/environments/environment';\r\nimport { Authentication } from '../models/authentication.dto';\r\nimport { map } from 'rxjs/operators';\r\nimport { Request } from '../models/request';\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class AuthenticationService {\r\n  constructor(private httpClient: HttpClient) {}\r\n\r\n  public login(payload: LoginPayload): Observable<Authentication> {\r\n    const url = `${environment.apiUrl}login-user`;\r\n    return this.httpClient.post<Request<Authentication>>(url, payload).pipe(map(req => req.data));\r\n  }\r\n}\r\n\r\nexport interface LoginPayload {\r\n  email: string;\r\n  password: string;\r\n}\r\n",
+      "properties": [
+        {
+          "name": "email",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "string",
+          "optional": false,
+          "description": "",
+          "line": 20
+        },
+        {
+          "name": "password",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "string",
+          "optional": false,
+          "description": "",
+          "line": 21
+        }
+      ],
+      "indexSignatures": [],
+      "kind": 165,
+      "methods": []
+    },
+    {
+      "name": "Request",
+      "id": "interface-Request-6c4ce1c793f81825515a92f894a5127c809b9286912045f17b3ebe4900bd5cad3b5491117d634296a5b23bb1f47d4d26a73218d2c07f0be42b958162cd806bcd",
+      "file": "src/app/core/models/request.ts",
+      "deprecated": false,
+      "deprecationMessage": "",
+      "type": "interface",
+      "sourceCode": "export interface Request<T> {\r\n  code: number;\r\n  data: T;\r\n  success: boolean;\r\n}\r\n",
+      "properties": [
+        {
+          "name": "code",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "number",
+          "optional": false,
+          "description": "",
+          "line": 2
+        },
+        {
+          "name": "data",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "T",
+          "optional": false,
+          "description": "",
+          "line": 3
+        },
+        {
+          "name": "success",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "boolean",
+          "optional": false,
+          "description": "",
+          "line": 4
+        }
+      ],
+      "indexSignatures": [],
+      "kind": 165,
+      "methods": []
+    },
+    {
+      "name": "UserDTO",
+      "id": "interface-UserDTO-620f13714de7afe9cda700c23fb309181cfbdbd862159edc60231e3f1a3521400d42af1741aeaca77c6f1ad41cbd078149ffa02979038906c09403bb0d740d09",
+      "file": "src/app/core/models/user.dto.ts",
+      "deprecated": false,
+      "deprecationMessage": "",
+      "type": "interface",
+      "sourceCode": "export interface UserDTO {\r\n  activated: number;\r\n  created_at: string;\r\n  deleted_at: string | null;\r\n  email: string;\r\n  email_verified_at: string | null;\r\n  first_name: string;\r\n  id: number;\r\n  last_login: string;\r\n  last_name: string;\r\n  permissions: any[];\r\n  roles: any[];\r\n  updated_at: string;\r\n}\r\n",
+      "properties": [
+        {
+          "name": "activated",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "number",
+          "optional": false,
+          "description": "",
+          "line": 2
+        },
+        {
+          "name": "created_at",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "string",
+          "optional": false,
+          "description": "",
+          "line": 3
+        },
+        {
+          "name": "deleted_at",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "string | null",
+          "optional": false,
+          "description": "",
+          "line": 4
+        },
+        {
+          "name": "email",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "string",
+          "optional": false,
+          "description": "",
+          "line": 5
+        },
+        {
+          "name": "email_verified_at",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "string | null",
+          "optional": false,
+          "description": "",
+          "line": 6
+        },
+        {
+          "name": "first_name",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "string",
+          "optional": false,
+          "description": "",
+          "line": 7
+        },
+        {
+          "name": "id",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "number",
+          "optional": false,
+          "description": "",
+          "line": 8
+        },
+        {
+          "name": "last_login",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "string",
+          "optional": false,
+          "description": "",
+          "line": 9
+        },
+        {
+          "name": "last_name",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "string",
+          "optional": false,
+          "description": "",
+          "line": 10
+        },
+        {
+          "name": "permissions",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "any[]",
+          "optional": false,
+          "description": "",
+          "line": 11
+        },
+        {
+          "name": "roles",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "any[]",
+          "optional": false,
+          "description": "",
+          "line": 12
+        },
+        {
+          "name": "updated_at",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "string",
+          "optional": false,
+          "description": "",
+          "line": 13
+        }
+      ],
+      "indexSignatures": [],
+      "kind": 165,
+      "methods": []
+    }
+  ],
+  "injectables": [
+    {
+      "name": "AuthenticationEffects",
+      "id": "injectable-AuthenticationEffects-c928d283b3a8a3f1b600b65e5e33f971438433cb049f8cf51128d7709e1e60ae2832533b9df84980bf2f9fb8d7f96f6b6b03485f25d5639181b0c9419e455951",
+      "file": "src/app/store/effects/authentication.effects.ts",
+      "properties": [
+        {
+          "name": "login$",
+          "defaultValue": "createEffect(() => {\r\n    return this.actions$.pipe(\r\n      ofType(authApiActions.loginRequest.type),\r\n      mergeMap((action: Action & { email: string; password: string }) =>\r\n        this.authenticationService.login({ email: action.email, password: action.password }).pipe(\r\n          map(payload => authApiActions.loginSuccess(payload)),\r\n          catchError(() => of(authApiActions.loginFailure({ error: 'Error on login' })))\r\n        )\r\n      )\r\n    );\r\n  })",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "optional": false,
+          "description": "",
+          "line": 13
+        }
+      ],
+      "methods": [],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "description": "",
+      "rawdescription": "\n",
+      "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Actions, createEffect, ofType } from '@ngrx/effects';\r\nimport { catchError, map, mergeMap, tap } from 'rxjs/operators';\r\nimport { of } from 'rxjs';\r\nimport { AuthenticationService } from 'src/app/core/services/authentication.service';\r\nimport { authApiActions } from '../actions/authentication.actions';\r\nimport { Action } from '@ngrx/store';\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class AuthenticationEffects {\r\n  constructor(private actions$: Actions, private authenticationService: AuthenticationService) {}\r\n\r\n  login$ = createEffect(() => {\r\n    return this.actions$.pipe(\r\n      ofType(authApiActions.loginRequest.type),\r\n      mergeMap((action: Action & { email: string; password: string }) =>\r\n        this.authenticationService.login({ email: action.email, password: action.password }).pipe(\r\n          map(payload => authApiActions.loginSuccess(payload)),\r\n          catchError(() => of(authApiActions.loginFailure({ error: 'Error on login' })))\r\n        )\r\n      )\r\n    );\r\n  });\r\n}\r\n",
+      "constructorObj": {
+        "name": "constructor",
+        "description": "",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "args": [
+          {
+            "name": "actions$",
+            "type": "Actions",
+            "deprecated": false,
+            "deprecationMessage": ""
+          },
+          {
+            "name": "authenticationService",
+            "type": "AuthenticationService",
+            "deprecated": false,
+            "deprecationMessage": ""
+          }
+        ],
+        "line": 10,
+        "jsdoctags": [
+          {
+            "name": "actions$",
+            "type": "Actions",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "tagName": {
+              "text": "param"
+            }
+          },
+          {
+            "name": "authenticationService",
+            "type": "AuthenticationService",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "tagName": {
+              "text": "param"
+            }
+          }
+        ]
+      },
+      "type": "injectable"
+    },
+    {
+      "name": "AuthenticationService",
+      "id": "injectable-AuthenticationService-b02d90913ae73bcdf9e95b04f2654278ccad73fbcaf3599f495e78e6bc302c8aa8fe7ef421ce6fd59ca5425f7a3ab7edcc9f9c032a4563227fb042c63ac7e6f0",
+      "file": "src/app/core/services/authentication.service.ts",
+      "properties": [],
+      "methods": [
+        {
+          "name": "login",
+          "args": [
+            {
+              "name": "payload",
+              "type": "LoginPayload",
+              "deprecated": false,
+              "deprecationMessage": ""
+            }
+          ],
+          "optional": false,
+          "returnType": "Observable<Authentication>",
+          "typeParameters": [],
+          "line": 13,
+          "deprecated": false,
+          "deprecationMessage": "",
+          "modifierKind": [123],
+          "jsdoctags": [
+            {
+              "name": "payload",
+              "type": "LoginPayload",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
+        }
+      ],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "description": "",
+      "rawdescription": "\n",
+      "sourceCode": "import { HttpClient } from '@angular/common/http';\r\nimport { Injectable } from '@angular/core';\r\nimport { Observable } from 'rxjs';\r\nimport { environment } from 'src/environments/environment';\r\nimport { Authentication } from '../models/authentication.dto';\r\nimport { map } from 'rxjs/operators';\r\nimport { Request } from '../models/request';\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class AuthenticationService {\r\n  constructor(private httpClient: HttpClient) {}\r\n\r\n  public login(payload: LoginPayload): Observable<Authentication> {\r\n    const url = `${environment.apiUrl}login-user`;\r\n    return this.httpClient.post<Request<Authentication>>(url, payload).pipe(map(req => req.data));\r\n  }\r\n}\r\n\r\nexport interface LoginPayload {\r\n  email: string;\r\n  password: string;\r\n}\r\n",
+      "constructorObj": {
+        "name": "constructor",
+        "description": "",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "args": [
+          {
+            "name": "httpClient",
+            "type": "HttpClient",
+            "deprecated": false,
+            "deprecationMessage": ""
+          }
+        ],
+        "line": 10,
+        "jsdoctags": [
+          {
+            "name": "httpClient",
+            "type": "HttpClient",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "tagName": {
+              "text": "param"
+            }
+          }
+        ]
+      },
+      "type": "injectable"
+    },
+    {
+      "name": "DashboardFacade",
+      "id": "injectable-DashboardFacade-f557e440f734b9c3cb5bab9eabd1cad48b894b753329cc509e3da09a3de057b29c0e8f847f9c4bb3b932927d6381972b8bdbfc7974f52232889e2a93b1bc2171",
+      "file": "src/app/views/dashboard/dashboard.facade.ts",
+      "properties": [],
+      "methods": [
+        {
+          "name": "logOut",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 18,
+          "deprecated": false,
+          "deprecationMessage": "",
+          "modifierKind": [123]
+        }
+      ],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "description": "",
+      "rawdescription": "\n",
+      "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { Observable } from 'rxjs';\r\nimport { first } from 'rxjs/operators';\r\nimport { selectIsAuthenticated } from 'src/app/store/selectors/authentication.selectors';\r\nimport { authApiActions } from '../../store/actions/authentication.actions';\r\n\r\n@Injectable()\r\nexport class DashboardFacade {\r\n  constructor(private store: Store) {}\r\n\r\n  public get isAuthenticated(): Observable<boolean> {\r\n    return this.store\r\n      .select(selectIsAuthenticated)\r\n      .pipe(first(isAuthenticated => !isAuthenticated));\r\n  }\r\n\r\n  public logOut() {\r\n    this.store.dispatch(authApiActions.logout({}));\r\n  }\r\n}\r\n",
+      "constructorObj": {
+        "name": "constructor",
+        "description": "",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "args": [
+          {
+            "name": "store",
+            "type": "Store",
+            "deprecated": false,
+            "deprecationMessage": ""
+          }
+        ],
+        "line": 9,
+        "jsdoctags": [
+          {
+            "name": "store",
+            "type": "Store",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "tagName": {
+              "text": "param"
+            }
+          }
+        ]
+      },
+      "accessors": {
+        "isAuthenticated": {
+          "name": "isAuthenticated",
+          "getSignature": {
+            "name": "isAuthenticated",
+            "type": "",
+            "returnType": "Observable<boolean>",
+            "line": 12
+          }
+        }
+      },
+      "type": "injectable"
+    },
+    {
+      "name": "LoginFacade",
+      "id": "injectable-LoginFacade-bb8260e33a2e7a4df7e8e0e1b5ed37db83e6e4ca786825ac98d3d0175a21665469f9036d8efb30b56fe077b6f2d6484f4d0ed0484844a7c0831a7c967a86d83c",
+      "file": "src/app/views/login/login.facade.ts",
+      "properties": [],
+      "methods": [
+        {
+          "name": "submitLogin",
+          "args": [
+            {
+              "name": "formValue",
+              "type": "Partial<literal type>",
+              "deprecated": false,
+              "deprecationMessage": ""
+            }
+          ],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 16,
+          "deprecated": false,
+          "deprecationMessage": "",
+          "modifierKind": [123],
+          "jsdoctags": [
+            {
+              "name": "formValue",
+              "type": "Partial<literal type>",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
+        }
+      ],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "description": "",
+      "rawdescription": "\n",
+      "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { Observable } from 'rxjs';\r\nimport { first } from 'rxjs/operators';\r\nimport { authApiActions } from 'src/app/store/actions/authentication.actions';\r\nimport { selectIsAuthenticated } from 'src/app/store/selectors/authentication.selectors';\r\n\r\n@Injectable()\r\nexport class LoginFacade {\r\n  constructor(private store: Store) {}\r\n\r\n  public get isAuthenticated(): Observable<boolean> {\r\n    return this.store.select(selectIsAuthenticated).pipe(first(isAuthenticated => isAuthenticated));\r\n  }\r\n\r\n  public submitLogin(formValue: Partial<{ username: string; password: string }>): void {\r\n    this.store.dispatch(\r\n      authApiActions.loginRequest({ email: formValue.username!, password: formValue.password! })\r\n    );\r\n  }\r\n}\r\n",
+      "constructorObj": {
+        "name": "constructor",
+        "description": "",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "args": [
+          {
+            "name": "store",
+            "type": "Store",
+            "deprecated": false,
+            "deprecationMessage": ""
+          }
+        ],
+        "line": 9,
+        "jsdoctags": [
+          {
+            "name": "store",
+            "type": "Store",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "tagName": {
+              "text": "param"
+            }
+          }
+        ]
+      },
+      "accessors": {
+        "isAuthenticated": {
+          "name": "isAuthenticated",
+          "getSignature": {
+            "name": "isAuthenticated",
+            "type": "",
+            "returnType": "Observable<boolean>",
+            "line": 12
+          }
+        }
+      },
+      "type": "injectable"
+    },
+    {
+      "name": "RehydratationEffects",
+      "id": "injectable-RehydratationEffects-5c7e1df08d53f895284b09e7c4ee6b14d68d75682e723ea7130c3de4906d675d054bc406de594e9fb8b3c4418f64ef0ab603b58145a343089efadd819e5fc1b7",
+      "file": "src/app/store/effects/rehydratation.effects.ts",
+      "properties": [
+        {
+          "name": "rehydratation$",
+          "defaultValue": "createEffect(() => {\r\n    return this.actions$.pipe(\r\n      ofType(rehydratationActions.rehydratationRequest.type),\r\n      map(() => {\r\n        const localState = localStorage.getItem('state');\r\n        const state = JSON.parse(localState ?? '');\r\n\r\n        if (!state || Object.keys(state).length === 0) {\r\n          throw rehydratationActions.rehydratationFailure({\r\n            error: 'State not found on localStorage',\r\n          });\r\n        }\r\n\r\n        return rehydratationActions.rehydratationSuccess({ state });\r\n      }),\r\n      catchError(error => {\r\n        localStorage.removeItem('state');\r\n        return of(authApiActions.loginFailure({ error }));\r\n      })\r\n    );\r\n  })",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "optional": false,
+          "description": "",
+          "line": 11
+        },
+        {
+          "name": "serialize$",
+          "defaultValue": "createEffect(\r\n    () => {\r\n      return this.actions$.pipe(\r\n        ofType(\r\n          rehydratationActions.rehydratationSuccess,\r\n          rehydratationActions.rehydratationFailure\r\n        ),\r\n        switchMap(() => this.store),\r\n        distinctUntilChanged(),\r\n        tap(state => localStorage.setItem('state', JSON.stringify(state)))\r\n      );\r\n    },\r\n    { dispatch: false }\r\n  )",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "optional": false,
+          "description": "",
+          "line": 33
+        }
+      ],
+      "methods": [
+        {
+          "name": "ngrxOnInitEffects",
+          "args": [],
+          "optional": false,
+          "returnType": "Action",
+          "typeParameters": [],
+          "line": 48,
+          "deprecated": false,
+          "deprecationMessage": "",
+          "modifierKind": [123]
+        }
+      ],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "description": "",
+      "rawdescription": "\n",
+      "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';\r\nimport { Action, Store } from '@ngrx/store';\r\nimport { of } from 'rxjs';\r\nimport { catchError, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';\r\nimport { authApiActions } from '../actions/authentication.actions';\r\nimport { rehydratationActions } from '../actions/hydratation.actions';\r\n\r\n@Injectable()\r\nexport class RehydratationEffects implements OnInitEffects {\r\n  rehydratation$ = createEffect(() => {\r\n    return this.actions$.pipe(\r\n      ofType(rehydratationActions.rehydratationRequest.type),\r\n      map(() => {\r\n        const localState = localStorage.getItem('state');\r\n        const state = JSON.parse(localState ?? '');\r\n\r\n        if (!state || Object.keys(state).length === 0) {\r\n          throw rehydratationActions.rehydratationFailure({\r\n            error: 'State not found on localStorage',\r\n          });\r\n        }\r\n\r\n        return rehydratationActions.rehydratationSuccess({ state });\r\n      }),\r\n      catchError(error => {\r\n        localStorage.removeItem('state');\r\n        return of(authApiActions.loginFailure({ error }));\r\n      })\r\n    );\r\n  });\r\n\r\n  serialize$ = createEffect(\r\n    () => {\r\n      return this.actions$.pipe(\r\n        ofType(\r\n          rehydratationActions.rehydratationSuccess,\r\n          rehydratationActions.rehydratationFailure\r\n        ),\r\n        switchMap(() => this.store),\r\n        distinctUntilChanged(),\r\n        tap(state => localStorage.setItem('state', JSON.stringify(state)))\r\n      );\r\n    },\r\n    { dispatch: false }\r\n  );\r\n\r\n  public ngrxOnInitEffects(): Action {\r\n    return rehydratationActions.rehydratationRequest({});\r\n  }\r\n\r\n  constructor(private actions$: Actions, private store: Store) {}\r\n}\r\n",
+      "constructorObj": {
+        "name": "constructor",
+        "description": "",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "args": [
+          {
+            "name": "actions$",
+            "type": "Actions",
+            "deprecated": false,
+            "deprecationMessage": ""
+          },
+          {
+            "name": "store",
+            "type": "Store",
+            "deprecated": false,
+            "deprecationMessage": ""
+          }
+        ],
+        "line": 50,
+        "jsdoctags": [
+          {
+            "name": "actions$",
+            "type": "Actions",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "tagName": {
+              "text": "param"
+            }
+          },
+          {
+            "name": "store",
+            "type": "Store",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "tagName": {
+              "text": "param"
+            }
+          }
+        ]
+      },
+      "type": "injectable"
+    }
+  ],
+  "guards": [
+    {
+      "name": "DashboardGuard",
+      "id": "injectable-DashboardGuard-eb90fe34ef861300a30339ab28aa7fd907435babae82c758996697e1a7ae2ec94501cebef421820c0e1f8ab6c506538583189d523e7cc973a916773ba49e24ce",
+      "file": "src/app/core/guards/dashboard.guard.ts",
+      "properties": [],
+      "methods": [
+        {
+          "name": "canActivate",
+          "args": [
+            {
+              "name": "route",
+              "type": "ActivatedRouteSnapshot",
+              "deprecated": false,
+              "deprecationMessage": ""
+            },
+            {
+              "name": "state",
+              "type": "RouterStateSnapshot",
+              "deprecated": false,
+              "deprecationMessage": ""
+            }
+          ],
+          "optional": false,
+          "returnType": "Observable | Promise | boolean | UrlTree",
+          "typeParameters": [],
+          "line": 19,
+          "deprecated": false,
+          "deprecationMessage": "",
+          "jsdoctags": [
+            {
+              "name": "route",
+              "type": "ActivatedRouteSnapshot",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "tagName": {
+                "text": "param"
+              }
+            },
+            {
+              "name": "state",
+              "type": "RouterStateSnapshot",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
+        }
+      ],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "description": "",
+      "rawdescription": "\n",
+      "sourceCode": "import { Injectable } from '@angular/core';\r\nimport {\r\n  ActivatedRouteSnapshot,\r\n  CanActivate,\r\n  RouterStateSnapshot,\r\n  UrlTree,\r\n  Router,\r\n} from '@angular/router';\r\nimport { Observable } from 'rxjs';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectIsAuthenticated } from '../../store/selectors/authentication.selectors';\r\nimport { first, map } from 'rxjs/operators';\r\n\r\n@Injectable({\r\n  providedIn: 'root',\r\n})\r\nexport class DashboardGuard implements CanActivate {\r\n  constructor(private router: Router, private store: Store) {}\r\n  canActivate(\r\n    route: ActivatedRouteSnapshot,\r\n    state: RouterStateSnapshot\r\n  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {\r\n    return this.store.select(selectIsAuthenticated).pipe(\r\n      first(),\r\n      map(isAuthenticated => (isAuthenticated ? true : this.router.createUrlTree(['login'])))\r\n    );\r\n  }\r\n}\r\n",
+      "constructorObj": {
+        "name": "constructor",
+        "description": "",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "args": [
+          {
+            "name": "router",
+            "type": "Router",
+            "deprecated": false,
+            "deprecationMessage": ""
+          },
+          {
+            "name": "store",
+            "type": "Store",
+            "deprecated": false,
+            "deprecationMessage": ""
+          }
+        ],
+        "line": 17,
+        "jsdoctags": [
+          {
+            "name": "router",
+            "type": "Router",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "tagName": {
+              "text": "param"
+            }
+          },
+          {
+            "name": "store",
+            "type": "Store",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "tagName": {
+              "text": "param"
+            }
+          }
+        ]
+      },
+      "type": "guard"
+    },
+    {
+      "name": "LoginGuard",
+      "id": "injectable-LoginGuard-9e7cceb75b0e42fa0144aeab93f3f7b93e79653b87218dfe4daf88ebeef79178fa12473e5bf9f04a361271f6531b35c694311ce547e67578c2cbb0f8a1ffe608",
+      "file": "src/app/core/guards/login.guard.ts",
+      "properties": [],
+      "methods": [
+        {
+          "name": "canActivate",
+          "args": [
+            {
+              "name": "route",
+              "type": "ActivatedRouteSnapshot",
+              "deprecated": false,
+              "deprecationMessage": ""
+            },
+            {
+              "name": "state",
+              "type": "RouterStateSnapshot",
+              "deprecated": false,
+              "deprecationMessage": ""
+            }
+          ],
+          "optional": false,
+          "returnType": "Observable | Promise | boolean | UrlTree",
+          "typeParameters": [],
+          "line": 19,
+          "deprecated": false,
+          "deprecationMessage": "",
+          "jsdoctags": [
+            {
+              "name": "route",
+              "type": "ActivatedRouteSnapshot",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "tagName": {
+                "text": "param"
+              }
+            },
+            {
+              "name": "state",
+              "type": "RouterStateSnapshot",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
+        }
+      ],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "description": "",
+      "rawdescription": "\n",
+      "sourceCode": "import { Injectable } from '@angular/core';\r\nimport {\r\n  ActivatedRouteSnapshot,\r\n  CanActivate,\r\n  RouterStateSnapshot,\r\n  UrlTree,\r\n  Router,\r\n} from '@angular/router';\r\nimport { Observable } from 'rxjs';\r\nimport { Store } from '@ngrx/store';\r\nimport { selectIsAuthenticated } from '../../store/selectors/authentication.selectors';\r\nimport { first, map } from 'rxjs/operators';\r\n\r\n@Injectable({\r\n  providedIn: 'root',\r\n})\r\nexport class LoginGuard implements CanActivate {\r\n  constructor(private router: Router, private store: Store) {}\r\n  canActivate(\r\n    route: ActivatedRouteSnapshot,\r\n    state: RouterStateSnapshot\r\n  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {\r\n    return this.store.select(selectIsAuthenticated).pipe(\r\n      first(),\r\n      map(isAuthenticated => (isAuthenticated ? this.router.createUrlTree(['dashboard']) : true))\r\n    );\r\n  }\r\n}\r\n",
+      "constructorObj": {
+        "name": "constructor",
+        "description": "",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "args": [
+          {
+            "name": "router",
+            "type": "Router",
+            "deprecated": false,
+            "deprecationMessage": ""
+          },
+          {
+            "name": "store",
+            "type": "Store",
+            "deprecated": false,
+            "deprecationMessage": ""
+          }
+        ],
+        "line": 17,
+        "jsdoctags": [
+          {
+            "name": "router",
+            "type": "Router",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "tagName": {
+              "text": "param"
+            }
+          },
+          {
+            "name": "store",
+            "type": "Store",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "tagName": {
+              "text": "param"
+            }
+          }
+        ]
+      },
+      "type": "guard"
+    }
+  ],
+  "interceptors": [],
+  "classes": [],
+  "directives": [],
+  "components": [
+    {
+      "name": "AppComponent",
+      "id": "component-AppComponent-6d3c4b3271fdc769b9d480466fabdaa2da66d261010efe90adc425a5b581c1523e84ba14926f070f25fd9981cf958c55ef59264280ecf97edd06b9f55f9840f8",
+      "file": "src/app/app.component.ts",
+      "encapsulation": [],
+      "entryComponents": [],
+      "inputs": [],
+      "outputs": [],
+      "providers": [],
+      "selector": "bdc-bo-root",
+      "styleUrls": ["./app.component.scss"],
+      "styles": [],
+      "templateUrl": ["./app.component.html"],
+      "viewProviders": [],
+      "inputsClass": [],
+      "outputsClass": [],
+      "propertiesClass": [],
+      "methodsClass": [],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "hostBindings": [],
+      "hostListeners": [],
+      "description": "",
+      "rawdescription": "\n",
+      "type": "component",
+      "sourceCode": "import { HttpClient } from '@angular/common/http';\r\nimport { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'bdc-bo-root',\r\n  templateUrl: './app.component.html',\r\n  styleUrls: ['./app.component.scss'],\r\n})\r\nexport class AppComponent {\r\n  constructor() {}\r\n}\r\n",
+      "assetsDirs": [],
+      "styleUrlsData": [
+        {
+          "data": "",
+          "styleUrl": "./app.component.scss"
+        }
+      ],
+      "stylesData": "",
+      "constructorObj": {
+        "name": "constructor",
+        "description": "",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "args": [],
+        "line": 9
+      },
+      "templateData": "<router-outlet> </router-outlet>\r\n"
+    },
+    {
+      "name": "ButtonComponent",
+      "id": "component-ButtonComponent-a7172734eda2d755e3aecba42d3a72f1dcd4770a60103b4e5dceb8a7fa76a93bc9efe46c68ac5ded328a25f42e839efbde230015f667c5c16e6b7168ed13d5c2",
+      "file": "src/app/shared/button/button.component.ts",
+      "encapsulation": [],
+      "entryComponents": [],
+      "inputs": [],
+      "outputs": [],
+      "providers": [],
+      "selector": "bdc-bo-button",
+      "styleUrls": ["./button.component.scss"],
+      "styles": [],
+      "templateUrl": ["./button.component.html"],
+      "viewProviders": [],
+      "inputsClass": [
+        {
+          "name": "disabled",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "line": 10,
+          "type": "boolean",
+          "decorators": []
+        },
+        {
+          "name": "label",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "line": 9,
+          "type": "string",
+          "decorators": []
+        }
+      ],
+      "outputsClass": [],
+      "propertiesClass": [],
+      "methodsClass": [
+        {
+          "name": "ngOnChanges",
+          "args": [
+            {
+              "name": "changes",
+              "type": "SimpleChanges",
+              "deprecated": false,
+              "deprecationMessage": ""
+            }
+          ],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 14,
+          "deprecated": false,
+          "deprecationMessage": "",
+          "modifierKind": [123],
+          "jsdoctags": [
+            {
+              "name": "changes",
+              "type": "SimpleChanges",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
+        }
+      ],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "hostBindings": [],
+      "hostListeners": [],
+      "description": "",
+      "rawdescription": "\n",
+      "type": "component",
+      "sourceCode": "import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'bdc-bo-button',\r\n  templateUrl: './button.component.html',\r\n  styleUrls: ['./button.component.scss'],\r\n})\r\nexport class ButtonComponent implements OnChanges {\r\n  @Input() public label!: string;\r\n  @Input() public disabled!: boolean;\r\n\r\n  constructor() {}\r\n\r\n  public ngOnChanges(changes: SimpleChanges): void {\r\n    console.log('test');\r\n  }\r\n}\r\n",
+      "assetsDirs": [],
+      "styleUrlsData": [
+        {
+          "data": "",
+          "styleUrl": "./button.component.scss"
+        }
+      ],
+      "stylesData": "",
+      "constructorObj": {
+        "name": "constructor",
+        "description": "",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "args": [],
+        "line": 10
+      },
+      "implements": ["OnChanges"],
+      "templateData": "<button [disabled]=\"disabled\">\r\n  {{ label }}\r\n</button>\r\n"
+    },
+    {
+      "name": "DashboardComponent",
+      "id": "component-DashboardComponent-6917e18507f81b66bc3ae23b332c8f641860862386b818dd58e313d4dbc908d56e7d9be45728a0e3b42b4e3684b1042dd11ba049f728276a7b9d8867935ad0ad",
+      "file": "src/app/views/dashboard/dashboard.component.ts",
+      "encapsulation": [],
+      "entryComponents": [],
+      "inputs": [],
+      "outputs": [],
+      "providers": [],
+      "selector": "bdc-bo-dashboard",
+      "styleUrls": ["./dashboard.component.scss"],
+      "styles": [],
+      "templateUrl": ["./dashboard.component.html"],
+      "viewProviders": [],
+      "inputsClass": [],
+      "outputsClass": [],
+      "propertiesClass": [],
+      "methodsClass": [
+        {
+          "name": "handleLogOut",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 20,
+          "deprecated": false,
+          "deprecationMessage": "",
+          "modifierKind": [122]
+        },
+        {
+          "name": "ngOnInit",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 14,
+          "deprecated": false,
+          "deprecationMessage": "",
+          "modifierKind": [123]
+        }
+      ],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "hostBindings": [],
+      "hostListeners": [],
+      "description": "",
+      "rawdescription": "\n",
+      "type": "component",
+      "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { Router } from '@angular/router';\r\nimport { finalize } from 'rxjs/operators';\r\nimport { DashboardFacade } from './dashboard.facade';\r\n\r\n@Component({\r\n  selector: 'bdc-bo-dashboard',\r\n  templateUrl: './dashboard.component.html',\r\n  styleUrls: ['./dashboard.component.scss'],\r\n})\r\nexport class DashboardComponent implements OnInit {\r\n  constructor(private router: Router, private dashboardFacade: DashboardFacade) {}\r\n\r\n  public ngOnInit(): void {\r\n    this.dashboardFacade.isAuthenticated\r\n      .pipe(finalize(() => this.router.navigateByUrl('login')))\r\n      .subscribe();\r\n  }\r\n\r\n  protected handleLogOut(): void {\r\n    this.dashboardFacade.logOut();\r\n  }\r\n}\r\n",
+      "assetsDirs": [],
+      "styleUrlsData": [
+        {
+          "data": "",
+          "styleUrl": "./dashboard.component.scss"
+        }
+      ],
+      "stylesData": "",
+      "constructorObj": {
+        "name": "constructor",
+        "description": "",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "args": [
+          {
+            "name": "router",
+            "type": "Router",
+            "deprecated": false,
+            "deprecationMessage": ""
+          },
+          {
+            "name": "dashboardFacade",
+            "type": "DashboardFacade",
+            "deprecated": false,
+            "deprecationMessage": ""
+          }
+        ],
+        "line": 11,
+        "jsdoctags": [
+          {
+            "name": "router",
+            "type": "Router",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "tagName": {
+              "text": "param"
+            }
+          },
+          {
+            "name": "dashboardFacade",
+            "type": "DashboardFacade",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "tagName": {
+              "text": "param"
+            }
+          }
+        ]
+      },
+      "implements": ["OnInit"],
+      "templateData": "<p>dashboard works!</p>\r\n<button (click)=\"handleLogOut()\">Log Out</button>\r\n"
+    },
+    {
+      "name": "LoginComponent",
+      "id": "component-LoginComponent-ecb59ac752147a64ee150ff45aa7baa1df633749163b76d4140b5015c82e322fee0a91b7569877c37d28959f40d830654b60691f8320b50fb23cb0b52988b7c2",
+      "file": "src/app/views/login/login.component.ts",
+      "encapsulation": [],
+      "entryComponents": [],
+      "inputs": [],
+      "outputs": [],
+      "providers": [],
+      "selector": "bdc-bo-login",
+      "styleUrls": ["./login.component.scss"],
+      "styles": [],
+      "templateUrl": ["./login.component.html"],
+      "viewProviders": [],
+      "inputsClass": [],
+      "outputsClass": [],
+      "propertiesClass": [
+        {
+          "name": "form",
+          "defaultValue": "this.fb.nonNullable.group({\r\n    username: ['', Validators.required],\r\n    password: ['', Validators.required],\r\n  })",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "optional": false,
+          "description": "",
+          "line": 12,
+          "modifierKind": [123]
+        }
+      ],
+      "methodsClass": [
+        {
+          "name": "handleSubmitLogin",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 25,
+          "deprecated": false,
+          "deprecationMessage": "",
+          "modifierKind": [122]
+        },
+        {
+          "name": "ngOnInit",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 19,
+          "deprecated": false,
+          "deprecationMessage": "",
+          "modifierKind": [123]
+        }
+      ],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "hostBindings": [],
+      "hostListeners": [],
+      "description": "",
+      "rawdescription": "\n",
+      "type": "component",
+      "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { FormBuilder, Validators } from '@angular/forms';\r\nimport { Router } from '@angular/router';\r\nimport { finalize } from 'rxjs/operators';\r\nimport { LoginFacade } from './login.facade';\r\n@Component({\r\n  selector: 'bdc-bo-login',\r\n  templateUrl: './login.component.html',\r\n  styleUrls: ['./login.component.scss'],\r\n})\r\nexport class LoginComponent implements OnInit {\r\n  public form = this.fb.nonNullable.group({\r\n    username: ['', Validators.required],\r\n    password: ['', Validators.required],\r\n  });\r\n\r\n  constructor(private loginFacade: LoginFacade, private fb: FormBuilder, private router: Router) {}\r\n\r\n  public ngOnInit(): void {\r\n    this.loginFacade.isAuthenticated\r\n      .pipe(finalize(() => this.router.navigateByUrl('dashboard')))\r\n      .subscribe();\r\n  }\r\n\r\n  protected handleSubmitLogin(): void {\r\n    const formValue = this.form.value;\r\n    this.loginFacade.submitLogin(formValue);\r\n  }\r\n}\r\n",
+      "assetsDirs": [],
+      "styleUrlsData": [
+        {
+          "data": "",
+          "styleUrl": "./login.component.scss"
+        }
+      ],
+      "stylesData": "",
+      "constructorObj": {
+        "name": "constructor",
+        "description": "",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "args": [
+          {
+            "name": "loginFacade",
+            "type": "LoginFacade",
+            "deprecated": false,
+            "deprecationMessage": ""
+          },
+          {
+            "name": "fb",
+            "type": "FormBuilder",
+            "deprecated": false,
+            "deprecationMessage": ""
+          },
+          {
+            "name": "router",
+            "type": "Router",
+            "deprecated": false,
+            "deprecationMessage": ""
+          }
+        ],
+        "line": 15,
+        "jsdoctags": [
+          {
+            "name": "loginFacade",
+            "type": "LoginFacade",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "tagName": {
+              "text": "param"
+            }
+          },
+          {
+            "name": "fb",
+            "type": "FormBuilder",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "tagName": {
+              "text": "param"
+            }
+          },
+          {
+            "name": "router",
+            "type": "Router",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "tagName": {
+              "text": "param"
+            }
+          }
+        ]
+      },
+      "implements": ["OnInit"],
+      "templateData": "<form [formGroup]=\"form\">\r\n  <input formControlName=\"username\" name=\"email\" type=\"email\" autocomplete=\"email\" />\r\n  <input\r\n    formControlName=\"password\"\r\n    name=\"password\"\r\n    type=\"password\"\r\n    autocomplete=\"current-password\" />\r\n  <button [disabled]=\"form.invalid\" type=\"button\" (click)=\"handleSubmitLogin()\">Login</button>\r\n</form>\r\n"
+    }
+  ],
+  "modules": [
+    {
+      "name": "AppModule",
+      "id": "module-AppModule-305259e31abd920f245091176b5a5dcda092b649b35ac6171fb2fc056947ab9cd3aa193f9f937fba4944edd1c9c994986cad54ee243eb19f0d5e44aac3926562",
+      "description": "",
+      "deprecationMessage": "",
+      "deprecated": false,
+      "file": "src/app/app.module.ts",
+      "methods": [],
+      "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\n\r\nimport { HttpClientModule } from '@angular/common/http';\r\nimport { NgLetModule } from 'ng-let';\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { AppComponent } from './app.component';\r\nimport { NGRXModule } from './core/modules/ngrx.module';\r\nimport { StoreRouterConnectingModule } from '@ngrx/router-store';\r\n\r\n@NgModule({\r\n  declarations: [AppComponent],\r\n  imports: [\r\n    BrowserModule,\r\n    AppRoutingModule,\r\n    HttpClientModule,\r\n    NGRXModule,\r\n    NgLetModule,\r\n    StoreRouterConnectingModule.forRoot(),\r\n  ],\r\n  providers: [],\r\n  bootstrap: [AppComponent],\r\n})\r\nexport class AppModule {}\r\n",
+      "children": [
+        {
+          "type": "providers",
+          "elements": []
+        },
+        {
+          "type": "declarations",
+          "elements": [
+            {
+              "name": "AppComponent"
+            }
+          ]
+        },
+        {
+          "type": "imports",
+          "elements": [
+            {
+              "name": "AppRoutingModule"
+            },
+            {
+              "name": "NGRXModule"
+            }
+          ]
+        },
+        {
+          "type": "exports",
+          "elements": []
+        },
+        {
+          "type": "bootstrap",
+          "elements": [
+            {
+              "name": "AppComponent"
+            }
+          ]
+        },
+        {
+          "type": "classes",
+          "elements": []
+        }
+      ]
+    },
+    {
+      "name": "AppRoutingModule",
+      "id": "module-AppRoutingModule-be071ab8f9b4544668b57f4bde21167b8867bdc84d8981ffc61c945174acc9c4e7ab592ead214a98f77dd7d696da1f81a7479cc50da0e8319433fb4073b638b8",
+      "description": "",
+      "deprecationMessage": "",
+      "deprecated": false,
+      "file": "src/app/app-routing.module.ts",
+      "methods": [],
+      "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { QuicklinkModule, QuicklinkStrategy } from 'ngx-quicklink';\r\nimport { DashboardGuard } from './core/guards/dashboard.guard';\r\nimport { LoginGuard } from './core/guards/login.guard';\r\n\r\nconst routes: Routes = [\r\n  {\r\n    path: 'login',\r\n    loadChildren: () => \"import('./views/login/login.module').then(m => m.LoginModule)\",\r\n    canActivate: [LoginGuard],\r\n  },\r\n  {\r\n    path: 'dashboard',\r\n    loadChildren: () => \"import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)\",\r\n    canActivate: [DashboardGuard],\r\n  },\r\n  {\r\n    path: '**',\r\n    redirectTo: 'login',\r\n  },\r\n];\r\n\r\n@NgModule({\r\n  imports: [\r\n    QuicklinkModule,\r\n    RouterModule.forRoot(routes, { preloadingStrategy: QuicklinkStrategy }),\r\n  ],\r\n  exports: [RouterModule],\r\n})\r\nexport class AppRoutingModule {}\r\n",
+      "children": [
+        {
+          "type": "providers",
+          "elements": []
+        },
+        {
+          "type": "declarations",
+          "elements": []
+        },
+        {
+          "type": "imports",
+          "elements": []
+        },
+        {
+          "type": "exports",
+          "elements": []
+        },
+        {
+          "type": "bootstrap",
+          "elements": []
+        },
+        {
+          "type": "classes",
+          "elements": []
+        }
+      ]
+    },
+    {
+      "name": "AuthFeatureModule",
+      "id": "module-AuthFeatureModule-188b46a14ec271a6bac21caa72607c8e7d6743c75e7d55647f9a8d7695918bc24b9698bcc1c12623b9d826def2fa0c8e9f3728b8f96675c1a30817b4e409fdd9",
+      "description": "",
+      "deprecationMessage": "",
+      "deprecated": false,
+      "file": "src/app/core/modules/auth.module.ts",
+      "methods": [],
+      "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { EffectsModule } from '@ngrx/effects';\r\nimport { StoreModule } from '@ngrx/store';\r\nimport { AuthenticationEffects } from 'src/app/store/effects/authentication.effects';\r\nimport {\r\n  authenticationReducer,\r\n  authFeatureKey,\r\n} from 'src/app/store/reducers/authentication.reducers';\r\n\r\n@NgModule({\r\n  imports: [\r\n    StoreModule.forFeature(authFeatureKey, authenticationReducer),\r\n    EffectsModule.forFeature([AuthenticationEffects]),\r\n  ],\r\n  exports: [EffectsModule, StoreModule],\r\n})\r\nexport class AuthFeatureModule {}\r\n",
+      "children": [
+        {
+          "type": "providers",
+          "elements": []
+        },
+        {
+          "type": "declarations",
+          "elements": []
+        },
+        {
+          "type": "imports",
+          "elements": []
+        },
+        {
+          "type": "exports",
+          "elements": []
+        },
+        {
+          "type": "bootstrap",
+          "elements": []
+        },
+        {
+          "type": "classes",
+          "elements": []
+        }
+      ]
+    },
+    {
+      "name": "DashboardModule",
+      "id": "module-DashboardModule-71fa95eeed27b277b1d3c6840a7d3fcda0262b2f1f503d2e0cb81e9de3abcac0c31d695ef4bdcb9d740c9175d19e3c5410cb50da34bcfc7ea3da43991650607c",
+      "description": "",
+      "deprecationMessage": "",
+      "deprecated": false,
+      "file": "src/app/views/dashboard/dashboard.module.ts",
+      "methods": [],
+      "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { NgModule } from '@angular/core';\r\nimport { AuthFeatureModule } from 'src/app/core/modules/auth.module';\r\nimport { DashboardRoutingModule } from './dashboard-routing.module';\r\nimport { DashboardComponent } from './dashboard.component';\r\nimport { DashboardFacade } from './dashboard.facade';\r\n\r\n@NgModule({\r\n  providers: [DashboardFacade],\r\n  declarations: [DashboardComponent],\r\n  imports: [CommonModule, DashboardRoutingModule, AuthFeatureModule],\r\n})\r\nexport class DashboardModule {}\r\n",
+      "children": [
+        {
+          "type": "providers",
+          "elements": [
+            {
+              "name": "DashboardFacade"
+            }
+          ]
+        },
+        {
+          "type": "declarations",
+          "elements": [
+            {
+              "name": "DashboardComponent"
+            }
+          ]
+        },
+        {
+          "type": "imports",
+          "elements": [
+            {
+              "name": "AuthFeatureModule"
+            },
+            {
+              "name": "DashboardRoutingModule"
+            }
+          ]
+        },
+        {
+          "type": "exports",
+          "elements": []
+        },
+        {
+          "type": "bootstrap",
+          "elements": []
+        },
+        {
+          "type": "classes",
+          "elements": []
+        }
+      ]
+    },
+    {
+      "name": "DashboardRoutingModule",
+      "id": "module-DashboardRoutingModule-f929c0d90cd1a14ea4306264691b8d85b36929dad2658b40327e082580db5e2bed310c8a376b1b0109a967db4e4abe37a56678d17daf56b7eb2b2a71a9568f9b",
+      "description": "",
+      "deprecationMessage": "",
+      "deprecated": false,
+      "file": "src/app/views/dashboard/dashboard-routing.module.ts",
+      "methods": [],
+      "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { DashboardComponent } from './dashboard.component';\r\n\r\nconst routes: Routes = [{ path: '', component: DashboardComponent }];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule],\r\n})\r\nexport class DashboardRoutingModule {}\r\n",
+      "children": [
+        {
+          "type": "providers",
+          "elements": []
+        },
+        {
+          "type": "declarations",
+          "elements": []
+        },
+        {
+          "type": "imports",
+          "elements": []
+        },
+        {
+          "type": "exports",
+          "elements": []
+        },
+        {
+          "type": "bootstrap",
+          "elements": []
+        },
+        {
+          "type": "classes",
+          "elements": []
+        }
+      ]
+    },
+    {
+      "name": "LoginModule",
+      "id": "module-LoginModule-6dafd29a2e0acb240afd526502d5185e4648152b0861de3012485727305637c960f87ead958442198a047edc1baa5eceef2b99bd4a57bf5e29dd6784669ac249",
+      "description": "",
+      "deprecationMessage": "",
+      "deprecated": false,
+      "file": "src/app/views/login/login.module.ts",
+      "methods": [],
+      "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { NgModule } from '@angular/core';\r\nimport { NgLetModule } from 'ng-let';\r\n\r\nimport { ReactiveFormsModule } from '@angular/forms';\r\nimport { AuthFeatureModule } from 'src/app/core/modules/auth.module';\r\nimport { LoginRoutingModule } from './login-routing.module';\r\nimport { LoginComponent } from './login.component';\r\nimport { LoginFacade } from './login.facade';\r\n\r\n@NgModule({\r\n  declarations: [LoginComponent],\r\n  imports: [CommonModule, NgLetModule, LoginRoutingModule, ReactiveFormsModule, AuthFeatureModule],\r\n  providers: [LoginFacade],\r\n})\r\nexport class LoginModule {}\r\n",
+      "children": [
+        {
+          "type": "providers",
+          "elements": [
+            {
+              "name": "LoginFacade"
+            }
+          ]
+        },
+        {
+          "type": "declarations",
+          "elements": [
+            {
+              "name": "LoginComponent"
+            }
+          ]
+        },
+        {
+          "type": "imports",
+          "elements": [
+            {
+              "name": "AuthFeatureModule"
+            },
+            {
+              "name": "LoginRoutingModule"
+            }
+          ]
+        },
+        {
+          "type": "exports",
+          "elements": []
+        },
+        {
+          "type": "bootstrap",
+          "elements": []
+        },
+        {
+          "type": "classes",
+          "elements": []
+        }
+      ]
+    },
+    {
+      "name": "LoginRoutingModule",
+      "id": "module-LoginRoutingModule-fa5145c995f58b30344dd9eeddc6c5ecf101a378ab1a2e7a7185724acc90ae505a0b06cd4f939ecf9b14835904af1581797f8a5a4c3bf8541b57df1beb322f29",
+      "description": "",
+      "deprecationMessage": "",
+      "deprecated": false,
+      "file": "src/app/views/login/login-routing.module.ts",
+      "methods": [],
+      "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\nimport { LoginComponent } from './login.component';\r\n\r\nconst routes: Routes = [{ path: '', component: LoginComponent }];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forChild(routes)],\r\n  exports: [RouterModule],\r\n})\r\nexport class LoginRoutingModule {}\r\n",
+      "children": [
+        {
+          "type": "providers",
+          "elements": []
+        },
+        {
+          "type": "declarations",
+          "elements": []
+        },
+        {
+          "type": "imports",
+          "elements": []
+        },
+        {
+          "type": "exports",
+          "elements": []
+        },
+        {
+          "type": "bootstrap",
+          "elements": []
+        },
+        {
+          "type": "classes",
+          "elements": []
+        }
+      ]
+    },
+    {
+      "name": "NGRXModule",
+      "id": "module-NGRXModule-f1748c027fec054d335bfa27936cb7e9c2de6d0f47bf600c76e4a32bac84b36a9c025c9123b1f146384eccb9b66e196a1558a82a1af5d66fc64fcbfb46e49483",
+      "description": "",
+      "deprecationMessage": "",
+      "deprecated": false,
+      "file": "src/app/core/modules/ngrx.module.ts",
+      "methods": [],
+      "sourceCode": "import { NgModule } from '@angular/core';\r\nimport { EffectsModule } from '@ngrx/effects';\r\nimport { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';\r\nimport { StoreModule } from '@ngrx/store';\r\nimport { StoreDevtoolsModule } from '@ngrx/store-devtools';\r\nimport { metaReducers } from 'src/app/store/meta.reducers';\r\nimport { environment } from 'src/environments/environment';\r\n\r\n@NgModule({\r\n  imports: [\r\n    StoreModule.forRoot(\r\n      {\r\n        router: routerReducer,\r\n      },\r\n      { metaReducers }\r\n    ),\r\n    StoreDevtoolsModule.instrument({\r\n      maxAge: 20,\r\n      logOnly: environment.production,\r\n    }),\r\n    StoreRouterConnectingModule.forRoot(),\r\n    EffectsModule.forRoot([]),\r\n  ],\r\n  exports: [StoreModule, StoreDevtoolsModule, EffectsModule],\r\n})\r\nexport class NGRXModule {}\r\n",
+      "children": [
+        {
+          "type": "providers",
+          "elements": []
+        },
+        {
+          "type": "declarations",
+          "elements": []
+        },
+        {
+          "type": "imports",
+          "elements": []
+        },
+        {
+          "type": "exports",
+          "elements": []
+        },
+        {
+          "type": "bootstrap",
+          "elements": []
+        },
+        {
+          "type": "classes",
+          "elements": []
+        }
+      ]
+    },
+    {
+      "name": "SharedModule",
+      "id": "module-SharedModule-60ecbf7f471a36bb8474b797807d41c5c6a1d1ab6242261f28c4cc8dee48f6b3357338b44f71906b355d25f7b2622580869fc641135157ef6951691b756a463e",
+      "description": "",
+      "deprecationMessage": "",
+      "deprecated": false,
+      "file": "src/app/shared/shared.module.ts",
+      "methods": [],
+      "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { NgModule } from '@angular/core';\r\nimport { QuicklinkModule } from 'ngx-quicklink';\r\nimport { ButtonComponent } from './button/button.component';\r\n\r\n@NgModule({\r\n  declarations: [ButtonComponent],\r\n  imports: [CommonModule, QuicklinkModule],\r\n  exports: [QuicklinkModule],\r\n})\r\nexport class SharedModule {}\r\n",
+      "children": [
+        {
+          "type": "providers",
+          "elements": []
+        },
+        {
+          "type": "declarations",
+          "elements": [
+            {
+              "name": "ButtonComponent"
+            }
+          ]
+        },
+        {
+          "type": "imports",
+          "elements": []
+        },
+        {
+          "type": "exports",
+          "elements": []
+        },
+        {
+          "type": "bootstrap",
+          "elements": []
+        },
+        {
+          "type": "classes",
+          "elements": []
+        }
+      ]
+    }
+  ],
+  "miscellaneous": {
+    "variables": [
+      {
+        "name": "authApiActions",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/app/store/actions/authentication.actions.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "createActionGroup({\r\n  source: 'Auth API',\r\n  events: {\r\n    'Login Request': props<{ email: string; password: string }>(),\r\n    'Login Success': props<any>(),\r\n    'Login Failure': props<{ error: string }>(),\r\n    Logout: props<any>(),\r\n  },\r\n})"
+      },
+      {
+        "name": "authenticationReducer",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/app/store/reducers/authentication.reducers.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "createReducer(\r\n  initialState,\r\n  on(\r\n    authApiActions.loginRequest,\r\n    (state): AuthenticationState => ({ ...state, isLoggingIn: true })\r\n  ),\r\n  on(\r\n    authApiActions.loginFailure,\r\n    (state): AuthenticationState => ({ ...state, isLoggingIn: false })\r\n  ),\r\n  on(\r\n    authApiActions.loginSuccess,\r\n    (state, user): AuthenticationState => ({\r\n      ...state,\r\n      user,\r\n      isAuthenticated: true,\r\n      isLoggingIn: false,\r\n    })\r\n  ),\r\n  on(authApiActions.logout, (state): AuthenticationState => initialState)\r\n)"
+      },
+      {
+        "name": "authFeatureKey",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/app/store/reducers/authentication.reducers.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "string",
+        "defaultValue": "'auth'"
+      },
+      {
+        "name": "context",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/test.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+      },
+      {
+        "name": "disabled",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/app/shared/button/button.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "Template.bind({})"
+      },
+      {
+        "name": "enabled",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/app/shared/button/button.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "Template.bind({})"
+      },
+      {
+        "name": "environment",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/environments/environment.prod.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "object",
+        "defaultValue": "{\r\n  production: true,\r\n  apiUrl: 'http://movistar.attenbase.test/api/',\r\n}"
+      },
+      {
+        "name": "environment",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/environments/environment.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "object",
+        "defaultValue": "{\r\n  production: false,\r\n  apiUrl: 'https://movistar.attenbase.com/api/',\r\n}"
+      },
+      {
+        "name": "initialState",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/app/store/reducers/authentication.reducers.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "AuthenticationState",
+        "defaultValue": "{\r\n  isLoggingIn: false,\r\n  isAuthenticated: false,\r\n}"
+      },
+      {
+        "name": "metaReducers",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/app/store/meta.reducers.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "MetaReducer[]",
+        "defaultValue": "[rehydratation]"
+      },
+      {
+        "name": "rehydratation",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/app/store/meta.reducers.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "(reducer: ActionReducer<any>): ActionReducer<any> =>\r\n  (state: any, action: Action) => {\r\n    if (action != null && action.type === INIT) {\r\n      const storedState = localStorage.getItem('state');\r\n      if (storedState) {\r\n        try {\r\n          return JSON.parse(storedState);\r\n        } catch {\r\n          localStorage.removeItem('state');\r\n        }\r\n      }\r\n    }\r\n\r\n    const nextState = reducer(state, action);\r\n    localStorage.setItem('state', JSON.stringify(nextState));\r\n\r\n    return reducer(state, action);\r\n  }"
+      },
+      {
+        "name": "rehydratationActions",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/app/store/actions/hydratation.actions.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "createActionGroup({\r\n  source: 'Rehydratation',\r\n  events: {\r\n    'Rehydratation Request': props<any>(),\r\n    'Rehydratation Success': props<{ state: any }>(),\r\n    'Rehydratation Failure': props<{ error: string }>(),\r\n  },\r\n})"
+      },
+      {
+        "name": "rehydratationReducer",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/app/store/reducers/hydratation.reducers.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "createReducer(\r\n  on(rehydratationActions.rehydratationSuccess, (state, newState: any): any => newState)\r\n)"
+      },
+      {
+        "name": "require",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/test.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "literal type"
+      },
+      {
+        "name": "selectFeature",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/app/store/selectors/authentication.selectors.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "(state: any) => state.auth"
+      },
+      {
+        "name": "selectIsAuthenticated",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/app/store/selectors/authentication.selectors.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "createSelector(\r\n  selectFeature,\r\n  (state: AuthenticationState) => state.isAuthenticated\r\n)"
+      },
+      {
+        "name": "Template",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/app/shared/button/button.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story",
+        "defaultValue": "args => ({\r\n  props: args,\r\n})"
+      }
+    ],
+    "functions": [],
+    "typealiases": [],
+    "enumerations": [],
+    "groupedVariables": {
+      "src/app/store/actions/authentication.actions.ts": [
+        {
+          "name": "authApiActions",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/app/store/actions/authentication.actions.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "createActionGroup({\r\n  source: 'Auth API',\r\n  events: {\r\n    'Login Request': props<{ email: string; password: string }>(),\r\n    'Login Success': props<any>(),\r\n    'Login Failure': props<{ error: string }>(),\r\n    Logout: props<any>(),\r\n  },\r\n})"
+        }
+      ],
+      "src/app/store/reducers/authentication.reducers.ts": [
+        {
+          "name": "authenticationReducer",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/app/store/reducers/authentication.reducers.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "createReducer(\r\n  initialState,\r\n  on(\r\n    authApiActions.loginRequest,\r\n    (state): AuthenticationState => ({ ...state, isLoggingIn: true })\r\n  ),\r\n  on(\r\n    authApiActions.loginFailure,\r\n    (state): AuthenticationState => ({ ...state, isLoggingIn: false })\r\n  ),\r\n  on(\r\n    authApiActions.loginSuccess,\r\n    (state, user): AuthenticationState => ({\r\n      ...state,\r\n      user,\r\n      isAuthenticated: true,\r\n      isLoggingIn: false,\r\n    })\r\n  ),\r\n  on(authApiActions.logout, (state): AuthenticationState => initialState)\r\n)"
+        },
+        {
+          "name": "authFeatureKey",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/app/store/reducers/authentication.reducers.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "string",
+          "defaultValue": "'auth'"
+        },
+        {
+          "name": "initialState",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/app/store/reducers/authentication.reducers.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "AuthenticationState",
+          "defaultValue": "{\r\n  isLoggingIn: false,\r\n  isAuthenticated: false,\r\n}"
+        }
+      ],
+      "src/test.ts": [
+        {
+          "name": "context",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/test.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+        },
+        {
+          "name": "require",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/test.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "literal type"
+        }
+      ],
+      "src/app/shared/button/button.stories.ts": [
+        {
+          "name": "disabled",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/app/shared/button/button.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "enabled",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/app/shared/button/button.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "Template",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/app/shared/button/button.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story",
+          "defaultValue": "args => ({\r\n  props: args,\r\n})"
+        }
+      ],
+      "src/environments/environment.prod.ts": [
+        {
+          "name": "environment",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/environments/environment.prod.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "object",
+          "defaultValue": "{\r\n  production: true,\r\n  apiUrl: 'http://movistar.attenbase.test/api/',\r\n}"
+        }
+      ],
+      "src/environments/environment.ts": [
+        {
+          "name": "environment",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/environments/environment.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "object",
+          "defaultValue": "{\r\n  production: false,\r\n  apiUrl: 'https://movistar.attenbase.com/api/',\r\n}"
+        }
+      ],
+      "src/app/store/meta.reducers.ts": [
+        {
+          "name": "metaReducers",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/app/store/meta.reducers.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "MetaReducer[]",
+          "defaultValue": "[rehydratation]"
+        },
+        {
+          "name": "rehydratation",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/app/store/meta.reducers.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "(reducer: ActionReducer<any>): ActionReducer<any> =>\r\n  (state: any, action: Action) => {\r\n    if (action != null && action.type === INIT) {\r\n      const storedState = localStorage.getItem('state');\r\n      if (storedState) {\r\n        try {\r\n          return JSON.parse(storedState);\r\n        } catch {\r\n          localStorage.removeItem('state');\r\n        }\r\n      }\r\n    }\r\n\r\n    const nextState = reducer(state, action);\r\n    localStorage.setItem('state', JSON.stringify(nextState));\r\n\r\n    return reducer(state, action);\r\n  }"
+        }
+      ],
+      "src/app/store/actions/hydratation.actions.ts": [
+        {
+          "name": "rehydratationActions",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/app/store/actions/hydratation.actions.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "createActionGroup({\r\n  source: 'Rehydratation',\r\n  events: {\r\n    'Rehydratation Request': props<any>(),\r\n    'Rehydratation Success': props<{ state: any }>(),\r\n    'Rehydratation Failure': props<{ error: string }>(),\r\n  },\r\n})"
+        }
+      ],
+      "src/app/store/reducers/hydratation.reducers.ts": [
+        {
+          "name": "rehydratationReducer",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/app/store/reducers/hydratation.reducers.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "createReducer(\r\n  on(rehydratationActions.rehydratationSuccess, (state, newState: any): any => newState)\r\n)"
+        }
+      ],
+      "src/app/store/selectors/authentication.selectors.ts": [
+        {
+          "name": "selectFeature",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/app/store/selectors/authentication.selectors.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "(state: any) => state.auth"
+        },
+        {
+          "name": "selectIsAuthenticated",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/app/store/selectors/authentication.selectors.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "createSelector(\r\n  selectFeature,\r\n  (state: AuthenticationState) => state.isAuthenticated\r\n)"
+        }
+      ]
+    },
+    "groupedFunctions": {},
+    "groupedEnumerations": {},
+    "groupedTypeAliases": {}
+  },
+  "routes": {
+    "name": "<root>",
+    "kind": "module",
+    "className": "AppModule",
+    "children": [
+      {
+        "name": "routes",
+        "filename": "src/app/app-routing.module.ts",
+        "module": "AppRoutingModule",
+        "children": [
+          {
+            "path": "login",
+            "loadChildren": "./views/login/login.module#LoginModule",
+            "canActivate": ["LoginGuard"],
+            "children": [
+              {
+                "kind": "module",
+                "children": [
+                  {
+                    "name": "routes",
+                    "filename": "src/app/views/login/login-routing.module.ts",
+                    "module": "LoginRoutingModule",
+                    "children": [
+                      {
+                        "path": "",
+                        "component": "LoginComponent"
+                      }
+                    ],
+                    "kind": "module"
+                  }
+                ],
+                "module": "LoginModule"
+              }
+            ]
+          },
+          {
+            "path": "dashboard",
+            "loadChildren": "./views/dashboard/dashboard.module#DashboardModule",
+            "canActivate": ["DashboardGuard"],
+            "children": [
+              {
+                "kind": "module",
+                "children": [
+                  {
+                    "name": "routes",
+                    "filename": "src/app/views/dashboard/dashboard-routing.module.ts",
+                    "module": "DashboardRoutingModule",
+                    "children": [
+                      {
+                        "path": "",
+                        "component": "DashboardComponent"
+                      }
+                    ],
+                    "kind": "module"
+                  }
+                ],
+                "module": "DashboardModule"
+              }
+            ]
+          },
+          {
+            "path": "**",
+            "redirectTo": "login"
+          }
+        ],
+        "kind": "module"
+      }
+    ]
+  },
+  "coverage": {
+    "count": 0,
+    "status": "low",
+    "files": [
+      {
+        "filePath": "src/app/app.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "AppComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/2",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/core/guards/dashboard.guard.ts",
+        "type": "guard",
+        "linktype": "guard",
+        "name": "DashboardGuard",
+        "coveragePercent": 0,
+        "coverageCount": "0/3",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/core/guards/login.guard.ts",
+        "type": "guard",
+        "linktype": "guard",
+        "name": "LoginGuard",
+        "coveragePercent": 0,
+        "coverageCount": "0/3",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/core/models/attenbase-store.ts",
+        "type": "interface",
+        "linktype": "interface",
+        "name": "AttenbaseStore",
+        "coveragePercent": 0,
+        "coverageCount": "0/2",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/core/models/authentication.dto.ts",
+        "type": "interface",
+        "linktype": "interface",
+        "name": "Authentication",
+        "coveragePercent": 0,
+        "coverageCount": "0/4",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/core/models/request.ts",
+        "type": "interface",
+        "linktype": "interface",
+        "name": "Request",
+        "coveragePercent": 0,
+        "coverageCount": "0/4",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/core/models/user.dto.ts",
+        "type": "interface",
+        "linktype": "interface",
+        "name": "UserDTO",
+        "coveragePercent": 0,
+        "coverageCount": "0/13",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/core/services/authentication.service.ts",
+        "type": "injectable",
+        "linktype": "injectable",
+        "name": "AuthenticationService",
+        "coveragePercent": 0,
+        "coverageCount": "0/3",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/core/services/authentication.service.ts",
+        "type": "interface",
+        "linktype": "interface",
+        "name": "LoginPayload",
+        "coveragePercent": 0,
+        "coverageCount": "0/3",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/shared/button/button.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "ButtonComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/5",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/shared/button/button.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "disabled",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/shared/button/button.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "enabled",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/shared/button/button.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Template",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/store/actions/authentication.actions.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "authApiActions",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/store/actions/hydratation.actions.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "rehydratationActions",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/store/effects/authentication.effects.ts",
+        "type": "injectable",
+        "linktype": "injectable",
+        "name": "AuthenticationEffects",
+        "coveragePercent": 0,
+        "coverageCount": "0/3",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/store/effects/rehydratation.effects.ts",
+        "type": "injectable",
+        "linktype": "injectable",
+        "name": "RehydratationEffects",
+        "coveragePercent": 0,
+        "coverageCount": "0/5",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/store/meta.reducers.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "metaReducers",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/store/meta.reducers.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "rehydratation",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/store/reducers/authentication.reducers.ts",
+        "type": "interface",
+        "linktype": "interface",
+        "name": "AuthenticationState",
+        "coveragePercent": 0,
+        "coverageCount": "0/4",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/store/reducers/authentication.reducers.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "authenticationReducer",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/store/reducers/authentication.reducers.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "authFeatureKey",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/store/reducers/authentication.reducers.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "initialState",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/store/reducers/hydratation.reducers.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "rehydratationReducer",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/store/selectors/authentication.selectors.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "selectFeature",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/store/selectors/authentication.selectors.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "selectIsAuthenticated",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/views/dashboard/dashboard.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "DashboardComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/4",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/views/dashboard/dashboard.facade.ts",
+        "type": "injectable",
+        "linktype": "injectable",
+        "name": "DashboardFacade",
+        "coveragePercent": 0,
+        "coverageCount": "0/3",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/views/login/login.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "LoginComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/5",
+        "status": "low"
+      },
+      {
+        "filePath": "src/app/views/login/login.facade.ts",
+        "type": "injectable",
+        "linktype": "injectable",
+        "name": "LoginFacade",
+        "coveragePercent": 0,
+        "coverageCount": "0/3",
+        "status": "low"
+      },
+      {
+        "filePath": "src/environments/environment.prod.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "environment",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/environments/environment.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "environment",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/test.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "context",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/test.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "require",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      }
+    ]
+  }
+}

@@ -1,0 +1,71 @@
+<ng-container *ngLet="isLogginIn$ | async as isLogginIn">
+  <div class="container">
+    <form [formGroup]="form" class="form">
+      <img src="../../../assets/img/logo.png" alt="logo-base-de-conocimiento" />
+      <p>Iniciar sesión</p>
+      <mat-form-field appearance="outline">
+        <mat-label>Correo electrónico</mat-label>
+        <input
+          matInput
+          formControlName="username"
+          name="email"
+          type="email"
+          placeholder="attenbase@attenbase.com" />
+        <mat-error *ngIf="form.controls['username'].errors?.['required']">
+          Ingresá un correo electrónico válido. Ej.: attenbase@attenbase.com
+        </mat-error>
+        <mat-error *ngIf="form.controls['username'].errors?.['email']">
+          Ingresá un correo electrónico válido. Ej.: attenbase@attenbase.com
+        </mat-error>
+        <mat-hint>Ej.: attenbase@attenbase.com</mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+
+        <input
+          formControlName="password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          placeholder="" />
+        <button
+          mat-icon-button
+          [color]="
+            form.controls['password'].errors && form.controls['password'].touched
+              ? 'warn'
+              : 'primary'
+          "
+          matSuffix
+          (click)="hide = !hide">
+          <mat-icon> {{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error
+          *ngIf="form.controls['password'].errors?.['required'] && form.controls['password'].touched">
+          Ingresá una contraseña
+        </mat-error>
+        <mat-error
+          *ngIf="form.controls['password'].errors?.['pattern'] && form.controls['password'].dirty">
+          Mínimo 8 caracteres. Al menos una letra en mayúscula y un número.
+        </mat-error>
+        <mat-hint>Mínimo 8 caracteres. Al menos una letra en mayúscula y un número.</mat-hint>
+      </mat-form-field>
+      <mat-checkbox formControlName="rememberEmail" color="primary"
+        >Mantener sesión iniciada</mat-checkbox
+      >
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="form.invalid || isLogginIn"
+        type="button"
+        (click)="handleSubmitLogin()">
+        Iniciar sesión
+      </button>
+      <button mat-button [routerLink]="'olvide-mi-contraseña'" color="primary">
+        Recuperar contraseña
+      </button>
+    </form>
+    <img src="../../../assets/img/img-laptop.png" />
+  </div>
+</ng-container>

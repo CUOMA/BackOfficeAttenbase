@@ -1,0 +1,54 @@
+<!-- Agregar a los alts las rutas correspondientes -->
+<div class="wrapper">
+  <button class="menu" mat-icon-button>
+    <mat-icon> menu </mat-icon>
+  </button>
+  <button mat-raised-button [routerLink]="['/dashboard/crear-pregunta']" color="accent">+</button>
+  <nav>
+    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/crear-pregunta']">
+      <div class="bg-icon">
+        <img src="./../../../assets/svg/aside/list-container.svg" />
+      </div>
+      <p>Preguntas</p>
+    </div>
+    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/categorias']">
+      <div class="bg-icon">
+        <img src="./../../../assets/svg/aside/categoria.svg" />
+      </div>
+      <p>Categorías</p>
+    </div>
+    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/sinonimos']">
+      <div class="bg-icon">
+        <img src="./../../../assets/svg/aside/sinonimos.svg" />
+      </div>
+      <p>Sinonimos</p>
+    </div>
+    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/a']">
+      <div class="bg-icon">
+        <img src="./../../../assets/svg/aside/segment.svg" />
+      </div>
+      <p>segmentos</p>
+    </div>
+    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/a']">
+      <div class="bg-icon">
+        <img src="./../../../assets/svg/aside/users.svg" />
+      </div>
+      <p>segmentos</p>
+    </div>
+    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/a']">
+      <div class="bg-icon">
+        <img src="./../../../assets/svg/aside/user.svg" />
+      </div>
+      <p>segmentos</p>
+    </div>
+    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/a']">
+      <div class="bg-icon">
+        <img src="./../../../assets/svg/aside/notificaciones.svg" />
+      </div>
+      <p>segmentos</p>
+    </div>
+  </nav>
+  <button class="logout" mat-icon-button (click)="handleLogOut()">
+    <mat-icon> logout </mat-icon>
+  </button>
+</div>

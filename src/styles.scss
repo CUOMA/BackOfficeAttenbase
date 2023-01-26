@@ -1,0 +1,117 @@
+@use '@angular/material' as mat;
+@import './assets/sass/main.scss';
+@include mat.core();
+
+$md-paletteprimary: (
+  50: #f1f6f6,
+  100: #dce9e9,
+  200: #c5dada,
+  300: #aecbcb,
+  400: #9cbfbf,
+  500: #8bb4b4,
+  600: #83adad,
+  700: #78a4a4,
+  800: #6e9c9c,
+  900: #5b8c8c,
+  A100: #f8ffff,
+  A200: #c5ffff,
+  A400: #92ffff,
+  A700: #79ffff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$md-paletteerror: (
+  50: #f7e4e4,
+  100: #eababa,
+  200: #dd8d8d,
+  300: #cf5f5f,
+  400: #c43c3c,
+  500: #ba1a1a,
+  600: #b31717,
+  700: #ab1313,
+  800: #a30f0f,
+  900: #940808,
+  A100: #ffc1c1,
+  A200: #ff8e8e,
+  A400: #ff5b5b,
+  A700: #ff4141,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #ffffff,
+  ),
+);
+
+$md-mcgpaletteAccent: (
+  50: #f6f3e8,
+  100: #e9e0c5,
+  200: #dacc9f,
+  300: #cbb779,
+  400: #c0a75c,
+  500: #b5983f,
+  600: #ae9039,
+  700: #a58531,
+  800: #9d7b29,
+  900: #8d6a1b,
+  A100: #ffecc6,
+  A200: #ffdb93,
+  A400: #ffca60,
+  A700: #ffc147,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$bdc-backoffice-primary: mat.define-palette($md-paletteprimary, 900);
+$bdc-backoffice-accent: mat.define-palette($md-mcgpaletteAccent, 800);
+
+$bdc-backoffice-warn: mat.define-palette($md-paletteerror);
+$bdc-backoffice-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $bdc-backoffice-primary,
+      accent: $bdc-backoffice-accent,
+      warn: $bdc-backoffice-warn,
+    ),
+  )
+);
+@include mat.all-component-themes($bdc-backoffice-theme);
