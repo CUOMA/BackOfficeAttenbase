@@ -17,7 +17,6 @@ import { NGRXModule } from './core/modules/ngrx.module';
     HttpClientModule,
     NGRXModule,
     NgLetModule,
-    StoreRouterConnectingModule.forRoot(),
     BrowserAnimationsModule,
   ],
   providers: [],

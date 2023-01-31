@@ -9,7 +9,7 @@ import { LoginPayload } from '../../core/models/login';
 @Component({
   selector: 'bdc-bo-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['./login.component.scss', '../../../assets/sass/layout/entry.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
   @Output() login = new EventEmitter<LoginPayload>();

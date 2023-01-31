@@ -7,8 +7,13 @@ const routes: Routes = [
   {
     path: 'olvide-mi-contraseña',
     loadChildren: () =>
-      import('./recover-password/recover-password.module').then(m => m.RecoverPasswordModule),
+      import('./password-recovery/recover-password.module').then(m => m.RecoverPasswordModule),
   },
+  // {
+  //   path: 'generar-nueva-contraseña',
+  //   loadChildren: () =>
+  //     import('./password-reset/password-reset.module').then(m => m.PasswordResetModule),
+  // },
 ];
 
 @NgModule({

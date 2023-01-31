@@ -16,7 +16,7 @@ import { map, take } from 'rxjs/operators';
 @Component({
   selector: 'bdc-bo-recovery-password',
   templateUrl: './recover-password.component.html',
-  styleUrls: ['./recover-password.component.scss'],
+  styleUrls: ['./recover-password.component.scss', '../../../../assets/sass/layout/entry.scss'],
 })
 export class RecoverPasswordComponent implements OnInit {
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);

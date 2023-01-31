@@ -17,13 +17,6 @@ const routes: Routes = [
     canActivate: [DashboardGuard],
   },
   {
-    path: 'forgetpassword',
-    loadChildren: () =>
-      import('./views/login/recover-password/recover-password.module').then(
-        m => m.RecoverPasswordModule
-      ),
-  },
-  {
     path: '**',
     redirectTo: 'login',
   },
@@ -34,6 +27,7 @@ const routes: Routes = [
     QuicklinkModule,
     RouterModule.forRoot(routes, {
       preloadingStrategy: QuicklinkStrategy,
+      enableTracing: true
     }),
   ],
   exports: [RouterModule],
