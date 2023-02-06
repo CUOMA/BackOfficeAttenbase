@@ -5,6 +5,9 @@ import { Observable, Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { LoginFacade } from './login.facade';
 import { LoginPayload } from '../../core/models/login';
+import { MatIconButton } from '@angular/material/button';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'bdc-bo-login',
@@ -26,7 +29,18 @@ export class LoginComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   public hide = true;
 
-  constructor(private loginFacade: LoginFacade, private fb: FormBuilder, private router: Router) {}
+  constructor(
+    private loginFacade: LoginFacade,
+    private fb: FormBuilder,
+    private router: Router,
+    sanitizer: DomSanitizer,
+    matEconRegister: MatIconRegistry
+  ) {
+    matEconRegister.addSvgIcon(
+      'eyeText',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/eye-txt.svg')
+    );
+  }
 
   public ngOnInit(): void {
     this.getEmailFromStorage();
