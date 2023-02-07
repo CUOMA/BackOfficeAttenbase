@@ -3,9 +3,16 @@
   <button class="menu" mat-icon-button>
     <mat-icon> menu </mat-icon>
   </button>
-  <button mat-raised-button [routerLink]="['/dashboard/crear-pregunta']" color="accent">+</button>
+
+  <button
+    mat-raised-button
+    [routerLink]="['/dashboard/listado-de-preguntas/crear-pregunta']"
+    color="accent">
+    +
+  </button>
+
   <nav>
-    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/crear-pregunta']">
+    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/listado-de-preguntas']">
       <div class="bg-icon">
         <img src="./../../../assets/svg/aside/list-container.svg" />
       </div>

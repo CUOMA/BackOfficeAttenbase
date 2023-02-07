@@ -8,11 +8,11 @@ const routes: Routes = [
     component: DashboardComponent,
     children: [
       {
-        path: 'crear-pregunta',
+        path: 'listado-de-preguntas',
         loadChildren: () =>
-          import(
-            './dashboard-views/dashboard-create-question/dashboard-create-question.module'
-          ).then(m => m.DashboardCreateQuestionModule),
+          import('./dashboard-views/dashboard-question/dashboard-question.module').then(
+            m => m.DashboardQuestionModule
+          ),
         data: {
           preload: false,
         },
