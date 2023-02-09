@@ -13,6 +13,23 @@
   </button>
 
   <nav>
+    <ng-container *ngFor="let a of b">
+      <div
+        class="item"
+        routerLinkActive="active"
+        [routerLink]="a.link">
+        <div class="bg-icon">
+          <img [src]="a.icon" />
+          <div class="item-data" *ngIf="isOpen">
+            <p>{{a.label}}</p>
+            <p>{{a.value}}</p>
+            
+          </div>
+        </div>
+        <p *ngIf="!isOpen">{{a.cosito}}</p>
+      </div>
+    </ng-container>
+
     <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/listado-de-preguntas']">
       <div class="bg-icon">
         <img src="./../../../assets/svg/aside/list-container.svg" />

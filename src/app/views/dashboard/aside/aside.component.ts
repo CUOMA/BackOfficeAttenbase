@@ -16,6 +16,5 @@ export class AsideComponent {
 
   protected menuOpen() {
     this.isOpen = !this.isOpen;
-    console.log(this.isOpen);
   }
 }

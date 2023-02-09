@@ -2,12 +2,12 @@
   position: relative;
   background-color: #b9d6d5;
   border: none;
-  min-width: 80px;
+  width: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100%;
-  transition: 0.5s linear;
+  transition: width 0.15s linear;
   mat-icon {
     color: #344b64;
   }
@@ -35,7 +35,7 @@
     .item {
       margin: auto;
       cursor: pointer;
-
+      margin: 5px 0;
       .bg-icon {
         display: flex;
         align-items: center;
@@ -45,7 +45,7 @@
         width: 56px;
         border-radius: 8px;
         &:hover {
-          transition: 0.6s ease-out;
+          transition: 0.15s ease-out;
           background-color: #8bb4b4ba;
           border-radius: 8px;
           & p {
@@ -65,7 +65,7 @@
       }
       &.active {
         .bg-icon {
-          transition: 0.5s linear;
+          transition: 0.15s linear;
           background-color: white;
         }
         p {
@@ -94,7 +94,7 @@
 .menu-open {
   &.wrapper {
     align-items: flex-start;
-    min-width: 324px;
+    width: 324px;
     padding-left: 10px;
   }
   .menu {
@@ -105,7 +105,7 @@
     background-color: #d5a43e;
     width: auto;
     height: 56px;
-    transition: 0.7s linear;
+    transition: 0.15s linear;
   }
 
   nav {
@@ -116,8 +116,8 @@
     .item {
       display: flex;
       align-items: center;
-      margin: 5px 0;
-      transition: 0.7s linear;
+
+      transition: 0.15s linear;
       .bg-icon {
         display: flex;
         align-items: center;
@@ -126,7 +126,7 @@
         height: 56px;
         width: 268px;
         border-radius: 8px;
-        transition: 0.7s linear;
+        transition: 0.15s linear;
         .item-data {
           display: flex;
           justify-content: space-between;
