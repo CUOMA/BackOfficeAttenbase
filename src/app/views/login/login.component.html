@@ -37,8 +37,13 @@
               : 'primary'
           "
           matSuffix
-          (click)="hide = !hide">
-          <mat-icon>{{ hide ? 'eyeText' : 'visibility' }}</mat-icon>
+          (click)="togglePasswordVisibility($event)">
+          <ng-container *ngIf="hide; else showPassword">
+            <mat-icon svgIcon="eyeText"></mat-icon>
+          </ng-container>
+          <ng-template #showPassword>
+            <mat-icon>visibility_off</mat-icon>
+          </ng-template>
         </button>
         <mat-error
           *ngIf="form.controls['password'].errors?.['required'] && form.controls['password'].touched">

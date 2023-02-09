@@ -1,13 +1,10 @@
-import { Component, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
-import { LoginFacade } from './login.facade';
 import { LoginPayload } from '../../core/models/login';
-import { MatIconButton } from '@angular/material/button';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
+import { LoginFacade } from './login.facade';
 
 @Component({
   selector: 'bdc-bo-login',
@@ -29,18 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   public hide = true;
 
-  constructor(
-    private loginFacade: LoginFacade,
-    private fb: FormBuilder,
-    private router: Router,
-    sanitizer: DomSanitizer,
-    matIconRegister: MatIconRegistry
-  ) {
-    matIconRegister.addSvgIcon(
-      'eyeText',
-      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/eye-txt.svg')
-    );
-  }
+  constructor(private loginFacade: LoginFacade, private fb: FormBuilder, private router: Router) {}
 
   public ngOnInit(): void {
     this.getEmailFromStorage();
@@ -53,6 +39,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  protected togglePasswordVisibility(event: Event): void {
+    event?.stopPropagation();
+    this.hide = !this.hide;
   }
 
   protected handleSubmitLogin(): void {
