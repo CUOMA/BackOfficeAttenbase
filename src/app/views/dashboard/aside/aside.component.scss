@@ -7,6 +7,7 @@
   flex-direction: column;
   align-items: center;
   height: 100%;
+  transition: 0.5s linear;
   mat-icon {
     color: #344b64;
   }
@@ -34,6 +35,7 @@
     .item {
       margin: auto;
       cursor: pointer;
+
       .bg-icon {
         display: flex;
         align-items: center;
@@ -42,10 +44,11 @@
         height: 32px;
         width: 56px;
         border-radius: 8px;
-        &:hover{
+        &:hover {
+          transition: 0.6s ease-out;
           background-color: #8bb4b4ba;
           border-radius: 8px;
-          & p{
+          & p {
             opacity: 1;
           }
         }
@@ -56,12 +59,13 @@
         opacity: 0;
         margin: 4px 0;
         text-align: center;
-        &:hover{
+        &:hover {
           opacity: 1;
         }
       }
       &.active {
         .bg-icon {
+          transition: 0.5s linear;
           background-color: white;
         }
         p {
@@ -73,11 +77,14 @@
   }
   .logout {
     position: absolute;
-    bottom: 40px;
+    bottom: 50px;
     display: flex;
     align-items: center;
-    p{
-      color: #344B64;
+    cursor: pointer;
+    padding-top: 5px;
+    p {
+      padding-left: 12px;
+      color: #344b64;
       font-size: 14px;
       font-weight: 500;
     }
@@ -98,6 +105,7 @@
     background-color: #d5a43e;
     width: auto;
     height: 56px;
+    transition: 0.7s linear;
   }
 
   nav {
@@ -108,6 +116,8 @@
     .item {
       display: flex;
       align-items: center;
+      margin: 5px 0;
+      transition: 0.7s linear;
       .bg-icon {
         display: flex;
         align-items: center;
@@ -116,12 +126,13 @@
         height: 56px;
         width: 268px;
         border-radius: 8px;
+        transition: 0.7s linear;
         .item-data {
           display: flex;
           justify-content: space-between;
           align-items: center;
           width: 100%;
-          padding-left: 5px;
+          padding-left: 12px;
         }
       }
       p {
@@ -140,7 +151,10 @@
     }
   }
   .logout {
-    position: absolute;
+    border-top: 1px solid #344b646a;
+    width: 260px;
+    padding-left: 18px;
+    margin-left: 12px;
     bottom: 40px;
   }
 }
