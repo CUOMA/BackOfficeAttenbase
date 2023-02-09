@@ -81,10 +81,8 @@
       <p *ngIf="!isOpen">Alertas</p>
     </div>
   </nav>
-  <div class="logout">
-    <button mat-icon-button (click)="handleLogOut()">
-      <mat-icon> logout </mat-icon>
-    </button>
+  <div class="logout" (click)="handleLogOut()">
+    <mat-icon> logout </mat-icon>
     <p *ngIf="isOpen">Salir</p>
   </div>
 </div>
