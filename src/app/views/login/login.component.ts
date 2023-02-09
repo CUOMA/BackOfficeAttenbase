@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.getEmailFromStorage();
     this.loginFacade.isAuthenticated
-      .pipe(finalize(() => this.router.navigateByUrl('dashboard/crear-pregunta')))
+      .pipe(finalize(() => this.router.navigateByUrl('dashboard/listado-de-preguntas')))
       .subscribe();
     this.isLogginIn$ = this.loginFacade.isLogginIn.pipe(takeUntil(this.destroy$));
   }
