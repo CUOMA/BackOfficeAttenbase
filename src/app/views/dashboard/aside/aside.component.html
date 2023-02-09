@@ -1,61 +1,90 @@
-<!-- Agregar a los alts las rutas correspondientes -->
-<div class="wrapper">
-  <button class="menu" mat-icon-button>
-    <mat-icon> menu </mat-icon>
+<div class="wrapper" [ngClass]="{ 'menu-open': isOpen }">
+  <button class="menu" (click)="menuOpen()" mat-icon-button>
+    <mat-icon> {{ isOpen ? 'menu_open' : 'menu' }}</mat-icon>
   </button>
-
   <button
     mat-raised-button
     [routerLink]="['/dashboard/listado-de-preguntas/crear-pregunta']"
     color="accent">
-    +
+    <div class="d-flex align-items-center" *ngIf="isOpen; else notOpen">
+      <mat-icon>add</mat-icon> <span>Crear Pregunta</span>
+    </div>
+    <ng-template #notOpen><mat-icon>add</mat-icon></ng-template>
   </button>
 
   <nav>
     <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/listado-de-preguntas']">
       <div class="bg-icon">
         <img src="./../../../assets/svg/aside/list-container.svg" />
+        <div class="item-data" *ngIf="isOpen">
+          <p>Preguntas</p>
+          <p>365</p>
+        </div>
       </div>
-      <p>Preguntas</p>
+      <p *ngIf="!isOpen">Preguntas</p>
     </div>
     <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/categorias']">
       <div class="bg-icon">
         <img src="./../../../assets/svg/aside/categoria.svg" />
+        <div class="item-data" *ngIf="isOpen">
+          <p>Categorías</p>
+          <p>365</p>
+        </div>
       </div>
-      <p>Categorías</p>
+      <p *ngIf="!isOpen">Categorías</p>
     </div>
     <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/sinonimos']">
       <div class="bg-icon">
         <img src="./../../../assets/svg/aside/sinonimos.svg" />
+        <div class="item-data" *ngIf="isOpen">
+          <p>Sinonimos</p>
+          <p>365</p>
+        </div>
       </div>
-      <p>Sinonimos</p>
+      <p *ngIf="!isOpen">Sinonimos</p>
     </div>
-    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/a']">
+    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/metricas']">
       <div class="bg-icon">
         <img src="./../../../assets/svg/aside/segment.svg" />
+        <div class="item-data" *ngIf="isOpen">
+          <p>Metrica</p>
+        </div>
       </div>
-      <p>segmentos</p>
+      <p *ngIf="!isOpen">Metrica</p>
     </div>
-    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/a']">
+    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/usuarios']">
       <div class="bg-icon">
         <img src="./../../../assets/svg/aside/users.svg" />
+        <div class="item-data" *ngIf="isOpen">
+          <p>Usuarios</p>
+        </div>
       </div>
-      <p>segmentos</p>
+      <p *ngIf="!isOpen">Usuarios</p>
     </div>
-    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/a']">
+    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/perfil']">
       <div class="bg-icon">
         <img src="./../../../assets/svg/aside/user.svg" />
+        <div class="item-data" *ngIf="isOpen">
+          <p>Perfil</p>
+        </div>
       </div>
-      <p>segmentos</p>
+      <p *ngIf="!isOpen">Perfil</p>
     </div>
-    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/a']">
+    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/alerta']">
       <div class="bg-icon">
-        <img src="./../../../assets/svg/aside/notificaciones.svg" />
+        <img src="./../../../assets/svg/aside/bell.svg" />
+        <div class="item-data" *ngIf="isOpen">
+          <p>Alertas</p>
+          <p>1515</p>
+        </div>
       </div>
-      <p>segmentos</p>
+      <p *ngIf="!isOpen">Alertas</p>
     </div>
   </nav>
-  <button class="logout" mat-icon-button (click)="handleLogOut()">
-    <mat-icon> logout </mat-icon>
-  </button>
+  <div class="logout">
+    <button mat-icon-button (click)="handleLogOut()">
+      <mat-icon> logout </mat-icon>
+    </button>
+    <p *ngIf="isOpen">Salir</p>
+  </div>
 </div>

@@ -18,8 +18,12 @@
     background-color: #d5a43e;
     width: 56px;
     height: 56px;
-    padding: 0;
-    font-size: 24px;
+    padding: 16px;
+    font-size: 14px;
+
+    mat-icon {
+      color: white;
+    }
   }
 
   nav {
@@ -38,19 +42,99 @@
         height: 32px;
         width: 56px;
         border-radius: 8px;
+        &:hover{
+          background-color: #8bb4b4ba;
+          border-radius: 8px;
+          & p{
+            opacity: 1;
+          }
+        }
       }
       p {
         font-size: 12px;
         font-weight: 500;
-        color: transparent;
+        opacity: 0;
         margin: 4px 0;
+        text-align: center;
+        &:hover{
+          opacity: 1;
+        }
       }
       &.active {
         .bg-icon {
           background-color: white;
         }
         p {
+          opacity: 1;
           color: #344b64;
+        }
+      }
+    }
+  }
+  .logout {
+    position: absolute;
+    bottom: 40px;
+    display: flex;
+    align-items: center;
+    p{
+      color: #344B64;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+}
+
+.menu-open {
+  &.wrapper {
+    align-items: flex-start;
+    min-width: 324px;
+    padding-left: 10px;
+  }
+  .menu {
+    margin-top: 56px;
+    margin-bottom: 16px;
+  }
+  .mat-mdc-raised-button.mat-accent {
+    background-color: #d5a43e;
+    width: auto;
+    height: 56px;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 236px;
+    .item {
+      display: flex;
+      align-items: center;
+      .bg-icon {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0 18px;
+        height: 56px;
+        width: 268px;
+        border-radius: 8px;
+        .item-data {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          padding-left: 5px;
+        }
+      }
+      p {
+        opacity: 1;
+        font-size: 14px;
+        color: #344b64;
+      }
+      &.active {
+        .bg-icon {
+          background-color: white;
+        }
+        p {
+          opacity: 1;
         }
       }
     }

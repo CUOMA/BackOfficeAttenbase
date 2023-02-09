@@ -34,9 +34,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     sanitizer: DomSanitizer,
-    matEconRegister: MatIconRegistry
+    matIconRegister: MatIconRegistry
   ) {
-    matEconRegister.addSvgIcon(
+    matIconRegister.addSvgIcon(
       'eyeText',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/eye-txt.svg')
     );
