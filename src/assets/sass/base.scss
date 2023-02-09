@@ -1,12 +1,17 @@
-@import './abstracts/variables';
+@import "./abstracts/variables";
 
 html,
 body {
+  /* 1rem = 10px */
+  // font-size: 62.5%;
   height: 100%;
 }
+
+p {}
+
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 a {
   text-decoration: none;
@@ -20,7 +25,7 @@ ul {
 }
 h1 {
   color: #002020;
-  font-size: 36px;
+  font-size: 3.6rem;
   font-weight: 400;
 }
 
@@ -28,10 +33,10 @@ h1 {
   display: flex;
 }
 
-.align-items-center{
+.align-items-center {
   align-items: center;
 }
-.justify-space-between{
+.justify-space-between {
   justify-content: space-between;
 }
 
@@ -42,6 +47,7 @@ h1 {
   margin-right: auto;
   margin-left: auto;
 }
+
 @media (min-width: 576px) {
   .container {
     max-width: 540px;

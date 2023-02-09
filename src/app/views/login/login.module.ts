@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -21,11 +22,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     LoginRoutingModule,
     ReactiveFormsModule,
     AuthFeatureModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatCheckboxModule,
+    SharedModule,
   ],
   providers: [LoginFacade],
 })
