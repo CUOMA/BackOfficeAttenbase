@@ -9,11 +9,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./password-recovery/recover-password.module').then(m => m.RecoverPasswordModule),
   },
-  // {
-  //   path: 'generar-nueva-contraseña',
-  //   loadChildren: () =>
-  //     import('./password-reset/password-reset.module').then(m => m.PasswordResetModule),
-  // },
+  {
+    path: 'generar-nueva-contraseña',
+    loadChildren: () =>
+      import('./password-reset/password-reset.module').then(m => m.PasswordResetModule),
+  },
 ];
 
 @NgModule({

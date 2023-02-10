@@ -2,8 +2,14 @@
 
 html,
 body {
+  /* 1rem = 10px */
+  // font-size: 62.5%;
   height: 100%;
 }
+
+p {
+}
+
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
@@ -20,12 +26,19 @@ ul {
 }
 h1 {
   color: #002020;
-  font-size: 36px;
+  font-size: 3.6rem;
   font-weight: 400;
 }
 
 .d-flex {
   display: flex;
+}
+
+.align-items-center {
+  align-items: center;
+}
+.justify-space-between {
+  justify-content: space-between;
 }
 
 .container {

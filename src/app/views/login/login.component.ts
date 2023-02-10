@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
-import { LoginFacade } from './login.facade';
 import { LoginPayload } from '../../core/models/login';
 import { MatIconRegistry } from '@angular/material/icon';
+import { LoginFacade } from './login.facade';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.getEmailFromStorage();
     this.loginFacade.isAuthenticated
-      .pipe(finalize(() => this.router.navigateByUrl('dashboard/crear-pregunta')))
+      .pipe(finalize(() => this.router.navigateByUrl('dashboard/listado-de-preguntas')))
       .subscribe();
     this.isLogginIn$ = this.loginFacade.isLogginIn.pipe(takeUntil(this.destroy$));
 
@@ -61,6 +61,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  protected togglePasswordVisibility(event: Event): void {
+    event?.stopPropagation();
+    this.hide = !this.hide;
   }
 
   protected handleSubmitLogin(): void {

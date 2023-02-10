@@ -8,8 +8,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./aside.component.scss'],
 })
 export class AsideComponent {
+  public isOpen: boolean = false;
   constructor(private dashboardFacade: DashboardFacade, private router: Router) {}
   protected handleLogOut(): void {
     this.dashboardFacade.logOut();
+  }
+
+  protected menuOpen() {
+    this.isOpen = !this.isOpen;
   }
 }
