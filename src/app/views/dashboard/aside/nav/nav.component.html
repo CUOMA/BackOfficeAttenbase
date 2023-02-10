@@ -1,0 +1,14 @@
+<nav [ngClass]="{ 'menu-open': isOpen }">
+  <div *ngFor="let item of pages">
+    <div class="item" routerLinkActive="active" [routerLink]="['/dashboard/' + item.relativePath]">
+      <div class="bg-icon">
+        <mat-icon [svgIcon]="item.icon"></mat-icon>
+        <div class="item-data" *ngIf="isOpen">
+          <p>{{ item.label }}</p>
+          <p *ngIf="item.data">{{ item.data }}</p>
+        </div>
+      </div>
+      <p *ngIf="!isOpen">{{ item.label }}</p>
+    </div>
+  </div>
+</nav>

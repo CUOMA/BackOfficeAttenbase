@@ -15,5 +15,33 @@ export class CustomMatIconsRegistratorModule {
       'eyePsw',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/eye-psw.svg')
     );
+    matIconRegister.addSvgIcon(
+      'list-question',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/aside/list-container.svg')
+    );
+    matIconRegister.addSvgIcon(
+      'categories',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/aside/categoria.svg')
+    );
+    matIconRegister.addSvgIcon(
+      'synonymous',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/aside/sinonimos.svg')
+    );
+    matIconRegister.addSvgIcon(
+      'segment',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/aside/segment.svg')
+    );
+    matIconRegister.addSvgIcon(
+      'users',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/aside/users.svg')
+    );
+    matIconRegister.addSvgIcon(
+      'profile',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/aside/user.svg')
+    );
+    matIconRegister.addSvgIcon(
+      'bell',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/aside/bell.svg')
+    );
   }
 }
