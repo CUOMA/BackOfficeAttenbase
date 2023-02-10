@@ -1,16 +1,18 @@
 <div class="wrapper" [ngClass]="{ 'menu-open': isOpen }">
-  <button class="menu" (click)="menuOpen()" mat-icon-button>
-    <mat-icon> {{ isOpen ? 'menu_open' : 'menu' }}</mat-icon>
-  </button>
-  <button
-    mat-raised-button
-    [routerLink]="['/dashboard/listado-de-preguntas/crear-pregunta']"
-    color="accent">
-    <div class="d-flex align-items-center" *ngIf="isOpen; else notOpen">
-      <mat-icon>add</mat-icon> <span>Crear Pregunta</span>
-    </div>
-    <ng-template #notOpen><mat-icon>add</mat-icon></ng-template>
-  </button>
+  <div class="action">
+    <button class="menu" (click)="menuOpen()" mat-icon-button>
+      <mat-icon> {{ isOpen ? 'menu_open' : 'menu' }}</mat-icon>
+    </button>
+    <button
+      mat-raised-button
+      [routerLink]="['/dashboard/listado-de-preguntas/crear-pregunta']"
+      color="accent">
+      <div class="d-flex align-items-center" *ngIf="isOpen; else notOpen">
+        <mat-icon>add</mat-icon> <span>Crear Pregunta</span>
+      </div>
+      <ng-template #notOpen><mat-icon>add</mat-icon></ng-template>
+    </button>
+  </div>
   <bdc-bo-nav [isOpen]="isOpen"></bdc-bo-nav>
   <div class="logout" (click)="handleLogOut()">
     <mat-icon> logout </mat-icon>

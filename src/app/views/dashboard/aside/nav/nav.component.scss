@@ -1,7 +1,6 @@
 nav {
   display: flex;
   flex-direction: column;
-  margin-top: 80px;
   .item {
     margin: auto;
     cursor: pointer;
@@ -86,4 +85,9 @@ nav {
       }
     }
   }
+}
+
+.item:hover p,
+.menu-open .item p {
+  display: block;
 }
