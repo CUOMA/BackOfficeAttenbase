@@ -37,8 +37,13 @@
               : 'primary'
           "
           matSuffix
-          (click)="hide = !hide">
-          <mat-icon svgIcon="{{ hide ? 'eyeText' : 'eyePsw' }}"></mat-icon>
+          (click)="togglePasswordVisibility($event)">
+          <ng-container *ngIf="hide; else showPassword">
+            <mat-icon svgIcon="eyeText"></mat-icon>
+          </ng-container>
+          <ng-template #showPassword>
+            <mat-icon svgIcon="eyePsw"></mat-icon>
+          </ng-template>
         </button>
         <mat-error
           *ngIf="form.controls['password'].errors?.['required'] && form.controls['password'].touched">
@@ -46,9 +51,12 @@
         </mat-error>
         <mat-error
           *ngIf="form.controls['password'].errors?.['pattern'] && form.controls['password'].dirty">
-          Mínimo 8 caracteres. Al menos una letra en mayúscula y un número.
+          Mínimo 8 caracteres. Al menos una letra en mayúscula un caracter especial y un número.
         </mat-error>
-        <mat-hint>Mínimo 8 caracteres. Al menos una letra en mayúscula y un número.</mat-hint>
+        <mat-hint
+          >Mínimo 8 caracteres. Al menos una letra en mayúscula un caracter especial y un
+          número.</mat-hint
+        >
       </mat-form-field>
       <mat-checkbox formControlName="rememberEmail" color="primary"
         >Mantener sesión iniciada</mat-checkbox

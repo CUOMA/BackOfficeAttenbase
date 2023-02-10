@@ -4,9 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { LoginPayload } from '../../core/models/login';
-import { MatIconRegistry } from '@angular/material/icon';
 import { LoginFacade } from './login.facade';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'bdc-bo-login',
@@ -22,9 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       '',
       [
         Validators.required,
-        Validators.pattern(
-          '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.+[¡!?¿=)(/&%$#"°{}][><\\]).{8,}$'
-        ),
+        Validators.pattern('^(?=.*?[A-Z])(?=.*[0-9])(?=.*?[@#%$!&*])[a-zA-Z0-9@#%$!&*]{8,50}$'),
       ],
     ],
     rememberEmail: [false],
@@ -33,13 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   public hide = true;
 
-  constructor(
-    private loginFacade: LoginFacade,
-    private fb: FormBuilder,
-    private router: Router,
-    private sanitizer: DomSanitizer,
-    private matIconRegister: MatIconRegistry
-  ) {}
+  constructor(private loginFacade: LoginFacade, private fb: FormBuilder, private router: Router) {}
 
   public ngOnInit(): void {
     this.getEmailFromStorage();
@@ -47,15 +37,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       .pipe(finalize(() => this.router.navigateByUrl('dashboard/listado-de-preguntas')))
       .subscribe();
     this.isLogginIn$ = this.loginFacade.isLogginIn.pipe(takeUntil(this.destroy$));
-
-    this.matIconRegister.addSvgIcon(
-      'eyeText',
-      this.sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/eye-txt.svg')
-    );
-    this.matIconRegister.addSvgIcon(
-      'eyePsw',
-      this.sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/eye-psw.svg')
-    );
   }
 
   public ngOnDestroy(): void {

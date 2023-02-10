@@ -11,5 +11,9 @@ export class CustomMatIconsRegistratorModule {
       'eyeText',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/eye-txt.svg')
     );
+    matIconRegister.addSvgIcon(
+      'eyePsw',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/eye-psw.svg')
+    );
   }
 }
