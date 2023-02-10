@@ -27,54 +27,6 @@
     }
   }
 
-  nav {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 236px;
-    .item {
-      margin: auto;
-      cursor: pointer;
-      margin: 5px 0;
-      .bg-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: transparent;
-        height: 32px;
-        width: 56px;
-        border-radius: 8px;
-        &:hover {
-          transition: 0.15s ease-out;
-          background-color: #8bb4b4ba;
-          border-radius: 8px;
-          & p {
-            opacity: 1;
-          }
-        }
-      }
-      p {
-        font-size: 12px;
-        font-weight: 500;
-        opacity: 0;
-        margin: 4px 0;
-        text-align: center;
-        &:hover {
-          opacity: 1;
-        }
-      }
-      &.active {
-        .bg-icon {
-          transition: 0.15s linear;
-          background-color: white;
-        }
-        p {
-          opacity: 1;
-          color: #344b64;
-        }
-      }
-    }
-  }
   .logout {
     position: absolute;
     bottom: 50px;
@@ -106,49 +58,6 @@
     width: auto;
     height: 56px;
     transition: 0.15s linear;
-  }
-
-  nav {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 236px;
-    .item {
-      display: flex;
-      align-items: center;
-
-      transition: 0.15s linear;
-      .bg-icon {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        padding: 0 18px;
-        height: 56px;
-        width: 268px;
-        border-radius: 8px;
-        transition: 0.15s linear;
-        .item-data {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: 100%;
-          padding-left: 12px;
-        }
-      }
-      p {
-        opacity: 1;
-        font-size: 14px;
-        color: #344b64;
-      }
-      &.active {
-        .bg-icon {
-          background-color: white;
-        }
-        p {
-          opacity: 1;
-        }
-      }
-    }
   }
   .logout {
     border-top: 1px solid #344b646a;

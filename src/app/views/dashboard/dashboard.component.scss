@@ -1,18 +1,24 @@
 .layout {
   display: grid;
+  grid-template-rows: 55px calc(100vh - 55px);
   grid-template-areas:
     'aside header'
     'aside main';
 
   aside {
     grid-area: aside;
+    height: 100vh;
   }
 
   header {
     grid-area: header;
+    margin-left: 74px;
+    margin-top: 12px;
   }
 
   main {
+    margin-left: 74px;
     grid-area: main;
+    overflow: auto;
   }
 }
