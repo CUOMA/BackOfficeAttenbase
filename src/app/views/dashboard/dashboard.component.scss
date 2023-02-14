@@ -8,7 +8,6 @@
 
   aside {
     grid-area: aside;
-    height: 100vh;
   }
 
   header {
@@ -19,6 +18,7 @@
 
   main {
     margin-left: 74px;
+    padding-right: 168px;
     grid-area: main;
     overflow: auto;
   }

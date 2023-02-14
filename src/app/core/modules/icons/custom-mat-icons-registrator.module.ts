@@ -43,5 +43,9 @@ export class CustomMatIconsRegistratorModule {
       'bell',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/aside/bell.svg')
     );
+    matIconRegister.addSvgIcon(
+      'seeMore',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/see-more.svg')
+    );
   }
 }
