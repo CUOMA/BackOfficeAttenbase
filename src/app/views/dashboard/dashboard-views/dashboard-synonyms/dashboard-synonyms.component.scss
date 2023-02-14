@@ -1,37 +1,35 @@
 .wrapper {
-    .action {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+  .action {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  p {
+    color: #344b64;
+    font-size: 12px;
+  }
+  table {
+    .text-blue {
+      color: #0062a1;
+      font-size: 16px;
     }
-    p {
-        color: #344b64;
-        font-size: 12px;
-    }
-    table {
-        .text-blue {
-            color: #0062a1;
-            font-size: 16px;
-        }
-    }
-    mat-chip {
-  color: #73777F;
-        background-color: white;
-        border: 1px solid #a7abb3;
+  }
+  mat-chip {
+    color: #73777f;
+    background-color: white;
+    border: 1px solid #a7abb3;
 
-        & button {
-            opacity: 0;
-        }
-        &:hover {
-            color: #73777f;
-            background-color: #dfe3eb;
-            button {
-                opacity: 1;
-            }
-        }
+    & button {
+      opacity: 0;
     }
+    &:hover {
+      color: #73777f;
+      background-color: #dfe3eb;
+      button {
+        opacity: 1;
+      }
+    }
+  }
 }
-.mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) .mdc-evolution-chip__text-label {
-    color: #f70000;
-}
+
