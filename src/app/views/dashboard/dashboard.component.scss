@@ -1,13 +1,12 @@
 .layout {
   display: grid;
-  grid-template-rows: 55px calc(100vh - 55px);
   grid-template-areas:
     'aside header'
     'aside main';
-
+    grid-template-columns: min-content minmax(768px, 100%);
+    grid-template-rows: 80px calc(100vh - 80px);
   aside {
     grid-area: aside;
-    height: 100vh;
   }
 
   header {
@@ -18,6 +17,7 @@
 
   main {
     margin-left: 74px;
+    margin-right: 168px;
     grid-area: main;
     overflow: auto;
   }
