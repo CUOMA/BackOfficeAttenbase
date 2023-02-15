@@ -1,10 +1,10 @@
 .layout {
   display: grid;
   grid-template-areas:
-    'aside header'
-    'aside main';
-    grid-template-columns: min-content minmax(768px, 100%);
-    grid-template-rows: 80px calc(100vh - 80px);
+    "aside header"
+    "aside main";
+  grid-template-columns: min-content minmax(768px, 100%);
+  grid-template-rows: 80px calc(100vh - 80px);
   aside {
     grid-area: aside;
   }
@@ -17,7 +17,7 @@
 
   main {
     margin-left: 74px;
-    margin-right: 168px;
+    padding-right: 168px;
     grid-area: main;
     overflow: auto;
   }

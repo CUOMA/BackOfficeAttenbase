@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CustomMatIconsRegistratorModule } from './icons/custom-mat-icons-registrator.module';
 @NgModule({
   exports: [
@@ -17,6 +18,7 @@ import { CustomMatIconsRegistratorModule } from './icons/custom-mat-icons-regist
     MatTableModule,
     MatPaginatorModule,
     MatChipsModule,
+    MatSnackBarModule,
   ],
 })
 export class MaterialModule {}

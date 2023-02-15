@@ -16,9 +16,11 @@
         }
     }
     mat-chip {
-  color: #73777F;
         background-color: white;
         border: 1px solid #a7abb3;
+        span {
+            color: #73777f;
+        }
 
         & button {
             opacity: 0;
@@ -29,9 +31,9 @@
             button {
                 opacity: 1;
             }
+            mat-icon {
+                color: #73777f;
+            }
         }
     }
-}
-.mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) .mdc-evolution-chip__text-label {
-    color: #f70000;
 }
