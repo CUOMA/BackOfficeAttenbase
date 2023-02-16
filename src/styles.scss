@@ -1,7 +1,14 @@
-@use '@angular/material' as mat;
-@import './assets/sass/main.scss';
+@use "@angular/material" as mat;
+@import "./assets/sass/main.scss";
 @include mat.core();
 
+
+.mat-mdc-snack-bar-container {
+  --mat-mdc-snack-bar-button-color: #ffffff !important;
+  --mdc-snackbar-container-color: #344B64 !important;
+  --mdc-snackbar-supporting-text-color: #FFFF !important;
+
+}
 
 $md-paletteprimary: (
   50: #f1f6f6,

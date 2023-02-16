@@ -2,6 +2,8 @@ import { AfterViewInit, Component, OnInit, ViewChild, inject } from '@angular/co
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { alertDeleteComponent } from './alert-delete/alert-delete.component';
+import { SynonymFacadeService } from './dashboard-synonyms.facade.service';
 
 @Component({
   selector: 'bdc-bo-dashboard-synonyms',
@@ -108,9 +110,13 @@ export class DashboardSynonymsComponent implements AfterViewInit {
   protected openMenu: boolean = false;
 
   dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  constructor(private intl: MatPaginatorIntl, private _snackBar: MatSnackBar) {}
+
+  constructor(
+    private intl: MatPaginatorIntl,
+    private _snackBar: MatSnackBar,
+    private synonymFacadeService: SynonymFacadeService
+  ) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -124,35 +130,16 @@ export class DashboardSynonymsComponent implements AfterViewInit {
   }
   protected deleteItem(listSynonyms: string[], itemDelete: string): any {
     listSynonyms.splice(listSynonyms.indexOf(itemDelete), 1);
+    this.synonymFacadeService.getItemDelete(itemDelete);
     this.openSnackBar();
     return listSynonyms;
   }
   protected seeMore(): any {
     this.openMenu = !this.openMenu;
-    console.log(this.openMenu);
   }
   protected openSnackBar() {
     this._snackBar.openFromComponent(alertDeleteComponent, {
-      duration: 5 * 1000,
+      duration: 5 * 10000,
     });
   }
-}
-
-@Component({
-  selector: 'bdc-bo-alert',
-  template: '<p> hola </p>',
-  styles: [
-    `
-      :host {
-        display: flex;
-      }
-
-      .example-pizza-party {
-        color: hotpink;
-      }
-    `,
-  ],
-})
-export class alertDeleteComponent {
-  snackBarRef = inject(MatSnackBarRef);
 }

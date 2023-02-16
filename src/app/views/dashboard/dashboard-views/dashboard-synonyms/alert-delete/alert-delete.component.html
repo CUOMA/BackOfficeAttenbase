@@ -1,0 +1,9 @@
+<span matSnackBarLabel> Eliminaste "{{ item }}" </span>
+<span matSnackBarActions>
+  <button mat-button matSnackBarAction (click)="snackBarRef.dismissWithAction()">
+    <div class="action">
+      <span>DESHACER</span>
+      <mat-icon>close</mat-icon>
+    </div>
+  </button>
+</span>
