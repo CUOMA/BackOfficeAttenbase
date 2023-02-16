@@ -12,7 +12,7 @@ export class CustomMatIconsRegistratorModule {
       sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/eye-txt.svg')
     );
     matIconRegister.addSvgIcon(
-      'eyePsw',
+      'eyePassword',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/eye-psw.svg')
     );
     matIconRegister.addSvgIcon(
@@ -46,14 +46,6 @@ export class CustomMatIconsRegistratorModule {
     matIconRegister.addSvgIcon(
       'seeMore',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/see-more.svg')
-    );
-    matIconRegister.addSvgIcon(
-      'filter',
-      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/filter.svg')
-    );
-    matIconRegister.addSvgIcon(
-      'sortIcon',
-      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/sort-list-icon.svg')
     );
   }
 }
