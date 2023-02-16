@@ -110,6 +110,17 @@ export class DashboardQuestionComponent implements AfterViewInit {
   links = ['Pendientes', 'Publicadas', 'Archivadas', 'Borradores'];
   activeLink = this.links[0];
 
+  selectedTabComponent: any;
+  selectTab(tab: any) {
+    this.selectedTabComponent = tab.component;
+  }
+  protected tabs = [
+    { label: 'Pendientes', component: NameComponent },
+    { label: 'Publicadas', component: NameComponent },
+    { label: 'Archivadas', component: NameComponent },
+    { label: 'Borradores', component: NameComponent },
+  ];
+
   protected showFirstLastButtons: boolean = true;
   protected disabled: boolean = false;
   protected pageIndex: number = 0;
@@ -130,4 +141,13 @@ export class DashboardQuestionComponent implements AfterViewInit {
       return `Página ${startIndex + 1} de ${numberPages}`;
     };
   }
+}
+
+@Component({
+  selector: 'bdc-bo-tabla',
+  template: '<p>hola </p>',
+  styleUrls: [],
+})
+export class NameComponent {
+  constructor() {}
 }

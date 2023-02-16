@@ -1,4 +1,4 @@
-<div class="wrapper">
+<!-- <div class="wrapper">
   <div class="question-action">
     <h1>Preguntas</h1>
     <nav mat-tab-nav-bar [tabPanel]="tabPanel" mat-align-tabs="center">
@@ -74,5 +74,11 @@
     [disabled]="disabled"
     [hidePageSize]="true">
   </mat-paginator>
-</div>
-<router-outlet></router-outlet>
+</div> -->
+
+<nav mat-tab-nav-bar>
+  <a mat-tab-link *ngFor="let tab of tabs" (click)="selectTab(tab)">
+    {{ tab.label }}
+  </a>
+</nav>
+<ng-container *ngComponentOutlet="selectedTabComponent"></ng-container>
