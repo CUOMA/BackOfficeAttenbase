@@ -47,5 +47,13 @@ export class CustomMatIconsRegistratorModule {
       'seeMore',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/see-more.svg')
     );
+    matIconRegister.addSvgIcon(
+      'filter',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/filter.svg')
+    );
+    matIconRegister.addSvgIcon(
+      'sortIcon',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/sort-list-icon.svg')
+    );
   }
 }
