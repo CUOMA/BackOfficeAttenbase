@@ -1,84 +1,12 @@
-<!-- <div class="wrapper">
-  <div class="question-action">
-    <h1>Preguntas</h1>
-    <nav mat-tab-nav-bar [tabPanel]="tabPanel" mat-align-tabs="center">
-      <a
-        mat-tab-link
-        *ngFor="let link of links"
-        (click)="activeLink = link"
-        [active]="activeLink === link">
-        {{ link }}
-      </a>
-    </nav>
-    <div>
-      <button mat-stroked-button color="primary" class="mr-10">
-        <mat-icon svgIcon="filter"></mat-icon>
-        Filtros
-      </button>
-      <button mat-flat-button color="primary">
-        <mat-icon>add</mat-icon>
-        Crear nueva pregunta
-      </button>
-    </div>
-  </div>
-  <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
-
-  <table mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="question">
-      <th mat-header-cell *matHeaderCellDef>
-        Pregunta
-        <mat-icon svgIcon="sortIcon" class="sort-icon"></mat-icon>
-      </th>
-      <td mat-cell *matCellDef="let element" class="text-blue">{{ element.question }}</td>
-    </ng-container>
-    <ng-container matColumnDef="category">
-      <th mat-header-cell *matHeaderCellDef>
-        Categoria
-        <mat-icon svgIcon="sortIcon" class="sort-icon"></mat-icon>
-      </th>
-      <td mat-cell *matCellDef="let element" class="text-blue">{{ element.category }}</td>
-    </ng-container>
-    <ng-container matColumnDef="subcategory">
-      <th mat-header-cell *matHeaderCellDef>
-        Subcategoria
-        <mat-icon svgIcon="sortIcon" class="sort-icon"></mat-icon>
-      </th>
-      <td mat-cell *matCellDef="let element" class="text-blue">{{ element.subcategory }}</td>
-    </ng-container>
-    <ng-container matColumnDef="lastupdate">
-      <th mat-header-cell *matHeaderCellDef>
-        Ultima actualizacion
-        <mat-icon svgIcon="sortIcon" class="sort-icon"></mat-icon>
-      </th>
-      <td mat-cell *matCellDef="let element" class="text-blue">{{ element.lastupdate }}</td>
-    </ng-container>
-    <ng-container matColumnDef="state">
-      <th mat-header-cell *matHeaderCellDef>
-        Estado
-        <mat-icon svgIcon="sortIcon" class="sort-icon"></mat-icon>
-      </th>
-      <td mat-cell *matCellDef="let element" class="text-blue">{{ element.state }}</td>
-    </ng-container>
-    <ng-container width="5%" matColumnDef="seeMore">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element">
-        <mat-icon svgIcon="seeMore" class="seemore-btn"></mat-icon>
-      </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-  <mat-paginator
-    [pageIndex]="pageIndex"
-    [pageSize]="pageSize"
-    [disabled]="disabled"
-    [hidePageSize]="true">
-  </mat-paginator>
-</div> -->
-
-<nav mat-tab-nav-bar>
-  <a mat-tab-link *ngFor="let tab of tabs" (click)="selectTab(tab)">
+<nav mat-tab-nav-bar [tabPanel]="tabPanel">
+  <a
+    mat-tab-link
+    *ngFor="let tab of tabs"
+    (click)="selectTab(tab)"
+    [active]="selectedTab.label === tab.label">
     {{ tab.label }}
   </a>
 </nav>
-<ng-container *ngComponentOutlet="selectedTabComponent"></ng-container>
+<mat-tab-nav-panel #tabPanel>
+  <bdc-bo-tabla [questions]="questions"></bdc-bo-tabla>
+</mat-tab-nav-panel>
