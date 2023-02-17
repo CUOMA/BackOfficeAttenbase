@@ -37,3 +37,28 @@
         }
     }
 }
+
+.more-options {
+    position: relative;
+    // .menu {
+    //     display: none;
+    //     position: absolute;
+    //     top: 0;
+    //     right: 0;
+    //     z-index: 2;
+    //     width: 200px;
+    //     height: 200px;
+    //     background-color: wheat;
+    //     cursor: pointer;
+    //     border-radius: 8px;
+    //     &.open {
+    //         display: block;
+    //     }
+    // }
+}
+
+::ng-deep {
+    .mdc-evolution-chip-set__chips {
+        flex-wrap: nowrap !important;
+    }
+}

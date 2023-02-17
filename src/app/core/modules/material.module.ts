@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 import { CustomMatIconsRegistratorModule } from './icons/custom-mat-icons-registrator.module';
+
 @NgModule({
   exports: [
     CustomMatIconsRegistratorModule,
@@ -19,6 +21,7 @@ import { CustomMatIconsRegistratorModule } from './icons/custom-mat-icons-regist
     MatPaginatorModule,
     MatChipsModule,
     MatSnackBarModule,
+    MatMenuModule,
   ],
 })
 export class MaterialModule {}

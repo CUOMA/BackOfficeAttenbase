@@ -18,31 +18,53 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Sinónimo(s)</th>
       <td mat-cell *matCellDef="let element">
-        <mat-chip-listbox>
-          <div class="action">
-            <mat-icon>chevron_left</mat-icon>
-            <ng-container *ngFor="let item of element.name">
-              <mat-chip>
-                <span>{{ item }}</span>
-                <button
-                  matChipRemove
-                  aria-label="eliminar sinonimo"
-                  (click)="deleteItem(element.name, item)">
-                  <mat-icon>cancel</mat-icon>
-                </button>
-              </mat-chip>
-            </ng-container>
-            <mat-icon>chevron_right</mat-icon>
+        <div class="action">
+          <mat-icon>chevron_left</mat-icon>
+
+          <!-- Componetizar -->
+          <div #scrollElement style="max-width: 500px; overflow-x: auto; flex-wrap: nowrap">
+            <mat-chip-listbox>
+              <ng-container *ngFor="let item of element.name">
+                <mat-chip>
+                  <span>{{ item }}</span>
+                  <button matChipRemove aria-label="eliminar sinonimo" (click)="deleteItem()">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip>
+              </ng-container>
+            </mat-chip-listbox>
           </div>
-        </mat-chip-listbox>
+          <!--  -->
+
+          <mat-icon>chevron_right</mat-icon>
+        </div>
       </td>
     </ng-container>
     <ng-container width="5%" matColumnDef="seeMore">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <button (click)="seeMore()" mat-icon-button aria-label="más opciones">
-          <mat-icon>more_vert</mat-icon>
-        </button>
+        <div class="more-options">
+          <button [matMenuTriggerFor]="menu" mat-icon-button aria-label="más opciones">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>dialpad</mat-icon>
+              <span>Redial</span>
+            </button>
+            <button mat-menu-item disabled>
+              <mat-icon>voicemail</mat-icon>
+              <span>Check voice mail</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>notifications_off</mat-icon>
+              <span>Disable alerts</span>
+            </button>
+          </mat-menu>
+
+          <div class="menu" [ngClass]="{ open: element.isOpen }"></div>
+        </div>
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -55,3 +77,4 @@
     [hidePageSize]="true">
   </mat-paginator>
 </div>
+<button (click)="avance">Correeeteeee</button>
