@@ -1,0 +1,20 @@
+<div class="container-scroll">
+  <button [disabled]="buttonLeftDisable" mat-icon-button (click)="scrollToLeft()">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  <div #scrollElement class="scroll">
+    <mat-chip-listbox>
+      <ng-container *ngFor="let item of element.name">
+        <mat-chip>
+          <span>{{ item }}</span>
+          <button matChipRemove aria-label="eliminar sinonimo" (click)="deleteItem()">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+      </ng-container>
+    </mat-chip-listbox>
+  </div>
+  <button [disabled]="buttonRightDisable" mat-icon-button (click)="scrollToRight()">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</div>
