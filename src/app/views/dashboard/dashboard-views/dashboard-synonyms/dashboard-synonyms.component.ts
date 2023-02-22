@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { tap } from 'rxjs/operators';
 import { AlertService } from '../../../../core/services/alert.service';
 import { SynonymsFacade } from './dashboard-synonyms.facade';
 
@@ -11,13 +10,18 @@ import { SynonymsFacade } from './dashboard-synonyms.facade';
   styleUrls: ['./dashboard-synonyms.component.scss'],
 })
 export class DashboardSynonymsComponent implements AfterViewInit {
-  // propiedades del array que se van a renderizar por columna
   protected displayedColumns: string[] = ['position', 'name', 'seeMore'];
 
   ELEMENT_DATA: any[] = [
     {
       position: 'Problemas de Señal',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
+      name: [
+        'Problemas de señal',
+        'No funciona',
+        'Rooming',
+        'Problemas con el teléfono',
+        'No hay señal',
+      ],
     },
     {
       position: '*444',
@@ -118,10 +122,9 @@ export class DashboardSynonymsComponent implements AfterViewInit {
   protected length: number = this.ELEMENT_DATA.length;
   protected pageSize: number = 10;
   protected openMenu: boolean = false;
-  // protected chips: string[] = this.ELEMENT_DATA.map(obj => obj.name);
+
   dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild('scrollElement') private childEl!: ElementRef;
 
   constructor(
     private intl: MatPaginatorIntl,
@@ -129,11 +132,6 @@ export class DashboardSynonymsComponent implements AfterViewInit {
     private synonymsFacade: SynonymsFacade
   ) {}
 
-  avance(): void {
-    this.childEl.nativeElement.scrollLeft += 150;
-
-    console.log(this.childEl.nativeElement.scrollLeft);
-  }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
@@ -143,21 +141,5 @@ export class DashboardSynonymsComponent implements AfterViewInit {
     };
     this.intl.previousPageLabel = 'Página anterior';
     this.intl.nextPageLabel = 'Página siguiente';
-  }
-
-  protected deleteItem(): any {
-    this.synonymsFacade
-      .deleteSynonim()
-      .pipe(tap(() => this.alertSynonimDeleted()))
-      .subscribe();
-  }
-
-  protected alertSynonimDeleted() {
-    this.alertService.openFromComponent({
-      duration: 50000,
-      data: {
-        templateHTML: `<p>Hola humano!</p> <div><i>Estamos a punto de invadirte :)</i></div>`,
-      },
-    });
   }
 }

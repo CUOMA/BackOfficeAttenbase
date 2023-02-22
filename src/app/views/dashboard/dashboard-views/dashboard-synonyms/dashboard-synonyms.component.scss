@@ -1,64 +1,45 @@
 .wrapper {
-    .action {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+  .action {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  p {
+    color: #344b64;
+    font-size: 12px;
+  }
+  table {
+    .text-blue {
+      color: #0062a1;
+      font-size: 16px;
     }
-    p {
-        color: #344b64;
-        font-size: 12px;
+  }
+  mat-chip {
+    background-color: white;
+    border: 1px solid #a7abb3;
+    span {
+      color: #73777f;
     }
-    table {
-        .text-blue {
-            color: #0062a1;
-            font-size: 16px;
-        }
-    }
-    mat-chip {
-        background-color: white;
-        border: 1px solid #a7abb3;
-        span {
-            color: #73777f;
-        }
 
-        & button {
-            opacity: 0;
-        }
-        &:hover {
-            color: #73777f;
-            background-color: #dfe3eb;
-            button {
-                opacity: 1;
-            }
-            mat-icon {
-                color: #73777f;
-            }
-        }
+    & button {
+      opacity: 0;
     }
-}
-
-.more-options {
-    position: relative;
-    // .menu {
-    //     display: none;
-    //     position: absolute;
-    //     top: 0;
-    //     right: 0;
-    //     z-index: 2;
-    //     width: 200px;
-    //     height: 200px;
-    //     background-color: wheat;
-    //     cursor: pointer;
-    //     border-radius: 8px;
-    //     &.open {
-    //         display: block;
-    //     }
-    // }
+    &:hover {
+      color: #73777f;
+      background-color: #dfe3eb;
+      button {
+        opacity: 1;
+      }
+      mat-icon {
+        color: #73777f;
+      }
+    }
+  }
 }
 
 ::ng-deep {
-    .mdc-evolution-chip-set__chips {
-        flex-wrap: nowrap !important;
-    }
+  .mdc-evolution-chip-set__chips {
+    flex-wrap: nowrap !important;
+  }
 }

@@ -19,24 +19,7 @@
       <th mat-header-cell *matHeaderCellDef>Sinónimo(s)</th>
       <td mat-cell *matCellDef="let element">
         <div class="action">
-          <mat-icon>chevron_left</mat-icon>
-
-          <!-- Componetizar -->
-          <div #scrollElement style="max-width: 500px; overflow-x: auto; flex-wrap: nowrap">
-            <mat-chip-listbox>
-              <ng-container *ngFor="let item of element.name">
-                <mat-chip>
-                  <span>{{ item }}</span>
-                  <button matChipRemove aria-label="eliminar sinonimo" (click)="deleteItem()">
-                    <mat-icon>cancel</mat-icon>
-                  </button>
-                </mat-chip>
-              </ng-container>
-            </mat-chip-listbox>
-          </div>
-          <!--  -->
-
-          <mat-icon>chevron_right</mat-icon>
+          <bdc-bo-scroll-synonyms [element]="element"></bdc-bo-scroll-synonyms>
         </div>
       </td>
     </ng-container>
@@ -77,4 +60,3 @@
     [hidePageSize]="true">
   </mat-paginator>
 </div>
-<button (click)="avance">Correeeteeee</button>

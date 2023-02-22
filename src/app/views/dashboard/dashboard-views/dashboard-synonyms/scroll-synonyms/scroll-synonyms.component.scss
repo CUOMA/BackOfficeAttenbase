@@ -1,0 +1,10 @@
+.container-scroll {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  .scroll {
+    width: 600px;
+    overflow: hidden;
+    flex-wrap: nowrap;
+  }
+}
