@@ -15,21 +15,10 @@
       font-size: 16px;
     }
   }
-  mat-chip {
-    color: #73777f;
-    background-color: white;
-    border: 1px solid #a7abb3;
-
-    & button {
-      opacity: 0;
-    }
-    &:hover {
-      color: #73777f;
-      background-color: #dfe3eb;
-      button {
-        opacity: 1;
-      }
-    }
-  }
 }
 
+::ng-deep {
+  .mdc-evolution-chip-set__chips {
+    flex-wrap: nowrap !important;
+  }
+}

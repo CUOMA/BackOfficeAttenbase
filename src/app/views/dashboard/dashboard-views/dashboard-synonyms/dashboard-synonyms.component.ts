@@ -1,21 +1,38 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { AlertService } from '../../../../core/services/alert.service';
+import { SynonymsFacade } from './dashboard-synonyms.facade';
 
 @Component({
-  selector: 'bdc-bo-dashboard',
+  selector: 'bdc-bo-dashboard-synonyms',
   templateUrl: './dashboard-synonyms.component.html',
   styleUrls: ['./dashboard-synonyms.component.scss'],
 })
 export class DashboardSynonymsComponent implements AfterViewInit {
-  // propiedades del array que se van a renderizar por columna
   protected displayedColumns: string[] = ['position', 'name', 'seeMore'];
+
   ELEMENT_DATA: any[] = [
     {
       position: 'Problemas de Señal',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
+      name: [
+        'Problemas de señal',
+        'No funciona',
+        'Rooming',
+        'Problemas con el teléfono',
+        'No hay señal',
+      ],
     },
-    { position: '*444', name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'] },
+    {
+      position: '*444',
+      name: [
+        'Problemas de señal',
+        'Problemas con el teléfono',
+        'No hay señal',
+        'Celular',
+        'No funciona',
+      ],
+    },
     { position: '*555', name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'] },
     { position: '*611', name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'] },
     {
@@ -104,19 +121,25 @@ export class DashboardSynonymsComponent implements AfterViewInit {
   protected pageIndex: number = 0;
   protected length: number = this.ELEMENT_DATA.length;
   protected pageSize: number = 10;
+  protected openMenu: boolean = false;
 
   dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  constructor(private intl: MatPaginatorIntl) {}
+
+  constructor(
+    private intl: MatPaginatorIntl,
+    private alertService: AlertService,
+    private synonymsFacade: SynonymsFacade
+  ) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.paginator._intl.itemsPerPageLabel = 'Items por pagina';
     this.intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
       const numberPages = Math.ceil(length / pageSize);
       const startIndex = page;
       return `Página ${startIndex + 1} de ${numberPages}`;
     };
+    this.intl.previousPageLabel = 'Página anterior';
+    this.intl.nextPageLabel = 'Página siguiente';
   }
 }

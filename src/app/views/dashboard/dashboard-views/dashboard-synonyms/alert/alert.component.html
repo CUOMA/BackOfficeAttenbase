@@ -1,0 +1,9 @@
+<span matSnackBarLabel [innerHTML]="data.templateHTML"></span>
+<span matSnackBarActions>
+  <button mat-button matSnackBarAction (click)="handleManualCloseAlert()">
+    <div class="action">
+      <span>DESHACER</span>
+      <mat-icon>close</mat-icon>
+    </div>
+  </button>
+</span>

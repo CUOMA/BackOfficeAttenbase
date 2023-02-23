@@ -21,5 +21,10 @@
     padding-right: 168px;
     grid-area: main;
     overflow: auto;
+
+    @media (min-width:1020px) {
+      padding-right: 168px;
+      
+    }
   }
 }
