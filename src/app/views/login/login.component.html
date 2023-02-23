@@ -15,7 +15,7 @@
           Ingresá un correo electrónico válido. Ej.: attenbase@attenbase.com
         </mat-error>
         <mat-error *ngIf="form.controls['username'].errors?.['email']">
-          Ingresá un correo electrónico válido. Ej.: attenbase@attenbase.com
+          El correo no coincide con una cuenta de Attenbase.
         </mat-error>
         <mat-hint>Ej.: attenbase@attenbase.com</mat-hint>
       </mat-form-field>
@@ -51,11 +51,11 @@
         </mat-error>
         <mat-error
           *ngIf="form.controls['password'].errors?.['pattern'] && form.controls['password'].dirty">
-          Mínimo 8 caracteres. Al menos una letra en mayúscula un caracter especial y un número.
+          Mínimo 8 caracteres, una letra en mayúscula, un número y un caracter especial (ej.:#$%!)
         </mat-error>
-        <mat-hint
-          >Mínimo 8 caracteres. Al menos una letra en mayúscula un caracter especial y un
-          número.</mat-hint
+        <mat-hint>
+          Mínimo 8 caracteres, una letra en mayúscula, un número y un caracter especial
+          (ej.:#$%!)</mat-hint
         >
       </mat-form-field>
       <mat-checkbox formControlName="rememberEmail" color="primary"
