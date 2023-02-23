@@ -1,7 +1,15 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+  HostListener,
+} from '@angular/core';
+import { debounceTime, tap, distinctUntilChanged } from 'rxjs/operators';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { SynonymsFacade } from '../dashboard-synonyms.facade';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'bdc-bo-scroll-synonyms',
@@ -9,24 +17,30 @@ import { SynonymsFacade } from '../dashboard-synonyms.facade';
   styleUrls: ['./scroll-synonyms.component.scss'],
 })
 export class ScrollSynonymsComponent implements AfterViewInit {
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.resize$.next(null);
+  }
   @ViewChild('scrollElement') private childEl!: ElementRef;
   @Input() public element!: any;
   protected buttonRightDisable!: boolean;
   protected buttonLeftDisable!: boolean;
+  private resize$ = new BehaviorSubject(null);
+  item = 'hola';
+
   constructor(private alertService: AlertService, private synonymsFacade: SynonymsFacade) {}
+
   ngAfterViewInit(): void {
-    this.buttonRightDisable = this.childEl.nativeElement.scrollWidth > 600 ?? false;
-    this.buttonLeftDisable = this.childEl.nativeElement.scrollLeft === 0 ?? true;
-  }
-  protected scrollToLeft(): void {
-    this.childEl.nativeElement.scrollLeft -= 150;
-    this.buttonRightDisable = this.childEl.nativeElement.scrollWidth > 600 ?? false;
-    this.buttonLeftDisable = this.childEl.nativeElement.scrollLeft === 0 ?? true;
+    this.resize$.pipe(debounceTime(100)).subscribe({ next: () => this.calculateButtonsStatus() });
   }
 
-  protected scrollToRight(): void {
-    this.childEl.nativeElement.scrollLeft += 150;
-    this.buttonLeftDisable = this.childEl.nativeElement.scrollLeft === 0 ?? true;
+  protected handleScroll(scrollType: 'right' | 'left' = 'left'): void {
+    const rightScroll = 150;
+    const leftScroll = -150;
+    const scroll = scrollType === 'right' ? rightScroll : leftScroll;
+
+    this.childEl.nativeElement.scrollLeft += scroll;
+    this.calculateButtonsStatus();
   }
 
   protected deleteItem(): any {
@@ -40,8 +54,17 @@ export class ScrollSynonymsComponent implements AfterViewInit {
     this.alertService.openFromComponent({
       duration: 5000,
       data: {
-        templateHTML: `<p>Hola humano!</p> <div><i>Estamos a punto de invadirte :)</i></div>`,
+        templateHTML: `Eliminaste Item`,
       },
     });
+  }
+  private calculateButtonsStatus(): void {
+    this.buttonLeftDisable = !this.childEl.nativeElement.scrollLeft;
+
+    this.buttonRightDisable = !(
+      this.childEl.nativeElement.scrollWidth -
+      this.childEl.nativeElement.clientWidth -
+      this.childEl.nativeElement.scrollLeft
+    );
   }
 }

@@ -15,27 +15,6 @@
       font-size: 16px;
     }
   }
-  mat-chip {
-    background-color: white;
-    border: 1px solid #a7abb3;
-    span {
-      color: #73777f;
-    }
-
-    & button {
-      opacity: 0;
-    }
-    &:hover {
-      color: #73777f;
-      background-color: #dfe3eb;
-      button {
-        opacity: 1;
-      }
-      mat-icon {
-        color: #73777f;
-      }
-    }
-  }
 }
 
 ::ng-deep {

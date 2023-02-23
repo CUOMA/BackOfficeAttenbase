@@ -8,10 +8,13 @@
 
 :host {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 14px;
     .action {
         display: flex;
         align-items: center;
+       
         .mat-icon {
             font-size: 14px;
             padding-top: 10px;

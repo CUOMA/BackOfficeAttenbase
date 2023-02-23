@@ -17,8 +17,13 @@
 
   main {
     margin-left: 74px;
-    padding-right: 168px;
+    padding-right: 70px;
     grid-area: main;
     overflow: auto;
+
+    @media (min-width:1020px) {
+      padding-right: 168px;
+      
+    }
   }
 }
