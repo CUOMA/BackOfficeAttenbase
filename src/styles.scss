@@ -1,5 +1,5 @@
-@use '@angular/material' as mat;
-@import './assets/sass/main.scss';
+@use "@angular/material" as mat;
+@import "./assets/sass/main.scss";
 @include mat.core();
 
 $md-paletteprimary: (

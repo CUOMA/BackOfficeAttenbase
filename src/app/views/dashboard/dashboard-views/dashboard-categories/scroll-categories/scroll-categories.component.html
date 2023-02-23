@@ -1,0 +1,22 @@
+<div class="wrapper">
+  <button [disabled]="buttonLeftDisable" mat-icon-button (click)="handleScroll('left')">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  <div class="">
+    <div #scrollElement class="container-scroll">
+      <mat-chip-listbox>
+        <ng-container *ngFor="let item of element.name">
+          <mat-chip>
+            <span>{{ item }}</span>
+            <button matChipRemove aria-label="eliminar sinonimo" (click)="deleteItem()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-chip>
+        </ng-container>
+      </mat-chip-listbox>
+    </div>
+  </div>
+  <button [disabled]="buttonRightDisable" mat-icon-button (click)="handleScroll('right')">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</div>
