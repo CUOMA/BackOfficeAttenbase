@@ -1,0 +1,12 @@
+table {
+    td {
+        color: #999999;
+        mat-icon {
+            color: #344b64;
+        }
+        &.text-blue {
+            color: #0062a1;
+            font-size: 16px;
+        }
+    }
+}

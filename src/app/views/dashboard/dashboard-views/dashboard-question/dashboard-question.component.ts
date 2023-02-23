@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { QuestionFacade } from './dashboard-question.facade';
 
 @Component({
   selector: 'bdc-bo-dashboard-question',
@@ -6,118 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard-question.component.scss'],
 })
 export class DashboardQuestionComponent {
+  constructor(public questionFacade: QuestionFacade) {}
   protected tabs = [
-    { label: 'Pendientes', value: 'Pendiente' },
     { label: 'Publicadas', value: 'aprobada' },
     { label: 'Archivadas', value: 'archivada' },
     { label: 'Borradores', value: 'borrador' },
   ];
-  protected selectedTab = this.tabs[2];
-  protected questions = ELEMENT_DATA.filter(obj => obj.state === this.selectedTab.value);
+  protected selectedTab = this.tabs[0];
+  protected questions = this.questionFacade.getQuestions(this.selectedTab.value);
 
-  selectTab(tab: { label: string; value: string }) {
+  protected selectTab(tab: { label: string; value: string }) {
     this.selectedTab = tab;
-    this.questions = ELEMENT_DATA.filter(obj => obj.state === tab.value);
+    this.questions = this.questionFacade.getQuestions(tab.value);
   }
 }
-
-const ELEMENT_DATA = [
-  {
-    question: '¿Como hago para reestablecer la cuenta luego del corte?',
-    category: 'Pagos',
-    subcategory: 'linea movil',
-    lastupdate: '10 dec 2022, 10:00h',
-    state: 'borrador',
-  },
-  {
-    question: '¿Como hago para reestablecer la cuenta luego del corte?',
-    category: 'Pagos',
-    subcategory: 'linea movil',
-    lastupdate: '10 dec 2022, 10:00h',
-    state: 'archivada',
-  },
-  {
-    question: '¿Como hago para reestablecer la cuenta luego del corte?',
-    category: 'Pagos',
-    subcategory: 'linea movil',
-    lastupdate: '10 dec 2022, 10:00h',
-    state: 'Pendiente',
-  },
-  {
-    question: '¿Como hago para reestablecer la cuenta luego del corte?',
-    category: 'Pagos',
-    subcategory: 'linea movil',
-    lastupdate: '10 dec 2022, 10:00h',
-    state: 'aprobada',
-  },
-  {
-    question: '¿Como hago para reestablecer la cuenta luego del corte?',
-    category: 'Pagos',
-    subcategory: 'linea movil',
-    lastupdate: '10 dec 2022, 10:00h',
-    state: 'aprobada',
-  },
-  {
-    question: '¿Como hago para reestablecer la cuenta luego del corte?',
-    category: 'Pagos',
-    subcategory: 'linea movil',
-    lastupdate: '10 dec 2022, 10:00h',
-    state: 'aprobada',
-  },
-  {
-    question: '¿Como hago para reestablecer la cuenta luego del corte?',
-    category: 'Pagos',
-    subcategory: 'linea movil',
-    lastupdate: '10 dec 2022, 10:00h',
-    state: 'aprobada',
-  },
-  {
-    question: '¿Como hago para reestablecer la cuenta luego del corte?',
-    category: 'Pagos',
-    subcategory: 'linea movil',
-    lastupdate: '10 dec 2022, 10:00h',
-    state: 'aprobada',
-  },
-  {
-    question: '¿Como hago para reestablecer la cuenta luego del corte?',
-    category: 'Pagos',
-    subcategory: 'linea movil',
-    lastupdate: '10 dec 2022, 10:00h',
-    state: 'aprobada',
-  },
-  {
-    question: '¿Como hago para reestablecer la cuenta luego del corte?',
-    category: 'Pagos',
-    subcategory: 'linea movil',
-    lastupdate: '10 dec 2022, 10:00h',
-    state: 'aprobada',
-  },
-  {
-    question: '¿Como hago para reestablecer la cuenta luego del corte?',
-    category: 'Pagos',
-    subcategory: 'linea movil',
-    lastupdate: '10 dec 2022, 10:00h',
-    state: 'borrador',
-  },
-  {
-    question: '¿Como hago para reestablecer la cuenta luego del corte?',
-    category: 'Pagos',
-    subcategory: 'linea movil',
-    lastupdate: '10 dec 2022, 10:00h',
-    state: 'Pendiente',
-  },
-  {
-    question: '¿Como hago para reestablecer la cuenta luego del corte?',
-    category: 'Pagos',
-    subcategory: 'linea movil',
-    lastupdate: '10 dec 2022, 10:00h',
-    state: 'borrador',
-  },
-  {
-    question: '¿Como hago para reestablecer la cuenta luego del corte?',
-    category: 'Pagos',
-    subcategory: 'linea movil',
-    lastupdate: '10 dec 2022, 10:00h',
-    state: 'Pendiente',
-  },
-];

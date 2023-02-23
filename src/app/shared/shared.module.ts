@@ -8,6 +8,6 @@ import { ChipsComponent } from './chips/chips.component';
 @NgModule({
   declarations: [ButtonComponent, ChipsComponent],
   imports: [CommonModule, QuicklinkModule],
-  exports: [QuicklinkModule, MaterialModule],
+  exports: [QuicklinkModule, MaterialModule, ButtonComponent],
 })
 export class SharedModule {}

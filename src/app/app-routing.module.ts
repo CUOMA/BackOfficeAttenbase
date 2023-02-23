@@ -17,6 +17,10 @@ const routes: Routes = [
     canActivate: [DashboardGuard],
   },
   {
+    path: 'debug',
+    loadChildren: () => import('./views/debug/debug.module').then(m => m.DebugModule),
+  },
+  {
     path: '**',
     redirectTo: 'login',
   },

@@ -1,0 +1,19 @@
+.container {
+    padding: 60px;
+    h1 {
+        font-size: 24px;
+        color: rgb(75, 74, 74);
+        font-weight: 600;
+    }
+    h2 {
+        font-size: 18px;
+        color: rgb(75, 74, 74);
+        font-weight: 500;
+    }
+    .container-buttons {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        
+    }
+}

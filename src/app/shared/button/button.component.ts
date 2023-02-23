@@ -9,6 +9,7 @@ export class ButtonComponent implements OnChanges {
   @Input() public label!: string;
   @Input() public disabled!: boolean;
 
+  public ward1 = '#c4000044';
   constructor() {}
 
   public ngOnChanges(changes: SimpleChanges): void {

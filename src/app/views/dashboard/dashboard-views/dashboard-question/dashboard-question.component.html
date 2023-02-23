@@ -1,12 +1,27 @@
-<nav mat-tab-nav-bar [tabPanel]="tabPanel">
-  <a
-    mat-tab-link
-    *ngFor="let tab of tabs"
-    (click)="selectTab(tab)"
-    [active]="selectedTab.label === tab.label">
-    {{ tab.label }}
-  </a>
-</nav>
-<mat-tab-nav-panel #tabPanel>
-  <bdc-bo-tabla [questions]="questions"></bdc-bo-tabla>
-</mat-tab-nav-panel>
+<div class="wrapper">
+  <div class="question-action">
+    <h1>Preguntas</h1>
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+      <a
+        mat-tab-link
+        *ngFor="let tab of tabs"
+        (click)="selectTab(tab)"
+        [active]="selectedTab.label === tab.label">
+        {{ tab.label }}
+      </a>
+    </nav>
+    <div>
+      <button mat-stroked-button color="primary" class="mr-10">
+        <mat-icon svgIcon="filter"></mat-icon>
+        Filtros
+      </button>
+      <button mat-flat-button color="primary">
+        <mat-icon>add</mat-icon>
+        Crear nueva pregunta
+      </button>
+    </div>
+  </div>
+  <mat-tab-nav-panel #tabPanel>
+    <bdc-bo-tabla-question [questions]="questions"></bdc-bo-tabla-question>
+  </mat-tab-nav-panel>
+</div>
