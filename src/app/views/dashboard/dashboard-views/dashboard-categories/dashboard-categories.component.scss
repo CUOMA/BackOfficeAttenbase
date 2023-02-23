@@ -1,4 +1,24 @@
-.d-flex {
-  align-items: center;
-  justify-content: space-between;
+.wrapper {
+  .action {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  p {
+    color: #344b64;
+    font-size: 12px;
+  }
+  table {
+    .text-blue {
+      color: #0062a1;
+      font-size: 16px;
+    }
+  }
+}
+
+::ng-deep {
+  .mdc-evolution-chip-set__chips {
+    flex-wrap: nowrap !important;
+  }
 }
