@@ -1,155 +1,27 @@
-<div>
-  <h1>Listado de preguntas</h1>
-
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
+<div class="wrapper">
+  <div class="question-action">
+    <h1>Preguntas</h1>
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+      <a
+        mat-tab-link
+        *ngFor="let tab of tabs"
+        (click)="selectTab(tab)"
+        [active]="selectedTab.label === tab.label">
+        {{ tab.label }}
+      </a>
+    </nav>
+    <div>
+      <button mat-stroked-button color="primary" class="mr-10">
+        <mat-icon svgIcon="filter"></mat-icon>
+        Filtros
+      </button>
+      <button mat-flat-button color="primary">
+        <mat-icon>add</mat-icon>
+        Crear nueva pregunta
+      </button>
+    </div>
+  </div>
+  <mat-tab-nav-panel #tabPanel>
+    <bdc-bo-tabla-question [questions]="questions"></bdc-bo-tabla-question>
+  </mat-tab-nav-panel>
 </div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<router-outlet></router-outlet>

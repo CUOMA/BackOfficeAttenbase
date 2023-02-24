@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../../../shared/shared.module';
-import { DashboardQuestionComponent } from './dashboard-question.component';
 import { DashboardQuestionRoutingModule } from './dashboard-question-routing.module';
+import { DashboardQuestionComponent } from './dashboard-question.component';
+import { QuestionFacade } from './dashboard-question.facade';
+import { TableQuestionComponent } from './table/table-question.component';
 
 @NgModule({
-  providers: [DashboardQuestionComponent],
-  declarations: [DashboardQuestionComponent],
+  providers: [QuestionFacade],
+  declarations: [DashboardQuestionComponent, TableQuestionComponent],
   imports: [CommonModule, SharedModule, DashboardQuestionRoutingModule],
 })
 export class DashboardQuestionModule {}

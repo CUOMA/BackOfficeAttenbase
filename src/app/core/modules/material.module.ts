@@ -7,7 +7,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { CustomMatIconsRegistratorModule } from './icons/custom-mat-icons-registrator.module';
@@ -27,5 +27,19 @@ import { CustomMatIconsRegistratorModule } from './icons/custom-mat-icons-regist
     MatSnackBarModule,
     MatMenuModule,
   ],
+  providers: [{ provide: MatPaginatorIntl, useValue: CustomPaginator() }],
 })
 export class MaterialModule {}
+
+function CustomPaginator() {
+  const customPaginatorIntl = new MatPaginatorIntl();
+
+  customPaginatorIntl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+    const numberPages = Math.ceil(length / pageSize);
+    const startIndex = page;
+    return `Página ${startIndex + 1} de ${length ? numberPages : 1}`;
+  };
+  customPaginatorIntl.itemsPerPageLabel = 'Items por pagina';
+
+  return customPaginatorIntl;
+}

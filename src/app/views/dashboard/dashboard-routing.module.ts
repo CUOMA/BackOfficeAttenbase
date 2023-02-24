@@ -64,7 +64,7 @@ const routes: Routes = [
       },
       {
         path: '**',
-        redirectTo: 'crear-pregunta',
+        redirectTo: 'listado-de-preguntas',
       },
     ],
   },

@@ -1,0 +1,46 @@
+.status {
+    font-family: "Roboto";
+    font-size: 12px;
+    text-transform: capitalize;
+    padding-top: 6px;
+    font-weight: 500;
+    border: none;
+    min-width: 94px;
+    width: auto;
+    text-align: center;
+    height: 22px;
+    border-radius: 8px;
+    outline: none;
+    &.published {
+        color: #1f7a41;
+        background-color: #d9f3dc;
+    }
+    &.approved {
+        color: #1f7a41;
+        background-color: #d9f3dc;
+    }
+    &.scheduled {
+        color: #9a7000;
+        background-color: #ffefd7;
+    }
+    &.review {
+        color: #9a7000;
+        background-color: #ffefd7;
+    }
+    &.expire {
+        color: #ba1a1a;
+        background-color: #ffdad6;
+    }
+    &.rejected {
+        color: #ba1a1a;
+        background-color: #ffdad6;
+    }
+    &.draft {
+        color: #000000;
+        background-color: #dfe3eb;
+    }
+    &.archived {
+        color: #000000;
+        background-color: #dfe3eb;
+    }
+}
