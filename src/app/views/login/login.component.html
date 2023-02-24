@@ -50,13 +50,12 @@
           Ingresá una contraseña
         </mat-error>
         <mat-error
-          *ngIf="form.controls['password'].errors?.['pattern'] && form.controls['password'].dirty">
-          Mínimo 8 caracteres, una letra en mayúscula, un número y un caracter especial (ej.:#$%!)
+          *ngIf="form.controls['password'].errors?.['pattern'] && form.controls['password'].dirty"
+          >Mínimo 8 caracteres, una letra en mayúscula, un número y un caracter especial (ej.:#$%!)
         </mat-error>
-        <mat-hint>
-          Mínimo 8 caracteres, una letra en mayúscula, un número y un caracter especial
-          (ej.:#$%!)</mat-hint
-        >
+        <mat-hint
+          >Mínimo 8 caracteres, una letra en mayúscula, un número y un caracter especial(ej.:#$%!)
+        </mat-hint>
       </mat-form-field>
       <mat-checkbox formControlName="rememberEmail" color="primary"
         >Mantener sesión iniciada</mat-checkbox
