@@ -1,13 +1,14 @@
-button {
+.status {
     font-family: "Roboto";
     font-size: 12px;
     text-transform: capitalize;
-    padding: 6px 0;
+    padding-top: 6px;
     font-weight: 500;
     border: none;
     min-width: 94px;
     width: auto;
-    height: 28px;
+    text-align: center;
+    height: 22px;
     border-radius: 8px;
     outline: none;
     &.published {
