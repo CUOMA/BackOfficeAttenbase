@@ -17,9 +17,6 @@ nav {
         transition: 0.15s ease-out;
         background-color: #8bb4b4ba;
         border-radius: 8px;
-        & p {
-          opacity: 1;
-        }
       }
     }
     p {
@@ -28,9 +25,7 @@ nav {
       opacity: 0;
       margin: 4px 0;
       text-align: center;
-      &:hover {
-        opacity: 1;
-      }
+      transition: all 0.2s;
     }
     &.active {
       .bg-icon {
@@ -41,6 +36,10 @@ nav {
         opacity: 1;
         color: #344b64;
       }
+    }
+    .bg-icon:hover ~ p {
+      opacity: 1;
+      color: #344b64;
     }
   }
 }

@@ -12,7 +12,7 @@ export class CustomMatIconsRegistratorModule {
       sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/eye-txt.svg')
     );
     matIconRegister.addSvgIcon(
-      'eyePsw',
+      'eyePassword',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/eye-psw.svg')
     );
     matIconRegister.addSvgIcon(
