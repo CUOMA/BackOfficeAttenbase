@@ -1,0 +1,19 @@
+.action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.username {
+  text-transform: capitalize;
+  color: #0062a1;
+}
+th {
+  width: max-content;
+  min-width: min-content;
+}
+th button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transform: translateY(5px);
+}
