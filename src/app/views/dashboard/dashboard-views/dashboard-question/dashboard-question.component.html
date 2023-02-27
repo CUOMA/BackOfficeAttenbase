@@ -11,11 +11,17 @@
       </a>
     </nav>
     <div>
-      <button mat-stroked-button color="primary" class="mr-10">
+      <button [matMenuTriggerFor]="menu" mat-stroked-button color="primary" class="mr-10">
         <mat-icon svgIcon="filter"></mat-icon>
         Filtros
       </button>
-      <button mat-flat-button color="primary">
+      <mat-menu #menu="matMenu" xPosition="before">
+        <bdc-bo-menu-filter></bdc-bo-menu-filter>
+      </mat-menu>
+      <button
+        mat-flat-button
+        color="primary"
+        [routerLink]="['/dashboard/listado-de-preguntas/crear-pregunta']">
         <mat-icon>add</mat-icon>
         Crear nueva pregunta
       </button>
@@ -25,3 +31,14 @@
     <bdc-bo-tabla-question [questions]="questions"></bdc-bo-tabla-question>
   </mat-tab-nav-panel>
 </div>
+
+<mat-form-field appearance="outline" color="primary">
+  <mat-label>Enter a date range</mat-label>
+  <mat-date-range-input [rangePicker]="picker">
+    <input matStartDate placeholder="Start date" />
+    <input matEndDate placeholder="End date" />
+  </mat-date-range-input>
+  <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix color="primary" [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>
