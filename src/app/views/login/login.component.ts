@@ -55,7 +55,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.form.get('rememberEmail')!.value
       ? localStorage.setItem('rememberEmail', this.form.get('username')!.value!)
       : localStorage.removeItem('rememberEmail');
-    console.log(formValue);
   }
 
   private getEmailFromStorage(): void {

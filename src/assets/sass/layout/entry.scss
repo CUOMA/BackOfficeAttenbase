@@ -7,10 +7,11 @@
   .form {
     width: 60%;
     max-width: 450px;
+    max-height: 658px;
     display: flex;
     flex-direction: column;
     mat-form-field {
-      margin-bottom: 25px;
+      margin-bottom: 10px;
     }
     mat-checkbox {
       margin-bottom: 30px;
@@ -39,7 +40,7 @@
   }
   img {
     height: 90vh;
-    max-height: 600px;
+    max-height: 658px;
     width: auto;
     min-width: 200px;
     max-width: 552px;

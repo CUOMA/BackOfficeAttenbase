@@ -8,8 +8,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { NumberToSecondsModule } from '../../../shared/pipes/number-to-seconds.module';
+import { RecoverPasswordService } from './recover-password.service';
 
 @NgModule({
+  providers: [RecoverPasswordService],
   declarations: [RecoverPasswordComponent],
   imports: [
     CommonModule,
