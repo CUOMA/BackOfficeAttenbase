@@ -5,23 +5,29 @@ import { authApiActions } from '../actions/authentication.actions';
 export interface AuthenticationState {
   isLoggingIn: boolean;
   isAuthenticated: boolean;
+  error: boolean;
   user?: Authentication;
 }
 
 export const initialState: AuthenticationState = {
   isLoggingIn: false,
   isAuthenticated: false,
+  error: false,
 };
 
 export const authenticationReducer = createReducer(
   initialState,
   on(
     authApiActions.loginRequest,
-    (state): AuthenticationState => ({ ...state, isLoggingIn: true })
+    (state): AuthenticationState => ({ ...state, isLoggingIn: true, error: false })
   ),
   on(
     authApiActions.loginFailure,
-    (state): AuthenticationState => ({ ...state, isLoggingIn: false })
+    (state): AuthenticationState => ({
+      ...state,
+      isLoggingIn: false,
+      error: true,
+    })
   ),
   on(
     authApiActions.loginSuccess,
@@ -30,6 +36,7 @@ export const authenticationReducer = createReducer(
       user,
       isAuthenticated: true,
       isLoggingIn: false,
+      error: false,
     })
   ),
   on(authApiActions.logout, (state): AuthenticationState => initialState)

@@ -19,11 +19,10 @@ import { PasswordResetService } from './password-reset.service';
   styleUrls: ['./password-reset.component.scss', '../../../../assets/sass/layout/entry.scss'],
 })
 export class PasswordResetComponent implements OnInit {
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-
-  public form!: FormGroup;
-  public hide: boolean = true;
-  public color!: 'primary';
+  protected emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  protected form!: FormGroup;
+  protected hide: boolean = true;
+  protected color!: 'primary';
   protected changePassword: boolean = false;
 
   constructor(
