@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { QuestionService } from '../../../../core/services/question.service';
 
 @Injectable()
 export class QuestionFacade {
@@ -103,7 +104,7 @@ export class QuestionFacade {
     },
   ];
   public questionFilter!: any;
-  constructor() {}
+  constructor(private questionService: QuestionService) {}
 
   public getQuestions(selectedTab: string) {
     return (this.questionFilter = this.ELEMENT_DATA.filter(obj => obj.state === selectedTab));
