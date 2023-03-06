@@ -1,6 +1,4 @@
 import { Action, ActionReducer, INIT, MetaReducer } from '@ngrx/store';
-import { AttenbaseStore } from '../core/models/attenbase-store';
-import { authApiActions } from './actions/authentication.actions';
 
 export const rehydratation =
   (reducer: ActionReducer<any>): ActionReducer<any> =>

@@ -6,8 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgLetModule } from 'ng-let';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { InterceptorsModule } from './core/modules/interceptors.module';
 import { NGRXModule } from './core/modules/ngrx.module';
-import { DebugComponent } from './views/debug/debug.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +18,7 @@ import { DebugComponent } from './views/debug/debug.component';
     NGRXModule,
     NgLetModule,
     BrowserAnimationsModule,
+    InterceptorsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

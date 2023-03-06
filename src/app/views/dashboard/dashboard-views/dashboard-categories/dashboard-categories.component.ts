@@ -1,17 +1,18 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlertService } from '../../../../core/services/alert.service';
 import { CategoriesFacade } from './dashboard-categories.facade';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'bdc-bo-dashboard-categories',
   templateUrl: './dashboard-categories.component.html',
   styleUrls: ['./dashboard-categories.component.scss'],
 })
-export class DashboardCategoriesComponent implements AfterViewInit {
+export class DashboardCategoriesComponent implements AfterViewInit, OnInit {
   protected displayedColumns: string[] = ['position', 'name', 'seeMore'];
-
   ELEMENT_DATA: any[] = [
     {
       position: 'Problemas de Señal',
@@ -122,7 +123,8 @@ export class DashboardCategoriesComponent implements AfterViewInit {
   protected length: number = this.ELEMENT_DATA.length;
   protected pageSize: number = 10;
   protected openMenu: boolean = false;
-
+  protected areCategoriesLoading$!: Observable<any>;
+  private destroy$ = new Subject<void>();
   dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -132,6 +134,15 @@ export class DashboardCategoriesComponent implements AfterViewInit {
     private categoriesFacade: CategoriesFacade
   ) {}
 
+  ngOnInit(): void {
+    this.areCategoriesLoading$ = this.categoriesFacade.areCategoriesLoading.pipe(
+      tap(console.log),
+      takeUntil(this.destroy$)
+    );
+    this.areCategoriesLoading$.subscribe();
+
+    this.categoriesFacade.getCategories();
+  }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
