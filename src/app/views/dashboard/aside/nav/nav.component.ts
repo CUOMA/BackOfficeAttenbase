@@ -9,7 +9,7 @@ import { Pages } from 'src/app/core/models/pages';
 export class NavComponent implements OnInit {
   @Input() isOpen!: boolean;
   ngOnInit(): void {
-    console.log(this.isOpen);
+    console.log('');
   }
   public pages: Pages[] = [
     { label: 'Preguntas', relativePath: 'listado-de-preguntas', icon: 'list-question', data: 356 },

@@ -11,6 +11,7 @@ import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginato
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { CustomMatIconsRegistratorModule } from './icons/custom-mat-icons-registrator.module';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   exports: [
@@ -20,6 +21,7 @@ import { CustomMatIconsRegistratorModule } from './icons/custom-mat-icons-regist
     MatInputModule,
     MatCheckboxModule,
     MatTableModule,
+    MatSortModule,
     MatPaginatorModule,
     MatChipsModule,
     MatTabsModule,

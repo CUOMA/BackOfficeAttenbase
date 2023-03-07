@@ -11,9 +11,41 @@ th {
   width: max-content;
   min-width: min-content;
 }
+td div {
+  max-width: 200px;
+  display: flex;
+  width: max-content;
+  overflow-x: scroll;
+}
+td div::-webkit-scrollbar {
+  display: none;
+}
 th button {
   border: none;
   background-color: transparent;
   cursor: pointer;
   transform: translateY(5px);
+}
+
+mat-chip {
+  background-color: white !important;
+  border: 1px solid #a7abb3;
+  margin-right: 5px;
+  span {
+    color: #73777f;
+  }
+
+  & button {
+    opacity: 0;
+  }
+  &:hover {
+    color: #73777f;
+    background-color: #dfe3eb;
+    button {
+      opacity: 1;
+    }
+    mat-icon {
+      color: #73777f;
+    }
+  }
 }

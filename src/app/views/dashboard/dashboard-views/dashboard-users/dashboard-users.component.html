@@ -6,63 +6,69 @@
         <mat-icon svgIcon="filter"></mat-icon>
         Filtros
       </button>
-      <button mat-flat-button color="primary">
+      <button mat-flat-button color="primary" [routerLink]="['/dashboard/usuarios/crear-usuario']">
         <mat-icon>add</mat-icon>
         Crear nuevo
       </button>
     </div>
   </div>
-  <table mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="username">
-      <th width="30%" mat-header-cell *matHeaderCellDef>
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="userName">
+      <th width="30%" mat-header-cell *matHeaderCellDef mat-sort-header>
         <span>Nombre y apellido</span>
-        <button>
+        <!-- <button>
           <mat-icon>unfold_more</mat-icon>
-        </button>
+        </button> -->
       </th>
       <td class="username" mat-cell *matCellDef="let element" class="username">
         {{ element.userName }}
       </td>
     </ng-container>
-    <ng-container matColumnDef="useremail">
-      <th mat-header-cell *matHeaderCellDef>
-        Email
-        <button>
-          <mat-icon>unfold_more</mat-icon>
-        </button>
-      </th>
+    <ng-container matColumnDef="userEmail">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
       <td mat-cell *matCellDef="let element">
         {{ element.userEmail }}
       </td>
     </ng-container>
-    <ng-container matColumnDef="lastlogin">
-      <th mat-header-cell *matHeaderCellDef>
+    <ng-container matColumnDef="lastLogin">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
         Último login
-        <button>
+        <!-- <button>
           <mat-icon>unfold_more</mat-icon>
-        </button>
+        </button> -->
       </th>
       <td mat-cell *matCellDef="let element">
         {{ element.lastLogin }}
       </td>
     </ng-container>
-    <ng-container matColumnDef="userclients">
-      <th mat-header-cell *matHeaderCellDef>
+    <ng-container matColumnDef="userClients">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
         Clientes habilitados
-        <button>
+        <!-- <button>
           <mat-icon>unfold_more</mat-icon>
-        </button>
+        </button> -->
       </th>
       <td mat-cell *matCellDef="let element">
-        {{ element.userClients }}
+        <!-- <bdc-bo-allowed-clients [element]="element"></bdc-bo-allowed-clients> -->
+        <!-- {{ element.userClients }} -->
+        <div>
+          <ng-container *ngFor="let item of element.userClients">
+            <mat-chip>
+              <span>{{ item }}</span>
+              <button matChipRemove aria-label="eliminar sinonimo" (click)="deleteItem()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-chip>
+          </ng-container>
+        </div>
       </td>
     </ng-container>
-    <ng-container matColumnDef="userrol">
-      <th mat-header-cell *matHeaderCellDef>
+    <ng-container matColumnDef="userRol">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
         Rol
-        <button>
+        <!-- <button>
           <mat-icon>unfold_more</mat-icon>
-        </button>
+        </button> -->
       </th>
       <td mat-cell *matCellDef="let element">
         {{ element.userRol }}

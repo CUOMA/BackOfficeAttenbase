@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -9,65 +10,52 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class DashboardUsersComponent implements AfterViewInit {
   protected displayedColumns: string[] = [
-    'username',
-    'useremail',
-    'lastlogin',
-    'userclients',
-    'userrol',
+    'userName',
+    'userEmail',
+    'lastLogin',
+    'userClients',
+    'userRol',
     'seeMore',
   ];
 
-  ELEMENT_DATA: any[] = [
-    {
-      userName: 'santiago martinez',
-      userEmail: 'smartinez@gmail.com',
-      lastLogin: '12 dec 2022, 10:00am',
-      userClients: 'movistar',
-      userRol: 'administrador',
-    },
-    {
-      userName: 'adrian ojeda',
-      userEmail: 'aojeda@gmail.com',
-      lastLogin: '12 dec 2022, 10:00am',
-      userClients: 'movistar',
-      userRol: 'administrador',
-    },
-    {
-      userName: 'florencia sosa',
-      userEmail: 'florsosa@gmail.com',
-      lastLogin: '12 dec 2022, 10:00am',
-      userClients: 'movistar',
-      userRol: 'administrador',
-    },
-    {
-      userName: 'natalia morello',
-      userEmail: 'natumorello@gmail.com',
-      lastLogin: '12 dec 2022, 10:00am',
-      userClients: 'movistar',
-      userRol: 'administrador',
-    },
-    {
-      userName: 'federico gimenez',
-      userEmail: 'federicgimenez@gmail.com',
-      lastLogin: '12 dec 2022, 10:00am',
-      userClients: 'movistar',
-      userRol: 'administrador',
-    },
-    {
-      userName: 'gustavo gilevensxchi',
-      userEmail: 'gusti@gmail.com',
-      lastLogin: '12 dec 2022, 10:00am',
-      userClients: 'movistar',
-      userRol: 'administrador',
-    },
-    {
-      userName: 'ricardo azcurra',
-      userEmail: 'ricky12@gmail.com',
-      lastLogin: '12 dec 2022, 10:00am',
-      userClients: 'movistar',
-      userRol: 'administrador',
-    },
+  ELEMENT_DATA: Registro[] = [
+    new Registro(
+      'santiago',
+      'santiago@cuoma',
+      '2022/03/01, 10:00am',
+      ['movistar', 'personal'],
+      'administrador'
+    ),
+    new Registro(
+      'fede',
+      'federicgimenez@gmail.com',
+      '2022/12/06, 10:00am',
+      ['movistar', 'personal'],
+      'administrador'
+    ),
+    new Registro(
+      'gustavo gilevensxchi',
+      'gusti@gmail.com',
+      '2022/08/09, 10:00am',
+      ['movistar', 'claro'],
+      'administrador'
+    ),
+    new Registro(
+      'flor sosa',
+      'florsosa@gmail.com',
+      '2022/11/03, 10:00am',
+      ['movistar', 'twenty'],
+      'administrador'
+    ),
+    new Registro(
+      'natu morello',
+      'natumo@gmail.com',
+      '2022/06/05, 10:00am',
+      ['movistar', 'mercadolibre', 'centralpark'],
+      'administrador'
+    ),
   ];
+
   protected showFirstLastButtons: boolean = true;
   protected disabled: boolean = false;
   protected pageIndex: number = 0;
@@ -75,12 +63,14 @@ export class DashboardUsersComponent implements AfterViewInit {
   protected pageSize: number = 10;
   protected openMenu: boolean = false;
 
-  dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+  dataSource = new MatTableDataSource<Registro>(this.ELEMENT_DATA);
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private intl: MatPaginatorIntl) {}
 
   ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
       const numberPages = Math.ceil(length / pageSize);
@@ -89,5 +79,18 @@ export class DashboardUsersComponent implements AfterViewInit {
     };
     this.intl.previousPageLabel = 'Página anterior';
     this.intl.nextPageLabel = 'Página siguiente';
+    console.log(this.sort);
   }
+  protected deleteItem() {
+    alert('se dehabilitara un cliente');
+  }
+}
+export class Registro {
+  constructor(
+    public userName: string,
+    public userEmail: string,
+    public lastLogin: string,
+    public userClients: any,
+    public userRol: string
+  ) {}
 }
