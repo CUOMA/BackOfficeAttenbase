@@ -13,6 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CustomMatIconsRegistratorModule } from './icons/custom-mat-icons-registrator.module';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   exports: [
@@ -30,6 +31,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatMenuModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSelectModule,
   ],
   providers: [{ provide: MatPaginatorIntl, useValue: CustomPaginator() }],
 })

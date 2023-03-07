@@ -7,6 +7,7 @@ import { QuestionFacade } from './dashboard-question.facade';
   styleUrls: ['./dashboard-question.component.scss'],
 })
 export class DashboardQuestionComponent {
+  protected isOpen: boolean = false;
   constructor(public questionFacade: QuestionFacade) {}
   protected tabs = [
     { label: 'Publicadas', value: 'aprobada' },
@@ -19,5 +20,8 @@ export class DashboardQuestionComponent {
   protected selectTab(tab: { label: string; value: string }) {
     this.selectedTab = tab;
     this.questions = this.questionFacade.getQuestions(tab.value);
+  }
+  protected openMenu() {
+    this.isOpen = !this.isOpen;
   }
 }
