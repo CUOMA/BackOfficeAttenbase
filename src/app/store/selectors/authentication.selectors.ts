@@ -12,3 +12,8 @@ export const selectIsLogginIn = createSelector(
   selectFeature,
   (state: AuthenticationState) => state.isLoggingIn
 );
+
+export const selectIsLogginError = createSelector(
+  selectFeature,
+  (state: AuthenticationState) => state.error
+);

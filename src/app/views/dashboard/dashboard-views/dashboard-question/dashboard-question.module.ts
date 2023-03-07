@@ -5,10 +5,11 @@ import { DashboardQuestionRoutingModule } from './dashboard-question-routing.mod
 import { DashboardQuestionComponent } from './dashboard-question.component';
 import { QuestionFacade } from './dashboard-question.facade';
 import { TableQuestionComponent } from './table/table-question.component';
+import { MenuFilterComponent } from './menu-filter/menu-filter.component';
 
 @NgModule({
   providers: [QuestionFacade],
-  declarations: [DashboardQuestionComponent, TableQuestionComponent],
+  declarations: [DashboardQuestionComponent, TableQuestionComponent, MenuFilterComponent],
   imports: [CommonModule, SharedModule, DashboardQuestionRoutingModule],
 })
 export class DashboardQuestionModule {}

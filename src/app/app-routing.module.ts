@@ -12,6 +12,11 @@ const routes: Routes = [
     canActivate: [LoginGuard],
   },
   {
+    path: 'reset-password',
+    loadChildren: () =>
+      import('./views/login/password-reset/password-reset.module').then(m => m.PasswordResetModule),
+  },
+  {
     path: 'dashboard',
     loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule),
     canActivate: [DashboardGuard],

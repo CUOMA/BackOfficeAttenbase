@@ -14,7 +14,7 @@
         <mat-error *ngIf="form.controls['username'].errors?.['required']">
           Ingresá un correo electrónico válido. Ej.: attenbase@attenbase.com
         </mat-error>
-        <mat-error *ngIf="form.controls['username'].errors?.['email']">
+        <mat-error *ngIf="form.controls['username'].errors?.nonExistantEmail">
           El correo no coincide con una cuenta de Attenbase.
         </mat-error>
         <mat-hint>Ej.: attenbase@attenbase.com</mat-hint>
@@ -49,6 +49,9 @@
           *ngIf="form.controls['password'].errors?.['required'] && form.controls['password'].touched">
           Ingresá una contraseña
         </mat-error>
+        <mat-error *ngIf="form.controls['password'].errors?.nonExistantEmail">
+          Mínimo 8 caracteres, una letra en mayúscula, un número y un caracter especial (ej.:#$%!)
+        </mat-error>
         <mat-error
           *ngIf="form.controls['password'].errors?.['pattern'] && form.controls['password'].dirty"
           >Mínimo 8 caracteres, una letra en mayúscula, un número y un caracter especial (ej.:#$%!)
@@ -68,7 +71,7 @@
         (click)="handleSubmitLogin()">
         Iniciar sesión
       </button>
-      <button mat-button [routerLink]="'olvide-mi-contraseña'" color="primary">
+      <button mat-button color="primary" [routerLink]="'olvide-mi-contraseña'">
         Recuperar contraseña
       </button>
     </form>

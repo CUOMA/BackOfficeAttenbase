@@ -11,11 +11,17 @@
       </a>
     </nav>
     <div>
-      <button mat-stroked-button color="primary" class="mr-10">
+      <button [matMenuTriggerFor]="menu" mat-stroked-button color="primary" class="mr-10">
         <mat-icon svgIcon="filter"></mat-icon>
         Filtros
       </button>
-      <button mat-flat-button color="primary">
+      <mat-menu #menu="matMenu" xPosition="before">
+        <bdc-bo-menu-filter></bdc-bo-menu-filter>
+      </mat-menu>
+      <button
+        mat-flat-button
+        color="primary"
+        [routerLink]="['/dashboard/listado-de-preguntas/crear-pregunta']">
         <mat-icon>add</mat-icon>
         Crear nueva pregunta
       </button>

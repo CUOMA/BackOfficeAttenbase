@@ -1,17 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormGroupDirective,
-  NgForm,
-  Validators,
-} from '@angular/forms';
-
-import { Router } from '@angular/router';
-
-import { timer } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { throwError, timer } from 'rxjs';
+import { catchError, map, take, tap } from 'rxjs/operators';
+import { RecoverPasswordService } from './recover-password.service';
 
 @Component({
   selector: 'bdc-bo-recovery-password',
@@ -19,14 +11,14 @@ import { map, take } from 'rxjs/operators';
   styleUrls: ['./recover-password.component.scss', '../../../../assets/sass/layout/entry.scss'],
 })
 export class RecoverPasswordComponent implements OnInit {
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  protected emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  protected form!: FormGroup;
+  protected recoveryEmail!: boolean;
+  protected resendEnabled = true;
+  protected timer!: number;
+  protected formValue!: any;
 
-  public form!: FormGroup;
-  public recoveryEmail!: boolean;
-  public resendEnabled = true;
-  public timer!: number;
-
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder, private recoverPasswordService: RecoverPasswordService) {}
 
   ngOnInit(): void {
     this.recoveryEmail = true;
@@ -35,7 +27,7 @@ export class RecoverPasswordComponent implements OnInit {
 
   public resendPin(): void {
     this.setUpCountdownResendPinStream();
-    // this.signinFacade.validatePersonDataTrigger$.next();
+    this.postRecoverypassword(this.formValue);
   }
   private setUpCountdownResendPinStream(): void {
     const countdownStart = 20;
@@ -57,9 +49,26 @@ export class RecoverPasswordComponent implements OnInit {
   }
 
   public onSubmit() {
-    this.recoveryEmail = false;
-    const formValue = this.form.value;
-    console.log(formValue);
+    this.formValue = this.form.value;
+    this.postRecoverypassword(this.formValue);
     this.setUpCountdownResendPinStream();
+  }
+
+  public postRecoverypassword(form: { email: string }) {
+    this.recoverPasswordService
+      .recoveryPasword(form)
+      .pipe(
+        tap(_ => (this.recoveryEmail = false)),
+        catchError((res: HttpErrorResponse) => {
+          if (res.status === 400) {
+            this.form.get('email')?.setErrors({
+              nonExistantEmail: res.error.error,
+            });
+          }
+
+          return throwError(res);
+        })
+      )
+      .subscribe();
   }
 }
