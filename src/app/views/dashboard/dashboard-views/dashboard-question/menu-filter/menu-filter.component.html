@@ -1,15 +1,38 @@
 <div class="wrapper">
+  <p><strong>Fecha de última actualización</strong></p>
   <mat-form-field appearance="outline">
-    <mat-label>Enter a date range</mat-label>
+    <mat-label>Fecha inicio y finalización</mat-label>
     <mat-date-range-input [rangePicker]="picker">
-      <input matStartDate placeholder="Start date" />
-      <input matEndDate placeholder="End date" />
+      <input matStartDate placeholder="Inicio" />
+      <input matEndDate placeholder="Finalización" />
     </mat-date-range-input>
-    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-hint>DD/MM/AAAA – DD/MM/AAAA</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker></mat-date-range-picker>
   </mat-form-field>
-  <p>Fecha de última actualización</p>
-  <button mat-button color="primary">Primary</button>
-  <button mat-flat-button color="primary">Primary</button>
+  <mat-form-field appearance="outline">
+    <mat-label>Estado</mat-label>
+    <mat-select>
+      <mat-option value="one">First option</mat-option>
+      <mat-option value="two">Second option</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>categoría</mat-label>
+    <mat-select>
+      <mat-option value="one">First option</mat-option>
+      <mat-option value="two">Second option</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Subcategoría</mat-label>
+    <mat-select>
+      <mat-option value="one">First option</mat-option>
+      <mat-option value="two">Second option</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="action">
+    <button mat-button color="primary">Borrar filtros</button>
+    <button mat-flat-button color="primary">Aplicar</button>
+  </div>
 </div>

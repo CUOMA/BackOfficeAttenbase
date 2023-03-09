@@ -7,7 +7,7 @@ import { Questions } from '../../../../core/models/questions-response';
 import { questionsApiActions } from '../../../../store/actions/question.action';
 import {
   selectAreQuestionsLoading,
-  selectQuestions
+  selectQuestions,
 } from '../../../../store/selectors/question.selectors';
 
 @Injectable()
@@ -115,6 +115,7 @@ export class QuestionsFacade {
   public questionFilter!: any;
   color: ThemePalette = 'primary';
   mode: MatProgressSpinnerModule = 'indeterminate';
+  isOpen: boolean = false;
   constructor(private store: Store) {}
 
   public get areQuestionsLoading(): Observable<boolean> {
@@ -131,5 +132,8 @@ export class QuestionsFacade {
 
   public selectQuestions(): Observable<Questions> {
     return this.store.select(selectQuestions);
+  }
+  protected openMenu() {
+    this.isOpen = !this.isOpen;
   }
 }

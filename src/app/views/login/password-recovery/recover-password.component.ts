@@ -1,9 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { throwError, timer } from 'rxjs';
-import { map, take, tap, catchError, finalize } from 'rxjs/operators';
+import { catchError, map, take, tap } from 'rxjs/operators';
 import { RecoverPasswordService } from './recover-password.service';
 
 @Component({

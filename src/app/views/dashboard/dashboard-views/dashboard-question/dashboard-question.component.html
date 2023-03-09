@@ -10,14 +10,14 @@
         {{ tab.label }}
       </a>
     </nav>
-    <div>
-      <button [matMenuTriggerFor]="menu" mat-stroked-button color="primary" class="mr-10">
-        <mat-icon svgIcon="filter"></mat-icon>
-        Filtros
-      </button>
-      <mat-menu #menu="matMenu" xPosition="before">
-        <bdc-bo-menu-filter></bdc-bo-menu-filter>
-      </mat-menu>
+    <div class="action">
+      <div class="menu">
+        <button mat-stroked-button color="primary" (click)="openMenu()">
+          <mat-icon svgIcon="filter"></mat-icon>
+          Filtros
+        </button>
+        <bdc-bo-menu-filter *ngIf="isOpen"></bdc-bo-menu-filter>
+      </div>
       <button
         mat-flat-button
         color="primary"
@@ -35,4 +35,3 @@
     </ng-container>
   </mat-tab-nav-panel>
 </div>
-

@@ -21,6 +21,7 @@ export class DashboardQuestionComponent implements OnInit {
   // protected questions = this.questionsFacade.getQuestionsa(this.selectedTab.value);
   protected areQuestionsLoading$!: Observable<boolean>;
   private destroy$ = new Subject<void>();
+  protected isOpen: boolean = false;
 
   ngOnInit(): void {
     this.questionsFacade.dispatchGetQuestions();
@@ -36,5 +37,8 @@ export class DashboardQuestionComponent implements OnInit {
   protected selectTab(tab: { label: string; value: string }) {
     this.selectedTab = tab;
     // this.questions = this.questionsFacade.getQuestionsa(tab.value);
+  }
+  protected openMenu() {
+    this.isOpen = !this.isOpen;
   }
 }
