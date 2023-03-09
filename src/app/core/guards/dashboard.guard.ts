@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Router,
   RouterStateSnapshot,
   UrlTree,
-  Router,
 } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { selectIsAuthenticated } from '../../store/selectors/authentication.selectors';
+import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
+import { selectIsAuthenticated } from '../../store/selectors/authentication.selectors';
 
 @Injectable({
   providedIn: 'root',

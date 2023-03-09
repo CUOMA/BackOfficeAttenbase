@@ -22,9 +22,10 @@ export const categoriesReducer = createReducer(
   ),
   on(
     categoriesApiActions.getCategoriesSuccess,
-    (state): CategoriesState => ({
+    (state, payload): CategoriesState => ({
       ...state,
       areCategoriesLoading: false,
+      categories: payload,
     })
   ),
   on(

@@ -28,6 +28,11 @@
     </div>
   </div>
   <mat-tab-nav-panel #tabPanel>
-    <bdc-bo-tabla-question [questions]="questions"></bdc-bo-tabla-question>
+    <ng-container *ngIf="questions$ | async as questions">
+      <bdc-bo-tabla-question
+        (pageChanged)="handlePageChanged($event)"
+        [questions]="questions"></bdc-bo-tabla-question>
+    </ng-container>
   </mat-tab-nav-panel>
 </div>
+

@@ -7,11 +7,12 @@ import { categoriesApiActions } from '../../../../store/actions/categories.actio
 @Injectable()
 export class CategoriesFacade {
   constructor(private store: Store) {}
+
   public get areCategoriesLoading(): Observable<boolean> {
     return this.store.select(selectAreCategoriesLoading);
   }
 
-  public getCategories(): void {
+  public getCategories(){
     this.store.dispatch(categoriesApiActions.getCategoriesRequest());
   }
 

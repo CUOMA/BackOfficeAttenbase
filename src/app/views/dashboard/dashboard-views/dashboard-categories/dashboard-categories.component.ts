@@ -3,7 +3,7 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlertService } from '../../../../core/services/alert.service';
 import { CategoriesFacade } from './dashboard-categories.facade';
-import { Observable, Subject } from 'rxjs';
+import { observable, Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 
 @Component({
@@ -125,6 +125,7 @@ export class DashboardCategoriesComponent implements AfterViewInit, OnInit {
   protected openMenu: boolean = false;
   protected areCategoriesLoading$!: Observable<any>;
   private destroy$ = new Subject<void>();
+
   dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 

@@ -13,6 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CustomMatIconsRegistratorModule } from './icons/custom-mat-icons-registrator.module';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   exports: [
@@ -30,6 +31,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatMenuModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatProgressSpinnerModule,
   ],
   providers: [{ provide: MatPaginatorIntl, useValue: CustomPaginator() }],
 })
@@ -38,7 +40,7 @@ export class MaterialModule {}
 function CustomPaginator() {
   const customPaginatorIntl = new MatPaginatorIntl();
 
-  customPaginatorIntl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+  customPaginatorIntl.getRangeLabel = (page: number, pageSize: number = 10, length: number) => {
     const numberPages = Math.ceil(length / pageSize);
     const startIndex = page;
     return `Página ${startIndex + 1} de ${length ? numberPages : 1}`;

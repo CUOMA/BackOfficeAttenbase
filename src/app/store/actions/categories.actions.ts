@@ -1,7 +1,7 @@
 import { createActionGroup, props } from '@ngrx/store';
 
 export const categoriesApiActions = createActionGroup({
-  source: 'Auth API',
+  source: 'Categories API',
   events: {
     'Get Categories Request': props<any>,
     'Get Categories Success': props<any>(),
