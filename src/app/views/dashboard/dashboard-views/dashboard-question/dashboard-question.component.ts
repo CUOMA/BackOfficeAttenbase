@@ -12,19 +12,21 @@ import { PageEvent } from '@angular/material/paginator';
 export class DashboardQuestionComponent implements OnInit {
   constructor(public questionsFacade: QuestionsFacade) {}
   protected tabs = [
-    { label: 'Publicadas', value: 'aprobada' },
-    { label: 'Archivadas', value: 'archivada' },
-    { label: 'Borradores', value: 'borrador' },
+    { label: 'Publicadas', value: 'approved' },
+    { label: 'Archivadas', value: 'review' },
+    { label: 'Borradores', value: 'draft' },
   ];
   protected selectedTab = this.tabs[0];
-  protected questions$ = this.questionsFacade.selectQuestions();
-  // protected questions = this.questionsFacade.getQuestionsa(this.selectedTab.value);
+  protected questions$ = this.questionsFacade.selectQuestions('approved');
   protected areQuestionsLoading$!: Observable<boolean>;
+  protected areStatusesLoading$!: Observable<boolean>;
   private destroy$ = new Subject<void>();
   protected isOpen: boolean = false;
 
   ngOnInit(): void {
+    this.questionsFacade.dispatchGetStatuses();
     this.questionsFacade.dispatchGetQuestions();
+
     this.areQuestionsLoading$ = this.questionsFacade.areQuestionsLoading.pipe(
       takeUntil(this.destroy$)
     );
@@ -36,9 +38,9 @@ export class DashboardQuestionComponent implements OnInit {
 
   protected selectTab(tab: { label: string; value: string }) {
     this.selectedTab = tab;
-    // this.questions = this.questionsFacade.getQuestionsa(tab.value);
+    this.questions$ = this.questionsFacade.selectQuestions(tab.value);
   }
-  protected openMenu() {
+  protected toggleMenu() {
     this.isOpen = !this.isOpen;
   }
 }

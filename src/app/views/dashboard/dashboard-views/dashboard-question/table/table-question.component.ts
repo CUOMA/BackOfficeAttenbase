@@ -16,6 +16,7 @@ import { ThemePalette } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { QuestionStatus } from '../../../../../core/models/statuses-response';
 
 @Component({
   selector: 'bdc-bo-tabla-question',
@@ -42,6 +43,8 @@ export class TableQuestionComponent implements OnInit, AfterViewInit {
   protected areQuestionsLoading$!: Observable<boolean>;
   protected color: ThemePalette = 'primary';
   protected mode: MatProgressSpinnerModule = 'indeterminate';
+  protected questionStatusTypes$!: Observable<QuestionStatus>;
+
   private destroy$ = new Subject<void>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource: any;
@@ -49,6 +52,7 @@ export class TableQuestionComponent implements OnInit, AfterViewInit {
   constructor(public questionsFacade: QuestionsFacade) {}
 
   ngOnInit(): void {
+
     this.areQuestionsLoading$ = this.questionsFacade.areQuestionsLoading.pipe(
       takeUntil(this.destroy$)
     );

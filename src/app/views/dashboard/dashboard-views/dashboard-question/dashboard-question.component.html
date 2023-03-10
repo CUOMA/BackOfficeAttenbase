@@ -1,37 +1,37 @@
-<div class="wrapper">
-  <div class="question-action">
-    <h1>Preguntas</h1>
-    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-      <a
-        mat-tab-link
-        *ngFor="let tab of tabs"
-        (click)="selectTab(tab)"
-        [active]="selectedTab.label === tab.label">
-        {{ tab.label }}
-      </a>
-    </nav>
-    <div class="action">
-      <div class="menu">
-        <button mat-stroked-button color="primary" (click)="openMenu()">
-          <mat-icon svgIcon="filter"></mat-icon>
-          Filtros
+<ng-container *ngIf="questions$ | async as questions">
+  <div class="wrapper">
+    <div class="question-action">
+      <h1>Preguntas</h1>
+      <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+        <a
+          mat-tab-link
+          *ngFor="let tab of tabs"
+          (click)="selectTab(tab)"
+          [active]="selectedTab.label === tab.label">
+          {{ tab.label }}
+        </a>
+      </nav>
+      <div class="action">
+        <div class="menu">
+          <button mat-stroked-button color="primary" (click)="toggleMenu()">
+            <mat-icon svgIcon="filter"></mat-icon>
+            Filtros
+          </button>
+          <bdc-bo-menu-filter *ngIf="isOpen"></bdc-bo-menu-filter>
+        </div>
+        <button
+          mat-flat-button
+          color="primary"
+          [routerLink]="['/dashboard/listado-de-preguntas/crear-pregunta']">
+          <mat-icon>add</mat-icon>
+          Crear nueva pregunta
         </button>
-        <bdc-bo-menu-filter *ngIf="isOpen"></bdc-bo-menu-filter>
       </div>
-      <button
-        mat-flat-button
-        color="primary"
-        [routerLink]="['/dashboard/listado-de-preguntas/crear-pregunta']">
-        <mat-icon>add</mat-icon>
-        Crear nueva pregunta
-      </button>
     </div>
-  </div>
-  <mat-tab-nav-panel #tabPanel>
-    <ng-container *ngIf="questions$ | async as questions">
+    <mat-tab-nav-panel #tabPanel>
       <bdc-bo-tabla-question
         (pageChanged)="handlePageChanged($event)"
         [questions]="questions"></bdc-bo-tabla-question>
-    </ng-container>
-  </mat-tab-nav-panel>
-</div>
+    </mat-tab-nav-panel>
+  </div>
+</ng-container>

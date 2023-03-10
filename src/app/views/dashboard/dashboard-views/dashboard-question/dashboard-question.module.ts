@@ -10,16 +10,25 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { questionsFeatureKey, questionsReducer } from 'src/app/store/reducers/questions.reducers';
 import { QuestionsEffects } from '../../../../store/effects/questions.effects';
+import { StatusesEffects } from '../../../../store/effects/statuses.effects';
+import { statusesFeatureKey, statusesReducer } from 'src/app/store/reducers/statuses.reducers';
+import { StatusQuestionComponent } from './table/status-question/status-question.component';
 
 @NgModule({
   providers: [QuestionsFacade],
-  declarations: [DashboardQuestionComponent, TableQuestionComponent, MenuFilterComponent],
+  declarations: [
+    DashboardQuestionComponent,
+    TableQuestionComponent,
+    MenuFilterComponent,
+    StatusQuestionComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,
     DashboardQuestionRoutingModule,
     StoreModule.forFeature(questionsFeatureKey, questionsReducer),
-    EffectsModule.forFeature([QuestionsEffects]),
+    StoreModule.forFeature(statusesFeatureKey, statusesReducer),
+    EffectsModule.forFeature([QuestionsEffects, StatusesEffects]),
   ],
 })
 export class DashboardQuestionModule {}
