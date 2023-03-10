@@ -6,11 +6,9 @@ import { Pages } from 'src/app/core/models/pages';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
 })
-export class NavComponent implements OnInit {
+export class NavComponent {
   @Input() isOpen!: boolean;
-  ngOnInit(): void {
-    console.log(this.isOpen);
-  }
+
   public pages: Pages[] = [
     { label: 'Preguntas', relativePath: 'listado-de-preguntas', icon: 'list-question', data: 356 },
     { label: 'Categorías', relativePath: 'categorias', icon: 'categories', data: 356 },

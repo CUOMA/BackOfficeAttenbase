@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Authentication } from '../models/authentication.dto';
 import { map } from 'rxjs/operators';
 import { Request } from '../models/request';
+import { LoginPayload } from '../models/login-payload';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -14,9 +15,4 @@ export class AuthenticationService {
     const url = `${environment.apiUrl}login-user`;
     return this.httpClient.post<Request<Authentication>>(url, payload).pipe(map(req => req.data));
   }
-}
-
-export interface LoginPayload {
-  email: string;
-  password: string;
 }
