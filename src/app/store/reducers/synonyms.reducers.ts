@@ -1,40 +1,40 @@
 import { createReducer, on } from '@ngrx/store';
-import { categoriesApiActions } from '../actions/categories.actions';
+import { synonymsApiActions } from '../actions/synonyms.action';
 
-export interface CategoriesState {
-  areCategoriesLoading: boolean;
-  categories: any[];
+export interface SynonymsState {
+  areSynonymsLoading: boolean;
+  synonyms: any[];
 }
 
-export const initialState: CategoriesState = {
-  areCategoriesLoading: false,
-  categories: [],
+export const initialState: SynonymsState = {
+  areSynonymsLoading: false,
+  synonyms: [],
 };
 
-export const categoriesReducer = createReducer(
+export const synonymsReducer = createReducer(
   initialState,
   on(
-    categoriesApiActions.getCategoriesRequest,
-    (state): CategoriesState => ({
+    synonymsApiActions.getSynonymsRequest,
+    (state): SynonymsState => ({
       ...state,
-      areCategoriesLoading: true,
+      areSynonymsLoading: true,
     })
   ),
   on(
-    categoriesApiActions.getCategoriesSuccess,
-    (state, payload): CategoriesState => ({
+    synonymsApiActions.getSynonymsSuccess,
+    (state, payload): SynonymsState => ({
       ...state,
-      areCategoriesLoading: false,
-      categories: payload,
+      areSynonymsLoading: false,
+      synonyms: payload,
     })
   ),
   on(
-    categoriesApiActions.getCategoriesFailure,
-    (state): CategoriesState => ({
+    synonymsApiActions.getSynonymsFailure,
+    (state): SynonymsState => ({
       ...state,
-      areCategoriesLoading: false,
+      areSynonymsLoading: false,
     })
   )
 );
 
-export const categoriesFeatureKey = 'categories';
+export const synonymsFeatureKey = 'synonyms';

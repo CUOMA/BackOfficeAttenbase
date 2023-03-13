@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlertService } from '../../../../core/services/alert.service';
@@ -9,9 +9,8 @@ import { SynonymsFacade } from './dashboard-synonyms.facade';
   templateUrl: './dashboard-synonyms.component.html',
   styleUrls: ['./dashboard-synonyms.component.scss'],
 })
-export class DashboardSynonymsComponent implements AfterViewInit {
+export class DashboardSynonymsComponent implements OnInit, AfterViewInit {
   protected displayedColumns: string[] = ['position', 'name', 'seeMore'];
-
   ELEMENT_DATA: any[] = [
     {
       position: 'Problemas de Señal',
@@ -126,20 +125,12 @@ export class DashboardSynonymsComponent implements AfterViewInit {
   dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(
-    private intl: MatPaginatorIntl,
-    private alertService: AlertService,
-    private synonymsFacade: SynonymsFacade
-  ) {}
+  constructor(private alertService: AlertService, private synonymsFacade: SynonymsFacade) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
-      const numberPages = Math.ceil(length / pageSize);
-      const startIndex = page;
-      return `Página ${startIndex + 1} de ${numberPages}`;
-    };
-    this.intl.previousPageLabel = 'Página anterior';
-    this.intl.nextPageLabel = 'Página siguiente';
+  }
+  ngOnInit(): void {
+    this.synonymsFacade.dispatchGetSynonyms();
   }
 }
