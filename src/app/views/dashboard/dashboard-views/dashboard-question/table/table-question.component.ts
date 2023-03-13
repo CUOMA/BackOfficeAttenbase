@@ -52,7 +52,6 @@ export class TableQuestionComponent implements OnInit, AfterViewInit {
   constructor(public questionsFacade: QuestionsFacade) {}
 
   ngOnInit(): void {
-
     this.areQuestionsLoading$ = this.questionsFacade.areQuestionsLoading.pipe(
       takeUntil(this.destroy$)
     );

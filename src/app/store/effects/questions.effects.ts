@@ -22,4 +22,13 @@ export class QuestionsEffects {
       })
     );
   });
+  deleteQuestion$ = createEffect((): any => {
+    return this.actions$.pipe(
+      ofType(questionsApiActions.deleteQuestionRequest.type),
+      mergeMap((action: Action & { id: string }) => {
+        console.log(action);
+        return this.questionsService.deleteQuestions(action.id);
+      })
+    );
+  });
 }

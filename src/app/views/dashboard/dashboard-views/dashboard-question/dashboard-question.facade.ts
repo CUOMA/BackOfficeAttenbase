@@ -45,10 +45,6 @@ export class QuestionsFacade {
     this.store.dispatch(statusesApiActions.getStatusesRequest());
   }
 
-  // public getQuestionsa(selectedTab: string) {
-  //   return (this.questionFilter = this.ELEMENT_DATA.filter(obj => obj.state === selectedTab));
-  // }
-
   public selectQuestions(selectedTab: string): Observable<Questions> {
     return this.store.select(selectQuestions).pipe(
       withLatestFrom(this.getStatusTypes()),

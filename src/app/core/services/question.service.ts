@@ -15,9 +15,12 @@ export class QuestionsService {
     // if (this.cache.get(pageNumber)) {
     //   return of(this.cache.get(pageNumber)!);
     // }
-
     return this.httpClient
       .get<QuestionsResponse>(`${environment.apiUrl}questions?page=${pageNumber}`)
       .pipe(tap(res => this.cache.set(pageNumber, res)));
+  }
+
+  public deleteQuestions(id: string) {
+    return this.httpClient.delete(`${environment.apiUrl}questions/${id}`);
   }
 }

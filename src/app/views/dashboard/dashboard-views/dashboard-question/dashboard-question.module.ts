@@ -13,6 +13,7 @@ import { QuestionsEffects } from '../../../../store/effects/questions.effects';
 import { StatusesEffects } from '../../../../store/effects/statuses.effects';
 import { statusesFeatureKey, statusesReducer } from 'src/app/store/reducers/statuses.reducers';
 import { StatusQuestionComponent } from './table/status-question/status-question.component';
+import { MenuQuestionComponent } from './table/menu-question/menu-question.component';
 
 @NgModule({
   providers: [QuestionsFacade],
@@ -20,6 +21,7 @@ import { StatusQuestionComponent } from './table/status-question/status-question
     DashboardQuestionComponent,
     TableQuestionComponent,
     MenuFilterComponent,
+    MenuQuestionComponent,
     StatusQuestionComponent,
   ],
   imports: [
