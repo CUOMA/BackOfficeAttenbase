@@ -1,4 +1,22 @@
 // MARGINS
 .mr-10 {
-  margin-right: 10px;
+  margin-right: 10px !important;
+}
+
+.mt-20 {
+  margin-top: 20px !important;
+}
+
+// FONTS
+.font-cap {
+  &::first-letter {
+    text-transform: capitalize !important;
+  }
+  span::first-letter {
+    text-transform: uppercase !important;
+  }
+}
+
+.f-14 {
+  font-size: 14px !important;
 }

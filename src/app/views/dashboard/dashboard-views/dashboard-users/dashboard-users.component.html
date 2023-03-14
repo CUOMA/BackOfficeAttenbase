@@ -2,10 +2,15 @@
   <div class="action">
     <h1>Usuarios</h1>
     <div>
-      <button mat-stroked-button color="primary" class="mr-10">
-        <mat-icon svgIcon="filter"></mat-icon>
-        Filtros
-      </button>
+      <span>
+        <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu" class="mr-10">
+          <mat-icon svgIcon="filter"></mat-icon>
+          Filtros
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+          <bdc-bo-menu-filtter (click)="$event.stopPropagation()"></bdc-bo-menu-filtter>
+        </mat-menu>
+      </span>
       <button mat-flat-button color="primary" [routerLink]="['/dashboard/usuarios/crear-usuario']">
         <mat-icon>add</mat-icon>
         Crear nuevo
@@ -52,14 +57,16 @@
         <!-- <bdc-bo-allowed-clients [element]="element"></bdc-bo-allowed-clients> -->
         <!-- {{ element.userClients }} -->
         <div>
-          <ng-container *ngFor="let item of element.userClients">
-            <mat-chip>
-              <span>{{ item }}</span>
-              <button matChipRemove aria-label="eliminar sinonimo" (click)="deleteItem()">
-                <mat-icon>close</mat-icon>
-              </button>
-            </mat-chip>
-          </ng-container>
+          <div>
+            <ng-container *ngFor="let item of element.userClients">
+              <mat-chip>
+                <span class="font-cap f-14">{{ item }}</span>
+                <!-- <button matChipRemove aria-label="eliminar usuario" (click)="deleteItem()">
+                  <mat-icon>close</mat-icon>
+                </button> -->
+              </mat-chip>
+            </ng-container>
+          </div>
         </div>
       </td>
     </ng-container>

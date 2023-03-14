@@ -20,39 +20,81 @@ export class DashboardUsersComponent implements AfterViewInit {
 
   ELEMENT_DATA: Registro[] = [
     new Registro(
-      'santiago',
+      'santiago martinez',
       'santiago@cuoma',
       '2022/03/01, 10:00am',
-      ['movistar', 'personal'],
-      'administrador'
+      ['Movistar', 'telefonica', 'Personal'],
+      'Owner'
     ),
     new Registro(
-      'fede',
+      'adrián ojeda',
+      'aojeda@cuoma',
+      '2022/03/01, 10:00am',
+      ['Movistar', 'telefonica', 'Personal'],
+      'Administrador'
+    ),
+    new Registro(
+      'federico gimenez',
       'federicgimenez@gmail.com',
       '2022/12/06, 10:00am',
-      ['movistar', 'personal'],
-      'administrador'
+      ['Movistar', 'telefonica', 'Personal'],
+      'Moderador'
     ),
     new Registro(
       'gustavo gilevensxchi',
       'gusti@gmail.com',
       '2022/08/09, 10:00am',
-      ['movistar', 'claro'],
-      'administrador'
+      ['Movistar', 'Claro', 'telefonica'],
+      'Administrador'
     ),
     new Registro(
-      'flor sosa',
+      'florencia sosa',
       'florsosa@gmail.com',
       '2022/11/03, 10:00am',
-      ['movistar', 'twenty'],
-      'administrador'
+      ['Movistar', 'Twenty', 'telefonica'],
+      'Administrador'
     ),
     new Registro(
-      'natu morello',
+      'natalia morello',
       'natumo@gmail.com',
       '2022/06/05, 10:00am',
-      ['movistar', 'mercadolibre', 'centralpark'],
-      'administrador'
+      ['Movistar', 'Mercadolibre', 'Centralpark'],
+      'Administrador'
+    ),
+    new Registro(
+      'natalia morello',
+      'natumo@gmail.com',
+      '2022/06/05, 10:00am',
+      ['Movistar', 'Mercadolibre', 'Centralpark'],
+      'Administrador'
+    ),
+    new Registro(
+      'natalia morello',
+      'natumo@gmail.com',
+      '2022/06/05, 10:00am',
+      ['Movistar', 'Mercadolibre', 'Centralpark'],
+      'Administrador'
+    ),
+    new Registro(
+      'natalia morello',
+      'natumo@gmail.com',
+      '2022/06/05, 10:00am',
+      ['Movistar', 'Mercadolibre', 'Centralpark'],
+      'Administrador'
+    ),
+    new Registro(
+      'natalia morello',
+      'natumo@gmail.com',
+      '2022/06/05, 10:00am',
+      ['Movistar', 'Mercadolibre', 'Centralpark'],
+      'Administrador'
+    ),
+    new Registro(
+      'natalia morello',
+      'natumo@gmail.com',
+      '2022/06/05, 10:00am',
+      ['Movistar', 'Mercadolibre', 'Centralpark'],
+      'Administrador'
     ),
   ];
 
