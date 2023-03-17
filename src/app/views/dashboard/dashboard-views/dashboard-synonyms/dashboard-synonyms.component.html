@@ -29,11 +29,11 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-              <span>Eliminar</span>
+            <button mat-menu-item [routerLink]="['/dashboard/sinonimos/editar-sinonimo']">
+              <span>Editar</span>
             </button>
             <button mat-menu-item>
-              <span>Editar</span>
+              <span>Eliminar</span>
             </button>
           </mat-menu>
           <div class="menu" [ngClass]="{ open: element.isOpen }"></div>
