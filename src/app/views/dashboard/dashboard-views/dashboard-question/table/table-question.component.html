@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <table mat-table [dataSource]="questions.data">
+  <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="question">
       <th mat-header-cell *matHeaderCellDef>Pregunta</th>
       <td mat-cell *matCellDef="let element" class="text-blue">{{ element.question }}</td>
@@ -19,9 +19,9 @@
     <ng-container matColumnDef="lastupdate">
       <th mat-header-cell *matHeaderCellDef>Fecha de publicación</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.due_at | date: 'd MMM, y, h:mm a' }} <br />
+        {{ element.due_at | date: 'd MMM, y, h:mm' }} <br />
         hasta
-        {{ element.publish_at | date: 'd MMM, y, h:mm a' }}
+        {{ element.publish_at | date: 'd MMM, y, h:mm' }}
       </td>
     </ng-container>
     <ng-container matColumnDef="state">
@@ -44,9 +44,7 @@
   </table>
   <mat-paginator
     (page)="handlePageChanged($event)"
-    [length]="questions.total"
     [pageIndex]="pageIndex"
-    [pageSize]="questions.per_page"
     [disabled]="disabled"
     [hidePageSize]="true">
   </mat-paginator>

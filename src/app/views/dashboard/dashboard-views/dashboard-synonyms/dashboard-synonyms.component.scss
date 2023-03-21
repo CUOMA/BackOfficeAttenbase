@@ -10,9 +10,22 @@
     font-size: 12px;
   }
   table {
+    position: relative;
     .text-blue {
       color: #0062a1;
       font-size: 16px;
+      .overlay {
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 0;
+        left: 0;
+      }
     }
   }
 }

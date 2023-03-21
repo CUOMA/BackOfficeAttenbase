@@ -7,4 +7,6 @@ export const selectAreQuestionsLoading = createSelector(
   state => state.areQuestionsLoading
 );
 
-export const selectQuestions = createSelector(selectFeature, state => state.questions);
+export const selectQuestions = createSelector(selectFeature, state => {
+  return state.questions?.data;
+});

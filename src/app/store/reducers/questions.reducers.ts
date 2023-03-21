@@ -4,11 +4,12 @@ import { Questions } from '../../core/models/questions-response';
 
 export interface QuestionsState {
   areQuestionsLoading: boolean;
-  questions?: Questions;
+  questions: Questions | null;
 }
 
 export const initialState: QuestionsState = {
   areQuestionsLoading: false,
+  questions: null,
 };
 
 export const questionsReducer = createReducer(

@@ -7,7 +7,7 @@ export const questionsApiActions = createActionGroup({
     'Get Questions Request': props<{ pageNumber: number }>(),
     'Get Questions Success': props<Questions>(),
     'Get Questions Failure': props<any>(),
-    'Delete Question Request': props<{ id: string }>(),
+    'Delete Question Request': props<{ id: number }>(),
     'Delete Question Success': props<any>(),
     'Delete Question Failure': props<any>(),
   },

@@ -3,6 +3,9 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlertService } from '../../../../core/services/alert.service';
 import { SynonymsFacade } from './dashboard-synonyms.facade';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { selectSynonyms } from '../../../../store/selectors/synonyms.selectors';
 
 @Component({
   selector: 'bdc-bo-dashboard-synonyms',
@@ -115,12 +118,16 @@ export class DashboardSynonymsComponent implements OnInit, AfterViewInit {
       name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
     },
   ];
+  // tabla
   protected showFirstLastButtons: boolean = true;
   protected disabled: boolean = false;
   protected pageIndex: number = 0;
   protected length: number = this.ELEMENT_DATA.length;
   protected pageSize: number = 10;
   protected openMenu: boolean = false;
+  protected synonyms$ = this.synonymsFacade.selectSynonyms();
+  protected areSynonymsLoading$!: Observable<boolean>;
+  private destroy$ = new Subject<void>();
 
   dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -132,5 +139,8 @@ export class DashboardSynonymsComponent implements OnInit, AfterViewInit {
   }
   ngOnInit(): void {
     this.synonymsFacade.dispatchGetSynonyms();
+    this.areSynonymsLoading$ = this.synonymsFacade.areSynonymsLoading.pipe(
+      takeUntil(this.destroy$)
+    );
   }
 }

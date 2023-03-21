@@ -6,3 +6,5 @@ export const selectAreSynonymsLoading = createSelector(
   selectFeature,
   state => state.areSynonymsLoading
 );
+
+export const selectSynonyms = createSelector(selectFeature, state => state.synonyms);

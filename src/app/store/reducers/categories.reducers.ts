@@ -34,6 +34,28 @@ export const categoriesReducer = createReducer(
       ...state,
       areCategoriesLoading: false,
     })
+  ),
+  on(
+    categoriesApiActions.deleteCategoriesRequest,
+    (state): CategoriesState => ({
+      ...state,
+      areCategoriesLoading: false,
+    })
+  ),
+  on(
+    categoriesApiActions.deleteCategoriesSuccess,
+    (state, payload): CategoriesState => ({
+      ...state,
+      areCategoriesLoading: false,
+      categories: payload,
+    })
+  ),
+  on(
+    categoriesApiActions.deleteCategoriesFailure,
+    (state): CategoriesState => ({
+      ...state,
+      areCategoriesLoading: false,
+    })
   )
 );
 

@@ -22,4 +22,13 @@ export class CategoriesEffects {
       )
     );
   });
+  deleteCategory$ = createEffect((): any => {
+    return this.actions$.pipe(
+      ofType(categoriesApiActions.deleteCategoriesRequest.type),
+      mergeMap((action: Action & { id: number }) => {
+        console.log(action);
+        return this.categoriesService.deleteCategory(action.id);
+      })
+    );
+  });
 }

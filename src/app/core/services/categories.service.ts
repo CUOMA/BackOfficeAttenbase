@@ -6,6 +6,9 @@ import { environment } from 'src/environments/environment';
 export class CategoriesService {
   constructor(private httpClient: HttpClient) {}
   public getCategories() {
-    return this.httpClient.get(`${environment.apiUrl}categories`);
+    return this.httpClient.get(`${environment.apiUrl}categories/tree`);
+  }
+  public deleteCategory(id: number) {
+    return this.httpClient.delete(`${environment.apiUrl}categories/${id}`);
   }
 }

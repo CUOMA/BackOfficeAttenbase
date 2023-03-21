@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Questions } from '../../../../../core/models/questions-response';
+import { Questions, Datum } from '../../../../../core/models/questions-response';
 import { QuestionsFacade } from '../dashboard-question.facade';
 import { EventEmitter } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
@@ -26,7 +26,7 @@ import { QuestionStatus } from '../../../../../core/models/statuses-response';
 })
 export class TableQuestionComponent implements OnInit, AfterViewInit {
   @Output() pageChanged = new EventEmitter<PageEvent>();
-  @Input() questions!: Questions;
+  @Input() questions!: Datum[];
   protected displayedColumns: string[] = [
     'question',
     'category',
@@ -55,12 +55,13 @@ export class TableQuestionComponent implements OnInit, AfterViewInit {
     this.areQuestionsLoading$ = this.questionsFacade.areQuestionsLoading.pipe(
       takeUntil(this.destroy$)
     );
-    this.dataSource = new MatTableDataSource(this.questions.data);
+    this.dataSource = new MatTableDataSource(this.questions);
     this.dataSource.paginator = this.paginator;
   }
 
   ngAfterViewInit() {
     this.paginator.pageSize = this.pageSize;
+    this.paginator.length = this.questions.length;
   }
 
   protected handlePageChanged(pageEvent: PageEvent): void {

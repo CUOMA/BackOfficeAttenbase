@@ -3,19 +3,18 @@ import { ThemePalette } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { sample, withLatestFrom, map, tap } from 'rxjs/operators';
-import { Questions } from '../../../../core/models/questions-response';
+import { filter, map, withLatestFrom } from 'rxjs/operators';
+import { Datum, Questions } from '../../../../core/models/questions-response';
 import { questionsApiActions } from '../../../../store/actions/question.action';
-import {
-  selectAreStatusesLoading,
-  selectStatuses,
-} from '../../../../store/selectors/statuses.selectors';
 import { statusesApiActions } from '../../../../store/actions/statuses.action';
-import { QuestionStatus } from '../../../../core/models/statuses-response';
 import {
   selectAreQuestionsLoading,
   selectQuestions,
 } from '../../../../store/selectors/question.selectors';
+import {
+  selectAreStatusesLoading,
+  selectStatuses,
+} from '../../../../store/selectors/statuses.selectors';
 
 @Injectable()
 export class QuestionsFacade {
@@ -45,23 +44,20 @@ export class QuestionsFacade {
     this.store.dispatch(statusesApiActions.getStatusesRequest());
   }
 
-  public selectQuestions(selectedTab: string): Observable<Questions> {
+  public selectQuestions(selectedTab: string): Observable<Datum[]> {
     return this.store.select(selectQuestions).pipe(
+      filter(questions => questions),
       withLatestFrom(this.getStatusTypes()),
-      map(([questions, statusTypes]: [Questions, any]) => {
-        return {
-          ...questions,
-          data: questions.data
-            .map(question => ({
-              ...question,
-              status: statusTypes.payload.find(
-                (type: { id: number }) => type.id === question.status_id
-              ),
-            }))
-            .filter((data: any) => data.status.class === selectedTab),
-        };
-      }),
-      tap(console.log)
+      map(([questions, statusTypes]: [Questions, any]) =>
+        questions.data
+          .map(question => ({
+            ...question,
+            status: statusTypes.payload.find(
+              (type: { id: number }) => type.id === question.status_id
+            ),
+          }))
+          .filter((data: any) => data.status.class === selectedTab)
+      )
     );
   }
 
