@@ -1,13 +1,13 @@
 <div class="wrapper">
   <h2>Editar Sinónimo de Negocio</h2>
   <form [formGroup]="form" class="edit-synonyms-form">
-    <mat-form-field appearance="outline" class="max-w-500">
-      <mat-label>Nombre de original</mat-label>
+    <mat-form-field appearance="outline" class="max-w-500" hideRequiredMarker>
+      <mat-label>Origen</mat-label>
       <input matInput formControlName="synonymName" type="text" placeholder="Nombre de original" />
       <mat-error *ngIf="form.controls['synonymName']">Se requiere un nombre de sinonimo</mat-error>
       <mat-hint>Ítem al cual se asignarán sinónimos de negocio.</mat-hint>
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" hideRequiredMarker aria-required>
       <mat-label>Listado de Sinonimos</mat-label>
       <mat-chip-grid #chipGrid aria-label="Enter synonyms">
         <mat-chip-row

@@ -12,7 +12,7 @@ export class CreateUserComponent {
   public hide = true;
 
   public form = this.fb.nonNullable.group({
-    username: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],
+    name: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],
     useradress: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],
     useremail: ['', [Validators.required, Validators.email]],
     password: [
@@ -31,7 +31,7 @@ export class CreateUserComponent {
     const formValue = this.form.value;
     console.log(formValue);
   }
-  alertSaveUser() {
+  protected alertSaveUser(): void {
     alert('usuario guardado');
   }
 }

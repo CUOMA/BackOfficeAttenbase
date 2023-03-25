@@ -25,7 +25,6 @@ export class AllowedClientsComponent implements AfterViewInit {
   protected buttonRightDisable!: boolean;
   protected buttonLeftDisable!: boolean;
   private resize$ = new BehaviorSubject(null);
-  item = 'hola';
 
   constructor(private alertService: AlertService) {}
 

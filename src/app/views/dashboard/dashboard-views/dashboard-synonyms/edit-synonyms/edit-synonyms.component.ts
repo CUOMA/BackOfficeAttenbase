@@ -23,11 +23,11 @@ export class EditSynonymsComponent {
   ];
 
   protected form = this.form_builder.nonNullable.group({
-    synonymName: ['¿Que es movistar?', Validators.required],
+    synonymName: ['Problemas de Señal', Validators.required],
     synonymList: ['', Validators.required],
   });
 
-  add(event: MatChipInputEvent): void {
+  protected add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 
     // Add our synonym
@@ -39,7 +39,7 @@ export class EditSynonymsComponent {
     event.chipInput!.clear();
   }
 
-  remove(synonym: Synonym): void {
+  protected remove(synonym: Synonym): void {
     const index = this.synonyms.indexOf(synonym);
 
     if (index >= 0) {
@@ -47,7 +47,7 @@ export class EditSynonymsComponent {
     }
   }
 
-  edit(synonym: Synonym, event: MatChipEditedEvent) {
+  protected edit(synonym: Synonym, event: MatChipEditedEvent) {
     const value = event.value.trim();
 
     // Remove fruit if it no longer has a name
@@ -62,7 +62,7 @@ export class EditSynonymsComponent {
       this.synonyms[index].name = value;
     }
   }
-  sendSynonymEdition() {
+  protected sendSynonymEdition() {
     alert('se edito el sinonimo');
   }
 }
