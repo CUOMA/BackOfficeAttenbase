@@ -15,15 +15,14 @@
           (removed)="remove(synonym)"
           [editable]="true"
           (edited)="edit(synonym, $event)"
-          [attr.aria-description]="'press enter to edit ' + synonym.name">
+          [attr.aria-description]="'Presiona enter para editar ' + synonym.name">
           {{ synonym.name }}
-          <button matChipRemove [attr.aria-label]="'remove ' + synonym.name">
+          <button matChipRemove [attr.aria-label]="'Eliminar ' + synonym.name">
             <mat-icon>cancel</mat-icon>
           </button>
         </mat-chip-row>
         <input
           placeholder="Nuevo sinonimo..."
-          formControlName="synonymList"
           [matChipInputFor]="chipGrid"
           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
           [matChipInputAddOnBlur]="addOnBlur"
