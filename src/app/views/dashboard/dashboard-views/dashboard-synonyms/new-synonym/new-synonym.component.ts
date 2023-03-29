@@ -1,30 +1,25 @@
-import { Component } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 
 export interface Synonym {
   name: string;
 }
-
 @Component({
-  selector: 'bdc-bo-edit-synonyms',
-  templateUrl: './edit-synonyms.component.html',
-  styleUrls: ['./edit-synonyms.component.scss'],
+  selector: 'bdc-bo-new-synonym',
+  templateUrl: './new-synonym.component.html',
+  styleUrls: ['./new-synonym.component.scss'],
 })
-export class EditSynonymsComponent {
+export class NewSynonymComponent {
   constructor(private form_builder: FormBuilder) {}
 
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  synonyms: Synonym[] = [
-    { name: 'no hay señal' },
-    { name: 'no funciona movistar' },
-    { name: 'no anda el telefono' },
-  ];
+  synonyms: Synonym[] = [];
 
   protected form = this.form_builder.nonNullable.group({
-    synonymName: ['Problemas de Señal', Validators.required],
+    synonymName: ['', Validators.required],
     synonymList: [''],
   });
 

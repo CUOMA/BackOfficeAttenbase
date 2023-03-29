@@ -12,6 +12,13 @@ const routes: Routes = [
       preload: false,
     },
   },
+  {
+    path: 'crear-sinonimo',
+    loadChildren: () => import('./new-synonym/new-synonym.module').then(m => m.NewSynonymModule),
+    data: {
+      preload: false,
+    },
+  },
 ];
 
 @NgModule({

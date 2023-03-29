@@ -5,7 +5,6 @@ import { DashboardSynonymsRoutingModule } from './dashboard-synonyms-routing.mod
 import { DashboardSynonymsComponent } from './dashboard-synonyms.component';
 import { SynonymsFacade } from './dashboard-synonyms.facade';
 import { ScrollSynonymsComponent } from './scroll-synonyms/scroll-synonyms.component';
-import { EditSynonymsComponent } from './edit-synonyms/edit-synonyms.component';
 
 @NgModule({
   providers: [SynonymsFacade],
