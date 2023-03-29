@@ -1,14 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { categoriesApiActions } from '../../../../store/actions/categories.actions';
+import {
+  selectAreCategoriesLoading,
+  selectCategories,
+} from '../../../../store/selectors/categories.selectors';
 
 @Injectable()
 export class CategoriesFacade {
-  public deleteCategories(): Observable<any> {
-    return of([
-      {
-        position: 'Problemas de Señal',
-        name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-      },
-    ]);
+  constructor(private store: Store) {}
+
+  public get areCategoriesLoading(): Observable<boolean> {
+    return this.store.select(selectAreCategoriesLoading);
+  }
+
+  public dispatchGetCategories(): any {
+    this.store.dispatch(categoriesApiActions.getCategoriesRequest());
+  }
+
+  public selectCategories(): Observable<any> {
+    return this.store.select(selectCategories);
   }
 }

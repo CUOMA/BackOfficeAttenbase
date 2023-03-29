@@ -1,14 +1,22 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   Input,
   ViewChild,
-  ChangeDetectionStrategy,
-  SimpleChanges,
+  OnInit,
+  Output,
 } from '@angular/core';
-import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { QuestionFacade } from '../dashboard-question.facade';
+import { Questions, Datum } from '../../../../../core/models/questions-response';
+import { QuestionsFacade } from '../dashboard-question.facade';
+import { EventEmitter } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { QuestionStatus } from '../../../../../core/models/statuses-response';
 
 @Component({
   selector: 'bdc-bo-tabla-question',
@@ -16,8 +24,9 @@ import { QuestionFacade } from '../dashboard-question.facade';
   styleUrls: ['./table-question.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TableQuestionComponent implements AfterViewInit {
-  @Input() questions: any[] = [];
+export class TableQuestionComponent implements OnInit, AfterViewInit {
+  @Output() pageChanged = new EventEmitter<PageEvent>();
+  @Input() questions!: Datum[];
   protected displayedColumns: string[] = [
     'question',
     'category',
@@ -26,101 +35,36 @@ export class TableQuestionComponent implements AfterViewInit {
     'state',
     'seeMore',
   ];
-  //   {
-  //     question: '¿Como hago para reestablecer la cuenta luego del corte?',
-  //     category: 'Pagos',
-  //     subcategory: 'linea movil',
-  //     lastupdate: '10 dec 2022, 10:00h',
-  //     state: 'aprobada',
-  //   },
-  //   {
-  //     question: '¿Como hago para reestablecer la cuenta luego del corte?',
-  //     category: 'Pagos',
-  //     subcategory: 'linea movil',
-  //     lastupdate: '10 dec 2022, 10:00h',
-  //     state: 'aprobada',
-  //   },
-  //   {
-  //     question: '¿Como hago para reestablecer la cuenta luego del corte?',
-  //     category: 'Pagos',
-  //     subcategory: 'linea movil',
-  //     lastupdate: '10 dec 2022, 10:00h',
-  //     state: 'aprobada',
-  //   },
-  //   {
-  //     question: '¿Como hago para reestablecer la cuenta luego del corte?',
-  //     category: 'Pagos',
-  //     subcategory: 'linea movil',
-  //     lastupdate: '10 dec 2022, 10:00h',
-  //     state: 'aprobada',
-  //   },
-  //   {
-  //     question: '¿Como hago para reestablecer la cuenta luego del corte?',
-  //     category: 'Pagos',
-  //     subcategory: 'linea movil',
-  //     lastupdate: '10 dec 2022, 10:00h',
-  //     state: 'aprobada',
-  //   },
-  //   {
-  //     question: '¿Como hago para reestablecer la cuenta luego del corte?',
-  //     category: 'Pagos',
-  //     subcategory: 'linea movil',
-  //     lastupdate: '10 dec 2022, 10:00h',
-  //     state: 'aprobada',
-  //   },
-  //   {
-  //     question: '¿Como hago para reestablecer la cuenta luego del corte?',
-  //     category: 'Pagos',
-  //     subcategory: 'linea movil',
-  //     lastupdate: '10 dec 2022, 10:00h',
-  //     state: 'aprobada',
-  //   },
-  //   {
-  //     question: '¿Como hago para reestablecer la cuenta luego del corte?',
-  //     category: 'Pagos',
-  //     subcategory: 'linea movil',
-  //     lastupdate: '10 dec 2022, 10:00h',
-  //     state: 'aprobada',
-  //   },
-  //   {
-  //     question: '¿Como hago para reestablecer la cuenta luego del corte?',
-  //     category: 'Pagos',
-  //     subcategory: 'linea movil',
-  //     lastupdate: '10 dec 2022, 10:00h',
-  //     state: 'aprobada',
-  //   },
-  //   {
-  //     question: '¿Como hago para reestablecer la cuenta luego del corte?',
-  //     category: 'Pagos',
-  //     subcategory: 'linea movil',
-  //     lastupdate: '10 dec 2022, 10:00h',
-  //     state: 'aprobada',
-  //   },
-  //   {
-  //     question: '¿Como hago para reestablecer la cuenta luego del corte?',
-  //     category: 'Pagos',
-  //     subcategory: 'linea movil',
-  //     lastupdate: '10 dec 2022, 10:00h',
-  //     state: 'aprobada',
-  //   },
-  //   {
-  //     question: '¿Como hago para reestablecer la cuenta luego del corte?',
-  //     category: 'Pagos',
-  //     subcategory: 'linea movil',
-  //     lastupdate: '10 dec 2022, 10:00h',
-  //     state: 'aprobada',
-  //   },
-  // ];
+
   protected showFirstLastButtons: boolean = true;
   protected disabled: boolean = false;
   protected pageIndex: number = 0;
-  protected pageSize: number = 2;
-  constructor(private intl: MatPaginatorIntl, public questionFacade: QuestionFacade) {}
+  protected pageSize: number = 10;
+  protected areQuestionsLoading$!: Observable<boolean>;
+  protected color: ThemePalette = 'primary';
+  protected mode: MatProgressSpinnerModule = 'indeterminate';
+  protected questionStatusTypes$!: Observable<QuestionStatus>;
+
+  private destroy$ = new Subject<void>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  dataSource = new MatTableDataSource(this.questions);
+  dataSource: any;
+
+  constructor(public questionsFacade: QuestionsFacade) {}
+
+  ngOnInit(): void {
+    this.areQuestionsLoading$ = this.questionsFacade.areQuestionsLoading.pipe(
+      takeUntil(this.destroy$)
+    );
+    this.dataSource = new MatTableDataSource(this.questions);
+    this.dataSource.paginator = this.paginator;
+  }
 
   ngAfterViewInit() {
     this.paginator.pageSize = this.pageSize;
-    this.dataSource.paginator = this.paginator;
+    this.paginator.length = this.questions.length;
+  }
+
+  protected handlePageChanged(pageEvent: PageEvent): void {
+    this.pageChanged.emit(pageEvent);
   }
 }

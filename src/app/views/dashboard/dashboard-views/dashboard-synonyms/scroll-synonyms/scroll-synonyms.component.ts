@@ -26,21 +26,12 @@ export class ScrollSynonymsComponent implements AfterViewInit {
   protected buttonRightDisable!: boolean;
   protected buttonLeftDisable!: boolean;
   private resize$ = new BehaviorSubject(null);
-  item = 'hola';
 
   constructor(private alertService: AlertService, private synonymsFacade: SynonymsFacade) {}
 
   ngAfterViewInit(): void {
     this.resize$.pipe(debounceTime(100)).subscribe({ next: () => this.calculateButtonsStatus() });
-  }
-
-  protected handleScroll(scrollType: 'right' | 'left' = 'left'): void {
-    const rightScroll = 150;
-    const leftScroll = -150;
-    const scroll = scrollType === 'right' ? rightScroll : leftScroll;
-
-    this.childEl.nativeElement.scrollLeft += scroll;
-    this.calculateButtonsStatus();
+    console.log(this.element);
   }
 
   protected deleteItem(): any {
@@ -58,9 +49,17 @@ export class ScrollSynonymsComponent implements AfterViewInit {
       },
     });
   }
+
+  protected handleScroll(scrollType: 'right' | 'left' = 'left'): void {
+    const rightScroll = 150;
+    const leftScroll = -150;
+    const scroll = scrollType === 'right' ? rightScroll : leftScroll;
+    this.childEl.nativeElement.scrollLeft += scroll;
+    this.calculateButtonsStatus();
+  }
+
   private calculateButtonsStatus(): void {
     this.buttonLeftDisable = !this.childEl.nativeElement.scrollLeft;
-
     this.buttonRightDisable = !(
       this.childEl.nativeElement.scrollWidth -
       this.childEl.nativeElement.clientWidth -

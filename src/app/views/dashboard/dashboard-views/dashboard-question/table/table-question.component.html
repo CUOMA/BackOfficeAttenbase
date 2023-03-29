@@ -1,65 +1,55 @@
-<table mat-table [dataSource]="questions">
-  <ng-container matColumnDef="question">
-    <th mat-header-cell *matHeaderCellDef>Pregunta</th>
-    <td mat-cell *matCellDef="let element" class="text-blue">{{ element.question }}</td>
-  </ng-container>
-  <ng-container matColumnDef="category">
-    <th mat-header-cell *matHeaderCellDef>Categorías</th>
-    <td mat-cell *matCellDef="let element">{{ element.category }}</td>
-  </ng-container>
-  <ng-container matColumnDef="subcategory">
-    <th mat-header-cell *matHeaderCellDef>Subcategorías</th>
-    <td mat-cell *matCellDef="let element">{{ element.subcategory }}</td>
-  </ng-container>
-  <ng-container matColumnDef="lastupdate">
-    <th mat-header-cell *matHeaderCellDef>Fecha de publicación</th>
-    <td mat-cell *matCellDef="let element">{{ element.lastupdate }}</td>
-  </ng-container>
-  <ng-container matColumnDef="state">
-    <th mat-header-cell *matHeaderCellDef>Estado</th>
-    <td mat-cell *matCellDef="let element">
-      <button class="status" [ngClass]="{ published: element.state === 'aprobada' }">
-        {{ element.state }}
-      </button>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="seeMore">
-    <th mat-header-cell width="40px" *matHeaderCellDef></th>
-    <td mat-cell *matCellDef="let element">
-      <div class="more-options">
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="más opciones">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <span>Previsualizar</span>
-          </button>
-          <button mat-menu-item>
-            <span>Editar</span>
-          </button>
-          <button mat-menu-item>
-            <span>Archivar</span>
-          </button>
-          <button mat-menu-item>
-            <span>Publicar</span>
-          </button>
-          <button mat-menu-item>
-            <span>Nueva Versión</span>
-          </button>
-          <button mat-menu-item>
-            <span>Solicitar aprobación</span>
-          </button>
-        </mat-menu>
-        <div class="menu" [ngClass]="{ open: element.isOpen }"></div>
-      </div>
-    </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
-<mat-paginator
-  [pageIndex]="pageIndex"
-  [pageSize]="pageSize"
-  [disabled]="disabled"
-  [hidePageSize]="true">
-</mat-paginator>
+<div class="wrapper">
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="question">
+      <th mat-header-cell *matHeaderCellDef>Pregunta</th>
+      <td mat-cell *matCellDef="let element" class="text-blue">{{ element.name }}</td>
+    </ng-container>
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef>Categorías</th>
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngFor="let e of element.categories">
+          {{ e.name }}
+        </ng-container>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="subcategory">
+      <th mat-header-cell *matHeaderCellDef>Subcategorías</th>
+      <td mat-cell *matCellDef="let element">{{ element.subcategory }}</td>
+    </ng-container>
+    <ng-container matColumnDef="lastupdate">
+      <th mat-header-cell *matHeaderCellDef>Fecha de publicación</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.updated_at | date: 'd MMM, y, h:mm' }} <br />
+        hasta
+        {{ element.published_at | date: 'd MMM, y, h:mm' }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let element">
+        <bdc-bo-status-question [class]="element.status.class" [name]="element.status.name">
+        </bdc-bo-status-question></td
+    ></ng-container>
+
+    <ng-container matColumnDef="seeMore">
+      <th mat-header-cell width="40px" *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <bdc-bo-menu-question
+          [statusQuestion]="element.status.name"
+          [idQuestion]="element.id"></bdc-bo-menu-question>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <mat-paginator
+    (page)="handlePageChanged($event)"
+    [pageIndex]="pageIndex"
+    [disabled]="disabled"
+    [hidePageSize]="true">
+  </mat-paginator>
+  <div *ngIf="areQuestionsLoading$ | async" class="overlay">
+    <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'" [value]="50">
+    </mat-progress-spinner>
+  </div>
+</div>

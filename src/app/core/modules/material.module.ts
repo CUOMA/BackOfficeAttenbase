@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
@@ -33,6 +34,7 @@ import { CustomMatIconsRegistratorModule } from './icons/custom-mat-icons-regist
     MatMenuModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatProgressSpinnerModule,
     MatSelectModule,
   ],
   providers: [{ provide: MatPaginatorIntl, useValue: CustomPaginator() }],
@@ -42,7 +44,7 @@ export class MaterialModule {}
 function CustomPaginator() {
   const customPaginatorIntl = new MatPaginatorIntl();
 
-  customPaginatorIntl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+  customPaginatorIntl.getRangeLabel = (page: number, pageSize: number = 10, length: number) => {
     const numberPages = Math.ceil(length / pageSize);
     const startIndex = page;
     return `Página ${startIndex + 1} de ${length ? numberPages : 1}`;
