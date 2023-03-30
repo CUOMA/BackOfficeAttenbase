@@ -1,6 +1,6 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 
 export interface Synonym {
@@ -19,8 +19,8 @@ export class NewSynonymComponent {
   synonyms: Synonym[] = [];
 
   protected form = this.form_builder.nonNullable.group({
-    synonymName: ['', Validators.required],
-    synonymList: [''],
+    synonymName: new FormControl('', Validators.required),
+    synonymList: new FormControl(this.synonyms, Validators.required),
   });
 
   protected add(event: MatChipInputEvent): void {

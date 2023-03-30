@@ -13,7 +13,11 @@
       hideRequiredMarker
       aria-required>
       <mat-label>Listado de Sinonimos</mat-label>
-      <mat-chip-grid #chipGrid aria-label="Enter synonyms">
+      <mat-chip-grid
+        #chipGrid
+        aria-label="Enter synonyms"
+        class="synonyms-input-area"
+        formControlName="synonymList">
         <mat-chip-row
           *ngFor="let synonym of synonyms"
           (removed)="remove(synonym)"
