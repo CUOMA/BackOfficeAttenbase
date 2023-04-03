@@ -1,7 +1,7 @@
 <div class="wrapper">
   <h2>Nuevo Sinónimo de Negocio</h2>
   <form [formGroup]="form" class="edit-synonyms-form">
-    <mat-form-field appearance="outline" class="max-w-500" hideRequiredMarker>
+    <mat-form-field class="origen-form-field" appearance="outline" hideRequiredMarker>
       <mat-label>Origen</mat-label>
       <input matInput formControlName="synonymName" type="text" placeholder="Nombre de original" />
       <mat-error *ngIf="form.controls['synonymName']">Se requiere un nombre de sinonimo</mat-error>
@@ -36,6 +36,9 @@
           [matChipInputAddOnBlur]="addOnBlur"
           (matChipInputTokenEnd)="add($event)" />
       </mat-chip-grid>
+      <mat-error *ngIf="form.controls['synonymList'].errors"
+        >Se requiere al menos un sinonimo</mat-error
+      >
       <mat-hint>Cada palabra o grupo de palabras debe estar separado con comas.</mat-hint>
     </mat-form-field>
 
@@ -43,6 +46,7 @@
       <button mat-button color="primary" [routerLink]="'/dashboard/sinonimos'">Cancelar</button>
       <button
         mat-flat-button
+        type="submit"
         color="primary"
         (click)="sendSynonymEdition()"
         [disabled]="form.invalid">

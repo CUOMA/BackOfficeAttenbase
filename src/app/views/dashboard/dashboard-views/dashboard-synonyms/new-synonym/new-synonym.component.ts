@@ -59,6 +59,9 @@ export class NewSynonymComponent {
     }
   }
   protected sendSynonymEdition() {
-    alert('se edito el sinonimo');
+    alert(`{
+      origen: ${this.form.value.synonymName},
+      sinonimos: ${this.form.value.synonymList},
+    }`);
   }
 }

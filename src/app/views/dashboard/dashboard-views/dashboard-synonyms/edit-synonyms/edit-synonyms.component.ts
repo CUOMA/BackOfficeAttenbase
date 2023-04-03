@@ -25,7 +25,7 @@ export class EditSynonymsComponent {
 
   protected form = this.form_builder.nonNullable.group({
     synonymName: new FormControl('Problemas de Señal', Validators.required),
-    synonymList: new FormControl(this.synonyms, Validators.required),
+    synonymList: new FormControl(this.synonyms.values, Validators.required),
   });
 
   protected add(event: MatChipInputEvent): void {
@@ -64,6 +64,9 @@ export class EditSynonymsComponent {
     }
   }
   protected sendSynonymEdition() {
-    alert('se edito el sinonimo');
+    alert(`{
+      origen: ${this.form.value.synonymName},
+      sinonimos: ${this.form.value.synonymList},
+    }`);
   }
 }

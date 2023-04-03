@@ -49,6 +49,8 @@ mat-chip {
   margin-right: 5px;
   span {
     color: #73777f;
+    font-size: 14px;
+    text-transform: capitalize;
   }
 
   & button {

@@ -9,7 +9,7 @@ import { DashboardFacade } from './dashboard.facade';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(private router: Router, private dashboardFacade: DashboardFacade) {}
+  constructor(protected router: Router, private dashboardFacade: DashboardFacade) {}
 
   public ngOnInit(): void {
     this.dashboardFacade.isAuthenticated

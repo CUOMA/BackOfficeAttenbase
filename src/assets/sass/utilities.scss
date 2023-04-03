@@ -1,32 +1,13 @@
 // MARGINS
 .mr-10 {
-  margin-right: 10px !important;
+  margin-right: 10px;
 }
 .ml-8 {
-  margin-left: 8px !important;
+  margin-left: 8px;
 }
 
 .mt-20 {
-  margin-top: 20px !important;
-}
-
-// FONTS
-.font-cap {
-  &::first-letter {
-    text-transform: capitalize !important;
-  }
-  span::first-letter {
-    text-transform: uppercase !important;
-  }
-}
-
-.f-14 {
-  font-size: 14px !important;
-}
-
-// WIDTH
-.max-w-500 {
-  max-width: 500px;
+  margin-top: 20px;
 }
 
 // mat menu
