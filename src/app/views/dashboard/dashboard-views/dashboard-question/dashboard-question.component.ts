@@ -26,7 +26,6 @@ export class DashboardQuestionComponent implements OnInit {
   ngOnInit(): void {
     this.questionsFacade.dispatchGetStatuses();
     this.questionsFacade.dispatchGetQuestions();
-
     this.areQuestionsLoading$ = this.questionsFacade.areQuestionsLoading.pipe(
       takeUntil(this.destroy$)
     );

@@ -1,5 +1,5 @@
-@import './abstracts/variables';
-@import './components/states/states.scss';
+@import "./abstracts/variables";
+@import "./components/states/states.scss";
 
 html,
 body {
@@ -9,7 +9,7 @@ body {
 
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 a {
   text-decoration: none;
@@ -25,6 +25,10 @@ h1 {
   color: #002020;
   font-size: 36px;
   font-weight: 400;
+}
+h2 {
+  font-weight: 400;
+  font-size: 24px;
 }
 
 .container {

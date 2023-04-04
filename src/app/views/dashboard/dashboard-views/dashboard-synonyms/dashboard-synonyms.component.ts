@@ -128,8 +128,8 @@ export class DashboardSynonymsComponent implements OnInit, AfterViewInit {
   protected synonyms$ = this.synonymsFacade.selectSynonyms();
   protected areSynonymsLoading$!: Observable<boolean>;
   private destroy$ = new Subject<void>();
+  dataSource: any;
 
-  dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private alertService: AlertService, private synonymsFacade: SynonymsFacade) {}
@@ -138,6 +138,7 @@ export class DashboardSynonymsComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
   ngOnInit(): void {
+    this.dataSource = new MatTableDataSource();
     this.synonymsFacade.dispatchGetSynonyms();
     this.areSynonymsLoading$ = this.synonymsFacade.areSynonymsLoading.pipe(
       takeUntil(this.destroy$)

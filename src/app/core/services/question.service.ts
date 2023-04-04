@@ -16,7 +16,7 @@ export class QuestionsService {
     //   return of(this.cache.get(pageNumber)!);
     // }
     return this.httpClient
-      .get<Questions>(`${environment.apiUrl}questions?page=${pageNumber}`)
+      .get<Questions>(`${environment.apiUrl}questions?limit=${pageNumber}&published=true`)
       .pipe(tap(res => this.cache.set(pageNumber, res)));
   }
 

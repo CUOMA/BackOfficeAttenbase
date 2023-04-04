@@ -1,0 +1,41 @@
+.wrapper {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .action {
+      display: flex;
+      button{
+        margin-left: 15px;
+      }
+    }
+  }
+  p {
+    color: #344b64;
+    font-size: 12px;
+  }
+  table {
+    .text-blue {
+      color: #0062a1;
+      font-size: 16px;
+    }
+  }
+}
+
+::ng-deep {
+  .mdc-evolution-chip-set__chips {
+    flex-wrap: nowrap !important;
+  }
+}
+
+.show-questions {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #8bb4b4;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+}

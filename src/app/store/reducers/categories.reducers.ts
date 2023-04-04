@@ -39,15 +39,13 @@ export const categoriesReducer = createReducer(
     categoriesApiActions.deleteCategoriesRequest,
     (state): CategoriesState => ({
       ...state,
-      areCategoriesLoading: false,
+      areCategoriesLoading: true,
     })
   ),
   on(
     categoriesApiActions.deleteCategoriesSuccess,
-    (state, payload): CategoriesState => ({
+    (state): CategoriesState => ({
       ...state,
-      areCategoriesLoading: false,
-      categories: payload,
     })
   ),
   on(

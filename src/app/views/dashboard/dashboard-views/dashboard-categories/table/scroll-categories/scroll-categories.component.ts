@@ -71,7 +71,6 @@ export class ScrollCategoriesComponent implements OnInit, AfterViewInit {
   }
   private calculateButtonsStatus(): void {
     this.buttonLeftDisable = !this.childEl.nativeElement.scrollLeft;
-
     this.buttonRightDisable = !(
       this.childEl.nativeElement.scrollWidth -
       this.childEl.nativeElement.clientWidth -

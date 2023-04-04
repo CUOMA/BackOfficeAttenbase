@@ -18,7 +18,6 @@ export class DashboardCategoriesComponent implements OnInit {
   protected areCategoriesLoading$!: Observable<any>;
   protected categories$ = this.categoriesFacade.selectCategories();
   private destroy$ = new Subject<void>();
-
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
