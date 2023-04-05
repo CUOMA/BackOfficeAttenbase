@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { NavComponent } from './nav.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { NavComponent } from './nav.component';
+import { NavFacade } from './nav.facade';
 
 @NgModule({
+  providers: [NavFacade],
   declarations: [NavComponent],
   imports: [CommonModule, RouterModule, SharedModule],
   exports: [NavComponent],

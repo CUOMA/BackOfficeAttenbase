@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
 import { QuestionsResponse, Questions } from '../models/questions-response';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class QuestionsService {
@@ -11,13 +11,16 @@ export class QuestionsService {
 
   constructor(private httpClient: HttpClient) {}
 
-  public getQuestions(pageNumber: number): Observable<Questions> {
+  public getQuestions(pageNumber: number, status: string): Observable<Questions> {
     // if (this.cache.get(pageNumber)) {
     //   return of(this.cache.get(pageNumber)!);
     // }
     return this.httpClient
-      .get<Questions>(`${environment.apiUrl}questions?limit=${pageNumber}&published=true`)
-      .pipe(tap(res => this.cache.set(pageNumber, res)));
+      .get<QuestionsResponse>(`${environment.apiUrl}questions?limit=10&${status}=true`)
+      .pipe(
+        map(res => res.data),
+        tap(res => this.cache.set(pageNumber, res))
+      );
   }
 
   public deleteQuestions(id: number) {

@@ -52,7 +52,7 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['categories'].currentValue) {
-      this.dataSource = new MatTableDataSource(this.categories);
+      this.dataSource = new MatTableDataSource(this.categories.data);
     }
   }
 
@@ -65,17 +65,18 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.paginator.pageSize = this.pageSize;
-    console.log(this.categories.length);
   }
+
   protected deleteCategory(id: number, element: string) {
     this.store.dispatch(categoriesApiActions.deleteCategoriesRequest({ id }));
-    console.log(this.store.dispatch(categoriesApiActions.deleteCategoriesSuccess()));
     this.alertCategoryDeleted(element);
   }
+
   protected detailCategory(id: number): any {
     this.router.navigate(['/dashboard/categorias/detalle'], { queryParams: { id } });
   }
-  protected alertCategoryDeleted(element: string) {
+
+  private alertCategoryDeleted(element: string) {
     this.alertService.openFromComponent({
       duration: 5000,
       data: {

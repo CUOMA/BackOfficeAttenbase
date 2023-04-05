@@ -6,6 +6,8 @@ import {
   ViewChild,
   OnInit,
   Output,
+  SimpleChanges,
+  OnChanges,
 } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -24,7 +26,7 @@ import { QuestionStatus } from '../../../../../core/models/statuses-response';
   styleUrls: ['./table-question.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TableQuestionComponent implements OnInit, AfterViewInit {
+export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges {
   @Output() pageChanged = new EventEmitter<PageEvent>();
   @Input() questions!: Datum[];
   protected displayedColumns: string[] = [
@@ -51,12 +53,16 @@ export class TableQuestionComponent implements OnInit, AfterViewInit {
 
   constructor(public questionsFacade: QuestionsFacade) {}
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['questions'].currentValue) {
+      this.dataSource = new MatTableDataSource(this.questions);
+      this.dataSource.paginator = this.paginator;
+    }
+  }
   ngOnInit(): void {
     this.areQuestionsLoading$ = this.questionsFacade.areQuestionsLoading.pipe(
       takeUntil(this.destroy$)
     );
-    this.dataSource = new MatTableDataSource(this.questions);
-    this.dataSource.paginator = this.paginator;
   }
 
   ngAfterViewInit() {

@@ -1,21 +1,23 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Pages } from 'src/app/core/models/pages';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Page } from 'src/app/core/models/page';
+import { NavFacade } from './nav.facade';
+import { NAVIGATION_ITEMS } from './navigation-items';
 
 @Component({
   selector: 'bdc-bo-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
 })
-export class NavComponent {
-  @Input() isOpen!: boolean;
+export class NavComponent implements OnInit {
+  @Input() public isOpen!: boolean;
+  protected pagesIterable = new Map<string, Page>(NAVIGATION_ITEMS);
+  protected combinedPages$ = this.navFacade.selectCountAside(this.pagesIterable);
 
-  public pages: Pages[] = [
-    { label: 'Preguntas', relativePath: 'listado-de-preguntas', icon: 'list-question', data: 356 },
-    { label: 'Categorías', relativePath: 'categorias', icon: 'categories', data: 356 },
-    { label: 'Sinónimos', relativePath: 'sinonimos', icon: 'synonymous', data: 3514 },
-    { label: 'Métricas', relativePath: 'metricas', icon: 'segment' },
-    { label: 'Usuarios', relativePath: 'usuarios', icon: 'users' },
-    { label: 'Perfil', relativePath: 'perfil', icon: 'profile' },
-    { label: 'Alertas', relativePath: 'alerta', icon: 'bell', data: 3 },
-  ];
+  constructor(private navFacade: NavFacade) {}
+
+  ngOnInit(): void {
+    this.navFacade.dispatchGetCountAside();
+  }
 }

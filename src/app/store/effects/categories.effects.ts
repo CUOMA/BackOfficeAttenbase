@@ -17,7 +17,9 @@ export class CategoriesEffects {
       ),
       mergeMap(() =>
         this.categoriesService.getCategories().pipe(
-          map(categories => categoriesApiActions.getCategoriesSuccess(categories)),
+          map((categories: any) => {
+            return categoriesApiActions.getCategoriesSuccess(categories);
+          }),
           catchError(() =>
             of(categoriesApiActions.getCategoriesFailure({ error: 'Error on categories' }))
           )

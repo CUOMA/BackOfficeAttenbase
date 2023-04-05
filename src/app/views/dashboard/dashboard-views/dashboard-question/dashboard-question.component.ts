@@ -12,12 +12,12 @@ import { PageEvent } from '@angular/material/paginator';
 export class DashboardQuestionComponent implements OnInit {
   constructor(public questionsFacade: QuestionsFacade) {}
   protected tabs = [
-    { label: 'Publicadas', value: 'approved' },
-    { label: 'Archivadas', value: 'review' },
+    { label: 'Publicadas', value: 'published' },
+    { label: 'Archivadas', value: 'archived' },
     { label: 'Borradores', value: 'draft' },
   ];
   protected selectedTab = this.tabs[0];
-  protected questions$ = this.questionsFacade.selectQuestions('approved');
+  protected questions$ = this.questionsFacade.selectQuestions();
   protected areQuestionsLoading$!: Observable<boolean>;
   protected areStatusesLoading$!: Observable<boolean>;
   private destroy$ = new Subject<void>();
@@ -25,19 +25,20 @@ export class DashboardQuestionComponent implements OnInit {
 
   ngOnInit(): void {
     this.questionsFacade.dispatchGetStatuses();
-    this.questionsFacade.dispatchGetQuestions();
+    this.questionsFacade.dispatchGetQuestions('published');
     this.areQuestionsLoading$ = this.questionsFacade.areQuestionsLoading.pipe(
       takeUntil(this.destroy$)
     );
   }
 
   protected handlePageChanged(pageEvent: PageEvent): void {
-    this.questionsFacade.dispatchGetQuestions(pageEvent.pageIndex + 1);
+    // this.questionsFacade.dispatchGetQuestions(pageEvent.pageIndex + 1);
   }
 
   protected selectTab(tab: { label: string; value: string }) {
     this.selectedTab = tab;
-    this.questions$ = this.questionsFacade.selectQuestions(tab.value);
+    this.questionsFacade.dispatchGetQuestions(this.selectedTab.value);
+    this.questions$ = this.questionsFacade.selectQuestions();
   }
   protected toggleMenu() {
     this.isOpen = !this.isOpen;

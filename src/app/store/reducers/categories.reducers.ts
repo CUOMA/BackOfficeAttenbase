@@ -20,14 +20,18 @@ export const categoriesReducer = createReducer(
       areCategoriesLoading: true,
     })
   ),
-  on(
-    categoriesApiActions.getCategoriesSuccess,
-    (state, payload): CategoriesState => ({
+  on(categoriesApiActions.getCategoriesSuccess, (state, payload): CategoriesState => {
+    console.log({
       ...state,
       areCategoriesLoading: false,
       categories: payload,
-    })
-  ),
+    });
+    return {
+      ...state,
+      areCategoriesLoading: false,
+      categories: payload,
+    };
+  }),
   on(
     categoriesApiActions.getCategoriesFailure,
     (state): CategoriesState => ({

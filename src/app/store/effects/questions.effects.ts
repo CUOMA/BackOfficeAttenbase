@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { forkJoin, of } from 'rxjs';
-import { catchError, map, mergeMap, tap } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap, filter } from 'rxjs/operators';
 import { QuestionsService } from '../../core/services/question.service';
 import { questionsApiActions } from '../actions/question.action';
 
@@ -12,8 +12,8 @@ export class QuestionsEffects {
   categories$ = createEffect((): any => {
     return this.actions$.pipe(
       ofType(questionsApiActions.getQuestionsRequest.type),
-      mergeMap((action: Action & { pageNumber: number }) => {
-        return this.questionsService.getQuestions(action.pageNumber).pipe(
+      mergeMap((action: Action & { pageNumber: number; status: string }) => {
+        return this.questionsService.getQuestions(action.pageNumber, action.status).pipe(
           map(questions => questionsApiActions.getQuestionsSuccess(questions)),
           catchError(() =>
             of(questionsApiActions.getQuestionsFailure({ error: 'Error on questions' }))

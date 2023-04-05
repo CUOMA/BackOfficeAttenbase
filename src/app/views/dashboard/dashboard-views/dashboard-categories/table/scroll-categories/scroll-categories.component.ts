@@ -34,6 +34,7 @@ export class ScrollCategoriesComponent implements OnInit, AfterViewInit {
 
   public ngOnInit(): void {
     this.agruparItems(this.element);
+    console.log(this.element)
   }
 
   ngAfterViewInit(): void {
@@ -53,7 +54,6 @@ export class ScrollCategoriesComponent implements OnInit, AfterViewInit {
   }
 
   protected deleteItem(id: number, name: string): any {
-    console.log('eliminaste' + name);
     this.alertSynonimDeleted(name);
     // this.categoriesFacade
     //   .deleteCategories()

@@ -11,7 +11,7 @@
     height: 28px;
     border-radius: 8px;
     outline: none;
-    &.published {
+    &.PUBLISHED {
         color: #1f7a41;
         background-color: #d9f3dc;
     }
@@ -19,14 +19,15 @@
         color: #1f7a41;
         background-color: #d9f3dc;
     }
-    &.scheduled {
+    &.SCHEDULED {
         color: #9a7000;
         background-color: #ffefd7;
     }
-    &.review {
+    &.REVIEW {
         color: #9a7000;
         background-color: #ffefd7;
     }
+
     &.expire {
         color: #ba1a1a;
         background-color: #ffdad6;
@@ -39,7 +40,7 @@
         color: #000000;
         background-color: #dfe3eb;
     }
-    &.archived {
+    &.ARCHIVED {
         color: #000000;
         background-color: #dfe3eb;
     }

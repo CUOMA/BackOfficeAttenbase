@@ -8,5 +8,5 @@ export const selectAreQuestionsLoading = createSelector(
 );
 
 export const selectQuestions = createSelector(selectFeature, state => {
-  return state.questions?.data;
+  return state.questions;
 });
