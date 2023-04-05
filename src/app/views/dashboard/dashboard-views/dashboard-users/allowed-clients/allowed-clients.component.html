@@ -5,7 +5,7 @@
   <div class="">
     <div #scrollElement class="container-scroll">
       <mat-chip-listbox>
-        <ng-container *ngFor="let item of element.name">
+        <ng-container *ngFor="let item of element">
           <mat-chip>
             <span>{{ item }}</span>
             <button matChipRemove aria-label="eliminar sinonimo" (click)="deleteItem()">

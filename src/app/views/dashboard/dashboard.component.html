@@ -3,7 +3,12 @@
     <bdc-bo-aside></bdc-bo-aside>
   </aside>
   <header>
-    <bdc-bo-searcher></bdc-bo-searcher>
+    <bdc-bo-searcher
+      *ngIf="
+        !router.url.includes('editar-sinonimo') &&
+        !router.url.includes('crear-sinonimo') &&
+        !router.url.includes('crear-usuario')
+      "></bdc-bo-searcher>
   </header>
   <main>
     <router-outlet> </router-outlet>
