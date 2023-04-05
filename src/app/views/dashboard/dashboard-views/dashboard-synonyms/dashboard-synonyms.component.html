@@ -1,7 +1,7 @@
 <div class="wrapper">
   <div class="action">
     <h1>Sinónimos de Negocio</h1>
-    <button mat-flat-button color="primary">
+    <button mat-flat-button color="primary" [routerLink]="['/dashboard/sinonimos/crear-sinonimo']">
       <mat-icon>add</mat-icon>
       Crear nuevo
     </button>
@@ -10,48 +10,43 @@
     Los sinónimos de negocio facilitan hallar palabras específicas al momento de utilizar el
     buscador.
   </p>
-  <ng-container *ngIf="synonyms$ | async as synonyms">
-    <table mat-table [dataSource]="synonyms.data">
-      <ng-container matColumnDef="position">
-        <th width="30%" mat-header-cell *matHeaderCellDef>Origen</th>
-        <td mat-cell *matCellDef="let element" class="text-blue">{{ element.synonym }}</td>
-      </ng-container>
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Sinónimo(s)</th>
-        <td mat-cell *matCellDef="let element">
-          <bdc-bo-scroll-synonyms [element]="element.synonyms"></bdc-bo-scroll-synonyms>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="seeMore">
-        <th mat-header-cell width="40px" *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element">
-          <div class="more-options">
-            <button [matMenuTriggerFor]="menu" mat-icon-button aria-label="más opciones">
-              <mat-icon>more_vert</mat-icon>
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="position">
+      <th width="30%" mat-header-cell *matHeaderCellDef>Origen</th>
+      <td mat-cell *matCellDef="let element" class="text-blue">{{ element.position }}</td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Sinónimo(s)</th>
+      <td mat-cell *matCellDef="let element">
+        <bdc-bo-scroll-synonyms [element]="element.name"></bdc-bo-scroll-synonyms>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="seeMore">
+      <th mat-header-cell width="40px" *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <div class="more-options">
+          <button [matMenuTriggerFor]="menu" mat-icon-button aria-label="más opciones">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="['/dashboard/sinonimos/editar-sinonimo']">
+              <span>Editar</span>
             </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item>
-                <span>Eliminar</span>
-              </button>
-              <button mat-menu-item>
-                <span>Editar</span>
-              </button>
-            </mat-menu>
-          </div>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      <div *ngIf="areSynonymsLoading$ | async" class="overlay">
-        <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'" [value]="50">
-        </mat-progress-spinner>
-      </div>
-    </table>
-    <mat-paginator
-      [pageIndex]="pageIndex"
-      [pageSize]="pageSize"
-      [disabled]="disabled"
-      [hidePageSize]="true">
-    </mat-paginator>
-  </ng-container>
+            <button mat-menu-item>
+              <span>Eliminar</span>
+            </button>
+          </mat-menu>
+          <div class="menu" [ngClass]="{ open: element.isOpen }"></div>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <mat-paginator
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [disabled]="disabled"
+    [hidePageSize]="true">
+  </mat-paginator>
 </div>

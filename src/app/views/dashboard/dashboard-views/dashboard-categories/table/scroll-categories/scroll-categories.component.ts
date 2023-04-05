@@ -34,7 +34,6 @@ export class ScrollCategoriesComponent implements OnInit, AfterViewInit {
 
   public ngOnInit(): void {
     this.agruparItems(this.element);
-    console.log(this.element)
   }
 
   ngAfterViewInit(): void {

@@ -1,6 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Page } from 'src/app/core/models/page';
 import { NavFacade } from './nav.facade';
 import { NAVIGATION_ITEMS } from './navigation-items';

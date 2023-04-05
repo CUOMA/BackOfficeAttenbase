@@ -1,0 +1,120 @@
+<div class="wrapper">
+  <div class="action">
+    <h1>Crear Usuario</h1>
+  </div>
+  <form [formGroup]="form" class="form">
+    <mat-form-field appearance="outline" class="form-inputs">
+      <mat-label>Nombre</mat-label>
+      <input
+        matInput
+        formControlName="name"
+        name="name"
+        type="text"
+        placeholder="attenbase@attenbase.com" />
+      <mat-error *ngIf="form.controls['name']"
+        >Ingrese un nombre de al menos dos letras.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="form-inputs">
+      <mat-label>Apellido</mat-label>
+      <input
+        matInput
+        formControlName="useradress"
+        name="useradress"
+        type="text"
+        placeholder="Quito" />
+      <mat-error *ngIf="form.controls['useradress']"
+        >Ingrese un apellido de al menos dos letras.
+      </mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="outline" class="form-inputs">
+      <mat-label>Correo electrónico</mat-label>
+      <input
+        matInput
+        formControlName="useremail"
+        name="email"
+        type="email"
+        placeholder="attenbase@attenbase.com" />
+      <mat-error *ngIf="form.controls['useremail'].errors?.['required']"
+        >Ingresá un correo electrónico válido. Ej.: attenbase@attenbase.com
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="form-inputs">
+      <mat-label>Contraseña</mat-label>
+      <input
+        formControlName="password"
+        name="password"
+        type="password"
+        autocomplete="current-password"
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        placeholder="" />
+      <button
+        mat-icon-button
+        [color]="
+          form.controls['password'].errors && form.controls['password'].touched ? 'warn' : 'primary'
+        "
+        matSuffix
+        (click)="togglePasswordVisibility($event)">
+        <ng-container *ngIf="hide; else showPassword">
+          <mat-icon svgIcon="eyeText"></mat-icon>
+        </ng-container>
+        <ng-template #showPassword>
+          <mat-icon svgIcon="eyePassword"></mat-icon>
+        </ng-template>
+      </button>
+      <mat-error
+        *ngIf="form.controls['password'].errors?.['required'] && form.controls['password'].touched"
+        >Ingresá una contraseña
+      </mat-error>
+      <mat-error
+        *ngIf="form.controls['password'].errors?.['pattern'] && form.controls['password'].dirty"
+        >Mínimo 8 caracteres, una letra en mayúscula, un número y un caracter especial (ej.:#$%!)
+      </mat-error>
+      <mat-hint
+        >Mínimo 8 caracteres, una letra en mayúscula, un número y un caracter especial(ej.:#$%!)
+      </mat-hint>
+    </mat-form-field>
+    <div class="chip-area">
+      <h3>Rol</h3>
+      <div>
+        <mat-chip-listbox aria-label="Fish selection">
+          <mat-chip-option color="primary" class="border-gray border-topleft-rad ml-8"
+            >Administrador</mat-chip-option
+          >
+          <mat-chip-option color="primary" class="border-gray">Moderador</mat-chip-option>
+          <mat-chip-option color="primary" class="border-gray border-topright-rad" selected
+            >Editor</mat-chip-option
+          >
+        </mat-chip-listbox>
+      </div>
+    </div>
+    <div class="chip-area">
+      <h3>Estados</h3>
+      <div>
+        <mat-chip-listbox aria-label="Fish selection">
+          <mat-chip-option color="primary" class="border-gray border-topleft-rad ml-8"
+            >Activo</mat-chip-option
+          >
+          <mat-chip-option color="primary" class="border-gray border-topright-rad" selected
+            >Inactivo</mat-chip-option
+          >
+        </mat-chip-listbox>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="form-buttons">
+      <button
+        mat-stroked-button
+        color="primary"
+        class="mr-10"
+        [routerLink]="['/dashboard/usuarios']">
+        Cancelar
+      </button>
+      <button mat-flat-button color="primary" [disabled]="form.invalid" (click)="alertSaveUser()">
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>

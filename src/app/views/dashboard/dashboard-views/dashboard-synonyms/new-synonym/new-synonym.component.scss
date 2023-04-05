@@ -1,0 +1,35 @@
+.wrapper {
+  .edit-synonyms-form {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+  }
+  .origen-form-field {
+    max-width: 500px;
+  }
+  .synonyms-input-area {
+    width: 100%;
+  }
+  h2 {
+    margin-bottom: 80px;
+  }
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 35px;
+  }
+  mat-hint {
+    font-size: 12px;
+    color: #73777f;
+  }
+  mat-error {
+    font-size: 12px;
+  }
+  .forms-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+  }
+}
