@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
 import { selectAreSynonymsLoading } from 'src/app/store/selectors/synonyms.selectors';
 import { synonymsApiActions } from '../../../../store/actions/synonyms.action';
 import { selectSynonyms } from '../../../../store/selectors/synonyms.selectors';
-import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class SynonymsFacade {

@@ -10,5 +10,6 @@ export const selectCategories = createSelector(selectFeature, state => state.cat
 
 export const selectCategory = (id: number) =>
   createSelector(selectFeature, state => {
-    return state.categories.data.find((category: any) => category.id === +id);
+    console.log(state.categories.data.data);
+    return state.categories.data.data.find((category: any) => category.id === +id);
   });

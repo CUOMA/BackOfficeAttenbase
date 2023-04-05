@@ -37,6 +37,7 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
   protected color: ThemePalette = 'primary';
   protected mode: MatProgressSpinnerModule = 'indeterminate';
   protected questionStatusTypes$!: Observable<QuestionStatus>;
+  ;
 
   private destroy$ = new Subject<void>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -60,6 +61,7 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
     this.areCategoriesLoading$ = this.categoriesFacade.areCategoriesLoading.pipe(
       takeUntil(this.destroy$)
     );
+
   }
 
   ngAfterViewInit(): void {

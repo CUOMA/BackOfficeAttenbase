@@ -15,6 +15,5 @@ export class MenuQuestionComponent {
   constructor(public store: Store) {}
   protected deleteQuestion(idQuestion: any): void {
     this.store.dispatch(questionsApiActions.deleteQuestionRequest({ id: idQuestion }));
-    console.log(idQuestion);
   }
 }
