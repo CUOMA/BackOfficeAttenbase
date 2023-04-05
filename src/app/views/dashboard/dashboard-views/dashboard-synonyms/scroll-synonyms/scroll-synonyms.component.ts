@@ -31,7 +31,6 @@ export class ScrollSynonymsComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.resize$.pipe(debounceTime(100)).subscribe({ next: () => this.calculateButtonsStatus() });
-    console.log(this.element);
   }
 
   protected deleteItem(): any {

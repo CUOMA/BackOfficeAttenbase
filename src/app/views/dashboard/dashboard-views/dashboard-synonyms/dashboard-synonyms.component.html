@@ -18,7 +18,7 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Sinónimo(s)</th>
       <td mat-cell *matCellDef="let element">
-        <bdc-bo-scroll-synonyms [element]="element"></bdc-bo-scroll-synonyms>
+        <bdc-bo-scroll-synonyms [element]="element.name"></bdc-bo-scroll-synonyms>
       </td>
     </ng-container>
     <ng-container matColumnDef="seeMore">
