@@ -34,7 +34,6 @@ export class PasswordResetComponent implements OnInit {
 
   ngOnInit(): void {
     this.setUpForm();
-    console.log(this.activatedRoute.snapshot.queryParams.email);
   }
 
   public setUpForm() {

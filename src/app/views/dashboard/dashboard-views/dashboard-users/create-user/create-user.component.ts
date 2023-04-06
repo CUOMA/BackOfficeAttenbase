@@ -29,7 +29,6 @@ export class CreateUserComponent {
   }
   protected handleSubmitLogin(): void {
     const formValue = this.form.value;
-    console.log(formValue);
   }
   protected alertSaveUser(): void {
     alert('usuario guardado');

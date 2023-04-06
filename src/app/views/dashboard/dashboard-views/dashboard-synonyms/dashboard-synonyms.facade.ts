@@ -8,14 +8,7 @@ import { selectSynonyms } from '../../../../store/selectors/synonyms.selectors';
 @Injectable()
 export class SynonymsFacade {
   constructor(private store: Store) {}
-  public deleteSynonim(): Observable<any> {
-    return of([
-      {
-        position: 'Problemas de Señal',
-        name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-      },
-    ]);
-  }
+
   public get areSynonymsLoading(): Observable<boolean> {
     return this.store.select(selectAreSynonymsLoading);
   }

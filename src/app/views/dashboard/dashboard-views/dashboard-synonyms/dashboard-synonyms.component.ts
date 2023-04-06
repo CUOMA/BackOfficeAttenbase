@@ -14,133 +14,26 @@ import { selectSynonyms } from '../../../../store/selectors/synonyms.selectors';
 })
 export class DashboardSynonymsComponent implements OnInit, AfterViewInit {
   protected displayedColumns: string[] = ['position', 'name', 'seeMore'];
-  ELEMENT_DATA: any[] = [
-    {
-      position: 'Problemas de Señal',
-      name: [
-        'Problemas de señal',
-        'No funciona',
-        'Rooming',
-        'Problemas con el teléfono',
-        'No hay señal',
-      ],
-    },
-    {
-      position: '*444',
-      name: [
-        'Problemas de señal',
-        'Problemas con el teléfono',
-        'No hay señal',
-        'Celular',
-        'No funciona',
-      ],
-    },
-    { position: '*555', name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'] },
-    { position: '*611', name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'] },
-    {
-      position: '*Activar',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-    },
-    { position: '*2x1', name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'] },
-    {
-      position: 'Actualización',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-    },
-    {
-      position: '*Problemas de Señal',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-    },
-    {
-      position: '*Problemas de Señal',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-    },
-    { position: '*911', name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'] },
-    {
-      position: 'Error',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-    },
-    {
-      position: 'Problemas de Señal',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-    },
-    { position: '*444', name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'] },
-    { position: '*555', name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'] },
-    { position: '*611', name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'] },
-    {
-      position: '*Activar',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-    },
-    { position: '*2x1', name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'] },
-    {
-      position: 'Actualización',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-    },
-    {
-      position: '*Problemas de Señal',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-    },
-    {
-      position: '*Problemas de Señal',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-    },
-    { position: '*911', name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'] },
-    {
-      position: 'Error',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-    },
-    {
-      position: 'Problemas de Señal',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-    },
-    { position: '*444', name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'] },
-    { position: '*555', name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'] },
-    { position: '*611', name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'] },
-    {
-      position: '*Activar',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-    },
-    { position: '*2x1', name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'] },
-    {
-      position: 'Actualización',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-    },
-    {
-      position: '*Problemas de Señal',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-    },
-    {
-      position: '*Problemas de Señal',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-    },
-    { position: '*911', name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'] },
-    {
-      position: 'Error',
-      name: ['Problemas de señal', 'Problemas con el teléfono', 'No hay señal'],
-    },
-  ];
-  // tabla
   protected showFirstLastButtons: boolean = true;
-  protected disabled: boolean = false;
-  protected pageIndex: number = 0;
-  protected length: number = this.ELEMENT_DATA.length;
-  protected pageSize: number = 10;
-  protected openMenu: boolean = false;
   protected synonyms$ = this.synonymsFacade.selectSynonyms();
   protected areSynonymsLoading$!: Observable<boolean>;
   private destroy$ = new Subject<void>();
+  protected disabled: boolean = false;
+  protected pageIndex: number = 0;
+  protected length: number = 10;
+  protected pageSize: number = 10;
+  protected openMenu: boolean = false;
 
-  dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  protected dataSource!: MatTableDataSource<any>;
 
   constructor(private alertService: AlertService, private synonymsFacade: SynonymsFacade) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.paginator.pageSize = this.pageSize;
   }
   ngOnInit(): void {
     this.synonymsFacade.dispatchGetSynonyms();
-    this.areSynonymsLoading$ = this.synonymsFacade.areSynonymsLoading.pipe(
-      takeUntil(this.destroy$)
-    );
   }
 }

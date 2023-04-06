@@ -121,7 +121,6 @@ export class DashboardUsersComponent implements AfterViewInit {
     };
     this.intl.previousPageLabel = 'Página anterior';
     this.intl.nextPageLabel = 'Página siguiente';
-    console.log(this.sort);
   }
   protected deleteItem() {
     alert('se dehabilitara un cliente');

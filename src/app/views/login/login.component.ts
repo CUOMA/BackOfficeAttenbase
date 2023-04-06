@@ -58,7 +58,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.form.get('password')?.setErrors({
           nonExistantEmail: error ? true : null,
         });
-        console.log(error);
       },
     });
   }

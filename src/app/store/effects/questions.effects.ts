@@ -26,7 +26,6 @@ export class QuestionsEffects {
     return this.actions$.pipe(
       ofType(questionsApiActions.deleteQuestionRequest.type),
       mergeMap((action: Action & { id: number }) => {
-        console.log(action);
         return this.questionsService.deleteQuestions(action.id);
       })
     );

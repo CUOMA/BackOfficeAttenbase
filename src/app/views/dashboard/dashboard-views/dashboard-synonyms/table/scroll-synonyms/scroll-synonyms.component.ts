@@ -2,14 +2,14 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  HostListener,
   Input,
   ViewChild,
-  HostListener,
 } from '@angular/core';
-import { debounceTime, tap, distinctUntilChanged } from 'rxjs/operators';
-import { AlertService } from '../../../../../core/services/alert.service';
-import { SynonymsFacade } from '../dashboard-synonyms.facade';
 import { BehaviorSubject } from 'rxjs';
+import { debounceTime, tap } from 'rxjs/operators';
+import { AlertService } from 'src/app/core/services/alert.service';
+import { SynonymsFacade } from '../../dashboard-synonyms.facade';
 
 @Component({
   selector: 'bdc-bo-scroll-synonyms',
@@ -34,10 +34,11 @@ export class ScrollSynonymsComponent implements AfterViewInit {
   }
 
   protected deleteItem(): any {
-    this.synonymsFacade
-      .deleteSynonim()
-      .pipe(tap(() => this.alertSynonimDeleted()))
-      .subscribe();
+    this.alertSynonimDeleted();
+    //   this.synonymsFacade
+    //     // .deleteSynonim()
+    //     .pipe(tap(() => this.alertSynonimDeleted()))
+    //     .subscribe();
   }
 
   protected alertSynonimDeleted() {

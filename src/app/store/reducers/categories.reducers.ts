@@ -21,11 +21,6 @@ export const categoriesReducer = createReducer(
     })
   ),
   on(categoriesApiActions.getCategoriesSuccess, (state, payload): CategoriesState => {
-    console.log({
-      ...state,
-      areCategoriesLoading: false,
-      categories: payload,
-    });
     return {
       ...state,
       areCategoriesLoading: false,

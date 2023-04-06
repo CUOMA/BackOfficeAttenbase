@@ -5,10 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './dashboard-metrics.component.html',
   styleUrls: ['./dashboard-metrics.component.scss'],
 })
-export class DashboardMetricsComponent implements OnInit {
+export class DashboardMetricsComponent  {
   constructor() {}
 
-  public ngOnInit(): void {
-    console.log('Sinonimos');
-  }
+
 }

@@ -7,7 +7,7 @@
       <mat-chip-listbox>
         <ng-container *ngFor="let item of element">
           <mat-chip>
-            <span>{{ item }}</span>
+            <span>{{ item.synonym }}</span>
             <button matChipRemove aria-label="eliminar sinonimo" (click)="deleteItem()">
               <mat-icon>close</mat-icon>
             </button>

@@ -5,10 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './dashboard-alert.component.html',
   styleUrls: ['./dashboard-alert.component.scss'],
 })
-export class DashboardAlertComponent implements OnInit {
+export class DashboardAlertComponent  {
   constructor() {}
 
-  public ngOnInit(): void {
-    console.log('Sinonimos');
-  }
+
 }
