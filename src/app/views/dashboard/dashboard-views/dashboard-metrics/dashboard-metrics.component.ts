@@ -5,8 +5,6 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './dashboard-metrics.component.html',
   styleUrls: ['./dashboard-metrics.component.scss'],
 })
-export class DashboardMetricsComponent  {
+export class DashboardMetricsComponent {
   constructor() {}
-
-
 }

@@ -8,10 +8,28 @@ import { AllowedClientsComponent } from './allowed-clients/allowed-clients.compo
 import { DashboardUsersRoutingModule } from './dashboard-users-routing.module';
 import { DashboardUsersComponent } from './dashboard-users.component';
 import { MenuFiltterComponent } from './menu-filtter/menu-filtter.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { UsersReducer, usersFeatureKey } from 'src/app/store/reducers/users.reducers';
+import { UsersEffects } from 'src/app/store/effects/users.effects';
+import { UsersFacade } from './dashboard-users.facade';
+import { TableUsersComponent } from './table-users/table-users.component';
 
 @NgModule({
-  providers: [],
-  declarations: [DashboardUsersComponent, AllowedClientsComponent, MenuFiltterComponent],
-  imports: [CommonModule, DashboardUsersRoutingModule, SharedModule, ReactiveFormsModule],
+  providers: [UsersFacade],
+  declarations: [
+    DashboardUsersComponent,
+    AllowedClientsComponent,
+    MenuFiltterComponent,
+    TableUsersComponent,
+  ],
+  imports: [
+    CommonModule,
+    DashboardUsersRoutingModule,
+    SharedModule,
+    ReactiveFormsModule,
+    StoreModule.forFeature(usersFeatureKey, UsersReducer),
+    EffectsModule.forFeature([UsersEffects]),
+  ],
 })
 export class DashboardUsersModule {}

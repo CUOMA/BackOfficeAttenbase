@@ -5,8 +5,6 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './dashboard-profile.component.html',
   styleUrls: ['./dashboard-profile.component.scss'],
 })
-export class DashboardProfileComponent  {
+export class DashboardProfileComponent {
   constructor() {}
-
-
 }

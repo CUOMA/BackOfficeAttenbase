@@ -21,10 +21,10 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="deleteCategory(element.id, element.name)">
+              <button mat-menu-item (click)="deleteSynonyms(element.id, element.name)">
                 <span>Eliminar</span>
               </button>
-              <button mat-menu-item (click)="detailCategory(element.id)">
+              <button mat-menu-item (click)="editSynonyms(element.id)">
                 <span>Editar</span>
               </button>
             </mat-menu>
@@ -34,8 +34,9 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+
     <mat-paginator
-      [length]="1"
+      [length]="10"
       [pageIndex]="0"
       [pageSize]="10"
       [disabled]="false"

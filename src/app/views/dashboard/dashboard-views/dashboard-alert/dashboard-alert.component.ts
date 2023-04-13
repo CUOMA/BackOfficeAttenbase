@@ -5,8 +5,6 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './dashboard-alert.component.html',
   styleUrls: ['./dashboard-alert.component.scss'],
 })
-export class DashboardAlertComponent  {
+export class DashboardAlertComponent {
   constructor() {}
-
-
 }

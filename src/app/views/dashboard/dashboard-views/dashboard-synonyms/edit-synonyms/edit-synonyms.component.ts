@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { SynonymsFacade } from '../dashboard-synonyms.facade';
 
 export interface Synonym {
   name: string;
@@ -12,20 +16,29 @@ export interface Synonym {
   templateUrl: './edit-synonyms.component.html',
   styleUrls: ['./edit-synonyms.component.scss'],
 })
-export class EditSynonymsComponent {
-  constructor(private form_builder: FormBuilder) {}
-
-  addOnBlur = true;
+export class EditSynonymsComponent implements OnInit {
+  protected addOnBlur = true;
+  protected id!: number;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  protected synonymId$!: Observable<any>;
   synonyms: Synonym[] = [
-    { name: 'no hay señal' },
-    { name: 'no funciona movistar' },
-    { name: 'no anda el telefono' },
   ];
-
-  protected form = this.form_builder.nonNullable.group({
-    synonymName: new FormControl('Problemas de Señal', Validators.required),
-    synonymList: new FormControl(this.synonyms.values, Validators.required),
+  constructor(
+    private fb: FormBuilder,
+    public store: Store,
+    public router: Router,
+    public route: ActivatedRoute,
+    public synonymsFacade: SynonymsFacade
+  ) {}
+  public ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.id = params['id'];
+    });
+    this.synonymId$ = this.synonymsFacade.detailSynonym(this.id);
+  }
+  protected form = this.fb.nonNullable.group({
+    synonymName: new FormControl('', Validators.required),
+    synonymList: new FormControl('', Validators.required),
   });
 
   protected add(event: MatChipInputEvent): void {

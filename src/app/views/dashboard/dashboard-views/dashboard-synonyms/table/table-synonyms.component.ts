@@ -59,7 +59,6 @@ export class TableSynonymsComponent implements OnChanges, OnInit, AfterViewInit 
     this.areSynonymsLoading$ = this.synonymsFacade.areSynonymsLoading.pipe(
       takeUntil(this.destroy$)
     );
-
   }
 
   ngAfterViewInit(): void {
@@ -67,13 +66,13 @@ export class TableSynonymsComponent implements OnChanges, OnInit, AfterViewInit 
     this.paginator.pageSize = this.pageSize;
   }
 
-  protected deleteCategory(id: number, element: string) {
+  protected deleteSynonyms(id: number, element: string) {
     this.store.dispatch(categoriesApiActions.deleteCategoriesRequest({ id }));
     this.alertCategoryDeleted(element);
   }
 
-  protected detailCategory(id: number): any {
-    this.router.navigate(['/dashboard/categorias/detalle'], { queryParams: { id } });
+  protected editSynonyms(id: number): any {
+    this.router.navigate(['/dashboard/sinonimos/editar-sinonimo'], { queryParams: { id } });
   }
 
   private alertCategoryDeleted(element: string) {
