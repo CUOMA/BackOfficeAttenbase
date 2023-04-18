@@ -7,6 +7,8 @@ export const selectAreQuestionsLoading = createSelector(
   state => state.areQuestionsLoading
 );
 
+export const selectPaginator = createSelector(selectFeature, state => state.paginator);
+
 export const selectQuestions = createSelector(selectFeature, state => {
   return state.questions;
 });

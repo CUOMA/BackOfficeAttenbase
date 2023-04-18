@@ -7,7 +7,7 @@
       mat-raised-button
       [routerLink]="['/dashboard/listado-de-preguntas/crear-pregunta']"
       color="accent">
-      <div class="d-flex align-items-center" *ngIf="isOpen; else notOpen">
+      <div class="align-center" *ngIf="isOpen; else notOpen">
         <mat-icon>add</mat-icon> <span>Crear Pregunta</span>
       </div>
       <ng-template #notOpen><mat-icon>add</mat-icon></ng-template>

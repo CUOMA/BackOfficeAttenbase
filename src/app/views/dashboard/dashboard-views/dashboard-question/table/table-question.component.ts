@@ -17,7 +17,7 @@ import { EventEmitter } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import { QuestionStatus } from '../../../../../core/models/statuses-response';
 
 @Component({
@@ -28,7 +28,8 @@ import { QuestionStatus } from '../../../../../core/models/statuses-response';
 })
 export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges {
   @Output() pageChanged = new EventEmitter<PageEvent>();
-  @Input() questions!: Datum[];
+  @Input() questions!: any;
+  @Input() page?: number;
   protected displayedColumns: string[] = [
     'question',
     'category',
@@ -56,8 +57,8 @@ export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['questions'].currentValue) {
       this.dataSource = new MatTableDataSource(this.questions);
-      this.dataSource.paginator = this.paginator;
     }
+    this.paginator?.firstPage();
   }
   ngOnInit(): void {
     this.areQuestionsLoading$ = this.questionsFacade.areQuestionsLoading.pipe(
@@ -67,7 +68,7 @@ export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges 
 
   ngAfterViewInit() {
     this.paginator.pageSize = this.pageSize;
-    this.paginator.length = this.questions.length;
+    this.paginator.length = this.questions[1].total;
   }
 
   protected handlePageChanged(pageEvent: PageEvent): void {

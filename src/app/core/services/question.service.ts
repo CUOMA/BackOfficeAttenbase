@@ -16,7 +16,9 @@ export class QuestionsService {
     //   return of(this.cache.get(pageNumber)!);
     // }
     return this.httpClient
-      .get<QuestionsResponse>(`${environment.apiUrl}questions?limit=10&${status}=true`)
+      .get<QuestionsResponse>(
+        `${environment.apiUrl}questions?limit=10&${status}=true&page=${pageNumber}`
+      )
       .pipe(
         map(res => res.data),
         tap(res => this.cache.set(pageNumber, res))

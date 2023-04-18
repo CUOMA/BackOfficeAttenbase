@@ -4,7 +4,7 @@ import { Questions } from '../../core/models/questions-response';
 export const questionsApiActions = createActionGroup({
   source: 'Questions API',
   events: {
-    'Get Questions Request': props<{ pageNumber: number; status: string }>(),
+    'Get Questions Request': props<{ page: number; status: string }>(),
     'Get Questions Success': props<Questions>(),
     'Get Questions Failure': props<any>(),
     'Delete Question Request': props<{ id: number }>(),

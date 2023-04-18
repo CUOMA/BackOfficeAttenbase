@@ -39,6 +39,7 @@ export interface Datum {
   updated_at?: Date;
   deleted_at: string;
   categories: Category[];
+  total: number;
 }
 
 export interface Link {

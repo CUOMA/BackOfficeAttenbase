@@ -31,8 +31,8 @@ export class DashboardQuestionComponent implements OnInit {
     );
   }
 
-  protected handlePageChanged(pageEvent: PageEvent): void {
-    // this.questionsFacade.dispatchGetQuestions(pageEvent.pageIndex + 1);
+  protected handlePageChanged(pageEvent: any): void {
+    this.questionsFacade.dispatchGetQuestions('published', pageEvent.pageIndex + 1);
   }
 
   protected selectTab(tab: { label: string; value: string }) {

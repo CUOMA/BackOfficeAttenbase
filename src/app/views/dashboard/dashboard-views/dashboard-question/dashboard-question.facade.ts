@@ -9,6 +9,7 @@ import { questionsApiActions } from '../../../../store/actions/question.action';
 import { statusesApiActions } from '../../../../store/actions/statuses.action';
 import {
   selectAreQuestionsLoading,
+  selectPaginator,
   selectQuestions,
 } from '../../../../store/selectors/question.selectors';
 import {
@@ -36,10 +37,8 @@ export class QuestionsFacade {
     return this.store.select(selectStatuses);
   }
 
-  public dispatchGetQuestions(status: string, pageNumber?: number): void {
-    this.store.dispatch(
-      questionsApiActions.getQuestionsRequest({ pageNumber: pageNumber ?? 1, status: status })
-    );
+  public dispatchGetQuestions(status: string, page = 0): void {
+    this.store.dispatch(questionsApiActions.getQuestionsRequest({ status: status, page }));
   }
 
   public dispatchGetStatuses(): void {
@@ -54,9 +53,13 @@ export class QuestionsFacade {
         questions.data.map(question => ({
           ...question,
           status: statusTypes.data.find((type: { id: number }) => type.id === question.status_id),
+          total: questions.total,
         }))
       )
     );
+  }
+  public selectPaginator(): Observable<Datum[]> {
+    return this.store.select(selectPaginator);
   }
 
   protected toggleMenu() {
