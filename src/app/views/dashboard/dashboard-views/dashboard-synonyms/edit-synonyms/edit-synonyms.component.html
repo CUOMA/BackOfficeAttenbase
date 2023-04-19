@@ -1,6 +1,9 @@
 <ng-container *ngIf="synonymId$ | async as synonym">
   <div class="wrapper">
-    <h2>Editar Sinónimo de Negocio</h2>
+    <div class="action">
+      <bdc-bo-back-arrow-button></bdc-bo-back-arrow-button>
+      <h2>Editar Sinónimo de Negocio</h2>
+    </div>
     <form [formGroup]="form" class="edit-synonyms-form">
       <mat-form-field class="origen-form-field" appearance="outline" hideRequiredMarker>
         <mat-label>Origen</mat-label>

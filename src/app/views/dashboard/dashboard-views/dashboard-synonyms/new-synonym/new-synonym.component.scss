@@ -1,4 +1,9 @@
 .wrapper {
+  .action {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
   .edit-synonyms-form {
     width: 100%;
     max-width: 900px;
