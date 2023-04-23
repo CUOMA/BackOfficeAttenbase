@@ -17,6 +17,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CustomMatIconsRegistratorModule } from './icons/custom-mat-icons-registrator.module';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   exports: [
@@ -37,6 +38,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatNativeDateModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatStepperModule,
     MatExpansionModule,
   ],
   providers: [{ provide: MatPaginatorIntl, useValue: CustomPaginator() }],

@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { CategoriesFacade } from './dashboard-categories.facade';
-import { Category } from '../../../../core/models/questions-response';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bdc-bo-dashboard-categories',
@@ -19,15 +19,20 @@ export class DashboardCategoriesComponent implements OnInit {
   protected categories$ = this.categoriesFacade.selectCategories();
   private destroy$ = new Subject<void>();
   dataSource = new MatTableDataSource();
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private categoriesFacade: CategoriesFacade) {}
+  constructor(private categoriesFacade: CategoriesFacade, private router: Router) {}
 
   ngOnInit(): void {
     this.areCategoriesLoading$ = this.categoriesFacade.areCategoriesLoading.pipe(
       takeUntil(this.destroy$)
     );
     this.areCategoriesLoading$.subscribe();
-    this.categoriesFacade.dispatchGetCategories();
+    this.categoriesFacade.dispatchGetCategories(1);
+  }
+  protected handlePageChanged(pageEvent: any): void {
+    this.categoriesFacade.dispatchGetCategories(pageEvent.pageIndex + 1);
+  }
+  goBack(): void {
+    this.router.navigate(['back']);
   }
 }

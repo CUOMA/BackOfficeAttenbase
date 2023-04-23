@@ -1,0 +1,18 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    mat-stepper {
+        width: 100%;
+        max-width: 934px;
+        .action-position-left {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .action-position-between {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}

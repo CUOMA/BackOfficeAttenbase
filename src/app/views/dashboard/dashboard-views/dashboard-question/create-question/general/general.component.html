@@ -1,0 +1,71 @@
+<div class="container-form">
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Pregunta</mat-label>
+      <input
+        formControlName="question"
+        name="question"
+        type="text"
+        matInput
+        #input
+        maxlength="150"
+        required />
+      <mat-hint align="start">Ej.: ¿Cómo comprar un equipo?</mat-hint>
+      <mat-hint align="end">{{ input.value.length }}/150</mat-hint>
+      <mat-error *ngIf="form.controls['question'].errors?.['required']">
+        Ingresá una pregunta
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Alias</mat-label>
+      <input formControlName="alias" name="alias" type="text" matInput required />
+      <mat-hint>Títulos similares para facilitar la detección de la pregunta.</mat-hint>
+      <mat-error *ngIf="form.controls['alias'].errors?.['required']">
+        Ingresá al menos un alias
+      </mat-error>
+    </mat-form-field>
+    <div class="input-double">
+      <mat-form-field appearance="outline">
+        <mat-label>Categoría</mat-label>
+        <mat-hint> Categoría a la cual pertenecerá la pregunta creada.</mat-hint>
+        <mat-select formControlName="category" name="category">
+          <ng-container *ngIf="listCategories$ | async as listCategories">
+            <mat-option
+              *ngFor="let category of listCategories"
+              (click)="filterSubcategories(category.id)"
+              [value]="category.name">
+              {{ category.name }}
+            </mat-option>
+          </ng-container>
+          <mat-option (click)="newCategory()">
+            <mat-icon color="primary"> add</mat-icon>
+            Crear nueva categoría</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Subcategoría</mat-label>
+        <mat-hint>Grupo dentro de la categoría elegida.</mat-hint>
+        <mat-select formControlName="subcategory" name="subcategory">
+          <ng-container *ngIf="listSubcategories$ | async as listSubcategories">
+            <ng-container *ngIf="listSubcategories.length > 0; else noSubcategories">
+              <ng-container *ngFor="let subcategory of listSubcategories">
+                <mat-option [value]="subcategory.name">{{ subcategory.name }}</mat-option>
+              </ng-container>
+            </ng-container>
+            <ng-template #noSubcategories>
+              <mat-option>No hay subcategorías asociadas</mat-option>
+            </ng-template>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Preguntas</mat-label>
+      <mat-select multiple>
+        <mat-option></mat-option>
+        <mat-select-trigger> asd </mat-select-trigger>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>

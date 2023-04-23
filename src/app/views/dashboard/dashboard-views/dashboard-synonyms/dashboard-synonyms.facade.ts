@@ -15,8 +15,8 @@ export class SynonymsFacade {
   public get areSynonymsLoading(): Observable<boolean> {
     return this.store.select(selectAreSynonymsLoading);
   }
-  public dispatchGetSynonyms(): void {
-    this.store.dispatch(synonymsApiActions.getSynonymsRequest());
+  public dispatchGetSynonyms(page: number): void {
+    this.store.dispatch(synonymsApiActions.getSynonymsRequest({ page: page }));
   }
   public selectSynonyms(): Observable<any> {
     return this.store.select(selectSynonyms);

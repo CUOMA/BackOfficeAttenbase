@@ -6,6 +6,11 @@ export interface CategoriesState {
   categories: any[];
 }
 
+export interface CategoriesState {
+  areCategoriesLoading: boolean;
+  categories: any[];
+}
+
 export const initialState: CategoriesState = {
   areCategoriesLoading: false,
   categories: [],

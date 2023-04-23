@@ -11,6 +11,8 @@
     buscador.
   </p>
   <ng-container *ngIf="synonyms$ | async as synonyms">
-    <bdc-bo-tabla-synonyms [synonyms]="synonyms"></bdc-bo-tabla-synonyms>
+    <bdc-bo-tabla-synonyms
+      (pageChanged)="handlePageChanged($event)"
+      [synonyms]="synonyms"></bdc-bo-tabla-synonyms>
   </ng-container>
 </div>

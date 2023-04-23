@@ -18,20 +18,10 @@ export class DashboardUsersComponent implements AfterViewInit {
     'userRol',
     'seeMore',
   ];
-  // @Input() public isOpen!: boolean;
-  // protected pagesIterable = new Map<string, Page>(NAVIGATION_ITEMS);
-  // protected combinedPages$ = this.navFacade.selectCountAside(this.pagesIterable);
-
-  // constructor(private navFacade: NavFacade) {}
-
-  // ngOnInit(): void {
-  //   this.navFacade.dispatchGetCountAside();
-  // }
   protected users$ = this.usersFacade.selectUsers();
   protected showFirstLastButtons: boolean = true;
   protected disabled: boolean = false;
   protected pageIndex: number = 0;
-  // protected length: number = this.ELEMENT_DATA.length;
   protected pageSize: number = 10;
   protected openMenu: boolean = false;
 

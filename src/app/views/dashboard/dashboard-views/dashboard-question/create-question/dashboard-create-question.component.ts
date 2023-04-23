@@ -1,20 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { timer } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DashboardCreateQuestionFacade } from './dashboard-create-question.facade';
 
 @Component({
-  selector: 'bdc-bo-dashboard',
+  selector: 'bdc-bo-dashboard-create-question',
   templateUrl: './dashboard-create-question.component.html',
   styleUrls: ['./dashboard-create-question.component.scss'],
 })
-export class DashboardCreateQuestionComponent implements OnInit {
-  constructor() {}
-
-  public ngOnInit(): void {
-    const countdownStart = 4;
-    const timer$ = timer(0, 1000).pipe(
-      map(i => countdownStart - i),
-      take(countdownStart + 1)
-    );
-  }
-}
+export class DashboardCreateQuestionComponent {}

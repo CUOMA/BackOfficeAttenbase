@@ -12,16 +12,12 @@ import { selectSynonyms } from '../../../../store/selectors/synonyms.selectors';
   templateUrl: './dashboard-synonyms.component.html',
   styleUrls: ['./dashboard-synonyms.component.scss'],
 })
-export class DashboardSynonymsComponent implements OnInit, AfterViewInit {
-  protected displayedColumns: string[] = ['position', 'name', 'seeMore'];
+export class DashboardSynonymsComponent implements OnInit {
   protected showFirstLastButtons: boolean = true;
   protected synonyms$ = this.synonymsFacade.selectSynonyms();
   protected areSynonymsLoading$!: Observable<boolean>;
   private destroy$ = new Subject<void>();
   protected disabled: boolean = false;
-  protected pageIndex: number = 0;
-  protected length: number = 10;
-  protected pageSize: number = 10;
   protected openMenu: boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -29,11 +25,10 @@ export class DashboardSynonymsComponent implements OnInit, AfterViewInit {
 
   constructor(private alertService: AlertService, private synonymsFacade: SynonymsFacade) {}
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.paginator.pageSize = this.pageSize;
-  }
   ngOnInit(): void {
-    this.synonymsFacade.dispatchGetSynonyms();
+    this.synonymsFacade.dispatchGetSynonyms(1);
+  }
+  protected handlePageChanged(pageEvent: any): void {
+    this.synonymsFacade.dispatchGetSynonyms(pageEvent.pageIndex + 1);
   }
 }

@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { of } from 'rxjs';
-import { catchError, mergeMap, tap, map } from 'rxjs/operators';
-import { CategoriesService } from 'src/app/core/services/categories.service';
-import { categoriesApiActions } from '../actions/categories.actions';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { SynonymsService } from '../../core/services/synonyms.service';
 import { synonymsApiActions } from '../actions/synonyms.action';
 
@@ -14,8 +12,8 @@ export class SynonymsEffects {
   synonyms$ = createEffect((): any => {
     return this.actions$.pipe(
       ofType(synonymsApiActions.getSynonymsRequest.type),
-      mergeMap(() =>
-        this.synonymsService.getSynonyms().pipe(
+      mergeMap((action: Action & { page: number }) =>
+        this.synonymsService.getSynonyms(action.page).pipe(
           map(synonyms => synonymsApiActions.getSynonymsSuccess(synonyms)),
           catchError(() =>
             of(synonymsApiActions.getSynonymsFailure({ error: 'Error on Sinonimos' }))

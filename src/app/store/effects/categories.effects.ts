@@ -11,12 +11,9 @@ export class CategoriesEffects {
   constructor(private actions$: Actions, private categoriesService: CategoriesService) {}
   categories$ = createEffect((): any => {
     return this.actions$.pipe(
-      ofType(
-        categoriesApiActions.getCategoriesRequest.type,
-        categoriesApiActions.deleteCategoriesSuccess
-      ),
-      mergeMap(() =>
-        this.categoriesService.getCategories().pipe(
+      ofType(categoriesApiActions.getCategoriesRequest.type),
+      mergeMap((action: Action & { page: number }) =>
+        this.categoriesService.getCategories(action.page).pipe(
           map((categories: any) => {
             return categoriesApiActions.getCategoriesSuccess(categories);
           }),
@@ -35,6 +32,38 @@ export class CategoriesEffects {
           map(_ => categoriesApiActions.deleteCategoriesSuccess()),
           catchError(() =>
             of(categoriesApiActions.deleteCategoriesFailure({ error: 'Error on categories' }))
+          )
+        )
+      )
+    );
+  });
+  categoriesList$ = createEffect((): any => {
+    return this.actions$.pipe(
+      ofType(categoriesApiActions.getListCategoriesRequest.type),
+      mergeMap(() =>
+        this.categoriesService.getCategoriesList().pipe(
+          map(listCategories => categoriesApiActions.getListCategoriesSuccess(listCategories)),
+          catchError(() =>
+            of(categoriesApiActions.getListCategoriesFailure({ error: 'Error on categories' }))
+          )
+        )
+      )
+    );
+  });
+  subcategoriesList$ = createEffect((): any => {
+    return this.actions$.pipe(
+      ofType(categoriesApiActions.getListSubcategoriesRequest.type),
+      mergeMap((action: Action & { id: number }) =>
+        this.categoriesService.getSubcategoriesList(action.id).pipe(
+          map(listSubcategories =>
+            categoriesApiActions.getListSubcategoriesSuccess(listSubcategories)
+          ),
+          catchError(() =>
+            of(
+              categoriesApiActions.getListSubcategoriesFailure({
+                error: 'Error on subcategoriascategories',
+              })
+            )
           )
         )
       )

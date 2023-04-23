@@ -5,11 +5,12 @@ import {
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -20,6 +21,7 @@ import { QuestionStatus } from '../../../../../core/models/statuses-response';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { categoriesApiActions } from '../../../../../store/actions/categories.actions';
 import { CategoriesFacade } from '../dashboard-categories.facade';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'bdc-bo-tabla-categories',
@@ -29,10 +31,13 @@ import { CategoriesFacade } from '../dashboard-categories.facade';
 export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewInit {
   @Input() categories!: any;
   protected displayedColumns: string[] = ['position', 'name', 'seeMore'];
+  // paginador
+  @Output() pageChanged = new EventEmitter<PageEvent>();
   protected showFirstLastButtons: boolean = true;
-  protected disabled: boolean = false;
-  protected pageIndex: number = 0;
-  protected pageSize: number = 10;
+  protected disabled = false;
+  protected pageIndex = 0;
+  protected pageSize = 10;
+  // paginador
   protected areCategoriesLoading$!: Observable<any>;
   protected color: ThemePalette = 'primary';
   protected mode: MatProgressSpinnerModule = 'indeterminate';
@@ -42,7 +47,7 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
   protected dataSource!: MatTableDataSource<any>;
   constructor(
     public categoriesFacade: CategoriesFacade,
-    private cdRef: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef,
     public store: Store,
     public router: Router,
     public alertService: AlertService
@@ -54,15 +59,16 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
     }
   }
 
+  ngAfterViewInit(): void {
+    this.paginator.pageSize = this.pageSize;
+    this.paginator.length = this.categories.total;
+    this.cdr.detectChanges();
+  }
+
   ngOnInit(): void {
     this.areCategoriesLoading$ = this.categoriesFacade.areCategoriesLoading.pipe(
       takeUntil(this.destroy$)
     );
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.paginator.pageSize = this.pageSize;
   }
 
   protected deleteCategory(id: number, element: string) {
@@ -74,6 +80,9 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
     this.router.navigate(['/dashboard/categorias/detalle'], { queryParams: { id } });
   }
 
+  protected handlePageChanged(pageEvent: PageEvent): void {
+    this.pageChanged.emit(pageEvent);
+  }
   private alertCategoryDeleted(element: string) {
     this.alertService.openFromComponent({
       duration: 5000,

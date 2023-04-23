@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { QuestionsFacade } from './dashboard-question.facade';
-import { tap, takeUntil } from 'rxjs/operators';
-import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'bdc-bo-dashboard-question',
@@ -25,7 +24,7 @@ export class DashboardQuestionComponent implements OnInit {
 
   ngOnInit(): void {
     this.questionsFacade.dispatchGetStatuses();
-    this.questionsFacade.dispatchGetQuestions('published');
+    this.questionsFacade.dispatchGetQuestions('published', 1);
     this.areQuestionsLoading$ = this.questionsFacade.areQuestionsLoading.pipe(
       takeUntil(this.destroy$)
     );

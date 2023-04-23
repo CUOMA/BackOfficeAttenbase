@@ -36,7 +36,7 @@
     </table>
 
     <mat-paginator
-      [length]="10"
+      (page)="handlePageChanged($event)"
       [pageIndex]="0"
       [pageSize]="10"
       [disabled]="false"
@@ -49,5 +49,5 @@
 </div>
 
 <ng-template #noSynonyms>
-  <p>No hay categorias</p>
+  <p>No hay Sinonimos</p>
 </ng-template>

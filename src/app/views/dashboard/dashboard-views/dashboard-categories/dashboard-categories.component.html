@@ -7,6 +7,8 @@
     </button>
   </div>
   <ng-container *ngIf="categories$ | async as categories">
-    <bdc-bo-tabla-categories [categories]="categories"></bdc-bo-tabla-categories>
+    <bdc-bo-tabla-categories
+      (pageChanged)="handlePageChanged($event)"
+      [categories]="categories"></bdc-bo-tabla-categories>
   </ng-container>
 </div>

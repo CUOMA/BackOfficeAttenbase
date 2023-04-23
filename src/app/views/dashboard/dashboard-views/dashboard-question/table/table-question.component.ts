@@ -2,23 +2,22 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
-  ViewChild,
+  OnChanges,
   OnInit,
   Output,
   SimpleChanges,
-  OnChanges,
+  ViewChild,
 } from '@angular/core';
-import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { Questions, Datum } from '../../../../../core/models/questions-response';
-import { QuestionsFacade } from '../dashboard-question.facade';
-import { EventEmitter } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { QuestionStatus } from '../../../../../core/models/statuses-response';
+import { QuestionsFacade } from '../dashboard-question.facade';
 
 @Component({
   selector: 'bdc-bo-tabla-question',

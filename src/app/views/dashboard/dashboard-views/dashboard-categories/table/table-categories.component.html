@@ -35,7 +35,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
     <mat-paginator
-      [length]="categories.length"
+      (page)="handlePageChanged($event)"
       [pageIndex]="0"
       [pageSize]="10"
       [disabled]="false"
