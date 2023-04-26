@@ -18,12 +18,8 @@
 
   main {
     margin-left: 74px;
-    padding-right: 150px;
+    padding-right: 10.42%;
     grid-area: main;
     overflow: auto;
-
-    @media (min-width: 1020px) {
-      padding-right: 168px;
-    }
   }
 }

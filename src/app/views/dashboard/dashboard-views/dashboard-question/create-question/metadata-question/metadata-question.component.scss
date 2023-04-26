@@ -1,0 +1,26 @@
+.wrapper {
+  width: 100%;
+  padding-top: 70px;
+  .input-double {
+    display: flex;
+    :first-child {
+      margin-right: 25px;
+    }
+  }
+  mat-form-field {
+    width: 100%;
+    color: #73777f;
+    padding-bottom: 32px;
+    mat-hint {
+      font-size: 12px;
+    }
+    mat-error {
+      font-size: 12px;
+    }
+  }
+  .action {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 20px;
+  }
+}

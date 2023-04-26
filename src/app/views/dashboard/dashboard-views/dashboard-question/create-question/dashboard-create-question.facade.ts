@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { categoriesApiActions } from 'src/app/store/actions/categories.actions';
 import {
   selectAreListSubcategoriesLoading,
@@ -10,6 +10,7 @@ import {
 
 @Injectable()
 export class DashboardCreateQuestionFacade {
+  public titleQuestion = new BehaviorSubject<string>('Crear pregunta');
   constructor(private store: Store) {}
 
   public dispatchGetListCategories(): void {
@@ -26,5 +27,11 @@ export class DashboardCreateQuestionFacade {
   }
   public get areSubcategoriesLoading(): Observable<boolean> {
     return this.store.select(selectAreListSubcategoriesLoading);
+  }
+
+  public formMetadaQuestion(formData: any) {
+    this.titleQuestion.next(formData.question);
+    const form = formData;
+    console.log(form);
   }
 }

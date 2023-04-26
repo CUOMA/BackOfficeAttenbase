@@ -1,7 +1,10 @@
 <div class="wrapper">
   <div class="action">
     <h1>Categorías</h1>
-    <button mat-flat-button color="primary">
+    <button
+      mat-flat-button
+      color="primary"
+      [routerLink]="['/dashboard/categorias/nueva-categoria']">
       <mat-icon>add</mat-icon>
       Nueva categoría
     </button>

@@ -1,0 +1,52 @@
+<div class="wrapper">
+  <div class="action">
+    <h4>Agregar ícono</h4>
+    <mat-icon mat-icon-button mat-dialog-close>close</mat-icon>
+  </div>
+  <p>A continuación podrás seleccionar un ícono para tu nueva categoría.</p>
+  <mat-divider></mat-divider>
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title> Social</mat-panel-title>
+        <mat-panel-description>
+          <mat-icon>person</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-container *ngFor="let iconSocial of iconsSocial">
+        <button mat-icon-button>
+          <mat-icon fontSet="material-icons-outlined" color="primary">{{
+            iconSocial.name
+          }}</mat-icon>
+        </button>
+      </ng-container>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title> Negocios </mat-panel-title>
+        <mat-panel-description> </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-container *ngFor="let iconSocial of iconsSocial">
+        <button mat-icon-button>
+          <mat-icon fontSet="material-icons-outlined" color="primary">{{
+            iconSocial.name
+          }}</mat-icon>
+        </button>
+      </ng-container>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title> Comunicaciones </mat-panel-title>
+        <mat-panel-description> </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-container *ngFor="let iconSocial of iconsSocial">
+        <button mat-icon-button>
+          <mat-icon fontSet="material-icons-outlined" color="primary">{{
+            iconSocial.name
+          }}</mat-icon>
+        </button>
+      </ng-container>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

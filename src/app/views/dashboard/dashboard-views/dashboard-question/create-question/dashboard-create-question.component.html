@@ -1,28 +1,17 @@
-<h2>Crear pregunta</h2>
+<h2>{{ title$ | async }}</h2>
 <div class="wrapper">
   <mat-stepper linear #stepper>
     <mat-step>
       <ng-template matStepLabel>General</ng-template>
-      <bdc-bo-general-component></bdc-bo-general-component>
-      <div class="action-position-left">
-        <button mat-flat-button color="primary" matStepperNext>Continuar</button>
-      </div>
+      <bdc-bo-metadata-question-component></bdc-bo-metadata-question-component>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Contenido</ng-template>
       <bdc-bo-content-component></bdc-bo-content-component>
-      <div class="action-position-between">
-        <button mat-stroked-button color="primary" matStepperPrevious>Volver atrás</button>
-        <button mat-flat-button color="primary" matStepperNext>Continuar</button>
-      </div>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Fecha y hora</ng-template>
       <bdc-bo-date-component></bdc-bo-date-component>
-      <div class="action-position-between">
-        <button mat-stroked-button color="primary" matStepperPrevious>Volver atrás</button>
-        <button mat-flat-button color="primary">Continuar</button>
-      </div>
     </mat-step>
   </mat-stepper>
 </div>

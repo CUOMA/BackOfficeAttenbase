@@ -1,4 +1,4 @@
-<div class="container-form">
+<div class="wrapper">
   <form [formGroup]="form">
     <mat-form-field appearance="outline">
       <mat-label>Pregunta</mat-label>
@@ -62,10 +62,20 @@
     </div>
     <mat-form-field appearance="outline">
       <mat-label>Preguntas</mat-label>
-      <mat-select multiple>
+      <mat-select formControlName="associatedQuestions" name="associatedQuestions" multiple>
         <mat-option></mat-option>
-        <mat-select-trigger> asd </mat-select-trigger>
+        <mat-select-trigger> preguntas</mat-select-trigger>
       </mat-select>
     </mat-form-field>
   </form>
+  <div class="action">
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="form.invalid"
+      (click)="sendForm()"
+      matStepperNext>
+      Continuar
+    </button>
+  </div>
 </div>

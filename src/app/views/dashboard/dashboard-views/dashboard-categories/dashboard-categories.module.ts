@@ -15,6 +15,8 @@ import {
 } from '../../../../store/reducers/categories.reducers';
 import { TableCategoriesComponent } from './table/table-categories.component';
 import { DashboardDetailCategoriesComponent } from './detail-category/dashboard-detail-categories.component';
+import { DashboardNewCategoryComponent } from './new-category/dashboard-new-category.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   providers: [CategoriesFacade],
@@ -23,9 +25,11 @@ import { DashboardDetailCategoriesComponent } from './detail-category/dashboard-
     ScrollCategoriesComponent,
     TableCategoriesComponent,
     DashboardDetailCategoriesComponent,
+    DashboardNewCategoryComponent,
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     DashboardCategoriesRoutingModule,
     SharedModule,
     StoreModule.forFeature(categoriesFeatureKey, categoriesReducer),

@@ -1,2 +1,28 @@
-<p>Fecha</p>
-<p>Hora</p>
+<div class="wrapper">
+  <div class="container-date">
+    <p>Fecha de publicación y vencimiento</p>
+    <div class="date">
+      <mat-form-field appearance="outline">
+        <mat-label>Desde</mat-label>
+        <input matInput [matDatepicker]="picker" />
+        <mat-hint>DD/MM/AAAA</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Hasta</mat-label>
+        <input matInput [matDatepicker]="picker" />
+        <mat-hint>DD/MM/AAAA</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="containeir-hour">
+    <p>Horario de publicación y vencimiento</p>
+  </div>
+</div>
+<div class="action">
+  <button mat-stroked-button color="primary" matStepperPrevious>Volver atrás</button>
+  <button mat-flat-button color="primary" matStepperNext>Continuar</button>
+</div>

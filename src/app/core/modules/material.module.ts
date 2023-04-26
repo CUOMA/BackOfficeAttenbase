@@ -18,6 +18,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { CustomMatIconsRegistratorModule } from './icons/custom-mat-icons-registrator.module';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   exports: [
@@ -40,6 +42,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatSelectModule,
     MatStepperModule,
     MatExpansionModule,
+    MatDialogModule,
+    MatDividerModule,
   ],
   providers: [{ provide: MatPaginatorIntl, useValue: CustomPaginator() }],
 })

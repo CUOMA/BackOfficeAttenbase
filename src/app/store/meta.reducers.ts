@@ -8,6 +8,7 @@ export const rehydratation =
       if (storedState) {
         try {
           return JSON.parse(storedState);
+          0;
         } catch {
           localStorage.removeItem('state');
         }
@@ -15,6 +16,7 @@ export const rehydratation =
     }
 
     const nextState = reducer(state, action);
+    // si lo que venga tiene varible cacheable: false entonces no hacer lo siguiente
     localStorage.setItem('state', JSON.stringify(nextState));
 
     return reducer(state, action);

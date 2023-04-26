@@ -1,0 +1,52 @@
+<div class="wrapper">
+  <h3>Crear nueva categoría</h3>
+  <p>A continuación, ingresá el nuevo nombre para la categoría seleccionada.</p>
+  <form [formGroup]="form">
+    <div class="input-double">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre de categoría</mat-label>
+        <input formControlName="category" name="category" type="text" matInput required />
+        <mat-hint>Título para la nueva categoría.</mat-hint>
+        <mat-error *ngIf="form.controls['category'].errors?.['required']">
+          Ingresá el nombre de una categoría nueva
+        </mat-error>
+      </mat-form-field>
+      <button mat-stroked-button color="primary" (click)="dialogSelectIconCategory()">
+        <mat-icon>add</mat-icon> Seleccionar ícono
+      </button>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Agregar Subcategorías</mat-label>
+      <mat-chip-grid #chipGrid formControlName="subcategories" name="subcategories">
+        <mat-chip-row
+          *ngFor="let subcategory of subcategories"
+          (removed)="remove(subcategory)"
+          [editable]="true"
+          (edited)="edit(subcategory, $event)">
+          {{ subcategory.name }}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        <input
+          placeholder="Agregar Subcategorías"
+          [matChipInputFor]="chipGrid"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)" />
+      </mat-chip-grid>
+      <mat-hint>Cada palabra o grupo de palabras debe estar separado con comas.</mat-hint>
+    </mat-form-field>
+    <div class="action">
+      <button mat-stroked-button color="primary" mat-dialog-close>Cerrar</button>
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="form.invalid"
+        (click)="createCategory()"
+        mat-dialog-close>
+        Crear Categoría
+      </button>
+    </div>
+  </form>
+</div>
