@@ -17,4 +17,7 @@ export class CategoriesService {
   public getSubcategoriesList(id: number) {
     return this.httpClient.get(`${environment.apiUrl}subCategory-list/${id}`);
   }
+  public postCategoryCreate(payload: any) {
+    return this.httpClient.post(`${environment.apiUrl}categories`, payload);
+  }
 }

@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { categoriesApiActions } from '../../../../store/actions/categories.actions';
 import { selectCategory } from '../../../../store/selectors/categories.selectors';
+import { CategoriesService } from '../../../../core/services/categories.service';
 import {
   selectAreCategoriesLoading,
   selectCategories,
@@ -10,7 +11,7 @@ import {
 
 @Injectable()
 export class CategoriesFacade {
-  constructor(private store: Store) {}
+  constructor(private store: Store, private categoriesService: CategoriesService) {}
 
   public get areCategoriesLoading(): Observable<boolean> {
     return this.store.select(selectAreCategoriesLoading);
@@ -25,5 +26,8 @@ export class CategoriesFacade {
   }
   public detailCategory(id: number): Observable<any> {
     return this.store.select(selectCategory(id));
+  }
+  public postNewCategory(form: any) {
+    return this.categoriesService.postCategoryCreate(form);
   }
 }

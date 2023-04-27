@@ -4,6 +4,7 @@ import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { MatChipInputEvent, MatChipEditedEvent } from '@angular/material/chips';
 import { Subcategory } from 'src/app/core/models/category';
 import { MatDialog } from '@angular/material/dialog';
+import { CategoriesFacade } from '../dashboard-categories.facade';
 
 @Component({
   selector: 'bdc-bo-dashboard-new-category',
@@ -15,7 +16,11 @@ export class DashboardNewCategoryComponent implements OnInit {
   protected addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   protected subcategories: Subcategory[] = [];
-  constructor(private fb: FormBuilder, public dialog: MatDialog) {}
+  constructor(
+    private fb: FormBuilder,
+    public dialog: MatDialog,
+    public categoriesFacade: CategoriesFacade
+  ) {}
 
   ngOnInit(): void {
     this.setUpForm();
@@ -28,8 +33,15 @@ export class DashboardNewCategoryComponent implements OnInit {
     });
   }
   protected createCategory() {
-    console.log(this.form.value);
+    const formValue = {
+      name: this.form.value.category,
+      slug: this.form.value.category,
+      icon: this.form.value.icon,
+      subcategories: this.form.value.subcategories,
+    };
+    this.categoriesFacade.postNewCategory(formValue);
   }
+
   protected add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     if (value) {

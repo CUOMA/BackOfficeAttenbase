@@ -14,6 +14,8 @@ export class SelectIconComponent {
     { name: 'public' },
     { name: 'water_drop' },
     { name: 'support_agent' },
+    { name: 'home' },
+    { name: 'add' },
   ];
   constructor() {}
 }
