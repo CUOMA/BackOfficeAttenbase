@@ -11,6 +11,7 @@ import {
 
 @Injectable()
 export class CategoriesFacade {
+  protected selectedIcon = '';
   constructor(private store: Store, private categoriesService: CategoriesService) {}
 
   public get areCategoriesLoading(): Observable<boolean> {
