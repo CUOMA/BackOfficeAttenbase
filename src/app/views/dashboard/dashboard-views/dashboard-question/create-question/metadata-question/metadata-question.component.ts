@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DashboardCreateQuestionFacade } from '../dashboard-create-question.facade';
-import { DialogCreateCategoryComponent } from './dialog-create-category copy/dialog-create-category.component';
+import { DialogCreateCategoryComponent } from './dialog-create-category/dialog-create-category.component';
 
 @Component({
   selector: 'bdc-bo-metadata-question-component',
@@ -44,7 +44,7 @@ export class MetadataQuestionComponent implements OnInit {
   }
   protected newCategory() {
     this.dialog.open(DialogCreateCategoryComponent, {
-      width: '682px',
+      width: '680px',
     });
   }
   protected sendForm() {

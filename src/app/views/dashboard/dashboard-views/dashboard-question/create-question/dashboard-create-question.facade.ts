@@ -31,7 +31,5 @@ export class DashboardCreateQuestionFacade {
 
   public formMetadaQuestion(formData: any) {
     this.titleQuestion.next(formData.question);
-    const form = formData;
-    console.log(form);
   }
 }

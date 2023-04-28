@@ -11,7 +11,7 @@ export class QuestionsService {
 
   constructor(private httpClient: HttpClient) {}
 
-  public getQuestions(pageNumber: number, status: string): Observable<Questions> {
+  public getQuestions(pageNumber = 1, status: string): Observable<Questions> {
     // if (this.cache.get(pageNumber)) {
     //   return of(this.cache.get(pageNumber)!);
     // }

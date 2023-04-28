@@ -29,9 +29,9 @@ export class CategoriesEffects {
       ofType(categoriesApiActions.deleteCategoriesRequest.type),
       mergeMap((action: Action & { id: number }) =>
         this.categoriesService.deleteCategory(action.id).pipe(
-          map(_ => categoriesApiActions.deleteCategoriesSuccess()),
+          map(res => categoriesApiActions.deleteCategoriesSuccess(res)),
           catchError(() =>
-            of(categoriesApiActions.deleteCategoriesFailure({ error: 'Error on categories' }))
+            of((error: any) => of(categoriesApiActions.deleteCategoriesFailure({ error })))
           )
         )
       )

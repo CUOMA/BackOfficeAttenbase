@@ -5,6 +5,9 @@ import { MatChipInputEvent, MatChipEditedEvent } from '@angular/material/chips';
 import { Subcategory } from 'src/app/core/models/category';
 import { MatDialog } from '@angular/material/dialog';
 import { CategoriesFacade } from '../dashboard-categories.facade';
+import { Router } from '@angular/router';
+import { AlertService } from 'src/app/core/services/alert.service';
+import { DialogSelectIconComponent } from '../dialog-select-icon/dialog-select-icon.component.component';
 
 @Component({
   selector: 'bdc-bo-dashboard-new-category',
@@ -19,7 +22,9 @@ export class DashboardNewCategoryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
-    public categoriesFacade: CategoriesFacade
+    public categoriesFacade: CategoriesFacade,
+    public router: Router,
+    public alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -36,10 +41,30 @@ export class DashboardNewCategoryComponent implements OnInit {
     const formValue = {
       name: this.form.value.category,
       slug: this.form.value.category,
-      icon: this.form.value.icon,
+      icon: 'rocket_launch',
       subcategories: this.form.value.subcategories,
     };
-    this.categoriesFacade.postNewCategory(formValue);
+    this.categoriesFacade.postNewCategory(formValue).subscribe({
+      complete: () => {
+        this.router.navigateByUrl('dashboard/categorias');
+        this.alertService.openFromComponent({
+          duration: 5000,
+          data: {
+            templateHTML: `Creaste una nueva Categoria`,
+          },
+        });
+      },
+      error: error => {
+        const isError = error.error.error.name;
+        this.alertService.openFromComponent({
+          duration: 5000,
+          data: {
+            templateHTML: `No se creo la categoria: ${isError}`,
+          },
+        });
+        this.router.navigateByUrl('dashboard/categorias');
+      },
+    });
   }
 
   protected add(event: MatChipInputEvent): void {
@@ -68,8 +93,8 @@ export class DashboardNewCategoryComponent implements OnInit {
     }
   }
   protected dialogSelectIconCategory() {
-    // this.dialog.open(DialogSelectIconCategoryComponent, {
-    //   width: '490px',
-    // });
+    this.dialog.open(DialogSelectIconComponent, {
+      width: '680px',
+    });
   }
 }

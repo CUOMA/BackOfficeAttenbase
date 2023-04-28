@@ -1,0 +1,15 @@
+.wrapper {
+  padding: 25px;
+  .action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    mat-icon {
+      cursor: pointer;
+    }
+  }
+
+  p {
+    font-size: 14px;
+  }
+}

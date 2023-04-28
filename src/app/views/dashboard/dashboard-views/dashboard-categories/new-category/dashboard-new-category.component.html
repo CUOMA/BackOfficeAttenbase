@@ -38,13 +38,8 @@
       <mat-hint>Cada palabra o grupo de palabras debe estar separado con comas.</mat-hint>
     </mat-form-field>
     <div class="action">
-      <button mat-stroked-button color="primary" mat-dialog-close>Cerrar</button>
-      <button
-        mat-flat-button
-        color="primary"
-        [disabled]="form.invalid"
-        (click)="createCategory()"
-        mat-dialog-close>
+      <button mat-stroked-button color="primary">Cerrar</button>
+      <button mat-flat-button color="primary" [disabled]="form.invalid" (click)="createCategory()">
         Crear Categoría
       </button>
     </div>

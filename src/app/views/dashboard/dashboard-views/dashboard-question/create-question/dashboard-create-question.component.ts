@@ -3,6 +3,7 @@ import { DashboardCreateQuestionFacade } from './dashboard-create-question.facad
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
+  providers: [DashboardCreateQuestionFacade],
   selector: 'bdc-bo-dashboard-create-question',
   templateUrl: './dashboard-create-question.component.html',
   styleUrls: ['./dashboard-create-question.component.scss'],

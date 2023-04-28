@@ -15,20 +15,17 @@ import { DashboardCreateQuestionRoutingModule } from './dashboard-create-questio
 import { DashboardCreateQuestionComponent } from './dashboard-create-question.component';
 import { DashboardCreateQuestionFacade } from './dashboard-create-question.facade';
 import { DateComponent } from './date/date.component';
-import { DialogCreateCategoryComponent } from './metadata-question/dialog-create-category copy/dialog-create-category.component';
+import { DialogCreateCategoryComponent } from './metadata-question/dialog-create-category/dialog-create-category.component';
 import { MetadataQuestionComponent } from './metadata-question/metadata-question.component';
-import { DialogSelectIconCategoryComponent } from './metadata-question/dialog-create-category copy/dialog-select-icon-category/dialog-select-icon-category.component';
-import { SelectIconModule } from '../../dashboard-categories/select-icon/select-icon.module';
+import { SelectIconCategoryModule } from './metadata-question/dialog-create-category/select-icon-category/select-icon-category.module';
 
 @NgModule({
-  providers: [DashboardCreateQuestionFacade],
   declarations: [
     DashboardCreateQuestionComponent,
     MetadataQuestionComponent,
     DateComponent,
     ContentComponent,
     DialogCreateCategoryComponent,
-    DialogSelectIconCategoryComponent,
   ],
   imports: [
     CommonModule,
@@ -37,7 +34,7 @@ import { SelectIconModule } from '../../dashboard-categories/select-icon/select-
     EffectsModule.forFeature([CategoriesEffects]),
     DashboardCreateQuestionRoutingModule,
     ReactiveFormsModule,
-    SelectIconModule,
+    SelectIconCategoryModule,
   ],
 })
 export class DashboardCreateQuestionModule {}

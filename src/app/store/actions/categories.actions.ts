@@ -8,7 +8,7 @@ export const categoriesApiActions = createActionGroup({
     'Get Categories Failure': props<any>(),
 
     'Delete Categories Request': props<{ id: number }>(),
-    'Delete Categories Success': props<any>,
+    'Delete Categories Success': props<any>(),
     'Delete Categories Failure': props<any>(),
 
     'Get List Categories Request': props,

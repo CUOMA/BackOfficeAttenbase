@@ -21,16 +21,16 @@ export const initialState: QuestionsState = {
 
 export const questionsReducer = createReducer(
   initialState,
-  on(
-    questionsApiActions.getQuestionsRequest,
-    (state, payload: any): QuestionsState => ({
+  on(questionsApiActions.getQuestionsRequest, (state, payload: any): QuestionsState => {
+    console.log(payload);
+    return {
       ...state,
       areQuestionsLoading: true,
       paginator: {
         page: payload.page,
       },
-    })
-  ),
+    };
+  }),
   on(
     questionsApiActions.getQuestionsSuccess,
     (state, payload): QuestionsState => ({

@@ -4,7 +4,8 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { CategoriesFacade } from '../dashboard-categories.facade';
 import { categoriesApiActions } from '../../../../../store/actions/categories.actions';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
+import { AlertService } from 'src/app/core/services/alert.service';
 
 @Component({
   selector: 'bdc-bo-dashboard-categories',
@@ -21,7 +22,8 @@ export class DashboardDetailCategoriesComponent implements OnInit {
     public categoriesFacade: CategoriesFacade,
     public route: ActivatedRoute,
     public store: Store,
-    public router: Router
+    public router: Router,
+    public alertService: AlertService
   ) {}
 
   ngOnInit(): void {

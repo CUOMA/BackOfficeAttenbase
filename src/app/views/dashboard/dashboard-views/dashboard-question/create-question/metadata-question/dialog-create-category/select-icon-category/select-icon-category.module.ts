@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SelectIconComponent } from './select-icon.component';
+import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { SelectIconComponent } from './select-icon-category.component';
 
 @NgModule({
   declarations: [SelectIconComponent],
-  imports: [CommonModule, SharedModule],
   exports: [SelectIconComponent],
-  providers: [],
+  imports: [CommonModule, SharedModule],
 })
-export class SelectIconModule {}
+export class SelectIconCategoryModule {}
