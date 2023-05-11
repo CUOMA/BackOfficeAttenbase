@@ -28,6 +28,11 @@ import { SynonymsFacade } from '../dashboard-synonyms.facade';
 })
 export class TableSynonymsComponent implements OnChanges, OnInit, AfterViewInit {
   @Input() synonyms!: any;
+  protected emptyStateData: Object = {
+    icon: 'empty-state-1',
+    title: 'Crea un nuevo sinónimo',
+    paragraph: '',
+  };
   protected displayedColumns: string[] = ['position', 'name', 'seeMore'];
   protected showFirstLastButtons: boolean = true;
   protected disabled: boolean = false;

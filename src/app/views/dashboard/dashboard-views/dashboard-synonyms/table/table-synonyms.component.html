@@ -1,4 +1,4 @@
-<div *ngIf="synonyms; else noSynonyms">
+<div *ngIf="synonyms.data.lenght < 0; else noSynonyms">
   <div class="wrapper">
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="position">
@@ -49,5 +49,5 @@
 </div>
 
 <ng-template #noSynonyms>
-  <p>No hay categorias</p>
+  <bdc-bo-empty-state [emptyStateData]="emptyStateData"></bdc-bo-empty-state>
 </ng-template>

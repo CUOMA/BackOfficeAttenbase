@@ -5,6 +5,7 @@ import {
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
@@ -29,6 +30,12 @@ import { CategoriesFacade } from '../dashboard-categories.facade';
 export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewInit {
   @Input() categories!: any;
   protected displayedColumns: string[] = ['position', 'name', 'seeMore'];
+  protected emptyStateData: Object = {
+    icon: 'empty-state-1',
+    title: 'Crea una nueva categoria',
+    paragraph: 'Las categorías ayudarán a organizar el contenido en tu plataforma.',
+    displayedColumns: this.displayedColumns,
+  };
   protected showFirstLastButtons: boolean = true;
   protected disabled: boolean = false;
   protected pageIndex: number = 0;

@@ -1,4 +1,4 @@
-<div *ngIf="categories; else noCategories">
+<div *ngIf="categories.data.length < 0; else noCategories">
   <div class="wrapper">
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="position">
@@ -48,5 +48,5 @@
 </div>
 
 <ng-template #noCategories>
-  <p>No hay categorias</p>
+  <bdc-bo-empty-state [emptyStateData]="emptyStateData"></bdc-bo-empty-state>
 </ng-template>
