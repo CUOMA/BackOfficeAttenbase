@@ -1,6 +1,6 @@
 <div class="wrapper">
   <form [formGroup]="form">
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" hideRequiredMarker="true">
       <mat-label>Pregunta</mat-label>
       <input
         formControlName="question"
@@ -16,7 +16,7 @@
         Ingresá una pregunta
       </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" hideRequiredMarker="true">
       <mat-label>Alias</mat-label>
       <input formControlName="alias" name="alias" type="text" matInput required />
       <mat-hint>Títulos similares para facilitar la detección de la pregunta.</mat-hint>
@@ -25,7 +25,7 @@
       </mat-error>
     </mat-form-field>
     <div class="input-double">
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" hideRequiredMarker="true">
         <mat-label>Categoría</mat-label>
         <mat-hint> Categoría a la cual pertenecerá la pregunta creada.</mat-hint>
         <mat-select formControlName="category" name="category">
@@ -43,7 +43,7 @@
           >
         </mat-select>
       </mat-form-field>
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" hideRequiredMarker="true">
         <mat-label>Subcategoría</mat-label>
         <mat-hint>Grupo dentro de la categoría elegida.</mat-hint>
         <mat-select formControlName="subcategory" name="subcategory">
@@ -61,10 +61,11 @@
       </mat-form-field>
     </div>
     <mat-form-field appearance="outline">
-      <mat-label>Preguntas</mat-label>
+      <mat-label>Preguntas Relacionadas</mat-label>
+      <mat-hint> Otras preguntas vinculadas la pregunta creada.</mat-hint>
       <mat-select formControlName="associatedQuestions" name="associatedQuestions" multiple>
         <mat-option></mat-option>
-        <mat-select-trigger> preguntas</mat-select-trigger>
+        <mat-select-trigger></mat-select-trigger>
       </mat-select>
     </mat-form-field>
   </form>

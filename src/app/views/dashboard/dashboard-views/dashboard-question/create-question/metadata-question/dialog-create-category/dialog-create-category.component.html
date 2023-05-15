@@ -3,7 +3,7 @@
   <p>A continuación, ingresá el nuevo nombre para la categoría seleccionada.</p>
   <form [formGroup]="form">
     <div class="input-double">
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" hideRequiredMarker="true">
         <mat-label>Nombre de categoría</mat-label>
         <input formControlName="category" name="category" type="text" matInput required />
         <mat-hint>Título para la nueva categoría.</mat-hint>
@@ -12,7 +12,7 @@
           Ingresá el nombre de una categoría nueva
         </mat-error>
       </mat-form-field>
-      <button mat-stroked-button color="primary" (click)="showSelectIconCategory()">
+      <button class="center" mat-stroked-button color="primary" (click)="showSelectIconCategory()">
         <ng-container *ngIf="nameIcon; else noIcon">
           <div class="container-icon">
             <mat-icon class="material-symbols-outlined" color="primary">{{ nameIcon }}</mat-icon>
@@ -27,7 +27,7 @@
     <ng-container *ngIf="showSelecIcon">
       <bdc-bo-select-icon (selectIcon)="selectedIcon($event)"></bdc-bo-select-icon>
     </ng-container>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" hideRequiredMarker="true">
       <mat-label>Agregar Subcategorías</mat-label>
       <mat-chip-grid #chipGrid formControlName="subcategories" name="subcategories">
         <mat-chip-row
