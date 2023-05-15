@@ -1,4 +1,9 @@
 .wrapper {
+  .action {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
   .form-inputs {
     max-width: 280px;
     width: 100%;
