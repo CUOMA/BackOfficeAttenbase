@@ -1,15 +1,15 @@
 <ng-container *ngIf="categoryId$ | async as category">
   <div class="wrapper">
     <div class="header">
-      <h1>{{ category.name }}</h1>
+      <div class="header__title">
+        <bdc-bo-back-arrow-button></bdc-bo-back-arrow-button>
+        <h1>{{ category.name }}</h1>
+      </div>
       <div class="action">
-        <button mat-flat-button color="primary">Editar nombre</button>
         <button mat-stroked-button color="primary" (click)="deleteCategory(category.id)">
           <mat-icon class="mat-icon-outlined">class</mat-icon> Archivar
         </button>
-        <button mat-button color="primary" [routerLink]="'../'">
-          <mat-icon>arrow_back_ios_outlined</mat-icon> Volver
-        </button>
+        <button mat-flat-button color="primary">Editar nombre</button>
       </div>
     </div>
 

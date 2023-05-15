@@ -3,9 +3,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    &__title {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
     .action {
       display: flex;
-      button{
+      button {
         margin-left: 15px;
       }
     }
