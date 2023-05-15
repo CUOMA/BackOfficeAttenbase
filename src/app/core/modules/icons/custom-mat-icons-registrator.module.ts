@@ -59,5 +59,9 @@ export class CustomMatIconsRegistratorModule {
       'empty-state-3',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/empty-state/empty-state-3.svg')
     );
+    matIconRegister.addSvgIcon(
+      'empty-state-4',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/empty-state/empty-state-4.svg')
+    );
   }
 }
