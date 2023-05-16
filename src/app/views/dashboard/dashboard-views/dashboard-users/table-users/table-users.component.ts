@@ -18,6 +18,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UsersFacade } from '../dashboard-users.facade';
 import { AlertService } from 'src/app/core/services/alert.service';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'bdc-bo-tabla-users',
@@ -43,6 +44,8 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
   protected mode: MatProgressSpinnerModule = 'indeterminate';
   private destroy$ = new Subject<void>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+
   protected dataSource!: MatTableDataSource<any>;
 
   constructor(
@@ -56,6 +59,7 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['users'].currentValue) {
       this.dataSource = new MatTableDataSource(this.users);
+      this.dataSource.sort = this.sort;
     }
   }
 
@@ -67,6 +71,7 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.paginator.pageSize = this.pageSize;
+    this.sort.sortChange.pipe(() => this.users()).subscribe;
   }
 
   // protected deleteSynonyms(id: number, element: string) {
