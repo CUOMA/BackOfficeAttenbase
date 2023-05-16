@@ -47,21 +47,5 @@ export class CustomMatIconsRegistratorModule {
       'filter',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/filter.svg')
     );
-    matIconRegister.addSvgIcon(
-      'empty-state-1',
-      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/empty-state/empty-state-1.svg')
-    );
-    matIconRegister.addSvgIcon(
-      'empty-state-2',
-      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/empty-state/empty-state-2.svg')
-    );
-    matIconRegister.addSvgIcon(
-      'empty-state-3',
-      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/empty-state/empty-state-3.svg')
-    );
-    matIconRegister.addSvgIcon(
-      'empty-state-4',
-      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/empty-state/empty-state-4.svg')
-    );
   }
 }

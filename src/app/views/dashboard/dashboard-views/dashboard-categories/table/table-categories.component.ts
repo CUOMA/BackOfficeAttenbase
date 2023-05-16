@@ -31,7 +31,7 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
   @Input() categories!: any;
   protected displayedColumns: string[] = ['position', 'name', 'seeMore'];
   protected emptyStateData: Object = {
-    icon: 'empty-state-1',
+    icon: '/assets/svg/empty-state/empty-state-categories.svg',
     title: 'Crea una nueva categoria',
     paragraph: 'Las categorías ayudarán a organizar el contenido en tu plataforma.',
     displayedColumns: this.displayedColumns,

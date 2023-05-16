@@ -29,7 +29,7 @@ import { SynonymsFacade } from '../dashboard-synonyms.facade';
 export class TableSynonymsComponent implements OnChanges, OnInit, AfterViewInit {
   @Input() synonyms!: any;
   protected emptyStateData: Object = {
-    icon: 'empty-state-4',
+    icon: '/assets/svg/empty-state/empty-state-synonym.svg',
     title: 'Agregá un nuevo sinónimo',
     paragraph: 'Los sinónimos ayudan a encontrar palabras específicas desde el motor de búsqueda.',
   };
