@@ -44,9 +44,15 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
   protected mode: MatProgressSpinnerModule = 'indeterminate';
   private destroy$ = new Subject<void>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
-  protected dataSource!: MatTableDataSource<any>;
+  protected dataSource = new MatTableDataSource<any>();
+  // protected dataSource!: MatTableDataSource<any>;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+  // private _sort!: MatSort;
+  // @ViewChild(MatSort) set matSort(ms: MatSort) {
+  //   this._sort = ms;
+  //   this.dataSource.sort = this._sort;
+  // }
 
   constructor(
     public usersFacade: UsersFacade,
@@ -59,7 +65,7 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['users'].currentValue) {
       this.dataSource = new MatTableDataSource(this.users);
-      this.dataSource.sort = this.sort;
+      // this.dataSource.sort = this.sort;
     }
   }
 
@@ -71,7 +77,11 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.paginator.pageSize = this.pageSize;
-    this.sort.sortChange.pipe(() => this.users()).subscribe;
+
+    this.dataSource = new MatTableDataSource(this.users);
+    this.dataSource.sort = this.sort;
+
+    // this.sort.sortChange.pipe(() => this.users()).subscribe;
   }
 
   // protected deleteSynonyms(id: number, element: string) {
