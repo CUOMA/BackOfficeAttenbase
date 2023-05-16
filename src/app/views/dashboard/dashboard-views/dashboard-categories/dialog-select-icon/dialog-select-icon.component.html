@@ -8,6 +8,8 @@
   <bdc-bo-select-icon (selectIcon)="selectedIcon($event)"></bdc-bo-select-icon>
   <div class="action">
     <button mat-stroked-button mat-dialog-close color="primary">Cancelar</button>
-    <button mat-flat-button color="primary">Seleccionar</button>
+    <button mat-flat-button mat-dialog-close color="primary" (click)="handleSelectIcon()">
+      Seleccionar
+    </button>
   </div>
 </div>

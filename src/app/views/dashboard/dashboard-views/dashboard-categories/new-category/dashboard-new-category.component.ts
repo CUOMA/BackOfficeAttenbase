@@ -1,12 +1,12 @@
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { MatChipInputEvent, MatChipEditedEvent } from '@angular/material/chips';
-import { Subcategory } from 'src/app/core/models/category';
+import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
-import { CategoriesFacade } from '../dashboard-categories.facade';
 import { Router } from '@angular/router';
+import { Subcategory } from 'src/app/core/models/category';
 import { AlertService } from 'src/app/core/services/alert.service';
+import { CategoriesFacade } from '../dashboard-categories.facade';
 import { DialogSelectIconComponent } from '../dialog-select-icon/dialog-select-icon.component.component';
 
 @Component({
@@ -15,6 +15,7 @@ import { DialogSelectIconComponent } from '../dialog-select-icon/dialog-select-i
   styleUrls: ['./dashboard-new-category.component.scss'],
 })
 export class DashboardNewCategoryComponent implements OnInit {
+  protected icon$ = this.categoriesFacade.selectedIcon;
   protected form!: any;
   protected addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
@@ -41,9 +42,10 @@ export class DashboardNewCategoryComponent implements OnInit {
     const formValue = {
       name: this.form.value.category,
       slug: this.form.value.category,
-      icon: 'rocket_launch',
+      icon: this.icon$.getValue(),
       subcategories: this.form.value.subcategories,
     };
+
     this.categoriesFacade.postNewCategory(formValue).subscribe({
       complete: () => {
         this.router.navigateByUrl('dashboard/categorias');
@@ -59,7 +61,7 @@ export class DashboardNewCategoryComponent implements OnInit {
         this.alertService.openFromComponent({
           duration: 5000,
           data: {
-            templateHTML: `No se creo la categoria: ${isError}`,
+            templateHTML: `${isError}`,
           },
         });
         this.router.navigateByUrl('dashboard/categorias');

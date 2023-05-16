@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CategoriesFacade } from '../dashboard-categories.facade';
 
 @Component({
   selector: 'bdc-bo-dialog-select-icon',
@@ -6,7 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['dialog-select-icon.component.scss'],
 })
 export class DialogSelectIconComponent {
+  private icon = '';
+  constructor(public categoriesFacade: CategoriesFacade) {}
   protected selectedIcon(icon: string) {
-    console.log(icon);
+    this.icon = icon;
+  }
+  protected handleSelectIcon(): void {
+    this.categoriesFacade.selectedIcon.next(this.icon);
   }
 }

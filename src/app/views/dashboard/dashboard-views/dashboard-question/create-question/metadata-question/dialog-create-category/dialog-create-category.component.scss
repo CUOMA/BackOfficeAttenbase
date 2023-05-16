@@ -32,13 +32,7 @@
 .container-icon {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-}
-
-.center {
-  display: flex;
-  align-items: center;
-  // mat-icon {
-  // margin: 5px;
-  // }
+  justify-content: space-evenly;
+  white-space: nowrap;
+  margin-left: 10px;
 }

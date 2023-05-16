@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'bdc-bo-select-icon',
@@ -7,8 +7,10 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class SelectIconComponent {
   protected panelOpenState = false;
-
+  protected selectedIconId = '';
+  protected selectedIcon?: any;
   @Output() selectIcon = new EventEmitter<string>();
+
   protected iconsSocial = [
     { name: 'sentiment_satisfied', selected: false },
     { name: 'group', selected: false },
@@ -70,8 +72,13 @@ export class SelectIconComponent {
     { name: 'mail_lock', selected: false },
   ];
 
-  protected selectedIcon(icon: { name: string; selected: boolean }) {
-    const nameIcon = icon.name;
-    this.selectIcon.emit(nameIcon);
+  protected handleSelectIcon(
+    icon: { name: string; selected: boolean },
+    index: number,
+    groupName: string
+  ) {
+    this.selectedIconId = `${groupName}-${index}`;
+    icon.selected = true;
+    this.selectIcon.emit(icon.name);
   }
 }

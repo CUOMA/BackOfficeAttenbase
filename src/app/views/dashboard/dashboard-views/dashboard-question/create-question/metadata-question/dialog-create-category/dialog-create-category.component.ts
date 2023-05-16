@@ -4,6 +4,9 @@ import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { MatChipInputEvent, MatChipEditedEvent } from '@angular/material/chips';
 import { Subcategory } from 'src/app/core/models/category';
 import { MatDialog } from '@angular/material/dialog';
+import { CategoriesFacade } from '../../../../dashboard-categories/dashboard-categories.facade';
+import { Router } from '@angular/router';
+import { AlertService } from 'src/app/core/services/alert.service';
 
 @Component({
   selector: 'bdc-bo-dialog-create-category',
@@ -17,7 +20,13 @@ export class DialogCreateCategoryComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   protected showSelecIcon = false;
   protected subcategories: Subcategory[] = [];
-  constructor(private fb: FormBuilder, public dialog: MatDialog) {}
+  constructor(
+    private fb: FormBuilder,
+    public dialog: MatDialog,
+    private categoriesFacade: CategoriesFacade,
+    public router: Router,
+    public alertService: AlertService
+  ) {}
 
   ngOnInit(): void {
     this.setUpForm();
@@ -30,7 +39,31 @@ export class DialogCreateCategoryComponent implements OnInit {
     });
   }
   protected createCategory() {
-    console.log(this.form.value);
+    const formValue = {
+      name: this.form.value.category,
+      slug: this.form.value.category,
+      icon: this.nameIcon,
+      subcategories: this.form.value.subcategories,
+    };
+    this.categoriesFacade.postNewCategory(formValue).subscribe({
+      complete: () => {
+        this.alertService.openFromComponent({
+          duration: 5000,
+          data: {
+            templateHTML: `Creaste una nueva Categoria`,
+          },
+        });
+      },
+      error: error => {
+        const isError = error.error.error.name;
+        this.alertService.openFromComponent({
+          duration: 5000,
+          data: {
+            templateHTML: `${isError}`,
+          },
+        });
+      },
+    });
   }
 
   protected add(event: MatChipInputEvent): void {

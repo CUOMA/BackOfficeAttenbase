@@ -1,9 +1,8 @@
 <div class="wrapper">
   <h3>Nueva categoría</h3>
-
   <form [formGroup]="form">
     <div class="input-double">
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" hideRequiredMarker="true">
         <mat-label>Nombre de categoría</mat-label>
         <input formControlName="category" name="category" type="text" matInput required />
         <mat-hint>Título para la nueva categoría.</mat-hint>
@@ -12,10 +11,10 @@
         </mat-error>
       </mat-form-field>
       <button mat-stroked-button color="primary" (click)="dialogSelectIconCategory()">
-        <mat-icon>add</mat-icon> Seleccionar ícono
+        <mat-icon class="material-symbols-outlined">{{ icon$ | async }}</mat-icon> Seleccionar ícono
       </button>
     </div>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" hideRequiredMarker="true">
       <mat-label>Agregar Subcategorías</mat-label>
       <mat-chip-grid #chipGrid formControlName="subcategories" name="subcategories">
         <mat-chip-row
