@@ -45,7 +45,7 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
   private destroy$ = new Subject<void>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  protected dataSource = new MatTableDataSource<any>();
+  protected dataSource = new MatTableDataSource<Registro>();
   // protected dataSource!: MatTableDataSource<any>;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   // private _sort!: MatSort;
@@ -101,4 +101,14 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
   //     },
   //   });
   // }
+}
+
+export class Registro {
+  constructor(
+    public userName: string,
+    public userEmail: string,
+    public lastLogin: string,
+    public userClients: any,
+    public userRol: string
+  ) {}
 }
