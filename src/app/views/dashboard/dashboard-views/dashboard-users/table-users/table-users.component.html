@@ -65,7 +65,4 @@
     [disabled]="disabled"
     [hidePageSize]="true">
   </mat-paginator>
-  <div *ngIf="areUsersLoading$ | async" class="overlay">
-    <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'"> </mat-progress-spinner>
-  </div>
 </div>
