@@ -1,4 +1,4 @@
-<div *ngIf="categories.data.length < 0; else noCategories">
+<div *ngIf="categories; else noCategories">
   <div class="wrapper">
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="position">
