@@ -64,7 +64,6 @@ export class DashboardNewCategoryComponent implements OnInit {
             templateHTML: `${isError}`,
           },
         });
-        this.router.navigateByUrl('dashboard/categorias');
       },
     });
   }

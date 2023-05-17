@@ -1,5 +1,20 @@
 <div class="wrapper">
-  <p>Implementar ckeditor</p>
+  <div>
+    <h5>Respuesta larga</h5>
+    <p>Ingresá el contenido para el artículo.</p>
+    <ckeditor [(ngModel)]="model.editorData" [editor]="Editor"></ckeditor>
+  </div>
+
+  <div>
+    <h5>Respuesta corta</h5>
+    <p>Ingresá un breve resumen del contenido.</p>
+    <ckeditor [editor]="Editor"></ckeditor>
+  </div>
+  <div>
+    <h5>Respuesta canal Aura</h5>
+    <p>Ingresá el contenido que aparecerá mediante canal Aura</p>
+    <ckeditor [editor]="Editor"></ckeditor>
+  </div>
   <div class="action">
     <button mat-stroked-button color="primary" matStepperPrevious>Volver atrás</button>
     <button mat-flat-button color="primary" matStepperNext>Continuar</button>
