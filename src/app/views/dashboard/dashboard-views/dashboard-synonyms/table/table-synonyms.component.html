@@ -1,4 +1,4 @@
-<div *ngIf="synonyms.data.lenght > 0; else noSynonyms">
+<div *ngIf="synonyms; else noSynonyms">
   <div class="wrapper">
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="position">
