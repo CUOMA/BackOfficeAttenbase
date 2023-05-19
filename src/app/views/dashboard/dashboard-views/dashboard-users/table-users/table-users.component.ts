@@ -16,9 +16,9 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { UsersFacade } from '../dashboard-users.facade';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { MatSort } from '@angular/material/sort';
+import { UsersFacade } from '../dashboard-users.facade';
 
 @Component({
   selector: 'bdc-bo-tabla-users',
@@ -27,11 +27,11 @@ import { MatSort } from '@angular/material/sort';
 })
 export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
   protected displayedColumns: string[] = [
-    'userName',
-    'userEmail',
-    'lastLogin',
+    'first_name',
+    'email',
+    'last_login',
     'userClients',
-    'userRol',
+    'role',
     'seeMore',
   ];
   @Input() users!: any;
@@ -46,13 +46,7 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   protected dataSource = new MatTableDataSource<Registro>();
-  // protected dataSource!: MatTableDataSource<any>;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
-  // private _sort!: MatSort;
-  // @ViewChild(MatSort) set matSort(ms: MatSort) {
-  //   this._sort = ms;
-  //   this.dataSource.sort = this._sort;
-  // }
 
   constructor(
     public usersFacade: UsersFacade,
@@ -65,12 +59,12 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['users'].currentValue) {
       this.dataSource = new MatTableDataSource(this.users);
-      // this.dataSource.sort = this.sort;
+      this.dataSource.sort = this.sort;
     }
   }
 
   ngOnInit(): void {
-    console.log(this.users);
+    console.log(this.dataSource);
     this.areUsersLoading$ = this.usersFacade.areUsersLoading.pipe(takeUntil(this.destroy$));
   }
 
@@ -78,7 +72,7 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.paginator.pageSize = this.pageSize;
 
-    this.dataSource = new MatTableDataSource(this.users);
+    // this.dataSource = new MatTableDataSource(this.users);
     this.dataSource.sort = this.sort;
 
     // this.sort.sortChange.pipe(() => this.users()).subscribe;
@@ -105,10 +99,10 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
 
 export class Registro {
   constructor(
-    public userName: string,
-    public userEmail: string,
-    public lastLogin: string,
-    public userClients: any,
-    public userRol: string
+    public first_name: string,
+    public email: string,
+    public last_login: string,
+    // public userClients: any,
+    public role: string
   ) {}
 }
