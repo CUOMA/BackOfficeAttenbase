@@ -21,6 +21,7 @@ import { QuestionStatus } from '../../../../../core/models/statuses-response';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { categoriesApiActions } from '../../../../../store/actions/categories.actions';
 import { CategoriesFacade } from '../dashboard-categories.facade';
+import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.component';
 
 @Component({
   selector: 'bdc-bo-tabla-categories',
@@ -30,7 +31,7 @@ import { CategoriesFacade } from '../dashboard-categories.facade';
 export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewInit {
   @Input() categories!: any;
   protected displayedColumns: string[] = ['position', 'name', 'seeMore'];
-  protected emptyStateData: Object = {
+  protected emptyStateData: emptyStateModel = {
     src: '/assets/svg/empty-state/empty-state-categories.svg',
     title: 'Crea una nueva categoria',
     paragraph: 'Las categorías ayudarán a organizar el contenido en tu plataforma.',
