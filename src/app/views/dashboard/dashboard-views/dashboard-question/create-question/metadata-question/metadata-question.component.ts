@@ -5,11 +5,18 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DashboardCreateQuestionFacade } from '../dashboard-create-question.facade';
 import { DialogCreateCategoryComponent } from './dialog-create-category/dialog-create-category.component';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'bdc-bo-metadata-question-component',
   templateUrl: './metadata-question.component.html',
   styleUrls: ['./metadata-question.component.scss'],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { showError: true },
+    },
+  ],
 })
 export class MetadataQuestionComponent implements OnInit {
   protected form!: FormGroup;

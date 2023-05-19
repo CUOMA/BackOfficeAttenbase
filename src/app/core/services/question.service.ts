@@ -28,4 +28,8 @@ export class QuestionsService {
   public deleteQuestions(id: number) {
     return this.httpClient.delete(`${environment.apiUrl}questions/${id}`);
   }
+
+  public searchQuestion(payload: any) {
+    return this.httpClient.post(`${environment.apiUrl}questions/search`, payload);
+  }
 }

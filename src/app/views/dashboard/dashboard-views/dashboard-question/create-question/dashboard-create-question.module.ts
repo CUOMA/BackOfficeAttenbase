@@ -21,6 +21,7 @@ import { SelectIconCategoryModule } from './metadata-question/dialog-create-cate
 import { MetadataQuestionComponent } from './metadata-question/metadata-question.component';
 import { FormsModule } from '@angular/forms';
 import { CKEditorComponent } from '@ckeditor/ckeditor5-angular';
+import { BackArrowButtonModule } from 'src/app/shared/back-arrow-button/back-arrow-button.module';
 @NgModule({
   providers: [CategoriesFacade],
   declarations: [
@@ -31,6 +32,7 @@ import { CKEditorComponent } from '@ckeditor/ckeditor5-angular';
     DialogCreateCategoryComponent,
   ],
   imports: [
+    BackArrowButtonModule,
     CommonModule,
     SharedModule,
     CKEditorModule,

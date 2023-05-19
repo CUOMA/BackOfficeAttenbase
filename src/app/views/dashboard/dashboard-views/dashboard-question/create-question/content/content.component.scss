@@ -1,5 +1,17 @@
 .wrapper {
-  padding-top: 70px;
+  padding-top: 60px;
+  .containerCreateAnswer {
+    padding-bottom: 50px;
+    h5 {
+      font-size: 16px;
+      font-weight: 500;
+      margin: 10px 0;
+    }
+    p {
+      font-size: 11px;
+      color: #73777f;
+    }
+  }
   .action {
     display: flex;
     justify-content: space-between;

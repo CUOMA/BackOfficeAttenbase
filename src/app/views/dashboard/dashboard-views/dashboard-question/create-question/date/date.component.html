@@ -1,20 +1,32 @@
 <div class="wrapper">
   <div class="container-date">
     <p>Fecha de publicación y vencimiento</p>
+
     <div class="date">
       <mat-form-field appearance="outline">
         <mat-label>Desde</mat-label>
-        <input matInput [matDatepicker]="picker" />
+        <input
+          matInput
+          [min]="minDateFrom"
+          [matDatepicker]="pickerFrom"
+          [(ngModel)]="dateFrom"
+          (dateChange)="onDateFromChange($event)" />
         <mat-hint>DD/MM/AAAA</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker-toggle matIconSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFrom></mat-datepicker>
       </mat-form-field>
+
       <mat-form-field appearance="outline">
         <mat-label>Hasta</mat-label>
-        <input matInput [matDatepicker]="picker" />
+        <input
+          matInput
+          [min]="dateFrom"
+          [matDatepicker]="pickerTo"
+          [(ngModel)]="dateTo"
+          (dateChange)="onDateToChange($event)" />
         <mat-hint>DD/MM/AAAA</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker-toggle matIconSuffix [for]="pickerTo"></mat-datepicker-toggle>
+        <mat-datepicker #pickerTo></mat-datepicker>
       </mat-form-field>
     </div>
   </div>

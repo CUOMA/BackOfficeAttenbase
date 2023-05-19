@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import '@ckeditor/ckeditor5-build-classic/build/translations/es';
 
 @Component({
   selector: 'bdc-bo-content-component',
@@ -9,6 +10,63 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 export class ContentComponent {
   public Editor = ClassicEditor;
   public model = {
-    editorData: '<p>Hello, world!</p>',
+    answersLong: '',
+    answersShort: '',
+    answersAura: '',
   };
+  public editorConfig = {
+    toolbar: {
+      items: [
+        'heading',
+        '|',
+        'bold',
+        'italic',
+        'link',
+        '|',
+        'bulletedList',
+        'numberedList',
+        '|',
+        'blockQuote',
+        'uploadImage',
+        '|',
+        'undo',
+        'redo',
+      ],
+    },
+    language: 'es',
+  };
+  protected createAnswers: CreateAnswers[] = [
+    {
+      answersType: 'long',
+      title: 'Respuesta larga',
+      articleContent: 'Ingresá el contenido para el artículo.',
+      data: '',
+    },
+    {
+      answersType: 'short',
+      title: 'Respuesta corta',
+      articleContent: 'Ingresá un breve resumen del contenido.',
+      data: '',
+    },
+    {
+      answersType: 'aura',
+      title: 'Respuesta canal Aura',
+      articleContent: 'Ingresá el contenido que aparecerá mediante canal Aura',
+      data: '',
+    },
+  ];
+
+  protected obtenerValores() {
+    for (let createAnswer of this.createAnswers) {
+      const ngModelValue = { type: createAnswer.answersType, data: createAnswer.data };
+      console.log(ngModelValue);
+    }
+  }
+}
+
+export interface CreateAnswers {
+  title: string;
+  answersType: 'long' | 'aura' | 'short';
+  articleContent: string;
+  data: string;
 }
