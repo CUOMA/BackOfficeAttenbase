@@ -3,28 +3,28 @@
     mat-table
     [dataSource]="dataSource"
     matSort
-    matSortActive="first_name"
+    matSortActive="userName"
     matSortDirection="asc"
     matSortDisableClear>
-    <ng-container matColumnDef="first_name">
+    <ng-container matColumnDef="userName">
       <th width="30%" mat-header-cell *matHeaderCellDef mat-sort-header>
         <span>Nombre y apellido</span>
       </th>
       <td mat-cell *matCellDef="let element" class="username">
-        {{ element.first_name }}
-        {{ element.last_name }}
+        {{ element.userName }}
+        <!-- {{ element.last_name }} -->
       </td>
     </ng-container>
-    <ng-container matColumnDef="email">
+    <ng-container matColumnDef="userEmail">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.email }}
+        {{ element.userEmail }}
       </td>
     </ng-container>
-    <ng-container matColumnDef="last_login">
+    <ng-container matColumnDef="lastLogin">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Último login</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.last_login | date: 'd MMM, y, h:mm' }}
+        {{ element.lastLogin | date: 'd MMM, y, h:mm' }}
       </td>
     </ng-container>
     <ng-container matColumnDef="userClients">

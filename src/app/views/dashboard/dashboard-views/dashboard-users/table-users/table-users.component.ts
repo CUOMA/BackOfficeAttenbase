@@ -20,6 +20,23 @@ import { AlertService } from 'src/app/core/services/alert.service';
 import { MatSort } from '@angular/material/sort';
 import { UsersFacade } from '../dashboard-users.facade';
 
+interface User {
+  first_name: string;
+  last_name: string;
+  email: string;
+  last_login: string;
+  userClients: any;
+  role: string;
+}
+
+interface DataSourceUser {
+  userName: string;
+  userEmail: string;
+  lastLogin: string;
+  userClients: any;
+  role: string;
+}
+
 @Component({
   selector: 'bdc-bo-tabla-users',
   templateUrl: './table-users.component.html',
@@ -27,14 +44,14 @@ import { UsersFacade } from '../dashboard-users.facade';
 })
 export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
   protected displayedColumns: string[] = [
-    'first_name',
-    'email',
-    'last_login',
+    'userName',
+    'userEmail',
+    'lastLogin',
     'userClients',
     'role',
     'seeMore',
   ];
-  @Input() users!: any;
+  @Input() users!: User[];
   protected showFirstLastButtons: boolean = true;
   protected disabled: boolean = false;
   protected pageIndex: number = 0;
@@ -45,7 +62,27 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
   private destroy$ = new Subject<void>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  protected dataSource = new MatTableDataSource<Registro>();
+  protected usersData = (users: User[]): DataSourceUser[] => {
+    let data = users.map((user: User) => {
+      return {
+        userName: user.first_name.toLocaleLowerCase() + ' ' + user.last_name.toLocaleLowerCase(),
+        userEmail: user.email.toLocaleLowerCase(),
+        lastLogin: user.last_login.toLocaleLowerCase(),
+        role: user.role.toLocaleLowerCase(),
+        userClients: user.userClients,
+      };
+    });
+    // data.push({
+    //   userName: 'a1',
+    //   userEmail: 'a1@federick',
+    //   lastLogin: '06/12/1998',
+    //   role: 'author',
+    //   userClients: '',
+    // });
+    return data;
+  };
+
+  protected dataSource = new MatTableDataSource();
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
   constructor(
@@ -58,13 +95,18 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['users'].currentValue) {
-      this.dataSource = new MatTableDataSource(this.users);
+      this.dataSource = new MatTableDataSource<any>(this.usersData(this.users));
       this.dataSource.sort = this.sort;
     }
   }
 
   ngOnInit(): void {
-    console.log(this.dataSource);
+    // console.log(this.users[1].last_login);
+    // console.log(this.dataSource);
+    // this.usersData(this.users);
+
+    this.dataSource = new MatTableDataSource<any>(this.usersData(this.users));
+
     this.areUsersLoading$ = this.usersFacade.areUsersLoading.pipe(takeUntil(this.destroy$));
   }
 
@@ -95,14 +137,4 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
   //     },
   //   });
   // }
-}
-
-export class Registro {
-  constructor(
-    public first_name: string,
-    public email: string,
-    public last_login: string,
-    // public userClients: any,
-    public role: string
-  ) {}
 }
