@@ -42,18 +42,18 @@ export class ContentComponent {
       articleContent: 'Ingresá el contenido para el artículo.',
       data: '',
     },
-    {
-      answersType: 'short',
-      title: 'Respuesta corta',
-      articleContent: 'Ingresá un breve resumen del contenido.',
-      data: '',
-    },
-    {
-      answersType: 'aura',
-      title: 'Respuesta canal Aura',
-      articleContent: 'Ingresá el contenido que aparecerá mediante canal Aura',
-      data: '',
-    },
+    // {
+    //   answersType: 'short',
+    //   title: 'Respuesta corta',
+    //   articleContent: 'Ingresá un breve resumen del contenido.',
+    //   data: '',
+    // },
+    // {
+    //   answersType: 'aura',
+    //   title: 'Respuesta canal Aura',
+    //   articleContent: 'Ingresá el contenido que aparecerá mediante canal Aura',
+    //   data: '',
+    // },
   ];
 
   protected obtenerValores() {
