@@ -35,7 +35,6 @@ import { BackArrowButtonModule } from 'src/app/shared/back-arrow-button/back-arr
     BackArrowButtonModule,
     CommonModule,
     SharedModule,
-    CKEditorModule,
     StoreModule.forFeature(listCategoriesFeatureKey, listCategoriesReducer),
     EffectsModule.forFeature([CategoriesEffects]),
     DashboardCreateQuestionRoutingModule,
