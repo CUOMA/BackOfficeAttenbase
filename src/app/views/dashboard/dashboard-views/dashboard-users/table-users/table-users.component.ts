@@ -101,10 +101,6 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    // console.log(this.users[1].last_login);
-    // console.log(this.dataSource);
-    // this.usersData(this.users);
-
     this.dataSource = new MatTableDataSource<any>(this.usersData(this.users));
 
     this.areUsersLoading$ = this.usersFacade.areUsersLoading.pipe(takeUntil(this.destroy$));
@@ -114,10 +110,7 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.paginator.pageSize = this.pageSize;
 
-    // this.dataSource = new MatTableDataSource(this.users);
     this.dataSource.sort = this.sort;
-
-    // this.sort.sortChange.pipe(() => this.users()).subscribe;
   }
 
   // protected deleteSynonyms(id: number, element: string) {
