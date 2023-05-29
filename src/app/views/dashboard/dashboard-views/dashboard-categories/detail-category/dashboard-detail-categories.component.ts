@@ -5,6 +5,7 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { CategoriesFacade } from '../dashboard-categories.facade';
 import { categoriesApiActions } from '../../../../../store/actions/categories.actions';
 import { Store } from '@ngrx/store';
+import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.component';
 
 @Component({
   selector: 'bdc-bo-dashboard-categories',
@@ -17,6 +18,11 @@ export class DashboardDetailCategoriesComponent implements OnInit {
   private destroy$ = new Subject<void>();
   protected id!: number;
   panelOpenState = false;
+  protected emptyStateData: emptyStateModel = {
+    src: '/assets/svg/empty-state/empty-state-categories.svg',
+    title: 'Aún no hay subcategorías creadas.',
+    paragraph: 'Las subcategorías ayudan a especificar la clasificación de las preguntas.',
+  };
   constructor(
     public categoriesFacade: CategoriesFacade,
     public route: ActivatedRoute,

@@ -19,6 +19,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { QuestionStatus } from '../../../../../core/models/statuses-response';
+import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.component';
 
 @Component({
   selector: 'bdc-bo-tabla-question',
@@ -38,6 +39,11 @@ export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges 
     'state',
     'seeMore',
   ];
+  protected emptyStateData: emptyStateModel = {
+    src: '/assets/svg/empty-state/empty-state-questions.svg',
+    title: 'Crea una nueva pregunta',
+    paragraph: 'Podrás editar su contenido, programarlas o publicarlas en tu plataforma.',
+  };
 
   protected showFirstLastButtons: boolean = true;
   protected disabled: boolean = false;
