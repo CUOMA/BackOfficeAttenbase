@@ -57,13 +57,3 @@ export class DashboardUsersComponent implements AfterViewInit {
     alert('se dehabilitara un cliente');
   }
 }
-
-export class Registro {
-  constructor(
-    public userName: string,
-    public userEmail: string,
-    public lastLogin: string,
-    public userClients: any,
-    public userRol: string
-  ) {}
-}

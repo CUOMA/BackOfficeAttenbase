@@ -19,23 +19,8 @@ import { takeUntil } from 'rxjs/operators';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { MatSort } from '@angular/material/sort';
 import { UsersFacade } from '../dashboard-users.facade';
-
-interface User {
-  first_name: string;
-  last_name: string;
-  email: string;
-  last_login: string;
-  userClients: any;
-  role: string;
-}
-
-interface DataSourceUser {
-  userName: string;
-  userEmail: string;
-  lastLogin: string;
-  userClients: any;
-  role: string;
-}
+import { DataSourceUser } from 'src/app/shared/interfaces/userDataSourceTable.interface';
+import { User } from 'src/app/shared/interfaces/userTable.interface';
 
 @Component({
   selector: 'bdc-bo-tabla-users',
@@ -72,13 +57,6 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
         userClients: user.userClients,
       };
     });
-    // data.push({
-    //   userName: 'a1',
-    //   userEmail: 'a1@federick',
-    //   lastLogin: '06/12/1998',
-    //   role: 'author',
-    //   userClients: '',
-    // });
     return data;
   };
 
