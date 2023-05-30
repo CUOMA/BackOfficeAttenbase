@@ -51,5 +51,27 @@
 </div>
 
 <ng-template #noSynonyms>
-  <p>No hay Sinonimos</p>
+  <div class="wrapper">
+    <table mat-table>
+      <ng-container matColumnDef="position">
+        <th width="30%" mat-header-cell *matHeaderCellDef>Origen</th>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Sinonimo(s)</th>
+      </ng-container>
+      <ng-container matColumnDef="seeMore">
+        <th mat-header-cell width="40px" *matHeaderCellDef></th>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <bdc-bo-empty-state [emptyStateData]="emptyStateData"></bdc-bo-empty-state>
+    <mat-paginator
+      [length]="10"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [disabled]="false"
+      [hidePageSize]="true">
+    </mat-paginator>
+  </div>
 </ng-template>

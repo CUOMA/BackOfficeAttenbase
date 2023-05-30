@@ -22,6 +22,7 @@ import { AlertService } from '../../../../../core/services/alert.service';
 import { categoriesApiActions } from '../../../../../store/actions/categories.actions';
 import { CategoriesFacade } from '../dashboard-categories.facade';
 import { EventEmitter } from '@angular/core';
+import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.component';
 
 @Component({
   selector: 'bdc-bo-tabla-categories',
@@ -33,6 +34,11 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
   protected displayedColumns: string[] = ['position', 'name', 'seeMore'];
   // paginador
   @Output() pageChanged = new EventEmitter<PageEvent>();
+  protected emptyStateData: emptyStateModel = {
+    src: '/assets/svg/empty-state/empty-state-categories.svg',
+    title: 'Crea una nueva categoria',
+    paragraph: 'Las categorías ayudarán a organizar el contenido en tu plataforma.',
+  };
   protected showFirstLastButtons: boolean = true;
   protected disabled = false;
   protected pageIndex = 0;

@@ -18,6 +18,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UsersFacade } from '../dashboard-users.facade';
 import { AlertService } from 'src/app/core/services/alert.service';
+import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.component';
 
 @Component({
   selector: 'bdc-bo-tabla-users',
@@ -33,6 +34,12 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
     'userRol',
     'seeMore',
   ];
+  protected emptyStateData: emptyStateModel = {
+    src: '/assets/svg/empty-state/empty-state-users.svg',
+    title: 'Añadí un usuario',
+    paragraph:
+      'Los usuarios que designes podrán llevar a cabo distintas acciones dentro de la plataforma.',
+  };
   @Input() users!: any;
   protected showFirstLastButtons: boolean = true;
   protected disabled: boolean = false;
