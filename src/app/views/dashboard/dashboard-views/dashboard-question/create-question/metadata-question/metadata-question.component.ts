@@ -24,6 +24,7 @@ export class MetadataQuestionComponent implements OnInit {
   protected listSubcategories$ = this.createQuestionFacade.selectListSubcategories();
   protected areListSubcategoriesLoading$ = this.createQuestionFacade.areSubcategoriesLoading;
   private destroy$ = new Subject<void>();
+  protected selectedOption = 'General';
 
   constructor(
     private fb: FormBuilder,
@@ -32,11 +33,12 @@ export class MetadataQuestionComponent implements OnInit {
   ) {}
   public ngOnInit(): void {
     this.setUpForm();
-    // this.areListSubcategoriesLoading$.subscribe(console.log);
     this.createQuestionFacade.dispatchGetListCategories();
   }
+
   protected setUpForm() {
     this.form = this.fb.group({
+      // hour: ['20:00', Validators.required],
       question: ['', [Validators.required]],
       alias: ['', [Validators.required]],
       category: ['', [Validators.required]],
@@ -56,6 +58,7 @@ export class MetadataQuestionComponent implements OnInit {
   }
   protected sendForm() {
     const formData = this.form.value;
-    this.createQuestionFacade.formMetadaQuestion(formData);
+    console.log(formData);
+    // this.createQuestionFacade.formMetadaQuestion(formData);
   }
 }

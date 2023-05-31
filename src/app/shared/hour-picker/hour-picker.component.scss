@@ -1,0 +1,23 @@
+mat-form-field {
+    width: 168px !important;
+    padding-right: 20px;
+    mat-icon {
+        cursor: pointer;
+    }
+}
+
+.wrapper-menu {
+    padding: 20px;
+
+    mat-button-toggle-group {
+        mat-button-toggle {
+            font-size: 12px;
+        }
+    }
+
+    p {
+        font-weight: 500;
+        color: #717370;
+        font-size: 14px;
+    }
+}

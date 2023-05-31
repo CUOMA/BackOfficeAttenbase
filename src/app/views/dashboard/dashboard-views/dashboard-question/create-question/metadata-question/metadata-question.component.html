@@ -28,7 +28,7 @@
       <mat-form-field appearance="outline" hideRequiredMarker="true">
         <mat-label>Categoría</mat-label>
         <mat-hint> Categoría a la cual pertenecerá la pregunta creada.</mat-hint>
-        <mat-select formControlName="category" name="category">
+        <mat-select formControlName="category" name="category" [(ngModel)]="selectedOption">
           <ng-container *ngIf="listCategories$ | async as listCategories">
             <mat-option
               *ngFor="let category of listCategories"

@@ -32,6 +32,10 @@
   </div>
   <div class="containeir-hour">
     <p>Horario de publicación y vencimiento</p>
+    <div class="date">
+      <bdc-bo-hour-picker [period]="'Desde'" formControlName="hour"></bdc-bo-hour-picker>
+      <bdc-bo-hour-picker [period]="'Hasta'" formControlName="hour"></bdc-bo-hour-picker>
+    </div>
   </div>
 </div>
 <div class="action">

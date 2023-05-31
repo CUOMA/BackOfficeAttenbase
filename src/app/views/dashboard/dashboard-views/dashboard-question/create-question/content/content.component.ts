@@ -12,7 +12,7 @@ export class ContentComponent {
   public model = {
     answersLong: '',
     answersShort: '',
-    answersAura: '',
+    answersChat: '',
   };
   public editorConfig = {
     toolbar: {
@@ -49,9 +49,9 @@ export class ContentComponent {
     //   data: '',
     // },
     // {
-    //   answersType: 'aura',
-    //   title: 'Respuesta canal Aura',
-    //   articleContent: 'Ingresá el contenido que aparecerá mediante canal Aura',
+    //   answersType: 'chat',
+    //   title: 'Respuesta canal Chat',
+    //   articleContent: 'Ingresá el contenido que aparecerá mediante canal Chat',
     //   data: '',
     // },
   ];
@@ -66,7 +66,7 @@ export class ContentComponent {
 
 export interface CreateAnswers {
   title: string;
-  answersType: 'long' | 'aura' | 'short';
+  answersType: 'long' | 'chat' | 'short';
   articleContent: string;
   data: string;
 }
