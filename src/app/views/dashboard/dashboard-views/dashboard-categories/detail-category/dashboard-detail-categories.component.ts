@@ -6,7 +6,6 @@ import { CategoriesFacade } from '../dashboard-categories.facade';
 import { categoriesApiActions } from '../../../../../store/actions/categories.actions';
 import { Store, select } from '@ngrx/store';
 import { AlertService } from 'src/app/core/services/alert.service';
-import { BackArrowButton } from 'src/app/shared/interfaces/backArrowButton.interface';
 
 @Component({
   selector: 'bdc-bo-dashboard-categories',
@@ -19,9 +18,6 @@ export class DashboardDetailCategoriesComponent implements OnInit {
   private destroy$ = new Subject<void>();
   protected id!: number;
   panelOpenState = false;
-  public backArrowObj: BackArrowButton = {
-    route: '/dashboard/categorias',
-  };
   constructor(
     public categoriesFacade: CategoriesFacade,
     public route: ActivatedRoute,
