@@ -3,13 +3,18 @@ import { NgModule } from '@angular/core';
 import { QuicklinkModule } from 'ngx-quicklink';
 import { MaterialModule } from '../core/modules/material.module';
 import { BackArrowButtonModule } from './back-arrow-button/back-arrow-button.module';
-import { ButtonComponent } from './button/button.component';
-import { ChipsComponent } from './chips/chips.component';
 import { EmptyStateComponent } from './empty-state/empty-state.component';
+import { HourPickerModule } from './hour-picker/hour-picker.module';
 
 @NgModule({
-  declarations: [ButtonComponent, ChipsComponent, EmptyStateComponent],
+  declarations: [EmptyStateComponent],
   imports: [CommonModule, MaterialModule, QuicklinkModule],
-  exports: [QuicklinkModule, MaterialModule, ButtonComponent, EmptyStateComponent],
+  exports: [
+    QuicklinkModule,
+    MaterialModule,
+    EmptyStateComponent,
+    BackArrowButtonModule,
+    HourPickerModule,
+  ],
 })
 export class SharedModule {}

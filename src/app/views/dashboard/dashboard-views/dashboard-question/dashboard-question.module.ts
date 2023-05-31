@@ -14,6 +14,7 @@ import { StatusesEffects } from '../../../../store/effects/statuses.effects';
 import { statusesFeatureKey, statusesReducer } from 'src/app/store/reducers/statuses.reducers';
 import { StatusQuestionComponent } from './table/status-question/status-question.component';
 import { MenuQuestionComponent } from './table/menu-question/menu-question.component';
+import { SearcherModule } from '../../searcher/searcher.module';
 
 @NgModule({
   providers: [QuestionsFacade],
@@ -28,6 +29,7 @@ import { MenuQuestionComponent } from './table/menu-question/menu-question.compo
     CommonModule,
     SharedModule,
     DashboardQuestionRoutingModule,
+    SearcherModule,
     StoreModule.forFeature(questionsFeatureKey, questionsReducer),
     StoreModule.forFeature(statusesFeatureKey, statusesReducer),
     EffectsModule.forFeature([QuestionsEffects, StatusesEffects]),

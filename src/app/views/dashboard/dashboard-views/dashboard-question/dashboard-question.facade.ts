@@ -41,6 +41,10 @@ export class QuestionsFacade {
     this.store.dispatch(questionsApiActions.getQuestionsRequest({ status: status, page }));
   }
 
+  public dispatchGetQuestionsSearch(query: string): void {
+    this.store.dispatch(questionsApiActions.searchRequest({ query }));
+  }
+
   public dispatchGetStatuses(): void {
     this.store.dispatch(statusesApiActions.getStatusesRequest());
   }

@@ -34,11 +34,16 @@ export class DashboardQuestionComponent implements OnInit {
     this.questionsFacade.dispatchGetQuestions('published', pageEvent.pageIndex + 1);
   }
 
+  protected handleSearch(query: string): void {
+    this.questionsFacade.dispatchGetQuestionsSearch(query);
+  }
+
   protected selectTab(tab: { label: string; value: string }) {
     this.selectedTab = tab;
     this.questionsFacade.dispatchGetQuestions(this.selectedTab.value);
     this.questions$ = this.questionsFacade.selectQuestions();
   }
+
   protected toggleMenu() {
     this.isOpen = !this.isOpen;
   }

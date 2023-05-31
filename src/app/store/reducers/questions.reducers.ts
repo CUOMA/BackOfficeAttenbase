@@ -1,7 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { questionsApiActions } from '../actions/question.action';
 import { Questions } from '../../core/models/questions-response';
-import { S } from '@angular/cdk/keycodes';
+import { questionsApiActions } from '../actions/question.action';
 
 export interface QuestionsState {
   areQuestionsLoading: boolean;
@@ -22,7 +21,6 @@ export const initialState: QuestionsState = {
 export const questionsReducer = createReducer(
   initialState,
   on(questionsApiActions.getQuestionsRequest, (state, payload: any): QuestionsState => {
-    console.log(payload);
     return {
       ...state,
       areQuestionsLoading: true,
@@ -41,6 +39,27 @@ export const questionsReducer = createReducer(
   ),
   on(
     questionsApiActions.getQuestionsFailure,
+    (state): QuestionsState => ({
+      ...state,
+      areQuestionsLoading: false,
+    })
+  ),
+  on(questionsApiActions.searchRequest, (state): QuestionsState => {
+    return {
+      ...state,
+      areQuestionsLoading: true,
+    };
+  }),
+  on(
+    questionsApiActions.searchSuccess,
+    (state, payload): QuestionsState => ({
+      ...state,
+      areQuestionsLoading: false,
+      questions: payload,
+    })
+  ),
+  on(
+    questionsApiActions.searchFailure,
     (state): QuestionsState => ({
       ...state,
       areQuestionsLoading: false,
