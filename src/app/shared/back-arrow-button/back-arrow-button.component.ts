@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-// import { Router } from '@angular/router';
+import { Component, Input } from '@angular/core';
+import { BackArrowButton } from '../interfaces/backArrowButton.interface';
 
 @Component({
   selector: 'bdc-bo-back-arrow-button',
@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./back-arrow-button.component.scss'],
 })
 export class BackArrowButtonComponent {
+  @Input()
+  public routeMap: BackArrowButton = {
+    route: '',
+  };
   // protected finalUrl: string;
   // public urlRedirect(): string {
   //   let url: string = window.location.href;
