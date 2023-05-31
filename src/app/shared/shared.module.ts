@@ -9,7 +9,13 @@ import { EmptyStateComponent } from './empty-state/empty-state.component';
 
 @NgModule({
   declarations: [ButtonComponent, ChipsComponent, EmptyStateComponent],
-  imports: [CommonModule, MaterialModule, QuicklinkModule],
-  exports: [QuicklinkModule, MaterialModule, ButtonComponent, EmptyStateComponent],
+  imports: [CommonModule, MaterialModule, QuicklinkModule, BackArrowButtonModule],
+  exports: [
+    QuicklinkModule,
+    MaterialModule,
+    ButtonComponent,
+    EmptyStateComponent,
+    BackArrowButtonModule,
+  ],
 })
 export class SharedModule {}
