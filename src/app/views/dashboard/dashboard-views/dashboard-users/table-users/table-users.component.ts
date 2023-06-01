@@ -22,6 +22,7 @@ import { UsersFacade } from '../dashboard-users.facade';
 import { DataSourceUser } from 'src/app/shared/interfaces/userDataSourceTable.interface';
 import { User } from 'src/app/shared/interfaces/userTable.interface';
 import { categoriesApiActions } from 'src/app/store/actions/categories.actions';
+import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.component';
 
 @Component({
   selector: 'bdc-bo-tabla-users',
@@ -61,6 +62,12 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
     return data;
   };
 
+  protected emptyStateData: emptyStateModel = {
+    src: '/assets/svg/empty-state/empty-state-users.svg',
+    title: 'Añadí un usuario',
+    paragraph:
+      'Los usuarios que designes podrán llevar a cabo distintas acciones dentro de la plataforma.',
+  };
   protected dataSource = new MatTableDataSource();
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
