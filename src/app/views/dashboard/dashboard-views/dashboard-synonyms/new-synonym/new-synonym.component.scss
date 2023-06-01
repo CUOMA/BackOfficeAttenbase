@@ -3,6 +3,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    margin-bottom: 80px;
   }
   .edit-synonyms-form {
     width: 100%;
@@ -16,9 +17,6 @@
   }
   .synonyms-input-area {
     width: 100%;
-  }
-  h2 {
-    margin-bottom: 80px;
   }
   mat-form-field {
     width: 100%;
