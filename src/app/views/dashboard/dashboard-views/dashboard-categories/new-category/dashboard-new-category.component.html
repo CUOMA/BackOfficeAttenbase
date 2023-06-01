@@ -1,5 +1,8 @@
 <div class="wrapper">
-  <h3>Nueva categoría</h3>
+  <div class="header-box">
+    <bdc-bo-back-arrow-button [routeMap]="'/dashboard/categorias'"></bdc-bo-back-arrow-button>
+    <h3>Nueva categoría</h3>
+  </div>
   <form [formGroup]="form">
     <div class="input-double">
       <mat-form-field appearance="outline" hideRequiredMarker="true">

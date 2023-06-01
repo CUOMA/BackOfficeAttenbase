@@ -1,7 +1,12 @@
 button {
   border: none;
   padding: 0;
-  margin-right: 15px;
+  margin-right: 16px;
+  margin-top: 3px;
   background-color: transparent;
   cursor: pointer;
+}
+mat-icon {
+  height: 20px;
+  width: 20px;
 }

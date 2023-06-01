@@ -47,5 +47,9 @@ export class CustomMatIconsRegistratorModule {
       'filter',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/filter.svg')
     );
+    matIconRegister.addSvgIcon(
+      'chevron-left',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/svg/chevron-left.svg')
+    );
   }
 }
