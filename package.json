@@ -1,6 +1,10 @@
 {
   "name": "bdc-backoffice",
   "version": "0.0.0",
+  "engines": {
+    "node": "^16.13.0 || >=18.10.0",
+    "npm": "^6.11.0 || ^7.5.6 || >=8.0.0"
+  },
   "scripts": {
     "analyze": "npm run build:prod:analyze && webpack-bundle-analyzer dist/bdc-backoffice/stats.json",
     "ng": "ng",
