@@ -14,3 +14,22 @@
 .mat-mdc-menu-panel.mat-mdc-menu-panel {
   max-width: 100% !important;
 }
+
+// tabs text color
+
+.mat-mdc-tab-nav-bar.mat-accent
+  .mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active
+  .mdc-tab__text-label {
+  color: #d5a43e !important;
+}
+.mat-mdc-tab-nav-bar.mat-accent
+  .mat-mdc-tab-link:not(.mat-mdc-tab-disabled)
+  .mdc-tab-indicator__content--underline {
+  border-color: #d5a43e !important;
+}
+.mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab__text-label {
+  color: #2c3137 !important;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.1px;
+}
