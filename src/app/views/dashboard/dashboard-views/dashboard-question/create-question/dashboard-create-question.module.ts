@@ -22,6 +22,7 @@ import { MetadataQuestionComponent } from './metadata-question/metadata-question
 import { FormsModule } from '@angular/forms';
 import { CKEditorComponent } from '@ckeditor/ckeditor5-angular';
 import { BackArrowButtonModule } from 'src/app/shared/back-arrow-button/back-arrow-button.module';
+import { DialogUnsavedChangeComponent } from './dialog-unsaved-change/dialog-unsaved-change.component';
 @NgModule({
   providers: [CategoriesFacade],
   declarations: [
@@ -30,6 +31,7 @@ import { BackArrowButtonModule } from 'src/app/shared/back-arrow-button/back-arr
     DateComponent,
     ContentComponent,
     DialogCreateCategoryComponent,
+    DialogUnsavedChangeComponent,
   ],
   imports: [
     BackArrowButtonModule,

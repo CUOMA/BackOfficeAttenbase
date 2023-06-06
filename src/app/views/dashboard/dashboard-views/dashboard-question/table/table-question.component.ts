@@ -29,7 +29,6 @@ import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.componen
 export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges {
   @Output() pageChanged = new EventEmitter<PageEvent>();
   @Input() questions!: any;
-  @Input() page?: number;
   protected displayedColumns: string[] = [
     'question',
     'category',
@@ -63,8 +62,8 @@ export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges 
     if (changes['questions'].currentValue) {
       this.dataSource = new MatTableDataSource(this.questions);
     }
-    this.paginator?.firstPage();
   }
+
   ngOnInit(): void {
     this.areQuestionsLoading$ = this.questionsFacade.areQuestionsLoading.pipe(
       takeUntil(this.destroy$)
