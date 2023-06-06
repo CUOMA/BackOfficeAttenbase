@@ -1,0 +1,14 @@
+.wrapper {
+    padding: 20px;
+    max-width: 407px;
+    p {
+        font-size: 14px;
+    }
+    .action {
+        display: flex;
+        justify-content: flex-end;
+        button {
+            margin-left: 10px;
+        }
+    }
+}

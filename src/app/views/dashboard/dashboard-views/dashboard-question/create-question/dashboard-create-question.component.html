@@ -1,8 +1,7 @@
 <div class="action">
-  <button (click)="unsavedChanges()">hola</button>
   <bdc-bo-back-arrow-button
     [routeMap]="'/dashboard/listado-de-preguntas'"
-    (click)="unsavedChanges()"></bdc-bo-back-arrow-button>
+    [showConfirmationModal]="true"></bdc-bo-back-arrow-button>
   <h2>{{ title$ | async }}</h2>
 </div>
 <div class="wrapper">

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -7,5 +7,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./dialog-unsaved-change.component.scss'],
 })
 export class DialogUnsavedChangeComponent {
+  @Input() url: string = '/..';
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogUnsavedChangeComponent) {}
 }
