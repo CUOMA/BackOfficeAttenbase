@@ -43,7 +43,7 @@ import { DialogUnsavedChangeComponent } from './dialog-unsaved-change/dialog-uns
     ReactiveFormsModule,
     SelectIconCategoryModule,
     FormsModule,
-    CKEditorModule,
+    // CKEditorModule,
   ],
 })
 export class DashboardCreateQuestionModule {}

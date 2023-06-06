@@ -7,19 +7,15 @@ import { tap, map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class QuestionsService {
-  private cache = new Map<number, Questions>();
-
   constructor(private httpClient: HttpClient) {}
 
   public getQuestions(pageNumber = 1, status: string): Observable<Questions> {
+    console.log(pageNumber);
     return this.httpClient
       .get<QuestionsResponse>(
         `${environment.apiUrl}questions?limit=10&${status}=true&page=${pageNumber}`
       )
-      .pipe(
-        map(res => res.data),
-        tap(res => this.cache.set(pageNumber, res))
-      );
+      .pipe(map(res => res.data));
   }
 
   public deleteQuestions(id: number) {

@@ -1,6 +1,8 @@
-import { Component, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { Observable } from 'rxjs';
 import { DashboardCreateQuestionFacade } from './dashboard-create-question.facade';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogUnsavedChangeComponent } from './dialog-unsaved-change/dialog-unsaved-change.component';
 
 @Component({
   providers: [DashboardCreateQuestionFacade],
@@ -10,9 +12,18 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class DashboardCreateQuestionComponent implements OnInit {
   protected title$!: Observable<string>;
-  constructor(private createQuestionFacade: DashboardCreateQuestionFacade) {}
+  private createQuestionFacade = inject(DashboardCreateQuestionFacade);
+  private dialog = inject(MatDialog);
 
   ngOnInit(): void {
     this.title$ = this.createQuestionFacade.titleQuestion;
+  }
+
+  protected unsavedChanges() {
+    this.dialog.open(DialogUnsavedChangeComponent, {
+      data: {
+        animal: 'panda',
+      },
+    });
   }
 }

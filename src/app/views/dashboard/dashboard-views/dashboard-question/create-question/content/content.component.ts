@@ -42,18 +42,12 @@ export class ContentComponent {
       articleContent: 'Ingresá el contenido para el artículo.',
       data: '',
     },
-    // {
-    //   answersType: 'short',
-    //   title: 'Respuesta corta',
-    //   articleContent: 'Ingresá un breve resumen del contenido.',
-    //   data: '',
-    // },
-    // {
-    //   answersType: 'chat',
-    //   title: 'Respuesta canal Chat',
-    //   articleContent: 'Ingresá el contenido que aparecerá mediante canal Chat',
-    //   data: '',
-    // },
+    {
+      answersType: 'short',
+      title: 'Respuesta corta',
+      articleContent: 'Ingresá un breve resumen del contenido.',
+      data: '',
+    },
   ];
 
   protected obtenerValores() {

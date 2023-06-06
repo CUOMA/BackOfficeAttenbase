@@ -1,18 +1,23 @@
 <div class="wrapper">
-  <ng-container *ngFor="let createAnswer of createAnswers">
-    <div class="containerCreateAnswer">
+  <!-- <div class="container-create-answer">
+    <ng-container *ngFor="let createAnswer of createAnswers">
       <h5>{{ createAnswer.title }}</h5>
       <p>{{ createAnswer.articleContent }}</p>
       <ckeditor
         [(ngModel)]="createAnswer.data"
         [config]="editorConfig"
         [editor]="Editor"></ckeditor>
-    </div>
-  </ng-container>
-  <div class="action">
-    <button mat-stroked-button color="primary" matStepperPrevious>Volver atrás</button>
-    <button mat-flat-button color="primary" (click)="obtenerValores()" matStepperNext>
-      Continuar
-    </button>
-  </div>
+    </ng-container> -->
+  <h5>Respuesta AI</h5>
+  <p>Ingresá el contenido que aparecerá en canales de inteligencia artificial.</p>
+  <mat-form-field [appearance]="'outline'">
+    <textarea matInput></textarea>
+  </mat-form-field>
 </div>
+<div class="action">
+  <button mat-stroked-button color="primary" matStepperPrevious>Volver atrás</button>
+  <button mat-flat-button color="primary" (click)="obtenerValores()" matStepperNext>
+    Continuar
+  </button>
+</div>
+<!-- </div> -->

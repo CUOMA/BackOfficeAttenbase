@@ -12,8 +12,8 @@ export class QuestionsEffects {
   questions$ = createEffect((): any => {
     return this.actions$.pipe(
       ofType(questionsApiActions.getQuestionsRequest.type),
-      mergeMap((action: Action & { pageNumber: number; status: string }) => {
-        return this.questionsService.getQuestions(action.pageNumber, action.status).pipe(
+      mergeMap((action: Action & { page: number; status: string }) => {
+        return this.questionsService.getQuestions(action.page, action.status).pipe(
           map(questions => questionsApiActions.getQuestionsSuccess(questions)),
           catchError(() =>
             of(questionsApiActions.getQuestionsFailure({ error: 'Error on questions' }))
