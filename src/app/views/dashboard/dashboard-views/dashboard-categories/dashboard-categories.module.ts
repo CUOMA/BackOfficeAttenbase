@@ -19,6 +19,7 @@ import { DialogSelectIconComponent } from './dialog-select-icon/dialog-select-ic
 import { DashboardNewCategoryComponent } from './new-category/dashboard-new-category.component';
 import { TableCategoriesComponent } from './table/table-categories.component';
 import { SelectIconCategoryModule } from '../dashboard-question/create-question/metadata-question/dialog-create-category/select-icon-category/select-icon-category.module';
+import { SearcherModule } from '../../searcher/searcher.module';
 
 @NgModule({
   providers: [CategoriesFacade],
@@ -35,6 +36,7 @@ import { SelectIconCategoryModule } from '../dashboard-question/create-question/
     ReactiveFormsModule,
     DashboardCategoriesRoutingModule,
     SharedModule,
+    SearcherModule,
     StoreModule.forFeature(categoriesFeatureKey, categoriesReducer),
     EffectsModule.forFeature([CategoriesEffects]),
     SelectIconCategoryModule,
