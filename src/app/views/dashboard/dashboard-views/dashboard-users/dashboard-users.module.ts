@@ -14,6 +14,7 @@ import { UsersReducer, usersFeatureKey } from 'src/app/store/reducers/users.redu
 import { UsersEffects } from 'src/app/store/effects/users.effects';
 import { UsersFacade } from './dashboard-users.facade';
 import { TableUsersComponent } from './table-users/table-users.component';
+import { SearcherModule } from '../../searcher/searcher.module';
 
 @NgModule({
   providers: [UsersFacade],
@@ -27,6 +28,7 @@ import { TableUsersComponent } from './table-users/table-users.component';
     CommonModule,
     DashboardUsersRoutingModule,
     SharedModule,
+    SearcherModule,
     ReactiveFormsModule,
     StoreModule.forFeature(usersFeatureKey, UsersReducer),
     EffectsModule.forFeature([UsersEffects]),
