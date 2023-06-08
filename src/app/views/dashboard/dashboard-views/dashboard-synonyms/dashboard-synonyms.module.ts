@@ -11,6 +11,7 @@ import { DashboardSynonymsComponent } from './dashboard-synonyms.component';
 import { SynonymsFacade } from './dashboard-synonyms.facade';
 import { ScrollSynonymsComponent } from './table/scroll-synonyms/scroll-synonyms.component';
 import { TableSynonymsComponent } from './table/table-synonyms.component';
+import { SearcherModule } from '../../searcher/searcher.module';
 
 @NgModule({
   providers: [SynonymsFacade],
@@ -19,6 +20,7 @@ import { TableSynonymsComponent } from './table/table-synonyms.component';
     CommonModule,
     DashboardSynonymsRoutingModule,
     SharedModule,
+    SearcherModule,
     StoreModule.forFeature(synonymsFeatureKey, synonymsReducer),
     EffectsModule.forFeature([SynonymsEffects]),
   ],
