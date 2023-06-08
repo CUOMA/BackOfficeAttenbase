@@ -1,15 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { BackArrowButtonModule } from 'src/app/shared/back-arrow-button/back-arrow-button.module';
 import { CategoriesEffects } from 'src/app/store/effects/categories.effects';
 import {
   listCategoriesFeatureKey,
   listCategoriesReducer,
 } from 'src/app/store/reducers/list-categories.reducers';
+import { DialogUnsavedChangeComponent } from '../../../../../shared/back-arrow-button/dialog-unsaved-change/dialog-unsaved-change.component';
 import { SharedModule } from '../../../../../shared/shared.module';
 import { CategoriesFacade } from '../../dashboard-categories/dashboard-categories.facade';
 import { ContentComponent } from './content/content.component';
@@ -19,10 +21,6 @@ import { DateComponent } from './date/date.component';
 import { DialogCreateCategoryComponent } from './metadata-question/dialog-create-category/dialog-create-category.component';
 import { SelectIconCategoryModule } from './metadata-question/dialog-create-category/select-icon-category/select-icon-category.module';
 import { MetadataQuestionComponent } from './metadata-question/metadata-question.component';
-import { FormsModule } from '@angular/forms';
-import { CKEditorComponent } from '@ckeditor/ckeditor5-angular';
-import { BackArrowButtonModule } from 'src/app/shared/back-arrow-button/back-arrow-button.module';
-import { DialogUnsavedChangeComponent } from '../../../../../shared/back-arrow-button/dialog-unsaved-change/dialog-unsaved-change.component';
 @NgModule({
   providers: [CategoriesFacade],
   declarations: [
@@ -43,7 +41,7 @@ import { DialogUnsavedChangeComponent } from '../../../../../shared/back-arrow-b
     ReactiveFormsModule,
     SelectIconCategoryModule,
     FormsModule,
-    // CKEditorModule,
+    CKEditorModule,
   ],
 })
 export class DashboardCreateQuestionModule {}

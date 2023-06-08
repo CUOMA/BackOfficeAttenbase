@@ -72,7 +72,7 @@ export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges 
 
   ngAfterViewInit() {
     this.paginator.pageSize = this.pageSize;
-    this.paginator.length = this.questions[1].total;
+    this.paginator.length = this.questions[0].total;
   }
 
   protected handlePageChanged(pageEvent: PageEvent): void {
