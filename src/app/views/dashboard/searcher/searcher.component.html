@@ -1,5 +1,5 @@
 <mat-form-field appearance="outline">
   <mat-icon matSuffix>search</mat-icon>
-  <mat-label>Buscar preguntas</mat-label>
-  <input [formControl]="searchControl" matInput placeholder="¿Cómo comprar un equipo?" />
+  <mat-label>{{ label }}</mat-label>
+  <input [formControl]="searchControl" matInput placeholder="{{ placeholder }}" />
 </mat-form-field>
