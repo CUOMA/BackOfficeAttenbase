@@ -37,7 +37,8 @@
         name="email"
         type="email"
         placeholder="attenbase@attenbase.com" />
-      <mat-error *ngIf="form.controls['useremail'].errors?.['required']"
+      <mat-error
+        *ngIf="form.controls['useremail'].errors?.['required'] || form.controls['useremail'].errors?.['email']"
         >Ingresá un correo electrónico válido. Ej.: attenbase@attenbase.com
       </mat-error>
     </mat-form-field>
@@ -77,32 +78,35 @@
         >Mínimo 8 caracteres, una letra en mayúscula, un número y un caracter especial(ej.:#$%!)
       </mat-hint>
     </mat-form-field>
-    <div class="chip-area">
+    <div>
       <h3>Rol</h3>
-      <div>
-        <mat-chip-listbox>
-          <mat-chip-option color="primary" class="border-gray border-topleft-rad ml-8"
-            >Administrador</mat-chip-option
-          >
-          <mat-chip-option color="primary" class="border-gray">Moderador</mat-chip-option>
-          <mat-chip-option color="primary" class="border-gray border-topright-rad" selected
-            >Editor</mat-chip-option
-          >
-        </mat-chip-listbox>
-      </div>
+      <mat-button-toggle-group name="userRol" aria-label="rol">
+        <mat-button-toggle value="administrador">
+          <span class="material-symbols-outlined" id="icon-toggle">check</span>
+          Administrador</mat-button-toggle
+        >
+        <mat-button-toggle value="moderador">
+          <span class="material-symbols-outlined" id="icon-toggle">check</span>
+          Moderador
+        </mat-button-toggle>
+        <mat-button-toggle value="editor">
+          <span class="material-symbols-outlined" id="icon-toggle">check</span>
+          Editor
+        </mat-button-toggle>
+      </mat-button-toggle-group>
     </div>
-    <div class="chip-area">
+    <div>
       <h3>Estados</h3>
-      <div>
-        <mat-chip-listbox>
-          <mat-chip-option color="primary" class="border-gray border-topleft-rad ml-8"
-            >Activo</mat-chip-option
-          >
-          <mat-chip-option color="primary" class="border-gray border-topright-rad" selected
-            >Inactivo</mat-chip-option
-          >
-        </mat-chip-listbox>
-      </div>
+      <mat-button-toggle-group name="userState" aria-label="state">
+        <mat-button-toggle value="activo">
+          <span class="material-symbols-outlined" id="icon-toggle">check</span>
+          Activo</mat-button-toggle
+        >
+        <mat-button-toggle value="inactivo">
+          <span class="material-symbols-outlined" id="icon-toggle">check</span>
+          Inactivo
+        </mat-button-toggle>
+      </mat-button-toggle-group>
     </div>
     <mat-divider></mat-divider>
     <div class="form-buttons">
