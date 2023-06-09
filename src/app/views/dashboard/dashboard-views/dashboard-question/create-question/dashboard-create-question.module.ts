@@ -21,8 +21,9 @@ import { DateComponent } from './date/date.component';
 import { DialogCreateCategoryComponent } from './metadata-question/dialog-create-category/dialog-create-category.component';
 import { SelectIconCategoryModule } from './metadata-question/dialog-create-category/select-icon-category/select-icon-category.module';
 import { MetadataQuestionComponent } from './metadata-question/metadata-question.component';
+import { DashboardCreateQuestionFacade } from './dashboard-create-question.facade';
 @NgModule({
-  providers: [CategoriesFacade],
+  providers: [CategoriesFacade, DashboardCreateQuestionFacade],
   declarations: [
     DashboardCreateQuestionComponent,
     MetadataQuestionComponent,

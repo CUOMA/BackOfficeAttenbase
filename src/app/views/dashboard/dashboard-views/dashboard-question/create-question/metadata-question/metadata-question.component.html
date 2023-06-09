@@ -18,8 +18,24 @@
     </mat-form-field>
     <mat-form-field appearance="outline" hideRequiredMarker="true">
       <mat-label>Alias</mat-label>
-      <input formControlName="alias" name="alias" type="text" matInput required />
       <mat-hint>Títulos similares para facilitar la detección de la pregunta.</mat-hint>
+      <mat-chip-grid #chipGrid formControlName="alias" name="alias">
+        <mat-chip-row
+          *ngFor="let item of alias"
+          (removed)="remove(item)"
+          [editable]="true"
+          (edited)="edit(item, $event)">
+          {{ item.name }}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        <input
+          [matChipInputFor]="chipGrid"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)" />
+      </mat-chip-grid>
       <mat-error *ngIf="form.controls['alias'].errors?.['required']">
         Ingresá al menos un alias
       </mat-error>
@@ -61,7 +77,7 @@
       </mat-form-field>
     </div>
 
-    <mat-form-field appearance="outline">
+    <!-- <mat-form-field appearance="outline">
       <mat-label>Preguntas Relacionadas</mat-label>
       <mat-hint> Otras preguntas vinculadas la pregunta creada.</mat-hint>
       <input
@@ -76,7 +92,7 @@
           {{ option }}
         </mat-option>
       </mat-autocomplete>
-    </mat-form-field>
+    </mat-form-field> -->
   </form>
   <div class="action">
     <button

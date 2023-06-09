@@ -1,44 +1,52 @@
-<div class="wrapper">
-  <div class="container-date">
-    <p>Fecha de publicación y vencimiento</p>
+<form [formGroup]="form">
+  <!-- <div class="wrapper">
+    <div class="container-date">
+      <p>Fecha de publicación y vencimiento</p>
 
-    <div class="date">
-      <mat-form-field appearance="outline">
-        <mat-label>Desde</mat-label>
-        <input
-          matInput
-          [min]="minDateFrom"
-          [matDatepicker]="pickerFrom"
-          [(ngModel)]="dateFrom"
-          (dateChange)="onDateFromChange($event)" />
-        <mat-hint>DD/MM/AAAA</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="pickerFrom"></mat-datepicker-toggle>
-        <mat-datepicker #pickerFrom></mat-datepicker>
-      </mat-form-field>
+      <div class="date">
+        <mat-form-field appearance="outline">
+          <mat-label>Desde</mat-label>
+          <input
+            matInput
+            [min]="minDateFrom"
+            [matDatepicker]="pickerFrom"
+            [(ngModel)]="dateFrom"
+            (dateChange)="onDateFromChange($event)" />
+          <mat-hint>DD/MM/AAAA</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+          <mat-datepicker #pickerFrom></mat-datepicker>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Hasta</mat-label>
-        <input
-          matInput
-          [min]="dateFrom"
-          [matDatepicker]="pickerTo"
-          [(ngModel)]="dateTo"
-          (dateChange)="onDateToChange($event)" />
-        <mat-hint>DD/MM/AAAA</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="pickerTo"></mat-datepicker-toggle>
-        <mat-datepicker #pickerTo></mat-datepicker>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Hasta</mat-label>
+          <input
+            matInput
+            [min]="dateFrom"
+            [matDatepicker]="pickerTo"
+            [(ngModel)]="dateTo"
+            (dateChange)="onDateToChange($event)" />
+          <mat-hint>DD/MM/AAAA</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="pickerTo"></mat-datepicker-toggle>
+          <mat-datepicker #pickerTo></mat-datepicker>
+        </mat-form-field>
+      </div>
     </div>
-  </div>
-  <div class="containeir-hour">
-    <p>Horario de publicación y vencimiento</p>
-    <div class="date">
-      <bdc-bo-hour-picker [period]="'Desde'" formControlName="hour"></bdc-bo-hour-picker>
-      <bdc-bo-hour-picker [period]="'Hasta'" formControlName="hour"></bdc-bo-hour-picker>
+    <div class="containeir-hour">
+      <p>Horario de publicación y vencimiento</p>
+      <div class="date">
+        <bdc-bo-hour-picker [period]="'Desde'" formControlName="hour"></bdc-bo-hour-picker>
+        <bdc-bo-hour-picker [period]="'Hasta'" formControlName="hour"></bdc-bo-hour-picker>
+      </div>
     </div>
+  </div> -->
+  <div class="action">
+    <button mat-stroked-button color="primary" matStepperPrevious>Volver atrás</button>
+    <button
+      mat-flat-button
+      color="primary"
+      matStepperNext
+      [routerLink]="['/dashboard/listado-de-preguntas/crear-pregunta/vista-previa']">
+      Continuar
+    </button>
   </div>
-</div>
-<div class="action">
-  <button mat-stroked-button color="primary" matStepperPrevious>Volver atrás</button>
-  <button mat-flat-button color="primary" matStepperNext>Continuar</button>
-</div>
+</form>
