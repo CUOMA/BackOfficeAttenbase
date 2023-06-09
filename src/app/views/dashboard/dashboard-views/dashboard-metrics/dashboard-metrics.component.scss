@@ -1,8 +1,15 @@
 .wrapper {
   margin-top: 100px;
-
-  .d-flex {
+  .filter {
+    width: 100%;
+    display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: start;
+    bdc-bo-searcher {
+      width: 552px;
+    }
+    mat-form-field {
+      margin-left: 24px;
+    }
   }
 }

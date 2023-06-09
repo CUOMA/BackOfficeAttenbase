@@ -5,6 +5,7 @@ import { MaterialModule } from '../core/modules/material.module';
 import { BackArrowButtonModule } from './back-arrow-button/back-arrow-button.module';
 import { EmptyStateComponent } from './empty-state/empty-state.component';
 import { HourPickerModule } from './hour-picker/hour-picker.module';
+import { SearcherModule } from './searcher/searcher.module';
 
 @NgModule({
   declarations: [EmptyStateComponent],
@@ -15,6 +16,7 @@ import { HourPickerModule } from './hour-picker/hour-picker.module';
     EmptyStateComponent,
     BackArrowButtonModule,
     HourPickerModule,
+    SearcherModule,
   ],
 })
 export class SharedModule {}
