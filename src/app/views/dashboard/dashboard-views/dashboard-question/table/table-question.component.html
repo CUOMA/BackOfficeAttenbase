@@ -6,21 +6,21 @@
         <td mat-cell *matCellDef="let element" class="text-blue">{{ element.name }}</td>
       </ng-container>
       <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef>Categorías</th>
+        <th mat-header-cell *matHeaderCellDef>Categoría</th>
         <td class="text-center" mat-cell *matCellDef="let element">
           {{ element.category.name }}
         </td>
       </ng-container>
       <ng-container matColumnDef="subcategory">
-        <th mat-header-cell *matHeaderCellDef>Subcategorías</th>
+        <th mat-header-cell *matHeaderCellDef>Subcategoría</th>
         <td mat-cell *matCellDef="let element">{{ element.sub_category }}</td>
       </ng-container>
       <ng-container matColumnDef="lastupdate">
         <th mat-header-cell *matHeaderCellDef>Fecha de publicación</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.updated_at | date: 'MM/dd/yy h:mm' }} <br />
+          {{ element.updated_at | date: 'dd/MM/yy h:mm' }} <br />
           hasta
-          {{ element.published_at | date: 'MM/dd/yy h:mm' }}
+          {{ element.published_at | date: 'dd/MM/yy h:mm' }}
         </td>
       </ng-container>
       <ng-container matColumnDef="state">
@@ -61,10 +61,10 @@
         <th mat-header-cell *matHeaderCellDef>Pregunta</th>
       </ng-container>
       <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef>Categorías</th>
+        <th mat-header-cell *matHeaderCellDef>Categoría</th>
       </ng-container>
       <ng-container matColumnDef="subcategory">
-        <th mat-header-cell *matHeaderCellDef>Subcategorías</th>
+        <th mat-header-cell *matHeaderCellDef>Subcategoría</th>
       </ng-container>
       <ng-container matColumnDef="lastupdate">
         <th mat-header-cell *matHeaderCellDef>Fecha de publicación</th>
