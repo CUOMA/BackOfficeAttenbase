@@ -1,6 +1,10 @@
 {
   "name": "bdc-backoffice",
   "version": "0.0.0",
+  "engines": {
+    "node": "^16.13.0 || >=18.10.0",
+    "npm": "^6.11.0 || ^7.5.6 || >=8.0.0"
+  },
   "scripts": {
     "analyze": "npm run build:prod:analyze && webpack-bundle-analyzer dist/bdc-backoffice/stats.json",
     "ng": "ng",
@@ -33,10 +37,14 @@
     "@angular/platform-browser": "^15.0.4",
     "@angular/platform-browser-dynamic": "^15.0.4",
     "@angular/router": "^15.0.4",
+    "@ckeditor/ckeditor5-angular": "^6.0.1",
+    "@ckeditor/ckeditor5-build-classic": "^37.1.0",
+    "@ckeditor/ckeditor5-upload": "^37.1.0",
     "@ngrx/effects": "^14.3.1",
     "@ngrx/router-store": "^14.3.1",
     "@ngrx/store": "^14.3.1",
     "@ngrx/store-devtools": "^14.3.1",
+    "echarts": "^5.4.2",
     "ng-let": "^14.0.1",
     "ngx-quicklink": "^0.3.0",
     "rxjs": "~6.6.0",
@@ -65,6 +73,7 @@
     "@storybook/builder-webpack5": "^6.5.12",
     "@storybook/manager-webpack5": "^6.5.12",
     "@storybook/testing-library": "^0.0.13",
+    "@types/echarts": "^4.9.18",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "^5.43.0",

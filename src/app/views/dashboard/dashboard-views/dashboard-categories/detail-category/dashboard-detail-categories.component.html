@@ -2,33 +2,38 @@
   <div class="wrapper">
     <div class="header">
       <div class="header__title">
-        <bdc-bo-back-arrow-button></bdc-bo-back-arrow-button>
+        <bdc-bo-back-arrow-button [routeMap]="'/dashboard/categorias'"></bdc-bo-back-arrow-button>
         <h1>{{ category.name }}</h1>
       </div>
       <div class="action">
         <button mat-stroked-button color="primary" (click)="deleteCategory(category.id)">
-          <mat-icon class="mat-icon-outlined">class</mat-icon> Archivar
+          <mat-icon class="material-symbols-outlined">delete</mat-icon>Eliminar
         </button>
         <button mat-flat-button color="primary">Editar nombre</button>
       </div>
     </div>
 
-    <h2>Subcategorías</h2>
-    <mat-accordion>
-      <mat-expansion-panel
-        *ngFor="let item of category.subcategories"
-        (opened)="panelOpenState = true"
-        (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <div class="show-questions">1</div>
-            {{ item.name }}
-          </mat-panel-title>
-          <mat-panel-description> </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>preguntas asociadas</p>
-      </mat-expansion-panel>
-    </mat-accordion>
+    <h4>Subcategorías</h4>
+    <ng-container *ngIf="category.subcategories.length > 0; else noSubcategories">
+      <mat-accordion>
+        <mat-expansion-panel
+          *ngFor="let item of category.subcategories"
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="show-questions">1</div>
+              {{ item.name }}
+            </mat-panel-title>
+            <mat-panel-description> </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>preguntas asociadas</p>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </ng-container>
+    <ng-template #noSubcategories>
+      <bdc-bo-empty-state [emptyStateData]="emptyStateData"></bdc-bo-empty-state>
+    </ng-template>
 
     <ng-container *ngIf="areCategoriesLoading$ | async" class="overlay">
       <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'" [value]="50">

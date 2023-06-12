@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { categoriesApiActions } from '../../../../store/actions/categories.actions';
 import { selectCategory } from '../../../../store/selectors/categories.selectors';
 import { CategoriesService } from '../../../../core/services/categories.service';
@@ -11,6 +11,7 @@ import {
 
 @Injectable()
 export class CategoriesFacade {
+  public selectedIcon = new BehaviorSubject<string>('add');
   constructor(private store: Store, private categoriesService: CategoriesService) {}
 
   public get areCategoriesLoading(): Observable<boolean> {

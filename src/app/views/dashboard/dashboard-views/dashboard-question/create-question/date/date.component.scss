@@ -5,6 +5,7 @@
     font-size: 16px;
     font-weight: 500;
   }
+
   .container-date {
     width: 50%;
     .date {
@@ -15,9 +16,6 @@
       }
     }
   }
-  .container-date {
-    width: 50%;
-  }
   mat-hint {
     font-size: 12px;
     color: #73777f;
@@ -27,4 +25,7 @@
   display: flex;
   justify-content: space-between;
   padding-top: 40px;
+}
+bdc-bo-hour-picker {
+  width: 168px;
 }

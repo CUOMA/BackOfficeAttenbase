@@ -1,10 +1,13 @@
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { MatChipInputEvent, MatChipEditedEvent } from '@angular/material/chips';
-import { Subcategory } from 'src/app/core/models/category';
+import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { Subcategory } from 'src/app/core/models/category';
+import { AlertService } from 'src/app/core/services/alert.service';
 import { CategoriesFacade } from '../dashboard-categories.facade';
+import { DialogSelectIconComponent } from '../dialog-select-icon/dialog-select-icon.component.component';
 
 @Component({
   selector: 'bdc-bo-dashboard-new-category',
@@ -12,6 +15,7 @@ import { CategoriesFacade } from '../dashboard-categories.facade';
   styleUrls: ['./dashboard-new-category.component.scss'],
 })
 export class DashboardNewCategoryComponent implements OnInit {
+  protected icon$ = this.categoriesFacade.selectedIcon;
   protected form!: any;
   protected addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
@@ -19,7 +23,9 @@ export class DashboardNewCategoryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
-    public categoriesFacade: CategoriesFacade
+    public categoriesFacade: CategoriesFacade,
+    public router: Router,
+    public alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -36,10 +42,30 @@ export class DashboardNewCategoryComponent implements OnInit {
     const formValue = {
       name: this.form.value.category,
       slug: this.form.value.category,
-      icon: this.form.value.icon,
+      icon: this.icon$.getValue(),
       subcategories: this.form.value.subcategories,
     };
-    this.categoriesFacade.postNewCategory(formValue);
+
+    this.categoriesFacade.postNewCategory(formValue).subscribe({
+      complete: () => {
+        this.router.navigateByUrl('dashboard/categorias');
+        this.alertService.openFromComponent({
+          duration: 5000,
+          data: {
+            templateHTML: `Creaste una nueva Categoria`,
+          },
+        });
+      },
+      error: error => {
+        const isError = error.error.error.name;
+        this.alertService.openFromComponent({
+          duration: 5000,
+          data: {
+            templateHTML: `${isError}`,
+          },
+        });
+      },
+    });
   }
 
   protected add(event: MatChipInputEvent): void {
@@ -68,8 +94,8 @@ export class DashboardNewCategoryComponent implements OnInit {
     }
   }
   protected dialogSelectIconCategory() {
-    // this.dialog.open(DialogSelectIconCategoryComponent, {
-    //   width: '490px',
-    // });
+    this.dialog.open(DialogSelectIconComponent, {
+      width: '680px',
+    });
   }
 }

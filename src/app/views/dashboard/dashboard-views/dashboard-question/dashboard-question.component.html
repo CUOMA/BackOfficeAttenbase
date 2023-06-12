@@ -1,7 +1,13 @@
-<ng-container *ngIf="questions$ | async as questions">
-  <div class="wrapper">
+<div class="wrapper">
+  <bdc-bo-searcher
+    label="Buscar preguntas"
+    placeholder="¿Cómo consultar mi saldo?"
+    (search)="handleSearch($event)"></bdc-bo-searcher>
+
+  <ng-container *ngIf="questions$ | async as questions">
     <div class="question-action">
       <h1>Preguntas</h1>
+
       <nav mat-tab-nav-bar [tabPanel]="tabPanel" [color]="'accent'">
         <a
           mat-tab-link
@@ -11,6 +17,7 @@
           {{ tab.label }}
         </a>
       </nav>
+
       <div class="action">
         <div class="menu">
           <button mat-stroked-button color="primary" (click)="toggleMenu()">
@@ -28,10 +35,11 @@
         </button>
       </div>
     </div>
+
     <mat-tab-nav-panel #tabPanel>
       <bdc-bo-tabla-question
         (pageChanged)="handlePageChanged($event)"
         [questions]="questions"></bdc-bo-tabla-question>
     </mat-tab-nav-panel>
-  </div>
-</ng-container>
+  </ng-container>
+</div>

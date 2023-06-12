@@ -11,6 +11,13 @@ import {
 @Injectable()
 export class DashboardCreateQuestionFacade {
   public titleQuestion = new BehaviorSubject<string>('Crear pregunta');
+  public formQuestion: FormQuestion = {
+    question: '',
+    alias: [],
+    category: '',
+    subcategory: '',
+    associatedQuestions: [],
+  };
   constructor(private store: Store) {}
 
   public dispatchGetListCategories(): void {
@@ -31,7 +38,19 @@ export class DashboardCreateQuestionFacade {
 
   public formMetadaQuestion(formData: any) {
     this.titleQuestion.next(formData.question);
-    const form = formData;
-    console.log(form);
+    this.formQuestion.question = formData.question;
+    this.formQuestion.alias = formData.alias;
+    this.formQuestion.category = formData.category;
+    this.formQuestion.subcategory = formData.subcategory;
+    this.formQuestion.associatedQuestions = formData.associatedQuestions;
+    console.log(this.formQuestion.question);
   }
+}
+
+export interface FormQuestion {
+  question: string;
+  alias: string[];
+  category: string;
+  subcategory: string;
+  associatedQuestions: string[];
 }

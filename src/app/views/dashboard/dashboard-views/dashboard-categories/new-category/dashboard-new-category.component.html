@@ -1,9 +1,11 @@
 <div class="wrapper">
-  <h3>Nueva categoría</h3>
-
+  <div class="header-box">
+    <bdc-bo-back-arrow-button [routeMap]="'/dashboard/categorias'"></bdc-bo-back-arrow-button>
+    <h3>Nueva categoría</h3>
+  </div>
   <form [formGroup]="form">
     <div class="input-double">
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" hideRequiredMarker="true">
         <mat-label>Nombre de categoría</mat-label>
         <input formControlName="category" name="category" type="text" matInput required />
         <mat-hint>Título para la nueva categoría.</mat-hint>
@@ -12,10 +14,10 @@
         </mat-error>
       </mat-form-field>
       <button mat-stroked-button color="primary" (click)="dialogSelectIconCategory()">
-        <mat-icon>add</mat-icon> Seleccionar ícono
+        <mat-icon class="material-symbols-outlined">{{ icon$ | async }}</mat-icon> Seleccionar ícono
       </button>
     </div>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" hideRequiredMarker="true">
       <mat-label>Agregar Subcategorías</mat-label>
       <mat-chip-grid #chipGrid formControlName="subcategories" name="subcategories">
         <mat-chip-row
@@ -38,13 +40,8 @@
       <mat-hint>Cada palabra o grupo de palabras debe estar separado con comas.</mat-hint>
     </mat-form-field>
     <div class="action">
-      <button mat-stroked-button color="primary" mat-dialog-close>Cerrar</button>
-      <button
-        mat-flat-button
-        color="primary"
-        [disabled]="form.invalid"
-        (click)="createCategory()"
-        mat-dialog-close>
+      <button mat-stroked-button color="primary">Cerrar</button>
+      <button mat-flat-button color="primary" [disabled]="form.invalid" (click)="createCategory()">
         Crear Categoría
       </button>
     </div>

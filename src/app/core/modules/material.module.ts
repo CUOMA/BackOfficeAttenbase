@@ -20,6 +20,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   exports: [
@@ -44,6 +46,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatExpansionModule,
     MatDialogModule,
     MatDividerModule,
+    MatButtonToggleModule,
+    MatAutocompleteModule,
   ],
   providers: [{ provide: MatPaginatorIntl, useValue: CustomPaginator() }],
 })

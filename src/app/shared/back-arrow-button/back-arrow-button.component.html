@@ -1,3 +1,7 @@
-<button [routerLink]="['listado-de-preguntas']">
-  <mat-icon>arrow_back_ios_outlined</mat-icon>
+<button mat-icon-button *ngIf="!showConfirmationModal" [routerLink]="[routeMap]">
+  <mat-icon svgIcon="chevron-left"></mat-icon>
+</button>
+
+<button mat-icon-button *ngIf="showConfirmationModal" (click)="unsavedChanges()">
+  <mat-icon svgIcon="chevron-left"></mat-icon>
 </button>

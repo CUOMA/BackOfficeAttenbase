@@ -22,6 +22,7 @@ import { QuestionStatus } from '../../../../../core/models/statuses-response';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { categoriesApiActions } from '../../../../../store/actions/categories.actions';
 import { SynonymsFacade } from '../dashboard-synonyms.facade';
+import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.component';
 
 @Component({
   selector: 'bdc-bo-tabla-synonyms',
@@ -31,6 +32,11 @@ import { SynonymsFacade } from '../dashboard-synonyms.facade';
 export class TableSynonymsComponent implements OnChanges, OnInit, AfterViewInit {
   @Input() synonyms!: any;
   @Output() pageChanged = new EventEmitter<PageEvent>();
+  protected emptyStateData: emptyStateModel = {
+    src: '/assets/svg/empty-state/empty-state-synonym.svg',
+    title: 'Agregá un nuevo sinónimo',
+    paragraph: 'Los sinónimos ayudan a encontrar palabras específicas desde el motor de búsqueda.',
+  };
   protected displayedColumns: string[] = ['position', 'name', 'seeMore'];
   protected showFirstLastButtons: boolean = true;
   protected disabled: boolean = false;

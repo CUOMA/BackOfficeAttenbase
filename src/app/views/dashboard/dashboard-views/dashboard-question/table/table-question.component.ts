@@ -18,6 +18,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { QuestionStatus } from '../../../../../core/models/statuses-response';
 import { QuestionsFacade } from '../dashboard-question.facade';
+import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.component';
 
 @Component({
   selector: 'bdc-bo-tabla-question',
@@ -28,7 +29,6 @@ import { QuestionsFacade } from '../dashboard-question.facade';
 export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges {
   @Output() pageChanged = new EventEmitter<PageEvent>();
   @Input() questions!: any;
-  @Input() page?: number;
   protected displayedColumns: string[] = [
     'question',
     'category',
@@ -37,6 +37,11 @@ export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges 
     'state',
     'seeMore',
   ];
+  protected emptyStateData: emptyStateModel = {
+    src: '/assets/svg/empty-state/empty-state-questions.svg',
+    title: 'Crea una nueva pregunta',
+    paragraph: 'Podrás editar su contenido, programarlas o publicarlas en tu plataforma.',
+  };
 
   protected showFirstLastButtons: boolean = true;
   protected disabled: boolean = false;
@@ -57,8 +62,8 @@ export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges 
     if (changes['questions'].currentValue) {
       this.dataSource = new MatTableDataSource(this.questions);
     }
-    this.paginator?.firstPage();
   }
+
   ngOnInit(): void {
     this.areQuestionsLoading$ = this.questionsFacade.areQuestionsLoading.pipe(
       takeUntil(this.destroy$)
@@ -67,7 +72,7 @@ export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges 
 
   ngAfterViewInit() {
     this.paginator.pageSize = this.pageSize;
-    this.paginator.length = this.questions[1].total;
+    this.paginator.length = this.questions[0].total;
   }
 
   protected handlePageChanged(pageEvent: PageEvent): void {

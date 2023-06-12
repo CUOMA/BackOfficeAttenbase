@@ -1,6 +1,6 @@
 <div class="wrapper">
   <form [formGroup]="form">
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" hideRequiredMarker="true">
       <mat-label>Pregunta</mat-label>
       <input
         formControlName="question"
@@ -16,19 +16,35 @@
         Ingresá una pregunta
       </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" hideRequiredMarker="true">
       <mat-label>Alias</mat-label>
-      <input formControlName="alias" name="alias" type="text" matInput required />
       <mat-hint>Títulos similares para facilitar la detección de la pregunta.</mat-hint>
+      <mat-chip-grid #chipGrid formControlName="alias" name="alias">
+        <mat-chip-row
+          *ngFor="let item of alias"
+          (removed)="remove(item)"
+          [editable]="true"
+          (edited)="edit(item, $event)">
+          {{ item.name }}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        <input
+          [matChipInputFor]="chipGrid"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)" />
+      </mat-chip-grid>
       <mat-error *ngIf="form.controls['alias'].errors?.['required']">
         Ingresá al menos un alias
       </mat-error>
     </mat-form-field>
     <div class="input-double">
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" hideRequiredMarker="true">
         <mat-label>Categoría</mat-label>
         <mat-hint> Categoría a la cual pertenecerá la pregunta creada.</mat-hint>
-        <mat-select formControlName="category" name="category">
+        <mat-select formControlName="category" name="category" [(ngModel)]="selectedOption">
           <ng-container *ngIf="listCategories$ | async as listCategories">
             <mat-option
               *ngFor="let category of listCategories"
@@ -43,7 +59,7 @@
           >
         </mat-select>
       </mat-form-field>
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" hideRequiredMarker="true">
         <mat-label>Subcategoría</mat-label>
         <mat-hint>Grupo dentro de la categoría elegida.</mat-hint>
         <mat-select formControlName="subcategory" name="subcategory">
@@ -60,13 +76,23 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <mat-form-field appearance="outline">
-      <mat-label>Preguntas</mat-label>
-      <mat-select formControlName="associatedQuestions" name="associatedQuestions" multiple>
-        <mat-option></mat-option>
-        <mat-select-trigger> preguntas</mat-select-trigger>
-      </mat-select>
-    </mat-form-field>
+
+    <!-- <mat-form-field appearance="outline">
+      <mat-label>Preguntas Relacionadas</mat-label>
+      <mat-hint> Otras preguntas vinculadas la pregunta creada.</mat-hint>
+      <input
+        type="text"
+        placeholder="Pick one"
+        aria-label="Number"
+        matInput
+        [formControl]="myControl"
+        [matAutocomplete]="auto" />
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field> -->
   </form>
   <div class="action">
     <button

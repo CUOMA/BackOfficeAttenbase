@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { QuestionsFacade } from './dashboard-question.facade';
+import { TableQuestionComponent } from './table/table-question.component';
 
 @Component({
   selector: 'bdc-bo-dashboard-question',
@@ -9,7 +10,6 @@ import { QuestionsFacade } from './dashboard-question.facade';
   styleUrls: ['./dashboard-question.component.scss'],
 })
 export class DashboardQuestionComponent implements OnInit {
-  constructor(public questionsFacade: QuestionsFacade) {}
   protected tabs = [
     { label: 'Publicadas', value: 'published' },
     { label: 'Archivadas', value: 'archived' },
@@ -19,8 +19,9 @@ export class DashboardQuestionComponent implements OnInit {
   protected questions$ = this.questionsFacade.selectQuestions();
   protected areQuestionsLoading$!: Observable<boolean>;
   protected areStatusesLoading$!: Observable<boolean>;
+  protected isOpen = false;
   private destroy$ = new Subject<void>();
-  protected isOpen: boolean = false;
+  constructor(public questionsFacade: QuestionsFacade) {}
 
   ngOnInit(): void {
     this.questionsFacade.dispatchGetStatuses();
@@ -34,11 +35,15 @@ export class DashboardQuestionComponent implements OnInit {
     this.questionsFacade.dispatchGetQuestions('published', pageEvent.pageIndex + 1);
   }
 
+  protected handleSearch(query: string): void {
+    this.questionsFacade.dispatchGetQuestionsSearch(query);
+  }
+
   protected selectTab(tab: { label: string; value: string }) {
     this.selectedTab = tab;
     this.questionsFacade.dispatchGetQuestions(this.selectedTab.value);
-    this.questions$ = this.questionsFacade.selectQuestions();
   }
+
   protected toggleMenu() {
     this.isOpen = !this.isOpen;
   }

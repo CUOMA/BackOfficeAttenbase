@@ -1,0 +1,38 @@
+.wrapper {
+  padding: 20px;
+  mat-form-field {
+    width: 100%;
+    color: #73777f;
+    margin-bottom: 32px;
+    mat-hint {
+      font-size: 12px;
+    }
+    mat-error {
+      font-size: 12px;
+    }
+  }
+  .input-double {
+    display: flex;
+    align-items: flex-start;
+    :first-child {
+      max-width: 418px;
+      padding-right: 24px;
+    }
+    button {
+      width: 198px;
+      margin-top: 5px;
+      height: 48px;
+    }
+  }
+  .action {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.container-icon {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  white-space: nowrap;
+  margin-left: 10px;
+}

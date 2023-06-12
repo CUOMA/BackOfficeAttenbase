@@ -1,0 +1,51 @@
+<div class="wrapper">
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Social</mat-panel-title>
+      </mat-expansion-panel-header>
+      <ng-container *ngFor="let icon of iconsSocial; let i = index">
+        <button (click)="handleSelectIcon(icon, i, 'social')">
+          <mat-icon
+            [ngClass]="{ selected: 'social' + '-' + i === selectedIconId }"
+            class="material-symbols-outlined"
+            color="primary"
+            >{{ icon.name }}</mat-icon
+          >
+        </button>
+      </ng-container>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title> Negocios </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ng-container *ngFor="let icon of iconsBusiness; let i = index">
+        <button (click)="handleSelectIcon(icon, i, 'business')">
+          <mat-icon
+            [ngClass]="{ selected: 'business' + '-' + i === selectedIconId }"
+            class="material-symbols-outlined"
+            color="primary"
+            >{{ icon.name }}</mat-icon
+          >
+        </button>
+      </ng-container>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title> Comunicaciones </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ng-container *ngFor="let icon of iconsAnnouncement; let i = index">
+        <button (click)="handleSelectIcon(icon, i, 'announcement')">
+          <mat-icon
+            class="material-symbols-outlined"
+            [ngClass]="{ selected: 'announcement' + '-' + i === selectedIconId }"
+            color="primary">
+            {{ icon.name }}</mat-icon
+          >
+        </button>
+      </ng-container>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

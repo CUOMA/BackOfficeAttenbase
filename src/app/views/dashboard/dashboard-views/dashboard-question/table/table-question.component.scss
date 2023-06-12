@@ -1,8 +1,9 @@
 .wrapper {
   position: relative;
   table {
-    th{
+    th {
       font-size: 14px;
+      font-weight: 600;
     }
     td {
       font-size: 14px;
@@ -13,6 +14,9 @@
       &.text-blue {
         color: #0062a1;
         font-size: 12px;
+      }
+      &.text-center {
+        align-items: center;
       }
     }
   }

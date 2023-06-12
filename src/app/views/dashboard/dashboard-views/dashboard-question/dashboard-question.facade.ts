@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { filter, map, withLatestFrom, tap } from 'rxjs/operators';
 import { Datum, Questions } from '../../../../core/models/questions-response';
 import { questionsApiActions } from '../../../../store/actions/question.action';
@@ -34,11 +34,15 @@ export class QuestionsFacade {
   }
 
   public getStatusTypes(): Observable<any> {
-    return this.store.select(selectStatuses);
+    return this.store.select(selectStatuses).pipe(tap(console.warn));
   }
 
   public dispatchGetQuestions(status: string, page = 0): void {
     this.store.dispatch(questionsApiActions.getQuestionsRequest({ status: status, page }));
+  }
+
+  public dispatchGetQuestionsSearch(query: string): void {
+    this.store.dispatch(questionsApiActions.searchRequest({ query }));
   }
 
   public dispatchGetStatuses(): void {
@@ -46,13 +50,12 @@ export class QuestionsFacade {
   }
 
   public selectQuestions(): Observable<Datum[]> {
-    return this.store.select(selectQuestions).pipe(
-      filter(questions => questions),
-      withLatestFrom(this.getStatusTypes()),
+    return combineLatest([this.store.select(selectQuestions), this.getStatusTypes()]).pipe(
+      filter(([questions, statusTypes]) => questions && statusTypes),
       map(([questions, statusTypes]: [Questions, any]) =>
         questions.data.map(question => ({
           ...question,
-          status: statusTypes.data.find((type: { id: number }) => type.id === question.status_id),
+          status: statusTypes?.data.find((type: { id: number }) => type.id === question.status_id),
           total: questions.total,
         }))
       )

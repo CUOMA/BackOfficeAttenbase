@@ -1,0 +1,11 @@
+<mat-form-field appearance="outline">
+  <mat-label>{{ period }}</mat-label>
+  <input
+    [(ngModel)]="value"
+    [formControl]="periodControl"
+    id="period"
+    type="time"
+    matInput
+    (change)="handleChange($event)" />
+  <mat-icon matSuffix color="primary">schedule</mat-icon>
+</mat-form-field>

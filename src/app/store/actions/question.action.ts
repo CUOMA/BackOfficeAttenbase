@@ -10,5 +10,8 @@ export const questionsApiActions = createActionGroup({
     'Delete Question Request': props<{ id: number }>(),
     'Delete Question Success': props<any>(),
     'Delete Question Failure': props<any>(),
+    'Search Request': props<{ query: string }>(),
+    'Search Success': props<Questions>(),
+    'Search Failure': props<any>(),
   },
 });
