@@ -13,4 +13,45 @@
       </mat-select>
     </mat-form-field>
   </div>
+  <bdc-bo-line-chart-metrics></bdc-bo-line-chart-metrics>
+  <div class="container-reference">
+    <ng-container *ngFor="let item of valuesReference">
+      <div class="item">
+        <div class="circle" [style.backgroundColor]="item.color"></div>
+        <p>{{ item.name }}</p>
+      </div>
+    </ng-container>
+  </div>
+  <div class="container-card">
+    <div class="card">
+      <p>Búsquedas Realizadas</p>
+      <div class="content-value">
+        <p>3210</p>
+        <img src="./../../../../../assets/img/up.png" alt="" />
+      </div>
+      <p>
+        Últimas búsquedas: <br />
+        <em> Cómo recibir mi chip 4G, Facturación, No me llegó la factura</em>
+      </p>
+    </div>
+    <div class="card">
+      <p>Búsqueda sin resultado</p>
+      <div class="content-value">
+        <p>3210</p>
+        <img src="./../../../../../assets/img/down.png" alt="" />
+      </div>
+      <p>
+        Últimas búsquedas: <br />
+        <em>Cómo recibir mi chip 4G, Facturación, No me llegó la factura</em>
+      </p>
+    </div>
+    <div class="card">
+      <p>Indice de satifacción</p>
+      <div class="content-value">
+        <p>67%</p>
+        <img src="./../../../../../assets/img/down.png" alt="" />
+      </div>
+      <p>Total de valoraciones: <em>456</em></p>
+    </div>
+  </div>
 </div>

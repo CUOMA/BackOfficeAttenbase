@@ -15,24 +15,6 @@ export class ContentComponent {
     answersChat: '',
   };
   public editorConfig = {
-    toolbar: {
-      items: [
-        'heading',
-        '|',
-        'bold',
-        'italic',
-        'link',
-        '|',
-        'bulletedList',
-        'numberedList',
-        '|',
-        'blockQuote',
-        'uploadImage',
-        '|',
-        'undo',
-        'redo',
-      ],
-    },
     language: 'es',
   };
   protected createAnswers: CreateAnswers[] = [
