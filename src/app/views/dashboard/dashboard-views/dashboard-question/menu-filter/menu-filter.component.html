@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <p><strong>Fecha de última actualización</strong></p>
+  <p class="date-p">Fecha de última actualización</p>
   <mat-form-field appearance="outline">
     <mat-label>Fecha inicio y finalización</mat-label>
     <mat-date-range-input [rangePicker]="picker">
@@ -18,7 +18,7 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field appearance="outline">
-    <mat-label>categoría</mat-label>
+    <mat-label>Categoría</mat-label>
     <mat-select>
       <mat-option value="one">First option</mat-option>
       <mat-option value="two">Second option</mat-option>
@@ -26,13 +26,13 @@
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Subcategoría</mat-label>
-    <mat-select>
+    <mat-select [disabled]="expression">
       <mat-option value="one">First option</mat-option>
       <mat-option value="two">Second option</mat-option>
     </mat-select>
   </mat-form-field>
   <div class="action">
-    <button mat-button color="primary">Borrar filtros</button>
+    <button mat-button color="primary" (click)="deleteFilters()">Borrar filtros</button>
     <button mat-flat-button color="primary">Aplicar</button>
   </div>
 </div>

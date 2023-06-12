@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'bdc-bo-menu-filter',
@@ -6,4 +6,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./menu-filter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MenuFilterComponent {}
+export class MenuFilterComponent {
+  @Output() closeMenuEmmiter = new EventEmitter();
+
+  protected deleteFilters() {
+    this.closeMenuEmmiter.emit();
+  }
+  protected expression = true;
+}
