@@ -1,156 +1,57 @@
 <div class="wrapper">
-  <div class="d-flex">
-    <h1>Metrica</h1>
-    <button mat-flat-buttoncolor="primary">Primary</button>
+  <h1>Metrica</h1>
+  <div class="filter">
+    <bdc-bo-searcher
+      label="Buscar metricas por pregunta"
+      placeholder="¿Cómo comprar un equipo?"></bdc-bo-searcher>
+    <mat-form-field appearance="outline">
+      <mat-label>Filtrar por</mat-label>
+      <mat-select>
+        <ng-container *ngFor="let item of filterTime">
+          <mat-option value="{{ item.value }}">{{ item.key }}</mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
   </div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
+  <bdc-bo-line-chart-metrics></bdc-bo-line-chart-metrics>
+  <div class="container-reference">
+    <ng-container *ngFor="let item of valuesReference">
+      <div class="item">
+        <div class="circle" [style.backgroundColor]="item.color"></div>
+        <p>{{ item.name }}</p>
+      </div>
+    </ng-container>
+  </div>
+  <div class="container-card">
+    <div class="card">
+      <p>Búsquedas Realizadas</p>
+      <div class="content-value">
+        <p>3210</p>
+        <img src="./../../../../../assets/img/up.png" alt="" />
+      </div>
+      <p>
+        Últimas búsquedas: <br />
+        <em> Cómo recibir mi chip 4G, Facturación, No me llegó la factura</em>
+      </p>
+    </div>
+    <div class="card">
+      <p>Búsqueda sin resultado</p>
+      <div class="content-value">
+        <p>3210</p>
+        <img src="./../../../../../assets/img/down.png" alt="" />
+      </div>
+      <p>
+        Últimas búsquedas: <br />
+        <em>Cómo recibir mi chip 4G, Facturación, No me llegó la factura</em>
+      </p>
+    </div>
+    <div class="card">
+      <p>Indice de satifacción</p>
+      <div class="content-value">
+        <p>67%</p>
+        <img src="./../../../../../assets/img/down.png" alt="" />
+      </div>
+      <p>Total de valoraciones: <em>456</em></p>
+    </div>
+  </div>
 </div>
