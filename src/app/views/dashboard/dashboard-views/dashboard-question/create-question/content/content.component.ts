@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import '@ckeditor/ckeditor5-build-classic/build/translations/es';
+import { DashboardCreateQuestionFacade } from '../dashboard-create-question.facade';
 
 @Component({
   selector: 'bdc-bo-content-component',
@@ -12,11 +13,12 @@ export class ContentComponent {
   public model = {
     answersLong: '',
     answersShort: '',
-    answersChat: '',
   };
+  protected answersIA = '';
   public editorConfig = {
     language: 'es',
   };
+  private createQuestionFacade = inject(DashboardCreateQuestionFacade);
   protected createAnswers: CreateAnswers[] = [
     {
       answersType: 'long',
@@ -33,10 +35,12 @@ export class ContentComponent {
   ];
 
   protected obtenerValores() {
-    for (let createAnswer of this.createAnswers) {
-      const ngModelValue = { type: createAnswer.answersType, data: createAnswer.data };
-      console.log(ngModelValue);
-    }
+    const res = {
+      resLong: this.createAnswers[0].data,
+      resShort: this.createAnswers[1].data,
+      resIA: this.answersIA,
+    };
+    this.createQuestionFacade.formMetadaQuestion(res);
   }
 }
 

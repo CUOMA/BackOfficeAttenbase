@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-  <!-- <div class="wrapper">
+  <div class="wrapper">
     <div class="container-date">
       <p>Fecha de publicación y vencimiento</p>
 
@@ -10,7 +10,7 @@
             matInput
             [min]="minDateFrom"
             [matDatepicker]="pickerFrom"
-            [(ngModel)]="dateFrom"
+            formControlName="dateFrom"
             (dateChange)="onDateFromChange($event)" />
           <mat-hint>DD/MM/AAAA</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="pickerFrom"></mat-datepicker-toggle>
@@ -23,7 +23,7 @@
             matInput
             [min]="dateFrom"
             [matDatepicker]="pickerTo"
-            [(ngModel)]="dateTo"
+            formControlName="dateTo"
             (dateChange)="onDateToChange($event)" />
           <mat-hint>DD/MM/AAAA</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="pickerTo"></mat-datepicker-toggle>
@@ -34,11 +34,17 @@
     <div class="containeir-hour">
       <p>Horario de publicación y vencimiento</p>
       <div class="date">
-        <bdc-bo-hour-picker [period]="'Desde'" formControlName="hour"></bdc-bo-hour-picker>
-        <bdc-bo-hour-picker [period]="'Hasta'" formControlName="hour"></bdc-bo-hour-picker>
+        <bdc-bo-hour-picker
+          formControlName="hourFrom"
+          [period]="'Desde'"
+          formControlName="hour"></bdc-bo-hour-picker>
+        <!-- <bdc-bo-hour-picker
+          formControlName="hourTo"
+          [period]="'Hasta'"
+          formControlName="hour"></bdc-bo-hour-picker> -->
       </div>
     </div>
-  </div> -->
+  </div>
   <div class="action">
     <button mat-stroked-button color="primary" matStepperPrevious>Volver atrás</button>
     <button

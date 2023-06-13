@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { DashboardCreateQuestionFacade } from './dashboard-create-question.facade';
 
 @Component({
-  providers: [DashboardCreateQuestionFacade],
   selector: 'bdc-bo-dashboard-create-question',
   templateUrl: './dashboard-create-question.component.html',
   styleUrls: ['./dashboard-create-question.component.scss'],
@@ -14,5 +13,6 @@ export class DashboardCreateQuestionComponent implements OnInit {
 
   ngOnInit(): void {
     this.title$ = this.createQuestionFacade.titleQuestion;
+    console.log(this.createQuestionFacade.formQuestion);
   }
 }

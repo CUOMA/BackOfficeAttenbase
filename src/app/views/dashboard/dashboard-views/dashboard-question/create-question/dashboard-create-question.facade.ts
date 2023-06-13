@@ -8,16 +8,14 @@ import {
   selectListSubCategories,
 } from 'src/app/store/selectors/list-categories.selectors';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class DashboardCreateQuestionFacade {
   public titleQuestion = new BehaviorSubject<string>('Crear pregunta');
-  public formQuestion: FormQuestion = {
-    question: '',
-    alias: [],
-    category: '',
-    subcategory: '',
-    associatedQuestions: [],
-  };
+
+  public formQuestion?: FormQuestion;
+
   constructor(private store: Store) {}
 
   public dispatchGetListCategories(): void {
@@ -36,14 +34,10 @@ export class DashboardCreateQuestionFacade {
     return this.store.select(selectAreListSubcategoriesLoading);
   }
 
-  public formMetadaQuestion(formData: any) {
+  public formMetadaQuestion(formData?: any, res?: any) {
     this.titleQuestion.next(formData.question);
-    this.formQuestion.question = formData.question;
-    this.formQuestion.alias = formData.alias;
-    this.formQuestion.category = formData.category;
-    this.formQuestion.subcategory = formData.subcategory;
-    this.formQuestion.associatedQuestions = formData.associatedQuestions;
-    console.log(this.formQuestion.question);
+    this.formQuestion = { ...this.formQuestion, ...formData, ...res };
+    console.log(this.formQuestion);
   }
 }
 
@@ -53,4 +47,7 @@ export interface FormQuestion {
   category: string;
   subcategory: string;
   associatedQuestions: string[];
+  answersIA: string;
+  answersLong: string;
+  answersShort: string;
 }
