@@ -19,8 +19,8 @@ import { takeUntil } from 'rxjs/operators';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { MatSort } from '@angular/material/sort';
 import { UsersFacade } from '../dashboard-users.facade';
-import { DataSourceUser } from 'src/app/shared/interfaces/userDataSourceTable.interface';
-import { User } from 'src/app/shared/interfaces/userTable.interface';
+import { User } from 'src/app/core/models/userTable.interface';
+import { DataSourceUser } from 'src/app/core/models/userDataSourceTable.interface';
 import { categoriesApiActions } from 'src/app/store/actions/categories.actions';
 import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.component';
 
