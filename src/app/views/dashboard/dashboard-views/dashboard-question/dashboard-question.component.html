@@ -22,11 +22,13 @@
 
       <div class="action">
         <div class="menu">
-          <button mat-stroked-button color="primary" (click)="toggleMenu()">
+          <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu">
             <mat-icon svgIcon="filter"></mat-icon>
             Filtros
           </button>
-          <bdc-bo-menu-filter *ngIf="isOpen" (closeMenuEmmiter)="toggleMenu()"></bdc-bo-menu-filter>
+          <mat-menu #menu="matMenu" xPosition="before">
+            <bdc-bo-menu-filter (click)="$event.stopPropagation()"></bdc-bo-menu-filter>
+          </mat-menu>
         </div>
         <button
           mat-flat-button

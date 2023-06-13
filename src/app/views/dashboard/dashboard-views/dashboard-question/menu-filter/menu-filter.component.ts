@@ -7,10 +7,5 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuFilterComponent {
-  @Output() closeMenuEmmiter = new EventEmitter();
-
-  protected deleteFilters() {
-    this.closeMenuEmmiter.emit();
-  }
   protected expression = true;
 }

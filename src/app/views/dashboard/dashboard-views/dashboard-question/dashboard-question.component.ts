@@ -44,7 +44,7 @@ export class DashboardQuestionComponent implements OnInit {
     this.questionsFacade.dispatchGetQuestions(this.selectedTab.value);
   }
 
-  protected toggleMenu() {
-    this.isOpen = !this.isOpen;
-  }
+  // protected toggleMenu() {
+  //   this.isOpen = !this.isOpen;
+  // }
 }
