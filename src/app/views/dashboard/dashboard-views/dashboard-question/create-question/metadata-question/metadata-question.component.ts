@@ -28,7 +28,6 @@ export class MetadataQuestionComponent implements OnInit {
   protected areListSubcategoriesLoading$ = this.createQuestionFacade.areSubcategoriesLoading;
   private destroy$ = new Subject<void>();
   protected selectedOption = 'General';
-  // myControl = new FormControl('');
   options: string[] = ['One', 'Two', 'Three'];
   protected filteredOptions!: Observable<string[]>;
   protected addOnBlur = true;
@@ -56,7 +55,6 @@ export class MetadataQuestionComponent implements OnInit {
 
   protected setUpForm() {
     this.form = this.fb.group({
-      // hour: ['20:00', Validators.required],
       question: ['', [Validators.required]],
       alias: [[], [Validators.required]],
       category: ['', [Validators.required]],
@@ -97,9 +95,7 @@ export class MetadataQuestionComponent implements OnInit {
   }
 
   protected sendForm() {
-    const formData = this.form.value;
-    this.createQuestionFacade.formMetadaQuestion(formData);
-    console.log(formData);
+    this.createQuestionFacade.formMetadaQuestion(this.form.value);
   }
 
   protected newCategory() {
