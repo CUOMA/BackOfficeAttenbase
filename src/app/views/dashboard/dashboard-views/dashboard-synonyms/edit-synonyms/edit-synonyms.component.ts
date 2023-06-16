@@ -5,7 +5,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SynonymsFacade } from '../dashboard-synonyms.facade';
+import { SynonymousFacade } from '../dashboard-synonymous.facade';
 
 export interface Synonym {
   name: string;
@@ -28,7 +28,7 @@ export class EditSynonymsComponent implements OnInit {
     public store: Store,
     public router: Router,
     public route: ActivatedRoute,
-    public synonymsFacade: SynonymsFacade
+    public synonymsFacade: SynonymousFacade
   ) {}
   public ngOnInit(): void {
     this.route.queryParams.subscribe(params => {

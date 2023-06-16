@@ -32,7 +32,6 @@ import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.componen
 export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewInit {
   @Input() categories!: any;
   protected displayedColumns: string[] = ['position', 'name', 'seeMore'];
-  // paginador
   @Output() pageChanged = new EventEmitter<PageEvent>();
   protected emptyStateData: emptyStateModel = {
     src: '/assets/svg/empty-state/empty-state-categories.svg',
@@ -43,7 +42,6 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
   protected disabled = false;
   protected pageIndex = 0;
   protected pageSize = 10;
-  // paginador
   protected areCategoriesLoading$!: Observable<any>;
   protected color: ThemePalette = 'primary';
   protected mode: MatProgressSpinnerModule = 'indeterminate';
@@ -78,8 +76,22 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
   }
 
   protected deleteCategory(id: number, element: string) {
-    this.store.dispatch(categoriesApiActions.deleteCategoriesRequest({ id }));
-    this.alertCategoryDeleted(element);
+    this.categoriesFacade.dispatchDeleteCategory(id).subscribe({
+      complete: () => {
+        this.router.navigateByUrl('dashboard/categorias');
+        this.alertCategoryDeleted(element);
+      },
+      error: (error: any) => {
+        this.router.navigateByUrl('dashboard/categorias');
+        const isError = error.error.error;
+        this.alertService.openFromComponent({
+          duration: 5000,
+          data: {
+            templateHTML: `${isError}`,
+          },
+        });
+      },
+    });
   }
 
   protected detailCategory(id: number): any {

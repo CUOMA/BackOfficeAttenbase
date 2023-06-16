@@ -9,7 +9,7 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { AlertService } from 'src/app/core/services/alert.service';
-import { SynonymsFacade } from '../../dashboard-synonyms.facade';
+import { SynonymousFacade } from '../../dashboard-synonymous.facade';
 
 @Component({
   selector: 'bdc-bo-scroll-synonyms',
@@ -27,7 +27,7 @@ export class ScrollSynonymsComponent implements AfterViewInit {
   protected buttonLeftDisable!: boolean;
   private resize$ = new BehaviorSubject(null);
 
-  constructor(private alertService: AlertService, private synonymsFacade: SynonymsFacade) {}
+  constructor(private alertService: AlertService, private synonymsFacade: SynonymousFacade) {}
 
   ngAfterViewInit(): void {
     this.resize$.pipe(debounceTime(100)).subscribe({ next: () => this.calculateButtonsStatus() });

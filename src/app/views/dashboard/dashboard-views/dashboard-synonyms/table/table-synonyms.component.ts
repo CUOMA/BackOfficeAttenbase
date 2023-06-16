@@ -2,13 +2,13 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
   Output,
   SimpleChanges,
   ViewChild,
-  EventEmitter,
 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -17,12 +17,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
+import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.component';
 import { QuestionStatus } from '../../../../../core/models/statuses-response';
 import { AlertService } from '../../../../../core/services/alert.service';
-import { categoriesApiActions } from '../../../../../store/actions/categories.actions';
-import { SynonymsFacade } from '../dashboard-synonyms.facade';
-import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.component';
+import { SynonymousFacade } from '../dashboard-synonymous.facade';
 
 @Component({
   selector: 'bdc-bo-tabla-synonyms',
@@ -51,7 +50,7 @@ export class TableSynonymsComponent implements OnChanges, OnInit, AfterViewInit 
   protected dataSource!: MatTableDataSource<any>;
 
   constructor(
-    public synonymsFacade: SynonymsFacade,
+    public synonymousFacade: SynonymousFacade,
     private cdr: ChangeDetectorRef,
     public store: Store,
     public router: Router,
@@ -65,7 +64,7 @@ export class TableSynonymsComponent implements OnChanges, OnInit, AfterViewInit 
   }
 
   ngOnInit(): void {
-    this.areSynonymsLoading$ = this.synonymsFacade.areSynonymsLoading.pipe(
+    this.areSynonymsLoading$ = this.synonymousFacade.areSynonymsLoading.pipe(
       takeUntil(this.destroy$)
     );
   }
@@ -76,9 +75,27 @@ export class TableSynonymsComponent implements OnChanges, OnInit, AfterViewInit 
     this.cdr.detectChanges();
   }
 
-  protected deleteSynonyms(id: number, element: string) {
-    this.store.dispatch(categoriesApiActions.deleteCategoriesRequest({ id }));
-    this.alertCategoryDeleted(element);
+  protected deleteSynonymous(id: number, element: string) {
+    this.synonymousFacade.dispatchDeleteSynonymous(id);
+    this.synonymousFacade
+      .isSynonymousUpdated()
+      .pipe(finalize(() => this.paginator.firstPage()))
+      .subscribe({
+        complete: () => {
+          this.alertSynonymsDeleted(element);
+          // this.router.navigateByUrl('dashboard/sinonimos');
+        },
+        error: (error: any) => {
+          const isError = error.error.error;
+          this.alertService.openFromComponent({
+            duration: 5000,
+            data: {
+              templateHTML: `${isError}`,
+            },
+          });
+          // this.router.navigateByUrl('dashboard/sinonimos');
+        },
+      });
   }
 
   protected editSynonyms(id: number): any {
@@ -87,11 +104,11 @@ export class TableSynonymsComponent implements OnChanges, OnInit, AfterViewInit 
   protected handlePageChanged(pageEvent: PageEvent): void {
     this.pageChanged.emit(pageEvent);
   }
-  private alertCategoryDeleted(element: string) {
+  private alertSynonymsDeleted(element: string) {
     this.alertService.openFromComponent({
       duration: 5000,
       data: {
-        templateHTML: `Eliminaste ${element}`,
+        templateHTML: ` ${element}`,
       },
     });
   }

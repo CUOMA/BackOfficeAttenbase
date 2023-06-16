@@ -8,6 +8,7 @@ import {
   selectAreCategoriesLoading,
   selectCategories,
 } from '../../../../store/selectors/categories.selectors';
+import { number } from 'echarts';
 
 @Injectable()
 export class CategoriesFacade {
@@ -22,6 +23,9 @@ export class CategoriesFacade {
     this.store.dispatch(categoriesApiActions.getCategoriesRequest({ page: page }));
   }
 
+  public dispatchDeleteCategory(id: number): any {
+    return this.categoriesService.deleteCategory(id);
+  }
   public selectCategories(): Observable<any> {
     return this.store.select(selectCategories);
   }

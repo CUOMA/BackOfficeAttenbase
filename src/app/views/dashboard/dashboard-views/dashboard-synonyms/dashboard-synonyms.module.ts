@@ -8,12 +8,12 @@ import { SynonymsEffects } from '../../../../store/effects/synonyms.effects';
 import { synonymsReducer } from '../../../../store/reducers/synonyms.reducers';
 import { DashboardSynonymsRoutingModule } from './dashboard-synonyms-routing.module';
 import { DashboardSynonymsComponent } from './dashboard-synonyms.component';
-import { SynonymsFacade } from './dashboard-synonyms.facade';
+import { SynonymousFacade } from './dashboard-synonymous.facade';
 import { ScrollSynonymsComponent } from './table/scroll-synonyms/scroll-synonyms.component';
 import { TableSynonymsComponent } from './table/table-synonyms.component';
 
 @NgModule({
-  providers: [SynonymsFacade],
+  providers: [SynonymousFacade],
   declarations: [DashboardSynonymsComponent, ScrollSynonymsComponent, TableSynonymsComponent],
   imports: [
     CommonModule,
