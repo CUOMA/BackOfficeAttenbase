@@ -15,6 +15,7 @@ import { statusesFeatureKey, statusesReducer } from 'src/app/store/reducers/stat
 import { StatusQuestionComponent } from './table/status-question/status-question.component';
 import { MenuQuestionComponent } from './table/menu-question/menu-question.component';
 import { SearcherModule } from '../../searcher/searcher.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   providers: [QuestionsFacade],
@@ -28,6 +29,7 @@ import { SearcherModule } from '../../searcher/searcher.module';
   imports: [
     CommonModule,
     SharedModule,
+    ReactiveFormsModule,
     DashboardQuestionRoutingModule,
     SearcherModule,
     StoreModule.forFeature(questionsFeatureKey, questionsReducer),

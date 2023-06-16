@@ -4,8 +4,11 @@
   border-radius: 8px;
   padding: 32px 20px;
   width: 380px;
-  display: flex;
-  flex-direction: column;
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
   .action {
     align-self: flex-end;
 
@@ -19,11 +22,18 @@
     margin-bottom: 16px;
   }
   mat-form-field {
+    width: 100%;
     margin-bottom: 16px;
     color: #73777f;
-    input {
-      font-size: 16px;
-      color: #79747e;
+    font-size: 16px !important;
+    mat-select {
+      text-transform: capitalize;
+    }
+    mat-label {
+      border-right: 5px solid #fff;
+      position: relative;
+      z-index: 200000;
+      background-color: #fff;
     }
   }
   mat-hint {
