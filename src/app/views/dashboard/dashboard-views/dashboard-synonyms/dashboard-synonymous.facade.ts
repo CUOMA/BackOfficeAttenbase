@@ -9,10 +9,15 @@ import {
 } from 'src/app/store/selectors/synonyms.selectors';
 import { synonymsApiActions } from '../../../../store/actions/synonyms.action';
 import { selectSynonyms } from '../../../../store/selectors/synonyms.selectors';
+import { SynonymsService } from 'src/app/core/services/synonyms.service';
 
 @Injectable()
 export class SynonymousFacade {
-  constructor(private store: Store, private actions$: Actions) {}
+  constructor(
+    private store: Store,
+    private actions$: Actions,
+    private synonymsService: SynonymsService
+  ) {}
 
   public get areSynonymsLoading(): Observable<boolean> {
     return this.store.select(selectAreSynonymsLoading);
@@ -32,5 +37,9 @@ export class SynonymousFacade {
 
   public isSynonymousUpdated(): Observable<any> {
     return this.actions$.pipe(first(), ofType(synonymsApiActions.deleteSynonymsSuccess));
+  }
+  public createSynonyms(form: any) {
+    console.log(form);
+    return this.synonymsService.postSynonymsCreate(form);
   }
 }

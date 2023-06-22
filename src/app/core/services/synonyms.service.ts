@@ -11,4 +11,8 @@ export class SynonymsService {
   public deleteSynonyms(id: number) {
     return this.httpClient.delete(`${environment.apiUrl}synonyms/${id}`);
   }
+  public postSynonymsCreate(payload: any) {
+    console.log(payload);
+    return this.httpClient.post(`${environment.apiUrl}synonyms`, payload);
+  }
 }

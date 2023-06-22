@@ -35,4 +35,7 @@ export class CategoriesFacade {
   public postNewCategory(form: any) {
     return this.categoriesService.postCategoryCreate(form);
   }
+  public dispatchGetCategoriesSearch(query: string) {
+    this.store.dispatch(categoriesApiActions.searchRequest({ query }));
+  }
 }
