@@ -27,7 +27,9 @@
             Filtros
           </button>
           <mat-menu #menu="matMenu" xPosition="before">
-            <bdc-bo-menu-filter (click)="$event.stopPropagation()"></bdc-bo-menu-filter>
+            <ng-template matMenuContent>
+              <bdc-bo-menu-filter (click)="$event.stopPropagation()"></bdc-bo-menu-filter>
+            </ng-template>
           </mat-menu>
         </div>
         <button
