@@ -10,8 +10,13 @@
   margin-top: 20px;
 }
 
-// tabs text color
+// mat menu overwrite
+.mat-mdc-menu-panel.mat-mdc-menu-panel {
+  max-width: 100% !important;
+}
+// mat menu overwrite
 
+// tabs text color
 .mat-mdc-tab-nav-bar.mat-accent
   .mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active
   .mdc-tab__text-label {
@@ -28,3 +33,4 @@
   font-size: 14px;
   letter-spacing: 0.1px;
 }
+// tabs text color
