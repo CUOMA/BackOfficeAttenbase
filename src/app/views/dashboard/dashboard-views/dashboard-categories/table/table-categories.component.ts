@@ -78,8 +78,10 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
     );
   }
 
-  openDialog() {
-    this.dialog.open(DialogConfirmDeletionComponent);
+  openDialog(id: number) {
+    this.dialog.open(DialogConfirmDeletionComponent, {
+      data: id,
+    });
   }
   protected deleteCategory(id: number, element: string) {
     this.categoriesFacade.dispatchDeleteCategory(id).subscribe({
@@ -88,7 +90,7 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
         this.alertCategoryDeleted(element);
       },
       error: (error: any) => {
-        this.openDialog();
+        this.openDialog(id);
       },
     });
   }

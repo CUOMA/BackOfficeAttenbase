@@ -39,7 +39,6 @@ export class SynonymousFacade {
     return this.actions$.pipe(first(), ofType(synonymsApiActions.deleteSynonymsSuccess));
   }
   public createSynonyms(form: any) {
-    console.log(form);
     return this.synonymsService.postSynonymsCreate(form);
   }
 }

@@ -7,7 +7,7 @@
     eliminación.
   </p>
   <div mat-dialog-actions class="action">
-    <button mat-button color="primary" cdkFocusInitial mat-dialog-close>
+    <button mat-button color="primary" (click)="forceDelete()" cdkFocusInitial mat-dialog-close>
       Eliminar de todos modos
     </button>
     <button mat-button color="primary" mat-dialog-close>Volver atrás</button>
