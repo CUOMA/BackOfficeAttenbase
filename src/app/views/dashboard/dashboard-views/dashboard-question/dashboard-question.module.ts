@@ -12,7 +12,6 @@ import { DashboardQuestionComponent } from './dashboard-question.component';
 import { QuestionsFacade } from './dashboard-question.facade';
 import { MenuFilterComponent } from './menu-filter/menu-filter.component';
 import { MenuQuestionComponent } from './table/menu-question/menu-question.component';
-import { StatusQuestionComponent } from './table/status-question/status-question.component';
 import { TableQuestionComponent } from './table/table-question.component';
 
 @NgModule({
@@ -22,7 +21,6 @@ import { TableQuestionComponent } from './table/table-question.component';
     TableQuestionComponent,
     MenuFilterComponent,
     MenuQuestionComponent,
-    StatusQuestionComponent,
   ],
   imports: [
     CommonModule,
