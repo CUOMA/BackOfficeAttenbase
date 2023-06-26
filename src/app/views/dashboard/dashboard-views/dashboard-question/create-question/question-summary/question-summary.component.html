@@ -1,7 +1,7 @@
 <div class="wrapper">
   <h1>Revisá que esté todo bien</h1>
   <ng-container *ngIf="preview">
-    <p>{{ preview | json }}</p>
+    <!-- <p>{{ preview | json }}</p> -->
     <div class="preview-question">
       <h2 class="preview-question__title">{{ preview.question }}</h2>
       <div class="preview-question__category">
@@ -25,23 +25,23 @@
       </div>
       <hr />
       <div class="preview-question__response-data">
+        <h5>Alias</h5>
+        <ng-container *ngFor="let item of preview.alias">
+          <p>{{ item }}</p>
+        </ng-container>
+      </div>
+      <div class="preview-question__response-data">
         <h5>Respuesta larga</h5>
         <div [innerHTML]="preview.resLong"></div>
-        {{ preview.resLong }}
+        <!-- {{ preview.resLong }} -->
       </div>
       <div class="preview-question__response-data">
         <h5>Respuesta corta</h5>
         <div [innerHTML]="preview.resShort"></div>
       </div>
       <div class="preview-question__response-data">
-        <h5>Respuesta IA</h5>
+        <h5>Respuesta Canal AI</h5>
         <p>{{ preview.resIA }}</p>
-      </div>
-      <div class="preview-question__response-data">
-        <h5>Alias</h5>
-        <ng-container *ngFor="let item of preview.alias">
-          <p>{{ item }}</p>
-        </ng-container>
       </div>
       <div class="preview-question__response-data">
         <h5>Preguntas Relacionadas</h5>
