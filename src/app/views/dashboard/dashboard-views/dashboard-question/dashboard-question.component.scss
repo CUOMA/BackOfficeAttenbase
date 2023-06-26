@@ -9,3 +9,9 @@
     }
   }
 }
+// overwrites material
+::ng-deep {
+  .mat-mdc-menu-panel.mat-mdc-menu-panel {
+    max-width: 100% !important;
+  }
+}
