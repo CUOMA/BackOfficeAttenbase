@@ -5,11 +5,15 @@
     <mat-hint *ngIf="!open"> Otras preguntas vinculadas la pregunta creada.</mat-hint>
   </mat-form-field>
   <ng-container *ngIf="questions$ | async as questions">
-    <div *ngIf="open" [ngClass]="{ openMenu: open }" class="menu">
+    <div #menu *ngIf="open" [ngClass]="{ openMenu: open }" class="menu">
       <div *ngFor="let question of questions">
-        <mat-checkbox (change)="updateSelectedQuestions(question, $event)" color="accent">{{
-          question.name
-        }}</mat-checkbox>
+        <mat-checkbox
+          (change)="updateSelectedQuestions(question, $event)"
+          matInput
+          [value]="currentInputValue"
+          color="accent"
+          >{{ question.name }}</mat-checkbox
+        >
       </div>
     </div>
   </ng-container>

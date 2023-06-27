@@ -1,4 +1,14 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  Renderer2,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil, tap } from 'rxjs/operators';
@@ -15,10 +25,19 @@ export class MultiselectComponent implements OnInit {
   protected questions$ = this.questionsFacade.selectQuestions();
   private destroy$ = new Subject();
   protected selectedQuestions: any[] = [];
+  currentInputValue: string = '';
+  @ViewChild('menu') menu!: ElementRef;
 
-  constructor(private questionsFacade: QuestionsFacade) {}
+  constructor(private questionsFacade: QuestionsFacade, private renderer: Renderer2) {}
 
   public ngOnInit(): void {
+    this.renderer.listen('document', 'click', (event: MouseEvent) => {
+      const isClickedInside = this.menu.nativeElement.contains(event.target);
+      if (!isClickedInside) {
+        this.open = false;
+      }
+    });
+
     this.multiselect.valueChanges
       .pipe(
         takeUntil(this.destroy$),
@@ -26,7 +45,7 @@ export class MultiselectComponent implements OnInit {
         tap((data: any) => {
           const query = data;
           this.questionsFacade.dispatchGetQuestionsSearch(query);
-          this.toggleMenu();
+          this.open = true;
         })
       )
       .subscribe();
@@ -43,6 +62,7 @@ export class MultiselectComponent implements OnInit {
         this.selectedQuestions.splice(index, 1);
       }
     }
+    this.currentInputValue = this.selectedQuestions.join(', ');
   }
 
   protected toggleMenu() {
