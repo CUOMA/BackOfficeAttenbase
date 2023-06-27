@@ -26,9 +26,10 @@
       <ng-container matColumnDef="state">
         <th mat-header-cell *matHeaderCellDef>Estado</th>
         <td mat-cell *matCellDef="let element">
-          <bdc-bo-status-question [class]="element.status.code" [name]="element.status.name">
-          </bdc-bo-status-question></td
-      ></ng-container>
+          <bdc-bo-status-button [class]="element.status.code" [name]="element.status.name">
+          </bdc-bo-status-button>
+        </td>
+      </ng-container>
 
       <ng-container matColumnDef="seeMore">
         <th mat-header-cell width="40px" *matHeaderCellDef></th>

@@ -1,0 +1,24 @@
+<div class="wrapper">
+  <p>Preguntas creadas/modificadas</p>
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="article">
+      <th mat-header-cell *matHeaderCellDef>Articulo</th>
+      <td mat-cell *matCellDef="let element" class="text-blue">{{ element.name }}</td>
+    </ng-container>
+    <ng-container matColumnDef="modification">
+      <th mat-header-cell *matHeaderCellDef>Fecha de modificación</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.published_at | date: 'dd/MM/yy h:mm' }} <br />
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef>Estado actual</th>
+      <td mat-cell *matCellDef="let element">
+        <bdc-bo-status-button [class]="element.status.class" [name]="element.status.name">
+        </bdc-bo-status-button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
