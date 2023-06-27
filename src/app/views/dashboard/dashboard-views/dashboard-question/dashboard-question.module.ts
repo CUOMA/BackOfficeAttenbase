@@ -12,10 +12,8 @@ import { DashboardQuestionComponent } from './dashboard-question.component';
 import { QuestionsFacade } from './dashboard-question.facade';
 import { MenuFilterComponent } from './menu-filter/menu-filter.component';
 import { MenuQuestionComponent } from './table/menu-question/menu-question.component';
-import { SearcherModule } from '../../searcher/searcher.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TableQuestionComponent } from './table/table-question.component';
-
 
 @NgModule({
   providers: [QuestionsFacade],

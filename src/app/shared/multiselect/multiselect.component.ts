@@ -11,9 +11,10 @@ import { QuestionsFacade } from 'src/app/views/dashboard/dashboard-views/dashboa
 })
 export class MultiselectComponent implements OnInit {
   protected open = false;
-  protected readonly multiselect = new FormControl({ value: '', disabled: false });
+  protected readonly multiselect = new FormControl({ value: [''], disabled: false });
   protected questions$ = this.questionsFacade.selectQuestions();
   private destroy$ = new Subject();
+  protected selectedQuestions: any[] = [];
 
   constructor(private questionsFacade: QuestionsFacade) {}
 
@@ -21,7 +22,7 @@ export class MultiselectComponent implements OnInit {
     this.multiselect.valueChanges
       .pipe(
         takeUntil(this.destroy$),
-        debounceTime(300),
+        debounceTime(500),
         tap((data: any) => {
           const query = data;
           this.questionsFacade.dispatchGetQuestionsSearch(query);
@@ -29,6 +30,19 @@ export class MultiselectComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+  updateSelectedQuestions(question: any, event: any) {
+    if (event.checked) {
+      this.selectedQuestions = [...this.selectedQuestions, question.name];
+      this.multiselect.setValue(this.selectedQuestions);
+    } else {
+      const index = this.selectedQuestions.findIndex(
+        selectedQuestion => selectedQuestion.id === question.id
+      );
+      if (index !== -1) {
+        this.selectedQuestions.splice(index, 1);
+      }
+    }
   }
 
   protected toggleMenu() {

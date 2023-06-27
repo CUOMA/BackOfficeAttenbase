@@ -13,6 +13,5 @@ export class DashboardCreateQuestionComponent implements OnInit {
 
   ngOnInit(): void {
     this.title$ = this.createQuestionFacade.titleQuestion;
-    console.log(this.createQuestionFacade.formQuestion);
   }
 }

@@ -4,15 +4,16 @@
     <input [formControl]="multiselect" type="text" matInput />
     <mat-hint *ngIf="!open"> Otras preguntas vinculadas la pregunta creada.</mat-hint>
   </mat-form-field>
-  <ng-container *ngIf="open">
-    <div *ngIf="questions$ | async as questions" [ngClass]="{ openMenu: open }" class="menu">
+  <ng-container *ngIf="questions$ | async as questions">
+    <div *ngIf="open" [ngClass]="{ openMenu: open }" class="menu">
       <div *ngFor="let question of questions">
-        <mat-checkbox color="secondary">{{ question | json }}</mat-checkbox>
+        <mat-checkbox (change)="updateSelectedQuestions(question, $event)" color="accent">{{
+          question.name
+        }}</mat-checkbox>
       </div>
-
-      <mat-checkbox color="secondary">¿Como comprar equipo?</mat-checkbox>
-      <mat-checkbox color="secondary">¿Como comprar?</mat-checkbox>
-      <mat-checkbox color="primary">¿Como comprar?</mat-checkbox>
     </div>
   </ng-container>
+  <div *ngFor="let item of selectedQuestions">
+    <p>{{ item }}</p>
+  </div>
 </div>

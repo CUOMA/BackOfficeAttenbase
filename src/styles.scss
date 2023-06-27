@@ -132,7 +132,8 @@ $md-palettesecondary: (
     A700: #000000,
   ),
 );
-$bdc-backoffice-secondary: mat.define-palette($md-palettesecondary);
+
+$bdc-backoffice-secondary: mat.define-palette($md-palettesecondary, 700);
 $bdc-backoffice-primary: mat.define-palette($md-paletteprimary, 900);
 $bdc-backoffice-accent: mat.define-palette($md-mcgpaletteAccent, 800);
 $bdc-backoffice-warn: mat.define-palette($md-paletteerror);
@@ -141,8 +142,7 @@ $bdc-backoffice-theme: mat.define-light-theme(
   (
     color: (
       primary: $bdc-backoffice-primary,
-      accent: $bdc-backoffice-accent,
-      secondary: $bdc-backoffice-secondary,
+      accent: $bdc-backoffice-secondary,
       warn: $bdc-backoffice-warn,
     ),
   )
