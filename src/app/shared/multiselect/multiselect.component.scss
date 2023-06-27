@@ -1,0 +1,42 @@
+.multiselect {
+  .menu {
+    background-color: white;
+    width: 100%;
+    border-radius: 8px;
+    margin-top: -18px;
+    box-shadow: 0px 1.850000023841858px 6.25px 0px rgba(0, 0, 0, 0.19),
+      0px 0.5px 1.75px 0px rgba(0, 0, 0, 0.04);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    &.openMenu {
+      max-height: 200px;
+    }
+  }
+  mat-form-field {
+    width: 100%;
+  }
+  mat-form-field {
+    padding: 0;
+  }
+}
+mat-hint {
+  font-size: 12px;
+  color: #73777f;
+}
+::ng-deep {
+  mat-checkbox {
+    width: 100% !important;
+    .mdc-form-field {
+      padding: 5px 10px;
+      display: flex !important;
+      flex-direction: row-reverse !important;
+      justify-content: space-between !important;
+      transition: background-color 0.3s ease-in-out;
+
+      &:hover {
+        background-color: #8bb4b4;
+      }
+    }
+  }
+}

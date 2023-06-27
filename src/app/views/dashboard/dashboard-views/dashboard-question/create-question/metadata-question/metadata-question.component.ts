@@ -9,17 +9,12 @@ import { DialogCreateCategoryComponent } from './dialog-create-category/dialog-c
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { QuestionsFacade } from '../../dashboard-question.facade';
 
 @Component({
   selector: 'bdc-bo-metadata-question-component',
   templateUrl: './metadata-question.component.html',
   styleUrls: ['./metadata-question.component.scss'],
-  providers: [
-    {
-      provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: { showError: true },
-    },
-  ],
 })
 export class MetadataQuestionComponent implements OnInit {
   protected form!: FormGroup;
@@ -32,31 +27,25 @@ export class MetadataQuestionComponent implements OnInit {
   protected addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   protected alias: Alias[] = [];
-  open = false;
 
   constructor(
     private fb: FormBuilder,
     private createQuestionFacade: DashboardCreateQuestionFacade,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private questionsFacade: QuestionsFacade
   ) {}
   public ngOnInit(): void {
     this.setUpForm();
     this.createQuestionFacade.dispatchGetListCategories();
-    // this.filteredOptions = this.myControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filter(value || ''))
-    // );
   }
-  toggleMenu() {
-    this.open = !this.open;
-  }
+
   protected setUpForm() {
     this.form = this.fb.group({
       question: ['', [Validators.required]],
       alias: [[], [Validators.required]],
       category: ['', [Validators.required]],
       subcategory: [{ value: '', disabled: true }],
-      // associatedQuestions: [''],
+      associatedQuestions: [''],
     });
   }
   protected filterSubcategories(id: number) {
@@ -94,6 +83,10 @@ export class MetadataQuestionComponent implements OnInit {
 
   protected sendForm() {
     this.createQuestionFacade.formMetadaQuestion(this.form.value);
+  }
+  protected handleSearch(query: any): void {
+    console.log(query);
+    this.questionsFacade.dispatchGetQuestionsSearch(query);
   }
 
   protected newCategory() {
