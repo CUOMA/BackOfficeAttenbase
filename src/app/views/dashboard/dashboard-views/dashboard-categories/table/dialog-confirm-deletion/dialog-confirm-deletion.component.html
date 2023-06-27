@@ -1,0 +1,15 @@
+<div class="wrapper">
+  <h4>Eliminar categoría</h4>
+  <p>
+    Si continuás con esta acción, todas las preguntas asociadas a esta categoría se moverán a la
+    categoría <strong>General</strong>. <br />
+    También podés volver atrás y mover las preguntas a otras categorías antes de avanzar con la
+    eliminación.
+  </p>
+  <div mat-dialog-actions class="action">
+    <button mat-button color="primary" (click)="forceDelete()" cdkFocusInitial mat-dialog-close>
+      Eliminar de todos modos
+    </button>
+    <button mat-button color="primary" mat-dialog-close>Volver atrás</button>
+  </div>
+</div>

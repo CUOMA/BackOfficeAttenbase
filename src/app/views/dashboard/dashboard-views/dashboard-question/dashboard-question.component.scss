@@ -1,11 +1,24 @@
-.question-action {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  .action {
+.wrapper {
+  padding-top: 20px;
+  .question-action {
     display: flex;
-    :first-child {
-      margin-right: 10px;
+    justify-content: space-between;
+    align-items: center;
+    .action {
+      display: flex;
+      :first-child {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .menu {
+    position: relative;
+    bdc-bo-menu-filter {
+      position: absolute;
+      z-index: 2;
+      right: 10px;
+      top: 38px;
     }
   }
 }

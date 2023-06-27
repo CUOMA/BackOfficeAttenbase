@@ -17,7 +17,12 @@ export class DateComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.form = this.fb.group({});
+    this.form = this.fb.group({
+      dateFrom: [null, Validators.required],
+      dateTo: [null, Validators.required],
+      hourFrom: [null, Validators.required],
+      // hourTo: [null, Validators.required],
+    });
   }
   protected onDateFromChange(event: MatDatepickerInputEvent<Date>) {
     console.log(event.value);

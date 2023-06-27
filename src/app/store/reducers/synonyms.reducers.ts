@@ -34,6 +34,27 @@ export const synonymsReducer = createReducer(
       ...state,
       areSynonymsLoading: false,
     })
+  ),
+  on(
+    synonymsApiActions.deleteSynonymousRequest,
+    (state): SynonymsState => ({
+      ...state,
+      areSynonymsLoading: true,
+    })
+  ),
+  on(
+    synonymsApiActions.deleteSynonymsSuccess,
+    (state): SynonymsState => ({
+      ...state,
+      areSynonymsLoading: false,
+    })
+  ),
+  on(
+    synonymsApiActions.deleteSynonymsFailure,
+    (state): SynonymsState => ({
+      ...state,
+      areSynonymsLoading: false,
+    })
   )
 );
 

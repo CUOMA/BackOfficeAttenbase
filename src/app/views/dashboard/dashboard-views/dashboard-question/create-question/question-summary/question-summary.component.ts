@@ -12,6 +12,5 @@ export class QuestionSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.preview = this.questionFacade.formQuestion;
-    console.log(this.questionFacade.formQuestion);
   }
 }

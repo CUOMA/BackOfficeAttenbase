@@ -11,6 +11,9 @@ export class CategoriesService {
   public deleteCategory(id: number) {
     return this.httpClient.delete(`${environment.apiUrl}categories/${id}`);
   }
+  public forceDelete(id: number) {
+    return this.httpClient.delete(`${environment.apiUrl}categories/${id}/force-delete`);
+  }
   public getCategoriesList() {
     return this.httpClient.get(`${environment.apiUrl}categories-list`);
   }

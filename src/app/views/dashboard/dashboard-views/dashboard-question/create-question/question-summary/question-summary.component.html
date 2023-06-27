@@ -2,14 +2,14 @@
   <h1>Revisá que esté todo bien</h1>
   <ng-container *ngIf="preview">
     <p>{{ preview | json }}</p>
-    <p>{{ preview.question }}</p>
-
     <div class="preview-question">
-      <h2 class="preview-question__title">¿Cómo comprar un equipo?</h2>
+      <h2 class="preview-question__title">{{ preview.question }}</h2>
       <div class="preview-question__category">
-        <span>Celulares</span>
-        <span class="material-symbols-outlined">chevron_right</span>
-        <span>Equipos Moviles</span>
+        <span>{{ preview.category }}</span>
+        <ng-container *ngIf="preview.subcategory">
+          <span class="material-symbols-outlined">chevron_right</span>
+          <span>{{ preview.subcategory }}</span>
+        </ng-container>
       </div>
       <div class="preview-question__date">
         <span class="material-symbols-outlined">today</span>
@@ -26,40 +26,21 @@
       <hr />
       <div class="preview-question__response-data">
         <h5>Respuesta larga</h5>
-        <p>Si querés comprar un equipo nuevo o cambiar tu celular, seguí este paso a paso:</p>
-        <ol>
-          <li>
-            Ingresá en <b>Tienda Movistar</b> y conocé todos los equipos disponibles utilizando los
-            filtros. Para más detalles presioná la foto del producto que te interesa o el botón
-            Comprar.
-          </li>
-          <li>
-            Desde la ficha del producto elegido presioná nuevamente el botón <b>Comprar</b> e
-            ingresá a tu <b>Carrito de Compras</b>.
-          </li>
-          <li>
-            Presioná el botón <b>Iniciar Compra</b>. Actualmente el campo Tengo un Código de
-            descuento no esta vigente.
-          </li>
-          <li>
-            Completá tu información personal y el domicilio de facturación. Presioná el botón
-            <b>Siguiente</b> para continuar.
-          </li>
-          <li>Seleccioná la forma de envio y presioná el botón Siguiente para continuar.</li>
-          <li>Seleccioná la forma de pago y presioná el botón Pagar y finalizar compra.</li>
-        </ol>
+        <div [innerHTML]="preview.resLong"></div>
       </div>
       <div class="preview-question__response-data">
         <h5>Respuesta corta</h5>
-        <p>Ingresá en <b>Tienda Movistar</b> y conocé todos los equipos disponibles.</p>
+        <div [innerHTML]="preview.resShort"></div>
+      </div>
+      <div class="preview-question__response-data">
+        <h5>Respuesta IA</h5>
+        <p>{{ preview.resIA }}</p>
       </div>
       <div class="preview-question__response-data">
         <h5>Alias</h5>
-        <p>Cómo comprar smartphone</p>
-      </div>
-      <div class="preview-question__response-data">
-        <h5>Respuesta Canal Aura</h5>
-        <p>Ingresá en <b>Tienda Movistar</b> y conocé todos los equipos disponibles.</p>
+        <ng-container *ngFor="let item of preview.alias">
+          <p>{{ item }}</p>
+        </ng-container>
       </div>
       <div class="preview-question__response-data">
         <h5>Preguntas Relacionadas</h5>
