@@ -9,17 +9,12 @@ import { DialogCreateCategoryComponent } from './dialog-create-category/dialog-c
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { QuestionsFacade } from '../../dashboard-question.facade';
 
 @Component({
   selector: 'bdc-bo-metadata-question-component',
   templateUrl: './metadata-question.component.html',
   styleUrls: ['./metadata-question.component.scss'],
-  providers: [
-    {
-      provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: { showError: true },
-    },
-  ],
 })
 export class MetadataQuestionComponent implements OnInit {
   protected form!: FormGroup;
@@ -28,7 +23,6 @@ export class MetadataQuestionComponent implements OnInit {
   protected areListSubcategoriesLoading$ = this.createQuestionFacade.areSubcategoriesLoading;
   private destroy$ = new Subject<void>();
   protected selectedOption = 'General';
-  options: string[] = ['One', 'Two', 'Three'];
   protected filteredOptions!: Observable<string[]>;
   protected addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
@@ -37,20 +31,12 @@ export class MetadataQuestionComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private createQuestionFacade: DashboardCreateQuestionFacade,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private questionsFacade: QuestionsFacade
   ) {}
   public ngOnInit(): void {
     this.setUpForm();
     this.createQuestionFacade.dispatchGetListCategories();
-    // this.filteredOptions = this.myControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filter(value || ''))
-    // );
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   protected setUpForm() {
@@ -59,7 +45,7 @@ export class MetadataQuestionComponent implements OnInit {
       alias: [[], [Validators.required]],
       category: ['', [Validators.required]],
       subcategory: [{ value: '', disabled: true }],
-      // associatedQuestions: [''],
+      associatedQuestions: [''],
     });
   }
   protected filterSubcategories(id: number) {
@@ -67,6 +53,7 @@ export class MetadataQuestionComponent implements OnInit {
     this.createQuestionFacade.areSubcategoriesLoading.pipe(takeUntil(this.destroy$));
     this.createQuestionFacade.dispatchGetListSubcategories(id);
   }
+
   protected add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     if (value) {
@@ -96,6 +83,10 @@ export class MetadataQuestionComponent implements OnInit {
 
   protected sendForm() {
     this.createQuestionFacade.formMetadaQuestion(this.form.value);
+  }
+  protected handleSearch(query: any): void {
+    console.log(query);
+    this.questionsFacade.dispatchGetQuestionsSearch(query);
   }
 
   protected newCategory() {

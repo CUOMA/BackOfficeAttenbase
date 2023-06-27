@@ -83,7 +83,6 @@ export class TableSynonymsComponent implements OnChanges, OnInit, AfterViewInit 
       .subscribe({
         complete: () => {
           this.alertSynonymsDeleted(element);
-          // this.router.navigateByUrl('dashboard/sinonimos');
         },
         error: (error: any) => {
           const isError = error.error.error;
@@ -93,7 +92,6 @@ export class TableSynonymsComponent implements OnChanges, OnInit, AfterViewInit 
               templateHTML: `${isError}`,
             },
           });
-          // this.router.navigateByUrl('dashboard/sinonimos');
         },
       });
   }
@@ -108,7 +106,7 @@ export class TableSynonymsComponent implements OnChanges, OnInit, AfterViewInit 
     this.alertService.openFromComponent({
       duration: 5000,
       data: {
-        templateHTML: ` ${element}`,
+        templateHTML: ` Eliminaste ${element}`,
       },
     });
   }

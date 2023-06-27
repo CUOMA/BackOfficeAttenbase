@@ -23,7 +23,7 @@ export class DashboardSynonymsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   protected dataSource!: MatTableDataSource<any>;
 
-  constructor(private alertService: AlertService, private synonymsFacade: SynonymousFacade) {}
+  constructor(private synonymsFacade: SynonymousFacade) {}
 
   ngOnInit(): void {
     this.synonymsFacade.dispatchGetSynonyms(1);

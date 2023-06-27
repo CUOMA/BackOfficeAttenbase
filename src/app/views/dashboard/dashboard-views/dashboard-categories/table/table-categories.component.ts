@@ -23,6 +23,8 @@ import { categoriesApiActions } from '../../../../../store/actions/categories.ac
 import { CategoriesFacade } from '../dashboard-categories.facade';
 import { EventEmitter } from '@angular/core';
 import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogConfirmDeletionComponent } from './dialog-confirm-deletion/dialog-confirm-deletion.component';
 
 @Component({
   selector: 'bdc-bo-tabla-categories',
@@ -54,7 +56,8 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
     private cdr: ChangeDetectorRef,
     public store: Store,
     public router: Router,
-    public alertService: AlertService
+    public alertService: AlertService,
+    public dialog: MatDialog
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -75,6 +78,11 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
     );
   }
 
+  openDialog(id: number) {
+    this.dialog.open(DialogConfirmDeletionComponent, {
+      data: id,
+    });
+  }
   protected deleteCategory(id: number, element: string) {
     this.categoriesFacade.dispatchDeleteCategory(id).subscribe({
       complete: () => {
@@ -82,14 +90,7 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
         this.alertCategoryDeleted(element);
       },
       error: (error: any) => {
-        this.router.navigateByUrl('dashboard/categorias');
-        const isError = error.error.error;
-        this.alertService.openFromComponent({
-          duration: 5000,
-          data: {
-            templateHTML: `${isError}`,
-          },
-        });
+        this.openDialog(id);
       },
     });
   }

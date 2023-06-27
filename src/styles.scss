@@ -2,10 +2,6 @@
 @import "./assets/sass/main.scss";
 @include mat.core();
 
-// .material-symbols-outlined {
-//   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
-// }
-
 $md-paletteprimary: (
   50: #f1f6f6,
   100: #dce9e9,
@@ -104,16 +100,49 @@ $md-mcgpaletteAccent: (
     A700: #000000,
   ),
 );
-
+$md-palettesecondary: (
+  50: #e7e9ec,
+  100: #c2c9d1,
+  200: #9aa5b2,
+  300: #718193,
+  400: #52667b,
+  500: #344b64,
+  600: #2f445c,
+  700: #273b52,
+  800: #213348,
+  900: #152336,
+  A100: #76afff,
+  A200: #4391ff,
+  A400: #1073ff,
+  A700: #0066f6,
+  contrast: (
+    50: #ffffff,
+    100: #ffffff,
+    200: #ffffff,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+$bdc-backoffice-secondary: mat.define-palette($md-palettesecondary);
 $bdc-backoffice-primary: mat.define-palette($md-paletteprimary, 900);
 $bdc-backoffice-accent: mat.define-palette($md-mcgpaletteAccent, 800);
-
 $bdc-backoffice-warn: mat.define-palette($md-paletteerror);
+
 $bdc-backoffice-theme: mat.define-light-theme(
   (
     color: (
       primary: $bdc-backoffice-primary,
       accent: $bdc-backoffice-accent,
+      secondary: $bdc-backoffice-secondary,
       warn: $bdc-backoffice-warn,
     ),
   )
