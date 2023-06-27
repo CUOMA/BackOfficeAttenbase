@@ -76,23 +76,21 @@
         </mat-select>
       </mat-form-field>
     </div>
-
-    <!-- <mat-form-field appearance="outline">
-      <mat-label>Preguntas Relacionadas</mat-label>
-      <mat-hint> Otras preguntas vinculadas la pregunta creada.</mat-hint>
-      <input
-        type="text"
-        placeholder="Pick one"
-        aria-label="Number"
-        matInput
-        [formControl]="myControl"
-        [matAutocomplete]="auto" />
-      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-          {{ option }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field> -->
+    <div class="multiselect">
+      <mat-form-field appearance="outline">
+        <mat-label>Preguntas Relacionadas</mat-label>
+        <input type="text" matInput />
+        <mat-hint *ngIf="!open"> Otras preguntas vinculadas la pregunta creada.</mat-hint>
+      </mat-form-field>
+      <ng-container *ngIf="open">
+        <div [ngClass]="{ openMenu: open }" class="menu">
+          <mat-checkbox formControlName="pepperoni">Pepperoni</mat-checkbox>
+          <mat-checkbox color="secondary" formControlName="extracheese">Extra Cheese</mat-checkbox>
+          <mat-checkbox color="primary" formControlName="mushroom">Mushroom</mat-checkbox>
+        </div>
+      </ng-container>
+    </div>
+    <button (click)="toggleMenu()">abrir</button>
   </form>
   <div class="action">
     <button

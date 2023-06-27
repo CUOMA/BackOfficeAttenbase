@@ -28,11 +28,11 @@ export class MetadataQuestionComponent implements OnInit {
   protected areListSubcategoriesLoading$ = this.createQuestionFacade.areSubcategoriesLoading;
   private destroy$ = new Subject<void>();
   protected selectedOption = 'General';
-  options: string[] = ['One', 'Two', 'Three'];
   protected filteredOptions!: Observable<string[]>;
   protected addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   protected alias: Alias[] = [];
+  open = false;
 
   constructor(
     private fb: FormBuilder,
@@ -47,12 +47,9 @@ export class MetadataQuestionComponent implements OnInit {
     //   map(value => this._filter(value || ''))
     // );
   }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  toggleMenu() {
+    this.open = !this.open;
   }
-
   protected setUpForm() {
     this.form = this.fb.group({
       question: ['', [Validators.required]],
@@ -67,6 +64,7 @@ export class MetadataQuestionComponent implements OnInit {
     this.createQuestionFacade.areSubcategoriesLoading.pipe(takeUntil(this.destroy$));
     this.createQuestionFacade.dispatchGetListSubcategories(id);
   }
+
   protected add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     if (value) {
