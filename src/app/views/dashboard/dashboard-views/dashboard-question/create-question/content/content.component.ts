@@ -34,7 +34,7 @@ export class ContentComponent {
     },
   ];
 
-  protected obtenerValores() {
+  protected sendValue() {
     const res = {
       resLong: this.createAnswers[0].data,
       resShort: this.createAnswers[1].data,

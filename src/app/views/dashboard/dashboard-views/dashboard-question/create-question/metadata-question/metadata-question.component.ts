@@ -1,15 +1,13 @@
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
-import { map, startWith } from 'rxjs/operators';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { QuestionsFacade } from '../../dashboard-question.facade';
 import { DashboardCreateQuestionFacade } from '../dashboard-create-question.facade';
 import { DialogCreateCategoryComponent } from './dialog-create-category/dialog-create-category.component';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { QuestionsFacade } from '../../dashboard-question.facade';
 
 @Component({
   selector: 'bdc-bo-metadata-question-component',
@@ -22,18 +20,19 @@ export class MetadataQuestionComponent implements OnInit {
   protected listSubcategories$ = this.createQuestionFacade.selectListSubcategories();
   protected areListSubcategoriesLoading$ = this.createQuestionFacade.areSubcategoriesLoading;
   private destroy$ = new Subject<void>();
-  protected selectedOption = 'General';
   protected filteredOptions!: Observable<string[]>;
   protected addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   protected alias: Alias[] = [];
+  protected selectedQuestions: string[] = [];
 
   constructor(
     private fb: FormBuilder,
     private createQuestionFacade: DashboardCreateQuestionFacade,
-    public dialog: MatDialog,
-    private questionsFacade: QuestionsFacade
+    private questionsFacade: QuestionsFacade,
+    public dialog: MatDialog
   ) {}
+
   public ngOnInit(): void {
     this.setUpForm();
     this.createQuestionFacade.dispatchGetListCategories();
@@ -43,9 +42,9 @@ export class MetadataQuestionComponent implements OnInit {
     this.form = this.fb.group({
       question: ['', [Validators.required]],
       alias: [[], [Validators.required]],
-      category: ['', [Validators.required]],
+      category: ['General', [Validators.required]],
       subcategory: [{ value: '', disabled: true }],
-      associatedQuestions: [''],
+      associatedQuestions: [[''], [Validators.required]],
     });
   }
   protected filterSubcategories(id: number) {
@@ -84,8 +83,8 @@ export class MetadataQuestionComponent implements OnInit {
   protected sendForm() {
     this.createQuestionFacade.formMetadaQuestion(this.form.value);
   }
+
   protected handleSearch(query: any): void {
-    console.log(query);
     this.questionsFacade.dispatchGetQuestionsSearch(query);
   }
 
@@ -93,6 +92,11 @@ export class MetadataQuestionComponent implements OnInit {
     this.dialog.open(DialogCreateCategoryComponent, {
       width: '680px',
     });
+  }
+
+  handleSelectedQuestionsChange(selectedQuestions: string[]) {
+    this.selectedQuestions = selectedQuestions;
+    this.form.get('associatedQuestions')?.setValue(selectedQuestions);
   }
 }
 export interface Alias {

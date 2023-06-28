@@ -1,23 +1,31 @@
-<div class="multiselect">
+<div #menu class="multiselect">
   <mat-form-field appearance="outline">
     <mat-label>Preguntas Relacionadas</mat-label>
     <input [formControl]="multiselect" type="text" matInput />
     <mat-hint *ngIf="!open"> Otras preguntas vinculadas la pregunta creada.</mat-hint>
   </mat-form-field>
-  <ng-container *ngIf="questions$ | async as questions">
-    <div #menu *ngIf="open" [ngClass]="{ openMenu: open }" class="menu">
-      <div *ngFor="let question of questions">
-        <mat-checkbox
-          (change)="updateSelectedQuestions(question, $event)"
-          matInput
-          [value]="currentInputValue"
-          color="accent"
-          >{{ question.name }}</mat-checkbox
-        >
+  <div class="menu" [hidden]="!multiselect.value" [ngClass]="{ openMenu: open }">
+    <ng-container *ngIf="questions$ | async as questions">
+      <ng-container *ngIf="questions.length">
+        <div *ngFor="let question of questions">
+          <mat-checkbox
+            (change)="updateSelectedQuestions(question, $event)"
+            matInput
+            color="accent"
+            >{{ question.name }}</mat-checkbox
+          >
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div class="container-selected-question">
+    <div *ngFor="let item of selectedQuestions; let i = index">
+      <div class="selected-question">
+        <p>{{ item }}</p>
+        <button mat-icon-button color="primary" (click)="removeSelectedQuestion(i)">
+          <mat-icon class="material-symbols-outlined">delete</mat-icon>
+        </button>
       </div>
     </div>
-  </ng-container>
-  <div *ngFor="let item of selectedQuestions">
-    <p>{{ item }}</p>
   </div>
 </div>

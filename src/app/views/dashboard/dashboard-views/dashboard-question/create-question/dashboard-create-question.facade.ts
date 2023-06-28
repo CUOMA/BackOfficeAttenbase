@@ -37,7 +37,6 @@ export class DashboardCreateQuestionFacade {
   public formMetadaQuestion(formData?: any, res?: any) {
     this.titleQuestion.next(formData.question);
     this.formQuestion = { ...this.formQuestion, ...formData, ...res };
-    console.log(this.formQuestion);
   }
 }
 
@@ -50,4 +49,8 @@ export interface FormQuestion {
   answersIA: string;
   answersLong: string;
   answersShort: string;
+  dateFrom: string;
+  dateTo: string;
+  hourFrom: string;
+  hourTo: string;
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { DashboardCreateQuestionFacade } from '../dashboard-create-question.facade';
 
 @Component({
   selector: 'bdc-bo-date-component',
@@ -14,21 +15,28 @@ export class DateComponent implements OnInit {
   protected dateFrom!: Date | null;
   protected dateTo!: Date | null;
   protected minDateFrom: Date = new Date();
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private createQuestionFacade: DashboardCreateQuestionFacade
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
       dateFrom: [null, Validators.required],
       dateTo: [null, Validators.required],
       hourFrom: [null, Validators.required],
-      // hourTo: [null, Validators.required],
+      hourTo: [null, Validators.required],
     });
   }
   protected onDateFromChange(event: MatDatepickerInputEvent<Date>) {
-    console.log(event.value);
     this.dateFrom = event.value;
   }
   protected onDateToChange(event: MatDatepickerInputEvent<Date>) {
     this.dateTo = event.value;
+  }
+  protected sendValue() {
+    const res = this.form.value;
+    console.log(res);
+    this.createQuestionFacade.formMetadaQuestion(res);
   }
 }

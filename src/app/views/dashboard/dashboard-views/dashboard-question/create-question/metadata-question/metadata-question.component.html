@@ -36,7 +36,8 @@
           [matChipInputAddOnBlur]="addOnBlur"
           (matChipInputTokenEnd)="add($event)" />
       </mat-chip-grid>
-      <mat-error *ngIf="form.controls['alias'].errors?.['required']">
+      <mat-error
+        *ngIf="form.controls['alias'].errors?.['required'] && form.controls['alias'].dirty">
         Ingresá al menos un alias
       </mat-error>
     </mat-form-field>
@@ -44,7 +45,7 @@
       <mat-form-field appearance="outline" hideRequiredMarker="true">
         <mat-label>Categoría</mat-label>
         <mat-hint> Categoría a la cual pertenecerá la pregunta creada.</mat-hint>
-        <mat-select formControlName="category" name="category" [(ngModel)]="selectedOption">
+        <mat-select formControlName="category" name="category">
           <ng-container *ngIf="listCategories$ | async as listCategories">
             <mat-option
               *ngFor="let category of listCategories"
@@ -64,7 +65,7 @@
         <mat-hint>Grupo dentro de la categoría elegida.</mat-hint>
         <mat-select formControlName="subcategory" name="subcategory">
           <ng-container *ngIf="listSubcategories$ | async as listSubcategories">
-            <ng-container *ngIf="listSubcategories.length > 0; else noSubcategories">
+            <ng-container *ngIf="listSubcategories.length; else noSubcategories">
               <ng-container *ngFor="let subcategory of listSubcategories">
                 <mat-option [value]="subcategory.name">{{ subcategory.name }}</mat-option>
               </ng-container>
@@ -77,7 +78,8 @@
       </mat-form-field>
     </div>
   </form>
-  <bdc-bo-multiselect></bdc-bo-multiselect>
+  <bdc-bo-multiselect
+    (selectedQuestionsChange)="handleSelectedQuestionsChange($event)"></bdc-bo-multiselect>
   <div class="action">
     <button
       mat-flat-button

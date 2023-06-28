@@ -15,7 +15,7 @@ export const selectListCategories = createSelector(
 
 export const selectListSubCategories = createSelector(
   selectFeature,
-  state => state.listSubcategories.data
+  state => state.listSubcategories?.data
 );
 
 export const selectAreListSubcategoriesLoading = createSelector(
