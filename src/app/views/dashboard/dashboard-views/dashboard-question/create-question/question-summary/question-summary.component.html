@@ -51,8 +51,19 @@
       </div>
       <hr />
       <div class="action">
-        <button mat-stroked-button color="primary">Volver atrás</button>
-        <button mat-flat-button color="primary">Publicar</button>
+        <button
+          mat-stroked-button
+          color="primary"
+          [routerLink]="['/dashboard/listado-de-preguntas/crear-pregunta']">
+          Volver atrás
+        </button>
+        <button
+          mat-flat-button
+          [routerLink]="['/dashboard/listado-de-preguntas']"
+          color="primary"
+          (click)="createQuestion()">
+          Publicar
+        </button>
       </div>
     </div>
   </ng-container>

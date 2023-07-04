@@ -1,7 +1,11 @@
 <div #menu class="multiselect">
   <mat-form-field appearance="outline">
     <mat-label>Preguntas Relacionadas</mat-label>
-    <input [formControl]="multiselect" type="text" matInput />
+    <input
+      placeholder="Buscar preguntas relacionadas"
+      [formControl]="multiselect"
+      type="text"
+      matInput />
     <mat-hint *ngIf="!open"> Otras preguntas vinculadas la pregunta creada.</mat-hint>
   </mat-form-field>
   <div class="menu" [hidden]="!multiselect.value" [ngClass]="{ openMenu: open }">

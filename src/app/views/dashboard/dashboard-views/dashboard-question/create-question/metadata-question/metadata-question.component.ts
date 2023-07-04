@@ -36,9 +36,10 @@ export class MetadataQuestionComponent implements OnInit {
   public ngOnInit(): void {
     this.setUpForm();
     this.createQuestionFacade.dispatchGetListCategories();
+    this.loadSavedData();
   }
 
-  protected setUpForm() {
+  private setUpForm() {
     this.form = this.fb.group({
       question: ['', [Validators.required]],
       alias: [[], [Validators.required]],
@@ -46,6 +47,14 @@ export class MetadataQuestionComponent implements OnInit {
       subcategory: [{ value: '', disabled: true }],
       associatedQuestions: [[''], [Validators.required]],
     });
+  }
+
+  private loadSavedData(): void {
+    const storedData = localStorage.getItem('datosFormulario');
+    if (storedData) {
+      const formData = JSON.parse(storedData);
+      this.form.patchValue(formData);
+    }
   }
   protected filterSubcategories(id: number) {
     this.form.get('subcategory')?.enable();
@@ -94,7 +103,7 @@ export class MetadataQuestionComponent implements OnInit {
     });
   }
 
-  handleSelectedQuestionsChange(selectedQuestions: string[]) {
+  protected handleSelectedQuestionsChange(selectedQuestions: string[]) {
     this.selectedQuestions = selectedQuestions;
     this.form.get('associatedQuestions')?.setValue(selectedQuestions);
   }

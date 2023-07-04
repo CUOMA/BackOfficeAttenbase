@@ -18,7 +18,6 @@ export const rehydratation =
     const nextState = reducer(state, action);
     // si lo que venga tiene varible cacheable: false entonces no hacer lo siguiente
     localStorage.setItem('state', JSON.stringify(nextState));
-
     return reducer(state, action);
   };
 

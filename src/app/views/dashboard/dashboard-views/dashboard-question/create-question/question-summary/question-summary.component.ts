@@ -13,4 +13,11 @@ export class QuestionSummaryComponent implements OnInit {
   ngOnInit(): void {
     this.preview = this.questionFacade.formQuestion;
   }
+
+  protected createQuestion() {
+    this.deleteLocalStore();
+  }
+  protected deleteLocalStore(): void {
+    localStorage.removeItem('datosFormulario');
+  }
 }

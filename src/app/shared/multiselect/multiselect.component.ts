@@ -38,6 +38,24 @@ export class MultiselectComponent implements OnInit, AfterViewInit {
   }
 
   public ngOnInit(): void {
+    this.searchQuestion();
+    this.loadAssociatedQuestions();
+  }
+  protected loadAssociatedQuestions() {
+    this.selectedQuestions = this.getLocalStorageData()?.associatedQuestions || [];
+  }
+
+  protected updateLocalStorage() {
+    const formData = this.getLocalStorageData() || {};
+    formData.associatedQuestions = this.selectedQuestions;
+    localStorage.setItem('datosFormulario', JSON.stringify(formData));
+  }
+
+  private getLocalStorageData() {
+    const storedData = localStorage.getItem('datosFormulario');
+    return storedData ? JSON.parse(storedData) : null;
+  }
+  protected searchQuestion() {
     this.multiselect.valueChanges
       .pipe(
         takeUntil(this.destroy$),
@@ -63,6 +81,7 @@ export class MultiselectComponent implements OnInit, AfterViewInit {
 
   protected removeSelectedQuestion(index: number) {
     this.selectedQuestions.splice(index, 1);
+    this.updateLocalStorage();
     this.selectedQuestionsChange.emit(this.selectedQuestions);
   }
 
