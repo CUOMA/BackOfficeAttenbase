@@ -15,7 +15,6 @@ import { MatMenuTrigger } from '@angular/material/menu';
   ],
 })
 export class HourPickerComponent implements ControlValueAccessor {
-  @Input() period: 'Desde' | 'Hasta' = 'Desde';
   @Input() disabled = false;
   value!: string;
   onChange!: (value: string) => void;

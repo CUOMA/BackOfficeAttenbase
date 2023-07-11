@@ -1,50 +1,15 @@
-<form [formGroup]="form">
-  <div class="wrapper">
-    <div class="container-date">
-      <p>Fecha de publicación y vencimiento</p>
-
-      <div class="date">
-        <mat-form-field appearance="outline">
-          <mat-label>Desde</mat-label>
-          <input
-            matInput
-            [min]="minDateFrom"
-            [matDatepicker]="pickerFrom"
-            formControlName="dateFrom"
-            (dateChange)="onDateFromChange($event)" />
-          <mat-hint>DD/MM/AAAA</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="pickerFrom"></mat-datepicker-toggle>
-          <mat-datepicker #pickerFrom></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Hasta</mat-label>
-          <input
-            matInput
-            [min]="dateFrom"
-            [matDatepicker]="pickerTo"
-            formControlName="dateTo"
-            (dateChange)="onDateToChange($event)" />
-          <mat-hint>DD/MM/AAAA</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="pickerTo"></mat-datepicker-toggle>
-          <mat-datepicker #pickerTo></mat-datepicker>
-        </mat-form-field>
+<div class="wrapper">
+  <h5>Elegir método de publicación</h5>
+  <mat-radio-group aria-label="Select an option">
+    <div class="container-select" *ngFor="let opcion of postOptions">
+      <mat-radio-button (click)="openMenu(opcion)" [value]="opcion.id">
+        <h5>{{ opcion.label }}</h5>
+      </mat-radio-button>
+      <div class="container-content" [ngClass]="{ open: opcion.isOpen }">
+        <bdc-bo-form-date-component [postNow]="opcion.postNow"></bdc-bo-form-date-component>
       </div>
     </div>
-    <div class="containeir-hour">
-      <p>Horario de publicación y vencimiento</p>
-      <div class="date">
-        <bdc-bo-hour-picker
-          formControlName="hourFrom"
-          [period]="'Desde'"
-          formControlName="hourFrom"></bdc-bo-hour-picker>
-        <bdc-bo-hour-picker
-          formControlName="hourTo"
-          [period]="'Hasta'"
-          formControlName="hourTo"></bdc-bo-hour-picker>
-      </div>
-    </div>
-  </div>
+  </mat-radio-group>
   <div class="action">
     <button mat-stroked-button color="primary" matStepperPrevious>Volver atrás</button>
     <button
@@ -56,4 +21,4 @@
       Continuar
     </button>
   </div>
-</form>
+</div>

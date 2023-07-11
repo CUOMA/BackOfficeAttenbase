@@ -1,40 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { DashboardCreateQuestionFacade } from '../dashboard-create-question.facade';
+import { DashboardCreateQuestionFacade } from '../../dashboard-create-question.facade';
 
 @Component({
-  selector: 'bdc-bo-date-component',
-  templateUrl: './date.component.html',
-  styleUrls: ['./date.component.scss'],
+  selector: 'bdc-bo-form-date-component',
+  templateUrl: './form-date.component.html',
+  styleUrls: ['./form-date.component.scss'],
 })
-export class DateComponent implements OnInit {
+export class FormDateComponent implements OnInit {
+  @Input() postNow?: boolean;
   protected form!: FormGroup;
-  protected isOpen = false;
+  protected isCheckboxChecked: boolean = false;
   protected dateFrom!: Date | null;
   protected dateTo!: Date | null;
   protected minDateFrom: Date = new Date();
-  protected postOptions = [
-    {
-      id: 1,
-      label: 'Programar publicacion',
-      postNow: false,
-      isOpen: false,
-    },
-    {
-      id: 2,
-      label: 'Publicar ahora',
-      postNow: true,
-      isOpen: false,
-    },
-    {
-      id: 3,
-      label: 'Guardar como borrador',
-      postNow: false,
-      isOpen: false,
-    },
-  ];
 
   constructor(
     private fb: FormBuilder,
@@ -42,20 +23,21 @@ export class DateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('');
-  }
-  openMenu(opcion: any) {
-    this.postOptions.forEach(item => {
-      item.isOpen = item.id === opcion.id;
-    });
+    console.log(this.postNow);
+    this.initForm();
+    this.loadSavedData();
   }
 
+  protected onCheckboxChange(event: any) {
+    this.isCheckboxChecked = event.checked;
+  }
   protected initForm() {
     this.form = this.fb.group({
-      dateFrom: [null, Validators.required],
-      dateTo: [null, Validators.required],
-      hourFrom: [null, Validators.required],
-      hourTo: [null, Validators.required],
+      dateFrom: [null],
+      dateTo: [null],
+      hourFrom: [null],
+      hourTo: [null],
+      caducity: false,
     });
   }
 

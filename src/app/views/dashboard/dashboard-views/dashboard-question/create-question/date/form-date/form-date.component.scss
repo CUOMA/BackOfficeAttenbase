@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  .dateFrom {
+    width: 50%;
+  }
+  .dateTo {
+    width: 50%;
+  }
+  h5 {
+    margin-bottom: 0;
+  }
+  mat-hint {
+    font-size: 12px;
+    color: #73777f;
+  }
+  p {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  mat-form-field {
+    width: 168px;
+    padding-right: 20px;
+  }
+  bdc-bo-hour-picker {
+    width: 168px;
+  }
+  mat-checkbox {
+    margin: 10px 0;
+    font-size: 14px;
+  }
+}
+.overlay {
+  opacity: 0.5;
+  pointer-events: none ;
+}
