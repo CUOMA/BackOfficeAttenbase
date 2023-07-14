@@ -10,5 +10,7 @@ export const synonymsApiActions = createActionGroup({
     'Delete synonymous Request': props<{ id: number }>(),
     'Delete synonyms Success': props<any>(),
     'Delete synonyms Failure': props<any>(),
+
+    'Change Order': props<any>(),
   },
 });

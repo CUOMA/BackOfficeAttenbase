@@ -11,5 +11,5 @@ export const selectSynonyms = createSelector(selectFeature, state => state.synon
 
 export const selectSynonym = (id: number) =>
   createSelector(selectFeature, state => {
-    return state.synonyms.data.data.find((category: any) => category.id === +id);
+    return state.synonyms?.data.data.find((category: any) => category.id === +id);
   });

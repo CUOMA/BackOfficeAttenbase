@@ -40,6 +40,8 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
     title: 'Crea una nueva categoria',
     paragraph: 'Las categorías ayudarán a organizar el contenido en tu plataforma.',
   };
+  @Output() order = new EventEmitter<any>();
+  protected typeOrder: 'ASC' | 'DESC' = 'ASC';
   protected showFirstLastButtons: boolean = true;
   protected disabled = false;
   protected pageIndex = 0;
@@ -95,6 +97,13 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
     });
   }
 
+  protected handleOrder() {
+    console.log(this.typeOrder);
+    this.typeOrder = this.typeOrder === 'ASC' ? 'DESC' : 'ASC';
+    this.order.emit(this.typeOrder);
+    console.log(this.typeOrder);
+    this.paginator.firstPage();
+  }
   protected detailCategory(id: number): any {
     this.router.navigate(['/dashboard/categorias/detalle'], { queryParams: { id } });
   }

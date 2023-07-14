@@ -25,4 +25,7 @@ export class QuestionsService {
   public searchQuestion(payload: any) {
     return this.httpClient.post(`${environment.apiUrl}questions/search`, { name: payload });
   }
+  public postQuestions(payload: any) {
+    return this.httpClient.post(`${environment.apiUrl}questions`, { name: payload });
+  }
 }

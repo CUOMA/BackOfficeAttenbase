@@ -22,6 +22,7 @@ import { DialogCreateCategoryComponent } from './metadata-question/dialog-create
 import { SelectIconCategoryModule } from './metadata-question/dialog-create-category/select-icon-category/select-icon-category.module';
 import { MetadataQuestionComponent } from './metadata-question/metadata-question.component';
 import { FormDateComponent } from './date/form-date/form-date.component';
+import { dataFormFeatureKey, dataFormReducer } from 'src/app/store/reducers/data-form.reducers';
 
 @NgModule({
   providers: [],
@@ -38,6 +39,7 @@ import { FormDateComponent } from './date/form-date/form-date.component';
     BackArrowButtonModule,
     CommonModule,
     SharedModule,
+    StoreModule.forFeature(dataFormFeatureKey, dataFormReducer),
     StoreModule.forFeature(listCategoriesFeatureKey, listCategoriesReducer),
     EffectsModule.forFeature([CategoriesEffects]),
     DashboardCreateQuestionRoutingModule,

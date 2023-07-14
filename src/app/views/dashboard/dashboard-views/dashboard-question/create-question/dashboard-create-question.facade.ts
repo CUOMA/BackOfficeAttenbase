@@ -18,7 +18,6 @@ export class DashboardCreateQuestionFacade {
   constructor(private store: Store) {}
 
   public get createQuestionTitle(): Observable<string> {
-    console.log();
     return this.createQuestionTitle$.asObservable();
   }
 

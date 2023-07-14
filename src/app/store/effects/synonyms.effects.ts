@@ -9,19 +9,26 @@ import { synonymsApiActions } from '../actions/synonyms.action';
 @Injectable({ providedIn: 'root' })
 export class SynonymsEffects {
   constructor(private actions$: Actions, private synonymsService: SynonymsService) {}
+
   synonyms$ = createEffect((): any => {
     return this.actions$.pipe(
-      ofType(synonymsApiActions.getSynonymsRequest.type, synonymsApiActions.deleteSynonymsSuccess),
-      mergeMap((action: Action & { page: number }) =>
-        this.synonymsService.getSynonyms(action.page).pipe(
+      ofType(
+        synonymsApiActions.getSynonymsRequest.type,
+        synonymsApiActions.changeOrder,
+        synonymsApiActions.deleteSynonymsSuccess
+      ),
+      mergeMap((action: Action & { page: number }) => {
+        console.log(action);
+        return this.synonymsService.getSynonyms(action.page, 'ASC').pipe(
           map(synonyms => synonymsApiActions.getSynonymsSuccess(synonyms)),
           catchError(() =>
             of(synonymsApiActions.getSynonymsFailure({ error: 'Error on Sinonimos' }))
           )
-        )
-      )
+        );
+      })
     );
   });
+
   deleteSynonyms$ = createEffect((): any => {
     return this.actions$.pipe(
       ofType(synonymsApiActions.deleteSynonymousRequest.type),

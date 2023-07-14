@@ -8,6 +8,9 @@ import { takeUntil } from 'rxjs/operators';
 import { QuestionsFacade } from '../../dashboard-question.facade';
 import { DashboardCreateQuestionFacade } from '../dashboard-create-question.facade';
 import { DialogCreateCategoryComponent } from './dialog-create-category/dialog-create-category.component';
+import { Store } from '@ngrx/store';
+import { DataFormState } from 'src/app/store/reducers/data-form.reducers';
+import { dataFormApiActions } from 'src/app/store/actions/data-form.actions';
 
 @Component({
   selector: 'bdc-bo-metadata-question-component',
@@ -30,7 +33,8 @@ export class MetadataQuestionComponent implements OnInit {
     private fb: FormBuilder,
     private createQuestionFacade: DashboardCreateQuestionFacade,
     private questionsFacade: QuestionsFacade,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private store: Store
   ) {}
 
   public ngOnInit(): void {
@@ -91,6 +95,15 @@ export class MetadataQuestionComponent implements OnInit {
 
   protected sendForm() {
     this.createQuestionFacade.formMetadaQuestion(this.form.value);
+
+    const name = this.form.get('question')?.value;
+    console.warn(name);
+    // question: ['', [Validators.required]],
+    // alias: [[], [Validators.required]],
+    // category: ['General', [Validators.required]],
+    // subcategory: [{ value: '', disabled: true }],
+    // associatedQuestions: [[''], [Validators.required]],
+    this.store.dispatch(dataFormApiActions.dataformrequest({ question: name }));
   }
 
   protected handleSearch(query: any): void {

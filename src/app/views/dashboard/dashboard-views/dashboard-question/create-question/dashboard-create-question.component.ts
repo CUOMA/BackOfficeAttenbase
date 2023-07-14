@@ -10,14 +10,9 @@ import { DashboardCreateQuestionFacade } from './dashboard-create-question.facad
 export class DashboardCreateQuestionComponent implements OnInit {
   // private createQuestionFacade = inject(DashboardCreateQuestionFacade);
   title$!: Observable<string>;
-  private titleSubject = new BehaviorSubject<string>('Crear pregunta');
+  // private titleSubject = new BehaviorSubject<string>('Crear pregunta');
 
   ngOnInit(): void {
-    const storedData = localStorage.getItem('datosFormulario');
-    if (storedData) {
-      const data = JSON.parse(storedData);
-      this.titleSubject.next(data.question);
-    }
-    this.title$ = this.titleSubject.asObservable();
+    console.log('hola');
   }
 }

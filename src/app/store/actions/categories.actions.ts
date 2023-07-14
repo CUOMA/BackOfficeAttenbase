@@ -3,7 +3,7 @@ import { createActionGroup, props } from '@ngrx/store';
 export const categoriesApiActions = createActionGroup({
   source: 'Categories API',
   events: {
-    'Get Categories Request': props<{ page: number }>(),
+    'Get Categories Request': props<{ page: number; order: string }>(),
     'Get Categories Success': props<any>(),
     'Get Categories Failure': props<any>(),
 

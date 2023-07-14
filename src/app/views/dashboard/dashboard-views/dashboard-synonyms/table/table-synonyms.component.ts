@@ -31,6 +31,8 @@ import { SynonymousFacade } from '../dashboard-synonymous.facade';
 export class TableSynonymsComponent implements OnChanges, OnInit, AfterViewInit {
   @Input() synonyms!: any;
   @Output() pageChanged = new EventEmitter<PageEvent>();
+  @Output() order = new EventEmitter<any>();
+  protected typeOrder: 'ASC' | 'DESC' = 'ASC';
   protected emptyStateData: emptyStateModel = {
     src: '/assets/svg/empty-state/empty-state-synonym.svg',
     title: 'Agregá un nuevo sinónimo',
@@ -99,9 +101,17 @@ export class TableSynonymsComponent implements OnChanges, OnInit, AfterViewInit 
   protected editSynonyms(id: number): any {
     this.router.navigate(['/dashboard/sinonimos/editar-sinonimo'], { queryParams: { id } });
   }
+
   protected handlePageChanged(pageEvent: PageEvent): void {
     this.pageChanged.emit(pageEvent);
   }
+
+  protected handleOrder() {
+    this.typeOrder = this.typeOrder === 'ASC' ? 'DESC' : 'ASC';
+    this.order.emit(this.typeOrder);
+    this.paginator.firstPage();
+  }
+
   private alertSynonymsDeleted(element: string) {
     this.alertService.openFromComponent({
       duration: 5000,

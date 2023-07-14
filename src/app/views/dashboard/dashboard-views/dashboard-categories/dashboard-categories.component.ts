@@ -27,10 +27,11 @@ export class DashboardCategoriesComponent implements OnInit {
       takeUntil(this.destroy$)
     );
     this.areCategoriesLoading$.subscribe();
-    this.categoriesFacade.dispatchGetCategories(1);
+    this.categoriesFacade.dispatchGetCategories(1, 'ASC');
   }
+
   protected handlePageChanged(pageEvent: any): void {
-    this.categoriesFacade.dispatchGetCategories(pageEvent.pageIndex + 1);
+    this.categoriesFacade.dispatchGetCategories(pageEvent.pageIndex + 1, 'ASC');
   }
 
   protected handleSearch(query: string) {

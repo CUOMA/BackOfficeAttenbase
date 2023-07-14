@@ -22,15 +22,23 @@ export class SynonymousFacade {
   public get areSynonymsLoading(): Observable<boolean> {
     return this.store.select(selectAreSynonymsLoading);
   }
+
   public dispatchGetSynonyms(page: number): void {
     this.store.dispatch(synonymsApiActions.getSynonymsRequest({ page: page }));
   }
+
+  public dispatchChangeSynonymsTableOrder(order: string): void {
+    this.store.dispatch(synonymsApiActions.changeOrder(order));
+  }
+
   public selectSynonyms(): Observable<any> {
     return this.store.select(selectSynonyms);
   }
+
   public detailSynonym(id: number): Observable<any> {
     return this.store.select(selectSynonym(id));
   }
+
   public dispatchDeleteSynonymous(id: number): any {
     return this.store.dispatch(synonymsApiActions.deleteSynonymousRequest({ id }));
   }

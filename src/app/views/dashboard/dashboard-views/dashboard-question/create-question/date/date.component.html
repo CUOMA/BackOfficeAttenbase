@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <h5>Elegir método de publicación</h5>
+  <h5>Seleccionar fecha y hora de publicación</h5>
   <mat-radio-group aria-label="Select an option">
     <div class="container-select" *ngFor="let opcion of postOptions">
       <mat-radio-button (click)="openMenu(opcion)" [value]="opcion.id">
@@ -10,6 +10,7 @@
       </div>
     </div>
   </mat-radio-group>
+
   <div class="action">
     <button mat-stroked-button color="primary" matStepperPrevious>Volver atrás</button>
     <button

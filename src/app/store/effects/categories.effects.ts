@@ -15,8 +15,8 @@ export class CategoriesEffects {
         categoriesApiActions.getCategoriesRequest.type,
         categoriesApiActions.deleteCategoriesSuccess
       ),
-      mergeMap((action: Action & { page: number }) =>
-        this.categoriesService.getCategories(action.page).pipe(
+      mergeMap((action: Action & { page: number; order: string }) =>
+        this.categoriesService.getCategories(action.page, action.order).pipe(
           map((categories: any) => {
             return categoriesApiActions.getCategoriesSuccess(categories);
           }),

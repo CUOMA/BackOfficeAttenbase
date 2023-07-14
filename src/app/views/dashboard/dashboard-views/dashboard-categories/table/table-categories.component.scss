@@ -4,6 +4,14 @@
     th {
       font-size: 14px;
       font-weight: 600;
+      .align-items{
+        display: flex;
+        align-items: center;
+        img{
+          margin-left: 5px;
+          cursor: pointer;
+        }
+      }
     }
     td {
       color: #999999;

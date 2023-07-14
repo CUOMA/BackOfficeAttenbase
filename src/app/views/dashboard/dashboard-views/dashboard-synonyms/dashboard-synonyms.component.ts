@@ -28,7 +28,12 @@ export class DashboardSynonymsComponent implements OnInit {
   ngOnInit(): void {
     this.synonymsFacade.dispatchGetSynonyms(1);
   }
+
   protected handlePageChanged(pageEvent: any): void {
     this.synonymsFacade.dispatchGetSynonyms(pageEvent.pageIndex + 1);
+  }
+
+  protected orderSynonyms(order: string): void {
+    this.synonymsFacade.dispatchChangeSynonymsTableOrder(order);
   }
 }

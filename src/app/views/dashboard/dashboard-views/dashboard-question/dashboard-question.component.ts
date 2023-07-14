@@ -11,11 +11,12 @@ import { TableQuestionComponent } from './table/table-question.component';
 })
 export class DashboardQuestionComponent implements OnInit {
   protected tabs = [
+    { label: 'Todas', value: '' },
     { label: 'Publicadas', value: 'published' },
     { label: 'Archivadas', value: 'archived' },
     { label: 'Borradores', value: 'draft' },
   ];
-  protected selectedTab = this.tabs[0];
+  protected selectedTab = this.tabs[1];
   protected questions$ = this.questionsFacade.selectQuestions();
   protected areQuestionsLoading$!: Observable<boolean>;
   protected areStatusesLoading$!: Observable<boolean>;

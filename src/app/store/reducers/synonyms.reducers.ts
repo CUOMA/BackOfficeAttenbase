@@ -4,11 +4,13 @@ import { synonymsApiActions } from '../actions/synonyms.action';
 export interface SynonymsState {
   areSynonymsLoading: boolean;
   synonyms: any[];
+  order: 'ASC' | 'DESC';
 }
 
 export const initialState: SynonymsState = {
   areSynonymsLoading: false,
   synonyms: [],
+  order: 'ASC',
 };
 
 export const synonymsReducer = createReducer(
@@ -54,6 +56,13 @@ export const synonymsReducer = createReducer(
     (state): SynonymsState => ({
       ...state,
       areSynonymsLoading: false,
+    })
+  ),
+  on(
+    synonymsApiActions.changeOrder,
+    (state, order): SynonymsState => ({
+      ...state,
+      order,
     })
   )
 );

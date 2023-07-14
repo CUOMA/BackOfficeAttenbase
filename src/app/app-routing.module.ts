@@ -12,7 +12,7 @@ const routes: Routes = [
     canActivate: [LoginGuard],
   },
   {
-    path: 'reset-password',
+    path: 'olvide-mi-contraseña',
     loadChildren: () =>
       import('./views/login/password-reset/password-reset.module').then(m => m.PasswordResetModule),
   },
