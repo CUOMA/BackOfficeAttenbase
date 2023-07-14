@@ -1,0 +1,43 @@
+<form class="container" [formGroup]="form">
+  <div class="dateFrom">
+    <p>Fecha y hora de publicación</p>
+    <div [ngClass]="{ overlay: postNow }">
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha</mat-label>
+        <input
+          matInput
+          [min]="minDateFrom"
+          [matDatepicker]="pickerFrom"
+          formControlName="dateFrom"
+          (dateChange)="onDateFromChange($event)" />
+        <mat-hint>DD/MM/AAAA</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFrom></mat-datepicker>
+      </mat-form-field>
+      <bdc-bo-hour-picker formControlName="hourFrom"></bdc-bo-hour-picker>
+    </div>
+  </div>
+  <div class="dateTo">
+    <p>Fecha y hora de vencimiento</p>
+    <div [ngClass]="{ overlay: isCheckboxChecked }">
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha</mat-label>
+        <input
+          matInput
+          [min]="dateFrom"
+          [matDatepicker]="pickerTo"
+          formControlName="dateTo"
+          [disabled]="isCheckboxChecked"
+          (dateChange)="onDateToChange($event)" />
+        <mat-hint>DD/MM/AAAA</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="pickerTo"></mat-datepicker-toggle>
+        <mat-datepicker #pickerTo></mat-datepicker>
+      </mat-form-field>
+      <bdc-bo-hour-picker formControlName="hourTo"></bdc-bo-hour-picker>
+    </div>
+
+    <mat-checkbox (change)="onCheckboxChange($event)" formControlName="caducity">
+      Sin vencimiento</mat-checkbox
+    >
+  </div>
+</form>

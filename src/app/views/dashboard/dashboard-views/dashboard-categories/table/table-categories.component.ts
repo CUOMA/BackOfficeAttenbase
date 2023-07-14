@@ -23,6 +23,8 @@ import { categoriesApiActions } from '../../../../../store/actions/categories.ac
 import { CategoriesFacade } from '../dashboard-categories.facade';
 import { EventEmitter } from '@angular/core';
 import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogConfirmDeletionComponent } from './dialog-confirm-deletion/dialog-confirm-deletion.component';
 
 @Component({
   selector: 'bdc-bo-tabla-categories',
@@ -32,7 +34,6 @@ import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.componen
 export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewInit {
   @Input() categories!: any;
   protected displayedColumns: string[] = ['position', 'name', 'seeMore'];
-  // paginador
   @Output() pageChanged = new EventEmitter<PageEvent>();
   protected emptyStateData: emptyStateModel = {
     src: '/assets/svg/empty-state/empty-state-categories.svg',
@@ -43,7 +44,6 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
   protected disabled = false;
   protected pageIndex = 0;
   protected pageSize = 10;
-  // paginador
   protected areCategoriesLoading$!: Observable<any>;
   protected color: ThemePalette = 'primary';
   protected mode: MatProgressSpinnerModule = 'indeterminate';
@@ -56,7 +56,8 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
     private cdr: ChangeDetectorRef,
     public store: Store,
     public router: Router,
-    public alertService: AlertService
+    public alertService: AlertService,
+    public dialog: MatDialog
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -77,9 +78,21 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
     );
   }
 
+  openDialog(id: number) {
+    this.dialog.open(DialogConfirmDeletionComponent, {
+      data: id,
+    });
+  }
   protected deleteCategory(id: number, element: string) {
-    this.store.dispatch(categoriesApiActions.deleteCategoriesRequest({ id }));
-    this.alertCategoryDeleted(element);
+    this.categoriesFacade.dispatchDeleteCategory(id).subscribe({
+      complete: () => {
+        this.router.navigateByUrl('dashboard/categorias');
+        this.alertCategoryDeleted(element);
+      },
+      error: (error: any) => {
+        this.openDialog(id);
+      },
+    });
   }
 
   protected detailCategory(id: number): any {

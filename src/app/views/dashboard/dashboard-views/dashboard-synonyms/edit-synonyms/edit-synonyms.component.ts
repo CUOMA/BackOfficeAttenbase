@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SynonymsFacade } from '../dashboard-synonyms.facade';
+import { SynonymousFacade } from '../dashboard-synonymous.facade';
+import { tap } from 'rxjs/internal/operators/tap';
 
 export interface Synonym {
   name: string;
@@ -21,62 +22,67 @@ export class EditSynonymsComponent implements OnInit {
   protected id!: number;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   protected synonymId$!: Observable<any>;
-  synonyms: Synonym[] = [
-  ];
+  protected synonyms: Synonym[] = [];
+  form: FormGroup = this.fb.group({
+    synonymName: ['', Validators.required],
+    synonymList: this.fb.array([], Validators.required),
+  });
+
   constructor(
     private fb: FormBuilder,
     public store: Store,
     public router: Router,
     public route: ActivatedRoute,
-    public synonymsFacade: SynonymsFacade
+    public synonymsFacade: SynonymousFacade
   ) {}
+
   public ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.id = params['id'];
     });
-    this.synonymId$ = this.synonymsFacade.detailSynonym(this.id);
+    this.synonymId$ = this.synonymsFacade.detailSynonym(this.id).pipe(
+      tap(synonym => {
+        this.form.patchValue({
+          synonymName: synonym.word,
+          synonymList: synonym.synonyms,
+        });
+        tap(this.form.value.synonymList);
+      })
+    );
+    this.synonymId$.subscribe(console.log);
   }
-  protected form = this.fb.nonNullable.group({
-    synonymName: new FormControl('', Validators.required),
-    synonymList: new FormControl('', Validators.required),
-  });
 
-  protected add(event: MatChipInputEvent): void {
+  add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-
-    // Add our synonym
     if (value) {
-      this.synonyms.push({ name: value });
+      const synonymList = this.form.get('synonymList') as FormArray;
+      synonymList.push(new FormControl(value));
     }
-
-    // Clear the input value
     event.chipInput!.clear();
   }
 
-  protected remove(synonym: Synonym): void {
-    const index = this.synonyms.indexOf(synonym);
+  remove(synonym: string): void {
+    const synonymList = this.form.get('synonymList') as FormArray;
+    const index = synonymList.value.indexOf(synonym);
 
     if (index >= 0) {
-      this.synonyms.splice(index, 1);
+      synonymList.removeAt(index);
     }
   }
 
-  protected edit(synonym: Synonym, event: MatChipEditedEvent) {
+  edit(synonym: string, event: MatChipEditedEvent): void {
     const value = event.value.trim();
-
-    // Remove fruit if it no longer has a name
     if (!value) {
       this.remove(synonym);
       return;
     }
-
-    // Edit existing fruit
-    const index = this.synonyms.indexOf(synonym);
+    const synonymList = this.form.get('synonymList') as FormArray;
+    const index = synonymList.value.indexOf(synonym);
     if (index >= 0) {
-      this.synonyms[index].name = value;
+      synonymList.at(index).setValue(value);
     }
   }
-  protected sendSynonymEdition() {
+  sendSynonymEdition() {
     alert(`{
       origen: ${this.form.value.synonymName},
       sinonimos: ${this.form.value.synonymList},

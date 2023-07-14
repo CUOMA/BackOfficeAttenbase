@@ -61,6 +61,7 @@ export class QuestionsFacade {
       )
     );
   }
+
   public selectPaginator(): Observable<Datum[]> {
     return this.store.select(selectPaginator);
   }

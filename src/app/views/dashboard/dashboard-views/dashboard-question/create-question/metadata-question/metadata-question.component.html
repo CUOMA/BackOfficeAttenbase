@@ -36,7 +36,8 @@
           [matChipInputAddOnBlur]="addOnBlur"
           (matChipInputTokenEnd)="add($event)" />
       </mat-chip-grid>
-      <mat-error *ngIf="form.controls['alias'].errors?.['required']">
+      <mat-error
+        *ngIf="form.controls['alias'].errors?.['required'] && form.controls['alias'].dirty">
         Ingresá al menos un alias
       </mat-error>
     </mat-form-field>
@@ -44,7 +45,7 @@
       <mat-form-field appearance="outline" hideRequiredMarker="true">
         <mat-label>Categoría</mat-label>
         <mat-hint> Categoría a la cual pertenecerá la pregunta creada.</mat-hint>
-        <mat-select formControlName="category" name="category" [(ngModel)]="selectedOption">
+        <mat-select formControlName="category" name="category">
           <ng-container *ngIf="listCategories$ | async as listCategories">
             <mat-option
               *ngFor="let category of listCategories"
@@ -64,7 +65,7 @@
         <mat-hint>Grupo dentro de la categoría elegida.</mat-hint>
         <mat-select formControlName="subcategory" name="subcategory">
           <ng-container *ngIf="listSubcategories$ | async as listSubcategories">
-            <ng-container *ngIf="listSubcategories.length > 0; else noSubcategories">
+            <ng-container *ngIf="listSubcategories.length; else noSubcategories">
               <ng-container *ngFor="let subcategory of listSubcategories">
                 <mat-option [value]="subcategory.name">{{ subcategory.name }}</mat-option>
               </ng-container>
@@ -76,24 +77,9 @@
         </mat-select>
       </mat-form-field>
     </div>
-
-    <!-- <mat-form-field appearance="outline">
-      <mat-label>Preguntas Relacionadas</mat-label>
-      <mat-hint> Otras preguntas vinculadas la pregunta creada.</mat-hint>
-      <input
-        type="text"
-        placeholder="Pick one"
-        aria-label="Number"
-        matInput
-        [formControl]="myControl"
-        [matAutocomplete]="auto" />
-      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-          {{ option }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field> -->
   </form>
+  <bdc-bo-multiselect
+    (selectedQuestionsChange)="handleSelectedQuestionsChange($event)"></bdc-bo-multiselect>
   <div class="action">
     <button
       mat-flat-button

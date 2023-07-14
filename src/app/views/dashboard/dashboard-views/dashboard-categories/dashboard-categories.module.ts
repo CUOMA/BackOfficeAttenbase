@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { CategoriesEffects } from '../../../../store/effects/categories.effects';
 import { DashboardCategoriesRoutingModule } from './dashboard-categories-routing.module';
 import { DashboardCategoriesComponent } from './dashboard-categories.component';
@@ -14,12 +13,12 @@ import {
   categoriesFeatureKey,
   categoriesReducer,
 } from '../../../../store/reducers/categories.reducers';
+import { SelectIconCategoryModule } from '../dashboard-question/create-question/metadata-question/dialog-create-category/select-icon-category/select-icon-category.module';
 import { DashboardDetailCategoriesComponent } from './detail-category/dashboard-detail-categories.component';
 import { DialogSelectIconComponent } from './dialog-select-icon/dialog-select-icon.component.component';
 import { DashboardNewCategoryComponent } from './new-category/dashboard-new-category.component';
 import { TableCategoriesComponent } from './table/table-categories.component';
-import { SelectIconCategoryModule } from '../dashboard-question/create-question/metadata-question/dialog-create-category/select-icon-category/select-icon-category.module';
-import { SearcherModule } from '../../searcher/searcher.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   providers: [CategoriesFacade],
@@ -36,7 +35,6 @@ import { SearcherModule } from '../../searcher/searcher.module';
     ReactiveFormsModule,
     DashboardCategoriesRoutingModule,
     SharedModule,
-    SearcherModule,
     StoreModule.forFeature(categoriesFeatureKey, categoriesReducer),
     EffectsModule.forFeature([CategoriesEffects]),
     SelectIconCategoryModule,

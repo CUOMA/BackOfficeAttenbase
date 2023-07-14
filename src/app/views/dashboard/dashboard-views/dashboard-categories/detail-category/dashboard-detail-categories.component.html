@@ -13,7 +13,12 @@
       </div>
     </div>
 
-    <h4>Subcategorías</h4>
+    <div class="subcategory-header">
+      <h4>Subcategorías</h4>
+      <button mat-flat-button color="primary">
+        <mat-icon class="material-symbols-outlined">add</mat-icon>Crear
+      </button>
+    </div>
     <ng-container *ngIf="category.subcategories.length > 0; else noSubcategories">
       <mat-accordion>
         <mat-expansion-panel

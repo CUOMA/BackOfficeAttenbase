@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil, tap } from 'rxjs/operators';
@@ -9,6 +9,8 @@ import { debounceTime, takeUntil, tap } from 'rxjs/operators';
 })
 export class SearcherComponent implements OnInit, OnDestroy {
   @Output() search = new EventEmitter<string>();
+  @Input() label!: string;
+  @Input() placeholder!: string;
   protected readonly searchControl = new FormControl({ value: '', disabled: false });
 
   private destroy$ = new Subject();

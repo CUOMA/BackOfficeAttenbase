@@ -50,6 +50,7 @@ export const categoriesReducer = createReducer(
     categoriesApiActions.deleteCategoriesSuccess,
     (state): CategoriesState => ({
       ...state,
+      areCategoriesLoading: false,
     })
   ),
   on(

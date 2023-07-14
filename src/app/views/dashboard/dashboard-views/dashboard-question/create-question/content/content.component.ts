@@ -1,40 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import '@ckeditor/ckeditor5-build-classic/build/translations/es';
+import { DashboardCreateQuestionFacade } from '../dashboard-create-question.facade';
 
 @Component({
   selector: 'bdc-bo-content-component',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.scss'],
 })
-export class ContentComponent {
+export class ContentComponent implements OnInit {
   public Editor = ClassicEditor;
   public model = {
     answersLong: '',
     answersShort: '',
-    answersChat: '',
   };
+  protected answersIA = '';
   public editorConfig = {
-    toolbar: {
-      items: [
-        'heading',
-        '|',
-        'bold',
-        'italic',
-        'link',
-        '|',
-        'bulletedList',
-        'numberedList',
-        '|',
-        'blockQuote',
-        'uploadImage',
-        '|',
-        'undo',
-        'redo',
-      ],
-    },
     language: 'es',
   };
+  private createQuestionFacade = inject(DashboardCreateQuestionFacade);
   protected createAnswers: CreateAnswers[] = [
     {
       answersType: 'long',
@@ -50,10 +34,26 @@ export class ContentComponent {
     },
   ];
 
-  protected obtenerValores() {
-    for (let createAnswer of this.createAnswers) {
-      const ngModelValue = { type: createAnswer.answersType, data: createAnswer.data };
-      console.log(ngModelValue);
+  public ngOnInit(): void {
+    this.loadSavedData();
+  }
+
+  protected sendValue() {
+    const res = {
+      resLong: this.createAnswers[0].data,
+      resShort: this.createAnswers[1].data,
+      resIA: this.answersIA,
+    };
+    this.createQuestionFacade.formMetadaQuestion(res);
+  }
+
+  protected loadSavedData(): void {
+    const storedData = localStorage.getItem('datosFormulario');
+    if (storedData) {
+      const formData = JSON.parse(storedData);
+      this.createAnswers[0].data = formData.resLong;
+      this.createAnswers[1].data = formData.resShort;
+      this.answersIA = formData.resIA;
     }
   }
 }

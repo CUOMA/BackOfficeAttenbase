@@ -1,0 +1,27 @@
+.wrapper {
+  margin-bottom: 50px;
+  p {
+    font-size: 18px;
+    margin-bottom: 32px;
+  }
+  table {
+    th {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    td {
+      font-size: 12px;
+      color: #999999;
+      mat-icon {
+        color: #344b64;
+      }
+      &.text-blue {
+        color: #0062a1;
+        font-size: 14px;
+      }
+      &.text-center {
+        align-items: center;
+      }
+    }
+  }
+}

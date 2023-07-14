@@ -21,9 +21,10 @@ import { DateComponent } from './date/date.component';
 import { DialogCreateCategoryComponent } from './metadata-question/dialog-create-category/dialog-create-category.component';
 import { SelectIconCategoryModule } from './metadata-question/dialog-create-category/select-icon-category/select-icon-category.module';
 import { MetadataQuestionComponent } from './metadata-question/metadata-question.component';
-import { DashboardCreateQuestionFacade } from './dashboard-create-question.facade';
+import { FormDateComponent } from './date/form-date/form-date.component';
+
 @NgModule({
-  providers: [CategoriesFacade, DashboardCreateQuestionFacade],
+  providers: [],
   declarations: [
     DashboardCreateQuestionComponent,
     MetadataQuestionComponent,
@@ -31,6 +32,7 @@ import { DashboardCreateQuestionFacade } from './dashboard-create-question.facad
     ContentComponent,
     DialogCreateCategoryComponent,
     DialogUnsavedChangeComponent,
+    FormDateComponent,
   ],
   imports: [
     BackArrowButtonModule,

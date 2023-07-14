@@ -1,25 +1,18 @@
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
-import { map, startWith } from 'rxjs/operators';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { QuestionsFacade } from '../../dashboard-question.facade';
 import { DashboardCreateQuestionFacade } from '../dashboard-create-question.facade';
 import { DialogCreateCategoryComponent } from './dialog-create-category/dialog-create-category.component';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'bdc-bo-metadata-question-component',
   templateUrl: './metadata-question.component.html',
   styleUrls: ['./metadata-question.component.scss'],
-  providers: [
-    {
-      provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: { showError: true },
-    },
-  ],
 })
 export class MetadataQuestionComponent implements OnInit {
   protected form!: FormGroup;
@@ -27,48 +20,48 @@ export class MetadataQuestionComponent implements OnInit {
   protected listSubcategories$ = this.createQuestionFacade.selectListSubcategories();
   protected areListSubcategoriesLoading$ = this.createQuestionFacade.areSubcategoriesLoading;
   private destroy$ = new Subject<void>();
-  protected selectedOption = 'General';
-  // myControl = new FormControl('');
-  options: string[] = ['One', 'Two', 'Three'];
   protected filteredOptions!: Observable<string[]>;
   protected addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   protected alias: Alias[] = [];
+  protected selectedQuestions: string[] = [];
 
   constructor(
     private fb: FormBuilder,
     private createQuestionFacade: DashboardCreateQuestionFacade,
+    private questionsFacade: QuestionsFacade,
     public dialog: MatDialog
   ) {}
+
   public ngOnInit(): void {
     this.setUpForm();
     this.createQuestionFacade.dispatchGetListCategories();
-    // this.filteredOptions = this.myControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filter(value || ''))
-    // );
+    this.loadSavedData();
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
-
-  protected setUpForm() {
+  private setUpForm() {
     this.form = this.fb.group({
-      // hour: ['20:00', Validators.required],
       question: ['', [Validators.required]],
       alias: [[], [Validators.required]],
-      category: ['', [Validators.required]],
+      category: ['General', [Validators.required]],
       subcategory: [{ value: '', disabled: true }],
-      // associatedQuestions: [''],
+      associatedQuestions: [[''], [Validators.required]],
     });
+  }
+
+  private loadSavedData(): void {
+    const storedData = localStorage.getItem('datosFormulario');
+    if (storedData) {
+      const formData = JSON.parse(storedData);
+      this.form.patchValue(formData);
+    }
   }
   protected filterSubcategories(id: number) {
     this.form.get('subcategory')?.enable();
     this.createQuestionFacade.areSubcategoriesLoading.pipe(takeUntil(this.destroy$));
     this.createQuestionFacade.dispatchGetListSubcategories(id);
   }
+
   protected add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     if (value) {
@@ -97,15 +90,22 @@ export class MetadataQuestionComponent implements OnInit {
   }
 
   protected sendForm() {
-    const formData = this.form.value;
-    this.createQuestionFacade.formMetadaQuestion(formData);
-    console.log(formData);
+    this.createQuestionFacade.formMetadaQuestion(this.form.value);
+  }
+
+  protected handleSearch(query: any): void {
+    this.questionsFacade.dispatchGetQuestionsSearch(query);
   }
 
   protected newCategory() {
     this.dialog.open(DialogCreateCategoryComponent, {
       width: '680px',
     });
+  }
+
+  protected handleSelectedQuestionsChange(selectedQuestions: string[]) {
+    this.selectedQuestions = selectedQuestions;
+    this.form.get('associatedQuestions')?.setValue(selectedQuestions);
   }
 }
 export interface Alias {

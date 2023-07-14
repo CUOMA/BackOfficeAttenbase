@@ -19,7 +19,6 @@ export class DashboardQuestionComponent implements OnInit {
   protected questions$ = this.questionsFacade.selectQuestions();
   protected areQuestionsLoading$!: Observable<boolean>;
   protected areStatusesLoading$!: Observable<boolean>;
-  protected isOpen = false;
   private destroy$ = new Subject<void>();
   constructor(public questionsFacade: QuestionsFacade) {}
 
@@ -42,9 +41,5 @@ export class DashboardQuestionComponent implements OnInit {
   protected selectTab(tab: { label: string; value: string }) {
     this.selectedTab = tab;
     this.questionsFacade.dispatchGetQuestions(this.selectedTab.value);
-  }
-
-  protected toggleMenu() {
-    this.isOpen = !this.isOpen;
   }
 }

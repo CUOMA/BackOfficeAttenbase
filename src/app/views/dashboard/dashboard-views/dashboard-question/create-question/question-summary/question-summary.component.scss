@@ -2,7 +2,7 @@
   margin-top: 100px;
   h1 {
     color: #002020;
-    margin-bottom: 64px;
+    margin-bottom: 48px;
   }
   .preview-question {
     padding-left: 100px;
@@ -10,7 +10,7 @@
     &__title {
       font-size: 36px;
       color: #002020;
-      margin-bottom: 29px;
+      margin-bottom: 35px;
     }
     &__category {
       display: flex;
@@ -18,17 +18,18 @@
       justify-content: flex-start;
       color: #344b64;
       font-size: 16px;
-      margin-bottom: 33px;
+      margin-bottom: 29px;
     }
     &__date {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
       margin-bottom: 36px;
       color: #73777f;
       font-size: 16px;
-      span {
-        margin: 0 5px;
+      div {
+        margin-bottom: 16px;
+      }
+      strong {
+        color: #000;
+        margin-right: 12px;
       }
     }
     hr {
@@ -49,6 +50,8 @@
         font-weight: 500;
         color: #261900;
         margin-bottom: 16px;
+        background-color: #0062a10d;
+        padding: 8px 20px;
       }
 
       &--related-questions {

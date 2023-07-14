@@ -11,7 +11,10 @@ export class CategoriesEffects {
   constructor(private actions$: Actions, private categoriesService: CategoriesService) {}
   categories$ = createEffect((): any => {
     return this.actions$.pipe(
-      ofType(categoriesApiActions.getCategoriesRequest.type),
+      ofType(
+        categoriesApiActions.getCategoriesRequest.type,
+        categoriesApiActions.deleteCategoriesSuccess
+      ),
       mergeMap((action: Action & { page: number }) =>
         this.categoriesService.getCategories(action.page).pipe(
           map((categories: any) => {

@@ -11,12 +11,25 @@ export class SynonymsEffects {
   constructor(private actions$: Actions, private synonymsService: SynonymsService) {}
   synonyms$ = createEffect((): any => {
     return this.actions$.pipe(
-      ofType(synonymsApiActions.getSynonymsRequest.type),
+      ofType(synonymsApiActions.getSynonymsRequest.type, synonymsApiActions.deleteSynonymsSuccess),
       mergeMap((action: Action & { page: number }) =>
         this.synonymsService.getSynonyms(action.page).pipe(
           map(synonyms => synonymsApiActions.getSynonymsSuccess(synonyms)),
           catchError(() =>
             of(synonymsApiActions.getSynonymsFailure({ error: 'Error on Sinonimos' }))
+          )
+        )
+      )
+    );
+  });
+  deleteSynonyms$ = createEffect((): any => {
+    return this.actions$.pipe(
+      ofType(synonymsApiActions.deleteSynonymousRequest.type),
+      mergeMap((action: Action & { id: number }) =>
+        this.synonymsService.deleteSynonyms(action.id).pipe(
+          map(res => synonymsApiActions.deleteSynonymsSuccess(res)),
+          catchError(() =>
+            of((error: any) => of(synonymsApiActions.deleteSynonymsFailure({ error })))
           )
         )
       )

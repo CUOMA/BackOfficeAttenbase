@@ -32,7 +32,8 @@ export class DashboardCategoriesComponent implements OnInit {
   protected handlePageChanged(pageEvent: any): void {
     this.categoriesFacade.dispatchGetCategories(pageEvent.pageIndex + 1);
   }
-  goBack(): void {
-    this.router.navigate(['back']);
+
+  protected handleSearch(query: string) {
+    this.categoriesFacade.dispatchGetCategoriesSearch(query);
   }
 }

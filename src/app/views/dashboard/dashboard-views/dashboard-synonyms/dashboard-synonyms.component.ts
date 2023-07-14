@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlertService } from '../../../../core/services/alert.service';
-import { SynonymsFacade } from './dashboard-synonyms.facade';
+import { SynonymousFacade } from './dashboard-synonymous.facade';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { selectSynonyms } from '../../../../store/selectors/synonyms.selectors';
@@ -23,7 +23,7 @@ export class DashboardSynonymsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   protected dataSource!: MatTableDataSource<any>;
 
-  constructor(private alertService: AlertService, private synonymsFacade: SynonymsFacade) {}
+  constructor(private synonymsFacade: SynonymousFacade) {}
 
   ngOnInit(): void {
     this.synonymsFacade.dispatchGetSynonyms(1);

@@ -40,6 +40,7 @@ export interface Datum {
   deleted_at: string;
   categories: Category[];
   total: number;
+  name: string;
 }
 
 export interface Link {

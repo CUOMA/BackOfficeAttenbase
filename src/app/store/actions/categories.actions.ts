@@ -18,5 +18,9 @@ export const categoriesApiActions = createActionGroup({
     'Get List Subcategories Request': props<{ id: number }>(),
     'Get List Subcategories Success': props<any>(),
     'Get List Subcategories Failure': props<any>(),
+
+    'Search Request': props<{ query: string }>(),
+    'Search Success': props<any>(),
+    'Search Failure': props<any>(),
   },
 });

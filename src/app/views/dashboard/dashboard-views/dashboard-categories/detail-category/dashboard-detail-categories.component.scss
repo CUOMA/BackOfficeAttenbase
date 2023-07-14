@@ -1,19 +1,35 @@
 .wrapper {
   margin-top: 100px;
+  padding-bottom: 90px;
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 62px;
     &__title {
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      h1 {
+        color: #333;
+      }
     }
     .action {
       display: flex;
       button {
         margin-left: 15px;
       }
+    }
+  }
+  .subcategory-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 30px;
+
+    h4 {
+      color: #333;
+      margin-right: 32px;
     }
   }
   p {

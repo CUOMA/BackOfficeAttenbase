@@ -1,9 +1,10 @@
-<section class="">
-  <bdc-bo-searcher (search)="handleSearch($event)"></bdc-bo-searcher>
-</section>
+<div class="wrapper">
+  <bdc-bo-searcher
+    label="Buscar preguntas"
+    placeholder="¿Cómo consultar mi saldo?"
+    (search)="handleSearch($event)"></bdc-bo-searcher>
 
-<ng-container *ngIf="questions$ | async as questions">
-  <div class="wrapper">
+  <ng-container *ngIf="questions$ | async as questions">
     <div class="question-action">
       <h1>Preguntas</h1>
 
@@ -19,11 +20,15 @@
 
       <div class="action">
         <div class="menu">
-          <button mat-stroked-button color="primary" (click)="toggleMenu()">
+          <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu">
             <mat-icon svgIcon="filter"></mat-icon>
             Filtros
           </button>
-          <bdc-bo-menu-filter *ngIf="isOpen"></bdc-bo-menu-filter>
+          <mat-menu #menu="matMenu" xPosition="before">
+            <ng-template matMenuContent>
+              <bdc-bo-menu-filter (click)="$event.stopPropagation()"></bdc-bo-menu-filter>
+            </ng-template>
+          </mat-menu>
         </div>
         <button
           mat-flat-button
@@ -40,5 +45,5 @@
         (pageChanged)="handlePageChanged($event)"
         [questions]="questions"></bdc-bo-tabla-question>
     </mat-tab-nav-panel>
-  </div>
-</ng-container>
+  </ng-container>
+</div>
