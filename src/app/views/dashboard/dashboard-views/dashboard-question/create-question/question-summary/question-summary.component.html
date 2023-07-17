@@ -11,18 +11,33 @@
         </ng-container>
       </div>
       <div class="preview-question__date">
-        <span class="material-symbols-outlined">today</span>
-        <span>{{ preview.dateFrom | date: 'dd/MM/yy' }}</span>
-        -
-        <span>{{ preview.dateTo | date: 'dd/MM/yy' }}</span>
-      </div>
-      <div class="preview-question__date">
-        <span class="material-symbols-outlined">schedule</span>
-        <span>{{ preview.hourFrom }}</span>
-        -
-        <span>{{ preview.hourTo }}</span>
+        <div>
+          <strong>Publicación</strong>
+          12/12/22
+          <!-- {{ preview.dateFrom | date: 'dd/MM/yy' }} -->
+          - 00:00
+          <!-- {{ preview.hourFrom }} -->
+        </div>
+        <div>
+          <ng-container *ngIf="true; else noDateTo">
+            <strong>Vencimiento</strong>
+            12/12/22
+            <!-- {{ preview.dateTo | date: 'dd/MM/yy' }} -->
+            - 00:00
+            <!-- {{ preview.hourTo }} -->
+          </ng-container>
+          <ng-template #noDateTo class="preview-question__date--no-expiration">
+            Sin vecimiento
+          </ng-template>
+        </div>
       </div>
       <hr />
+      <div class="preview-question__response-data">
+        <h5>Alias</h5>
+        <ng-container *ngFor="let item of preview.alias">
+          <p>{{ item }}</p>
+        </ng-container>
+      </div>
       <div class="preview-question__response-data">
         <h5>Respuesta larga</h5>
         <div [innerHTML]="preview.resLong"></div>
@@ -32,14 +47,8 @@
         <div [innerHTML]="preview.resShort"></div>
       </div>
       <div class="preview-question__response-data">
-        <h5>Respuesta IA</h5>
+        <h5>Respuesta canal AI</h5>
         <p>{{ preview.resIA }}</p>
-      </div>
-      <div class="preview-question__response-data">
-        <h5>Alias</h5>
-        <ng-container *ngFor="let item of preview.alias">
-          <p>{{ item }}</p>
-        </ng-container>
       </div>
       <div class="preview-question__response-data">
         <h5>Preguntas Relacionadas</h5>
