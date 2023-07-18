@@ -16,6 +16,7 @@
         Ingresá una pregunta
       </mat-error>
     </mat-form-field>
+
     <mat-form-field appearance="outline" hideRequiredMarker="true">
       <mat-label>Alias</mat-label>
       <mat-hint>Títulos similares para facilitar la detección de la pregunta.</mat-hint>
@@ -25,11 +26,12 @@
           (removed)="remove(item)"
           [editable]="true"
           (edited)="edit(item, $event)">
-          {{ item.name }}
+          {{ item }}
           <button matChipRemove>
             <mat-icon>cancel</mat-icon>
           </button>
         </mat-chip-row>
+
         <input
           [matChipInputFor]="chipGrid"
           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
@@ -41,6 +43,7 @@
         Ingresá al menos un alias
       </mat-error>
     </mat-form-field>
+
     <div class="input-double">
       <mat-form-field appearance="outline" hideRequiredMarker="true">
         <mat-label>Categoría</mat-label>
@@ -78,14 +81,16 @@
       </mat-form-field>
     </div>
   </form>
+
   <bdc-bo-multiselect
     (selectedQuestionsChange)="handleSelectedQuestionsChange($event)"></bdc-bo-multiselect>
+
   <div class="action">
     <button
       mat-flat-button
       color="primary"
       [disabled]="form.invalid"
-      (click)="sendForm()"
+      (click)="saveMetadata()"
       matStepperNext>
       Continuar
     </button>

@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 import { DashboardCreateQuestionFacade } from './dashboard-create-question.facade';
 
 @Component({
@@ -8,11 +9,10 @@ import { DashboardCreateQuestionFacade } from './dashboard-create-question.facad
   styleUrls: ['./dashboard-create-question.component.scss'],
 })
 export class DashboardCreateQuestionComponent implements OnInit {
-  // private createQuestionFacade = inject(DashboardCreateQuestionFacade);
+  private facade = inject(DashboardCreateQuestionFacade);
   title$!: Observable<string>;
-  // private titleSubject = new BehaviorSubject<string>('Crear pregunta');
 
   ngOnInit(): void {
-    console.log('hola');
+    this.title$ = this.facade.title;
   }
 }

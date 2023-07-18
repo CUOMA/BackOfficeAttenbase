@@ -6,7 +6,9 @@
         <h5>{{ opcion.label }}</h5>
       </mat-radio-button>
       <div class="container-content" [ngClass]="{ open: opcion.isOpen }">
-        <bdc-bo-form-date-component [postNow]="opcion.postNow"></bdc-bo-form-date-component>
+        <bdc-bo-form-date-component
+          (sendDate)="selectedDate($event)"
+          [postNow]="opcion.postNow"></bdc-bo-form-date-component>
       </div>
     </div>
   </mat-radio-group>
@@ -17,7 +19,7 @@
       mat-flat-button
       color="primary"
       matStepperNext
-      (click)="sendValue()"
+      (click)="saveDate()"
       [routerLink]="['/dashboard/listado-de-preguntas/crear-pregunta/vista-previa']">
       Continuar
     </button>

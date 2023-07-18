@@ -1,16 +1,16 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
+import { createQuestionActions } from 'src/app/store/actions/create-question.actions';
+import { selectCreateQuestionMetadata } from 'src/app/store/selectors/create-question.selectors';
 import { QuestionsFacade } from '../../dashboard-question.facade';
 import { DashboardCreateQuestionFacade } from '../dashboard-create-question.facade';
 import { DialogCreateCategoryComponent } from './dialog-create-category/dialog-create-category.component';
-import { Store } from '@ngrx/store';
-import { DataFormState } from 'src/app/store/reducers/data-form.reducers';
-import { dataFormApiActions } from 'src/app/store/actions/data-form.actions';
 
 @Component({
   selector: 'bdc-bo-metadata-question-component',
@@ -18,7 +18,13 @@ import { dataFormApiActions } from 'src/app/store/actions/data-form.actions';
   styleUrls: ['./metadata-question.component.scss'],
 })
 export class MetadataQuestionComponent implements OnInit {
-  protected form!: FormGroup;
+  protected form = this.fb.nonNullable.group({
+    question: ['', [Validators.required]],
+    alias: [[], [Validators.required]],
+    category: ['General', [Validators.required]],
+    subcategory: [{ value: '', disabled: true }],
+    associatedQuestions: [[''], [Validators.required]],
+  });
   protected listCategories$ = this.createQuestionFacade.selectListCategories();
   protected listSubcategories$ = this.createQuestionFacade.selectListSubcategories();
   protected areListSubcategoriesLoading$ = this.createQuestionFacade.areSubcategoriesLoading;
@@ -26,7 +32,7 @@ export class MetadataQuestionComponent implements OnInit {
   protected filteredOptions!: Observable<string[]>;
   protected addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  protected alias: Alias[] = [];
+  protected alias: string[] = [];
   protected selectedQuestions: string[] = [];
 
   constructor(
@@ -38,28 +44,22 @@ export class MetadataQuestionComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.setUpForm();
     this.createQuestionFacade.dispatchGetListCategories();
-    this.loadSavedData();
+    this.loadFormData();
   }
 
-  private setUpForm() {
-    this.form = this.fb.group({
-      question: ['', [Validators.required]],
-      alias: [[], [Validators.required]],
-      category: ['General', [Validators.required]],
-      subcategory: [{ value: '', disabled: true }],
-      associatedQuestions: [[''], [Validators.required]],
+  private loadFormData(): void {
+    const storedForm$ = this.store.select(selectCreateQuestionMetadata);
+    storedForm$.subscribe({
+      next: res => {
+        if (res) {
+          this.alias = [...res.alias];
+          this.form.patchValue(res);
+        }
+      },
     });
   }
 
-  private loadSavedData(): void {
-    const storedData = localStorage.getItem('datosFormulario');
-    if (storedData) {
-      const formData = JSON.parse(storedData);
-      this.form.patchValue(formData);
-    }
-  }
   protected filterSubcategories(id: number) {
     this.form.get('subcategory')?.enable();
     this.createQuestionFacade.areSubcategoriesLoading.pipe(takeUntil(this.destroy$));
@@ -69,19 +69,19 @@ export class MetadataQuestionComponent implements OnInit {
   protected add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     if (value) {
-      this.alias.push({ name: value });
+      this.alias.push(value);
     }
     event.chipInput!.clear();
   }
 
-  protected remove(alias: Alias): void {
+  protected remove(alias: string): void {
     const index = this.alias.indexOf(alias);
     if (index >= 0) {
       this.alias.splice(index, 1);
     }
   }
 
-  protected edit(alias: Alias, event: MatChipEditedEvent) {
+  protected edit(alias: string, event: MatChipEditedEvent) {
     const value = event.value.trim();
     if (!value) {
       this.remove(alias);
@@ -89,21 +89,12 @@ export class MetadataQuestionComponent implements OnInit {
     }
     const index = this.alias.indexOf(alias);
     if (index >= 0) {
-      this.alias[index].name = value;
+      this.alias[index] = value;
     }
   }
 
-  protected sendForm() {
-    this.createQuestionFacade.formMetadaQuestion(this.form.value);
-
-    const name = this.form.get('question')?.value;
-    console.warn(name);
-    // question: ['', [Validators.required]],
-    // alias: [[], [Validators.required]],
-    // category: ['General', [Validators.required]],
-    // subcategory: [{ value: '', disabled: true }],
-    // associatedQuestions: [[''], [Validators.required]],
-    this.store.dispatch(dataFormApiActions.dataformrequest({ question: name }));
+  protected saveMetadata() {
+    this.store.dispatch(createQuestionActions.createMetadata(this.form.value));
   }
 
   protected handleSearch(query: any): void {
@@ -120,7 +111,4 @@ export class MetadataQuestionComponent implements OnInit {
     this.selectedQuestions = selectedQuestions;
     this.form.get('associatedQuestions')?.setValue(selectedQuestions);
   }
-}
-export interface Alias {
-  name: string;
 }

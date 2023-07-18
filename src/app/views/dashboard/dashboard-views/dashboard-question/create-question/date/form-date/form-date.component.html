@@ -17,6 +17,7 @@
       <bdc-bo-hour-picker formControlName="hourFrom"></bdc-bo-hour-picker>
     </div>
   </div>
+
   <div class="dateTo">
     <p>Fecha y hora de vencimiento</p>
     <div [ngClass]="{ overlay: isCheckboxChecked }">
@@ -27,7 +28,6 @@
           [min]="dateFrom"
           [matDatepicker]="pickerTo"
           formControlName="dateTo"
-          [disabled]="isCheckboxChecked"
           (dateChange)="onDateToChange($event)" />
         <mat-hint>DD/MM/AAAA</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="pickerTo"></mat-datepicker-toggle>

@@ -1,7 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import '@ckeditor/ckeditor5-build-classic/build/translations/es';
-import { DashboardCreateQuestionFacade } from '../dashboard-create-question.facade';
+import { Store } from '@ngrx/store';
+import { createQuestionActions } from 'src/app/store/actions/create-question.actions';
+import { selectCreateQuestionContent } from 'src/app/store/selectors/create-question.selectors';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'bdc-bo-content-component',
@@ -9,7 +12,8 @@ import { DashboardCreateQuestionFacade } from '../dashboard-create-question.faca
   styleUrls: ['./content.component.scss'],
 })
 export class ContentComponent implements OnInit {
-  public Editor = ClassicEditor;
+  protected Editor = ClassicEditor;
+  private store = inject(Store);
   public model = {
     answersLong: '',
     answersShort: '',
@@ -18,7 +22,7 @@ export class ContentComponent implements OnInit {
   public editorConfig = {
     language: 'es',
   };
-  private createQuestionFacade = inject(DashboardCreateQuestionFacade);
+
   protected createAnswers: CreateAnswers[] = [
     {
       answersType: 'long',
@@ -44,17 +48,22 @@ export class ContentComponent implements OnInit {
       resShort: this.createAnswers[1].data,
       resIA: this.answersIA,
     };
-    this.createQuestionFacade.formMetadaQuestion(res);
+    this.store.dispatch(createQuestionActions.createContent(res));
   }
 
   protected loadSavedData(): void {
-    const storedData = localStorage.getItem('datosFormulario');
-    if (storedData) {
-      const formData = JSON.parse(storedData);
-      this.createAnswers[0].data = formData.resLong;
-      this.createAnswers[1].data = formData.resShort;
-      this.answersIA = formData.resIA;
-    }
+    const storedForm$ = this.store
+      .select(selectCreateQuestionContent)
+      .pipe(
+        map(
+          (data: any) => (
+            (this.createAnswers[0].data = data.resLong),
+            (this.createAnswers[1].data = data.resShort),
+            (this.answersIA = data.resIA)
+          )
+        )
+      )
+      .subscribe();
   }
 }
 

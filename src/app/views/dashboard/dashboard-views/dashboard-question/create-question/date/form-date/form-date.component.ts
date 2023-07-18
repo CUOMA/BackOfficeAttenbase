@@ -1,64 +1,52 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { DashboardCreateQuestionFacade } from '../../dashboard-create-question.facade';
+import { Store } from '@ngrx/store';
+import { CreateQuestionDate } from 'src/app/store/reducers/create-question.reducers';
 
 @Component({
   selector: 'bdc-bo-form-date-component',
   templateUrl: './form-date.component.html',
   styleUrls: ['./form-date.component.scss'],
 })
-export class FormDateComponent implements OnInit {
+export class FormDateComponent {
+  @Output() sendDate = new EventEmitter<any>();
+
   @Input() postNow?: boolean;
-  protected form!: FormGroup;
-  protected isCheckboxChecked: boolean = false;
-  protected dateFrom!: Date | null;
-  protected dateTo!: Date | null;
-  protected minDateFrom: Date = new Date();
+  protected form: FormGroup = this.fb.nonNullable.group({
+    dateFrom: [],
+    dateTo: [],
+    hourFrom: [],
+    hourTo: [],
+    caducity: false,
+  });
+  protected selectedDate!: CreateQuestionDate;
 
-  constructor(
-    private fb: FormBuilder,
-    private createQuestionFacade: DashboardCreateQuestionFacade
-  ) {}
-
-  ngOnInit(): void {
-    console.log(this.postNow);
-    this.initForm();
-    this.loadSavedData();
+  protected onDateFromChange(event: MatDatepickerInputEvent<Date>) {
+    this.selectedDate.dateFrom = event.value;
+    this.form.get('dateFrom')?.setValue(this.selectedDate.dateFrom);
+    this.sendDate.emit(this.selectedDate.dateFrom);
   }
+  protected isCheckboxChecked: boolean = false;
+  dateFrom!: any;
+  // dateTo!: Date | null;
+  minDateFrom: Date = new Date();
+
+  constructor(private fb: FormBuilder, private store: Store) {}
 
   protected onCheckboxChange(event: any) {
     this.isCheckboxChecked = event.checked;
-  }
-  protected initForm() {
-    this.form = this.fb.group({
-      dateFrom: [null],
-      dateTo: [null],
-      hourFrom: [null],
-      hourTo: [null],
-      caducity: false,
-    });
-  }
-
-  protected onDateFromChange(event: MatDatepickerInputEvent<Date>) {
-    this.dateFrom = event.value;
-  }
-
-  protected onDateToChange(event: MatDatepickerInputEvent<Date>) {
-    this.dateTo = event.value;
-  }
-
-  private loadSavedData(): void {
-    const storedData = localStorage.getItem('datosFormulario');
-    if (storedData) {
-      const formData = JSON.parse(storedData);
-      this.form.patchValue(formData);
+    if (this.isCheckboxChecked) {
+      this.form.get('dateTo')?.disable();
+    } else {
+      this.form.get('dateTo')?.enable();
     }
   }
 
-  protected sendValue() {
-    const res = this.form.value;
-    this.createQuestionFacade.formMetadaQuestion(res);
+  protected onDateToChange(event: MatDatepickerInputEvent<Date>) {
+    this.selectedDate.dateTo = event.value;
+    this.form.get('dateTo')?.setValue(this.selectedDate.dateTo);
+    this.sendDate.emit(this.selectedDate.dateTo);
+    // this.form.get('dateTo')?.patchValue(event.value);
   }
 }

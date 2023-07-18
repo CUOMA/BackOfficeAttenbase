@@ -1,7 +1,9 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { categoriesApiActions } from 'src/app/store/actions/categories.actions';
+import { selectCreateQuestionTitle } from 'src/app/store/selectors/create-question.selectors';
 import {
   selectAreListSubcategoriesLoading,
   selectListCategories,
@@ -12,14 +14,7 @@ import {
   providedIn: 'root',
 })
 export class DashboardCreateQuestionFacade {
-  public formQuestion?: FormQuestion;
-  private createQuestionTitle$ = new BehaviorSubject('Crear Pregunta');
-
   constructor(private store: Store) {}
-
-  public get createQuestionTitle(): Observable<string> {
-    return this.createQuestionTitle$.asObservable();
-  }
 
   public dispatchGetListCategories(): void {
     this.store.dispatch(categoriesApiActions.getListCategoriesRequest());
@@ -41,23 +36,7 @@ export class DashboardCreateQuestionFacade {
     return this.store.select(selectAreListSubcategoriesLoading);
   }
 
-  public formMetadaQuestion(formData?: any, res?: any) {
-    this.formQuestion = { ...this.formQuestion, ...formData, ...res };
-    localStorage.setItem('datosFormulario', JSON.stringify(this.formQuestion));
+  public get title(): Observable<string> {
+    return this.store.select(selectCreateQuestionTitle);
   }
-}
-
-export interface FormQuestion {
-  question: string;
-  alias: string[];
-  category: string;
-  subcategory: string;
-  associatedQuestions: string[];
-  answersIA: string;
-  answersLong: string;
-  answersShort: string;
-  dateFrom: string;
-  dateTo: string;
-  hourFrom: string;
-  hourTo: string;
 }

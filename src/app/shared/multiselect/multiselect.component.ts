@@ -1,18 +1,21 @@
 import {
+  AfterViewInit,
   Component,
+  ElementRef,
   EventEmitter,
-  Inject,
-  Input,
   OnInit,
   Output,
   Renderer2,
-  ElementRef,
   ViewChild,
-  AfterViewInit,
+  inject,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
-import { debounceTime, takeUntil, tap, filter } from 'rxjs/operators';
+import { debounceTime, takeUntil, tap, map } from 'rxjs/operators';
+import { createQuestionActions } from 'src/app/store/actions/create-question.actions';
+import { selectCreateQuestionMetadata } from 'src/app/store/selectors/create-question.selectors';
+import { selectQuestions } from 'src/app/store/selectors/question.selectors';
 import { QuestionsFacade } from 'src/app/views/dashboard/dashboard-views/dashboard-question/dashboard-question.facade';
 
 @Component({
@@ -21,10 +24,12 @@ import { QuestionsFacade } from 'src/app/views/dashboard/dashboard-views/dashboa
   styleUrls: ['./multiselect.component.scss'],
 })
 export class MultiselectComponent implements OnInit, AfterViewInit {
+  private store = inject(Store);
+
   @Output() selectedQuestionsChange = new EventEmitter<string[]>();
   public open = false;
   protected readonly multiselect = new FormControl({ value: [''], disabled: false });
-  protected questions$ = this.questionsFacade.selectQuestions();
+  protected questions$ = this.store.select(selectQuestions).pipe(map(res => res.data));
   protected areQuestionsLoading$ = this.questionsFacade.areQuestionsLoading;
   private destroy$ = new Subject();
   protected selectedQuestions: any[] = [];
@@ -33,28 +38,20 @@ export class MultiselectComponent implements OnInit, AfterViewInit {
 
   constructor(private questionsFacade: QuestionsFacade, private renderer: Renderer2) {}
 
-  public ngAfterViewInit(): void {
-    this.clickOut();
-  }
-
   public ngOnInit(): void {
     this.searchQuestion();
-    this.loadAssociatedQuestions();
-  }
-  protected loadAssociatedQuestions() {
-    this.selectedQuestions = this.getLocalStorageData()?.associatedQuestions || [];
+    this.loadSelectedQuestions();
   }
 
-  protected updateLocalStorage() {
-    const formData = this.getLocalStorageData() || {};
-    formData.associatedQuestions = this.selectedQuestions;
-    localStorage.setItem('datosFormulario', JSON.stringify(formData));
+  public ngAfterViewInit(): void {
+    this.clickOut();
   }
 
   private getLocalStorageData() {
     const storedData = localStorage.getItem('datosFormulario');
     return storedData ? JSON.parse(storedData) : null;
   }
+
   protected searchQuestion() {
     this.multiselect.valueChanges
       .pipe(
@@ -81,7 +78,6 @@ export class MultiselectComponent implements OnInit, AfterViewInit {
 
   protected removeSelectedQuestion(index: number) {
     this.selectedQuestions.splice(index, 1);
-    this.updateLocalStorage();
     this.selectedQuestionsChange.emit(this.selectedQuestions);
   }
 
@@ -91,6 +87,16 @@ export class MultiselectComponent implements OnInit, AfterViewInit {
       if (!isClickedInside) {
         this.open = false;
       }
+    });
+  }
+
+  private loadSelectedQuestions(): void {
+    this.store.select(selectCreateQuestionMetadata).subscribe({
+      next: res => {
+        if (res?.associatedQuestions) {
+          this.selectedQuestions = [...res?.associatedQuestions];
+        }
+      },
     });
   }
 }

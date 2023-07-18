@@ -1,6 +1,6 @@
 <div class="wrapper">
   <h1>Revisá que esté todo bien</h1>
-  <ng-container *ngIf="preview">
+  <ng-container *ngIf="preview$ | async as preview">
     <div class="preview-question">
       <h2 class="preview-question__title">{{ preview.question }}</h2>
       <div class="preview-question__category">
@@ -14,17 +14,17 @@
         <div>
           <strong>Publicación</strong>
           12/12/22
-          <!-- {{ preview.dateFrom | date: 'dd/MM/yy' }} -->
+          {{ preview.dateFrom | date: 'dd/MM/yy' }}
           - 00:00
-          <!-- {{ preview.hourFrom }} -->
+          {{ preview.hourFrom }}
         </div>
         <div>
           <ng-container *ngIf="true; else noDateTo">
             <strong>Vencimiento</strong>
             12/12/22
-            <!-- {{ preview.dateTo | date: 'dd/MM/yy' }} -->
+            {{ preview.dateTo | date: 'dd/MM/yy' }}
             - 00:00
-            <!-- {{ preview.hourTo }} -->
+            {{ preview.hourTo }}
           </ng-container>
           <ng-template #noDateTo class="preview-question__date--no-expiration">
             Sin vecimiento

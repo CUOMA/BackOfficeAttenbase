@@ -34,7 +34,7 @@ export class QuestionsFacade {
   }
 
   public getStatusTypes(): Observable<any> {
-    return this.store.select(selectStatuses).pipe(tap(console.warn));
+    return this.store.select(selectStatuses);
   }
 
   public dispatchGetQuestions(status: string, page = 0): void {

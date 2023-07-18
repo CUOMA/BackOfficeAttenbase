@@ -100,6 +100,7 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
   protected handleOrder() {
     console.log(this.typeOrder);
     this.typeOrder = this.typeOrder === 'ASC' ? 'DESC' : 'ASC';
+    this.categoriesFacade.dispatchGetCategories(1, this.typeOrder);
     this.order.emit(this.typeOrder);
     console.log(this.typeOrder);
     this.paginator.firstPage();

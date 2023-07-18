@@ -15,10 +15,7 @@ export const statusesReducer = createReducer(
   initialState,
   on(
     statusesApiActions.getStatusesRequest,
-    (state): StatusesState => ({
-      ...state,
-      areStatusesLoading: true,
-    })
+    (state): StatusesState => ({ ...state, areStatusesLoading: true })
   ),
   on(
     statusesApiActions.getStatusesSuccess,
