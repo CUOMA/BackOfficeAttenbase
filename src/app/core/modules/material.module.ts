@@ -23,6 +23,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   exports: [
@@ -50,6 +51,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatButtonToggleModule,
     MatAutocompleteModule,
     MatRadioModule,
+    MatTooltipModule,
   ],
   providers: [{ provide: MatPaginatorIntl, useValue: CustomPaginator() }],
 })

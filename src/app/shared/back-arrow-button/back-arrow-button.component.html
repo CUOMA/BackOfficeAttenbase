@@ -1,7 +1,13 @@
 <button mat-icon-button *ngIf="!showConfirmationModal" [routerLink]="[routeMap]">
+  matTooltip="Volver atrás"
   <mat-icon svgIcon="chevron-left"></mat-icon>
 </button>
 
-<button mat-icon-button *ngIf="showConfirmationModal" (click)="unsavedChanges()">
+<button
+  mat-icon-button
+  matTooltip="Volver atrás"
+  matTooltipPosition="above"
+  *ngIf="showConfirmationModal"
+  (click)="unsavedChanges()">
   <mat-icon svgIcon="chevron-left"></mat-icon>
 </button>
