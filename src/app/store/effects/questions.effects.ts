@@ -6,7 +6,7 @@ import { catchError, map, mergeMap, tap, filter } from 'rxjs/operators';
 import { QuestionsService } from '../../core/services/question.service';
 import { questionsApiActions } from '../actions/question.action';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class QuestionsEffects {
   constructor(private actions$: Actions, private questionsService: QuestionsService) {}
   questions$ = createEffect((): any => {

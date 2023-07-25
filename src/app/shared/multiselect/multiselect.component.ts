@@ -47,11 +47,6 @@ export class MultiselectComponent implements OnInit, AfterViewInit {
     this.clickOut();
   }
 
-  private getLocalStorageData() {
-    const storedData = localStorage.getItem('datosFormulario');
-    return storedData ? JSON.parse(storedData) : null;
-  }
-
   protected searchQuestion() {
     this.multiselect.valueChanges
       .pipe(
@@ -66,9 +61,9 @@ export class MultiselectComponent implements OnInit, AfterViewInit {
   }
   protected updateSelectedQuestions(question: any, event: any) {
     if (event.checked) {
-      this.selectedQuestions = [...this.selectedQuestions, question.name];
+      this.selectedQuestions = [...this.selectedQuestions, question];
     } else {
-      const index = this.selectedQuestions.indexOf(question.name);
+      const index = this.selectedQuestions.indexOf(question);
       if (index !== -1) {
         this.selectedQuestions.splice(index, 1);
       }

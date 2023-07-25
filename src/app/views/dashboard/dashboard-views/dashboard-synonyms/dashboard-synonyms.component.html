@@ -13,8 +13,7 @@
   </p>
   <ng-container *ngIf="synonyms$ | async as synonyms">
     <bdc-bo-tabla-synonyms
-      (order)="orderSynonyms($event)"
-      (pageChanged)="handlePageChanged($event)"
+      (pageChanged)="handlePageChanged($event, 'ASC')"
       [synonyms]="synonyms"></bdc-bo-tabla-synonyms>
   </ng-container>
 </div>

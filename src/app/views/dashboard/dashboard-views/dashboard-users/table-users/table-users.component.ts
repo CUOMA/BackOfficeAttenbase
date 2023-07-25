@@ -29,7 +29,7 @@ import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.componen
   templateUrl: './table-users.component.html',
   styleUrls: ['./table-users.component.scss'],
 })
-export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
+export class TableUsersComponent implements OnInit, AfterViewInit {
   protected displayedColumns: string[] = [
     'userName',
     'userEmail',
@@ -49,26 +49,14 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
   private destroy$ = new Subject<void>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  protected usersData = (users: User[]): DataSourceUser[] => {
-    let data = users.map((user: User) => {
-      return {
-        userName: user.first_name.toLocaleLowerCase() + ' ' + user.last_name.toLocaleLowerCase(),
-        userEmail: user.email.toLocaleLowerCase(),
-        lastLogin: user.last_login.toLocaleLowerCase(),
-        role: user.role.toLocaleLowerCase(),
-        userClients: user.userClients,
-      };
-    });
-    return data;
-  };
-
   protected emptyStateData: emptyStateModel = {
     src: '/assets/svg/empty-state/empty-state-users.svg',
     title: 'Añadí un usuario',
     paragraph:
       'Los usuarios que designes podrán llevar a cabo distintas acciones dentro de la plataforma.',
   };
-  protected dataSource = new MatTableDataSource();
+  protected dataSource!: any;
+
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
   constructor(
@@ -79,24 +67,14 @@ export class TableUsersComponent implements OnChanges, OnInit, AfterViewInit {
     public alertService: AlertService
   ) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['users'].currentValue) {
-      this.dataSource = new MatTableDataSource<any>(this.usersData(this.users));
-      this.dataSource.sort = this.sort;
-    }
-  }
-
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<any>(this.usersData(this.users));
-
+    this.dataSource = new MatTableDataSource<any>(this.users);
     this.areUsersLoading$ = this.usersFacade.areUsersLoading.pipe(takeUntil(this.destroy$));
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.paginator.pageSize = this.pageSize;
-
-    this.dataSource.sort = this.sort;
   }
 
   protected deleteSynonyms(id: number, element: string) {

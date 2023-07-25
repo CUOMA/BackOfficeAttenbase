@@ -1,7 +1,7 @@
+import { HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { switchMap, first } from 'rxjs/operators';
+import { first, switchMap } from 'rxjs/operators';
 import { selectToken } from 'src/app/store/selectors/authentication.selectors';
 
 @Injectable({

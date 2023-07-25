@@ -15,12 +15,6 @@ import { TableSynonymsComponent } from './table/table-synonyms.component';
 @NgModule({
   providers: [SynonymousFacade],
   declarations: [DashboardSynonymsComponent, ScrollSynonymsComponent, TableSynonymsComponent],
-  imports: [
-    CommonModule,
-    DashboardSynonymsRoutingModule,
-    SharedModule,
-    StoreModule.forFeature(synonymsFeatureKey, synonymsReducer),
-    EffectsModule.forFeature([SynonymsEffects]),
-  ],
+  imports: [CommonModule, DashboardSynonymsRoutingModule, SharedModule],
 })
 export class DashboardSynonymsModule {}

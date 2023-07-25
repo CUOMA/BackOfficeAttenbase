@@ -35,8 +35,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ReactiveFormsModule,
     DashboardCategoriesRoutingModule,
     SharedModule,
-    StoreModule.forFeature(categoriesFeatureKey, categoriesReducer),
-    EffectsModule.forFeature([CategoriesEffects]),
     SelectIconCategoryModule,
   ],
 })

@@ -5,11 +5,11 @@
       <mat-radio-button (click)="openMenu(opcion)" [value]="opcion.id">
         <h5>{{ opcion.label }}</h5>
       </mat-radio-button>
-      <div class="container-content" [ngClass]="{ open: opcion.isOpen }">
-        <bdc-bo-form-date-component
-          (sendDate)="selectedDate($event)"
-          [postNow]="opcion.postNow"></bdc-bo-form-date-component>
-      </div>
+      <ng-container *ngIf="opcion.isOpen">
+        <div class="container-content" [ngClass]="{ open: opcion.isOpen }">
+          <bdc-bo-form-date-component [postNow]="opcion.postNow"></bdc-bo-form-date-component>
+        </div>
+      </ng-container>
     </div>
   </mat-radio-group>
 

@@ -3,10 +3,13 @@ import { DashboardCreateQuestionFacade } from '../dashboard-create-question.faca
 import { Store } from '@ngrx/store';
 import {
   selectCreateQuestionContent,
+  selectCreateQuestionDate,
   selectCreateQuestionMetadata,
 } from 'src/app/store/selectors/create-question.selectors';
 import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { createQuestionActions } from 'src/app/store/actions/create-question.actions';
+import { QuestionsService } from 'src/app/core/services/question.service';
 
 @Component({
   selector: 'bdc-bo-question-summary',
@@ -16,21 +19,47 @@ import { map } from 'rxjs/operators';
 export class QuestionSummaryComponent implements OnInit {
   protected preview$!: Observable<any>;
   protected facade = inject(DashboardCreateQuestionFacade);
+  protected questionService = inject(QuestionsService);
   protected store = inject(Store);
   ngOnInit(): void {
-    const combinedData$ = combineLatest([
+    this.preview$ = combineLatest([
       this.store.select(selectCreateQuestionMetadata),
       this.store.select(selectCreateQuestionContent),
+      this.store.select(selectCreateQuestionDate),
     ]).pipe(
-      map(([metadata, content]) => {
-        return { ...metadata, ...content };
+      map(([metadata, content, date]) => {
+        return { ...metadata, ...content, ...date };
       })
     );
-    this.preview$ = combinedData$;
   }
   protected createQuestion() {
-    // “category” => “required|exists:categories,id”,
-    // “answers” => “required|array|min:1",
+    this.preview$
+      .pipe(
+        map((data: any) => {
+          const formData = {
+            name: data.question,
+            category: data.category.id,
+            subcategory: data.subcategory.id,
+            answers: [
+              {
+                long: data.resLong,
+                short: data.resShort,
+                channels: data.resIA,
+              },
+            ],
+            related_question: [data.associatedQuestions.id],
+            is_published: 1,
+            is_archived: 0,
+            published_at: data.dateFrom + data.hourFrom,
+            archived_at: data.dateTo + data.hourTo,
+          };
+          console.log(formData);
+          return this.questionService.postQuestions(formData);
+          // this.deleteLocalStore();
+        })
+      )
+      .subscribe();
+
     // ‘answers.*.long’ => ‘required|string’,
     // ‘answers.*.short’ => ‘required|string|max:255’,
     // ‘answers.*.channels.*’ => ‘required|string|max:255’,
@@ -43,9 +72,18 @@ export class QuestionSummaryComponent implements OnInit {
     // ‘is_archived_immediately’ => ‘required_if:is_archived,1|nullable|boolean’,
     // // ‘published_at’ => ‘required_if:is_published_immediately,0’,
     // // ‘archived_at’ => ‘required_if:is_archived_immediately,0’,
-    this.deleteLocalStore();
   }
   protected deleteLocalStore(): void {
-    localStorage.removeItem('datosFormulario');
+    this.store.dispatch(
+      createQuestionActions.createMetadata({
+        alias: undefined,
+        associatedQuestions: [],
+        category: [],
+        subcategory: [],
+        question: 'Crear Pregunta',
+      })
+    );
+    this.store.dispatch(createQuestionActions.createContent(''));
+    this.store.dispatch(createQuestionActions.createDate(''));
   }
 }

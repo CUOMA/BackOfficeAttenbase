@@ -26,14 +26,14 @@ export class DashboardSynonymsComponent implements OnInit {
   constructor(private synonymsFacade: SynonymousFacade) {}
 
   ngOnInit(): void {
-    this.synonymsFacade.dispatchGetSynonyms(1);
+    this.synonymsFacade.dispatchGetSynonyms(1, 'ASC');
   }
 
-  protected handlePageChanged(pageEvent: any): void {
-    this.synonymsFacade.dispatchGetSynonyms(pageEvent.pageIndex + 1);
+  protected handlePageChanged(pageEvent: any, order: string): void {
+    this.synonymsFacade.dispatchGetSynonyms(pageEvent.pageIndex + 1, order);
   }
 
-  protected orderSynonyms(order: string): void {
-    this.synonymsFacade.dispatchChangeSynonymsTableOrder(order);
+  protected orderSynonyms(type: string): void {
+    this.synonymsFacade.dispatchChangeSynonymsTableOrder(type);
   }
 }

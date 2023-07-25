@@ -104,11 +104,11 @@ export class TableSynonymsComponent implements OnChanges, OnInit, AfterViewInit 
 
   protected handlePageChanged(pageEvent: PageEvent): void {
     this.pageChanged.emit(pageEvent);
+    this.order.emit(this.typeOrder);
   }
 
   protected handleOrder() {
     this.typeOrder = this.typeOrder === 'ASC' ? 'DESC' : 'ASC';
-    this.order.emit(this.typeOrder);
     this.paginator.firstPage();
   }
 

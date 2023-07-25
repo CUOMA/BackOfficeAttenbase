@@ -5,7 +5,6 @@ import { first } from 'rxjs/operators';
 import { authApiActions } from 'src/app/store/actions/authentication.actions';
 import {
   selectIsAuthenticated,
-  selectIsLogginError,
   selectIsLogginIn,
 } from 'src/app/store/selectors/authentication.selectors';
 

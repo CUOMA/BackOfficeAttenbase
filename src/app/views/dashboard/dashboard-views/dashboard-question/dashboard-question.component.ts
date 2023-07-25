@@ -3,6 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { QuestionsFacade } from './dashboard-question.facade';
 import { TableQuestionComponent } from './table/table-question.component';
+import { DashboardCreateQuestionFacade } from './create-question/dashboard-create-question.facade';
 
 @Component({
   selector: 'bdc-bo-dashboard-question',
@@ -10,22 +11,19 @@ import { TableQuestionComponent } from './table/table-question.component';
   styleUrls: ['./dashboard-question.component.scss'],
 })
 export class DashboardQuestionComponent implements OnInit {
-  protected tabs = [
-    { label: 'Todas', value: '' },
-    { label: 'Publicadas', value: 'published' },
-    { label: 'Archivadas', value: 'archived' },
-    { label: 'Borradores', value: 'draft' },
-  ];
-  protected selectedTab = this.tabs[1];
   protected questions$ = this.questionsFacade.selectQuestions();
   protected areQuestionsLoading$!: Observable<boolean>;
   protected areStatusesLoading$!: Observable<boolean>;
   private destroy$ = new Subject<void>();
-  constructor(public questionsFacade: QuestionsFacade) {}
+  constructor(
+    private questionsFacade: QuestionsFacade,
+    private createQuestionFacade: DashboardCreateQuestionFacade
+  ) {}
 
   ngOnInit(): void {
     this.questionsFacade.dispatchGetStatuses();
     this.questionsFacade.dispatchGetQuestions('published', 1);
+    this.createQuestionFacade.dispatchGetListCategories();
     this.areQuestionsLoading$ = this.questionsFacade.areQuestionsLoading.pipe(
       takeUntil(this.destroy$)
     );
@@ -37,10 +35,5 @@ export class DashboardQuestionComponent implements OnInit {
 
   protected handleSearch(query: string): void {
     this.questionsFacade.dispatchGetQuestionsSearch(query);
-  }
-
-  protected selectTab(tab: { label: string; value: string }) {
-    this.selectedTab = tab;
-    this.questionsFacade.dispatchGetQuestions(this.selectedTab.value);
   }
 }

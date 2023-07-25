@@ -6,7 +6,7 @@ import { AuthenticationService } from 'src/app/core/services/authentication.serv
 import { authApiActions } from '../actions/authentication.actions';
 import { Action } from '@ngrx/store';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class AuthenticationEffects {
   constructor(private actions$: Actions, private authenticationService: AuthenticationService) {}
 

@@ -3,7 +3,13 @@
   <p>Si salís de la creación de pregunta, se descartarán las acciones realizadas.</p>
   <div mat-dialog-actions class="action">
     <button mat-button color="primary" mat-dialog-close>Cancelar</button>
-    <button mat-button color="primary" [routerLink]="'url'" mat-dialog-close cdkFocusInitial>
+    <button
+      mat-button
+      color="primary"
+      (click)="deleteLocalStore()"
+      [routerLink]="'url'"
+      mat-dialog-close
+      cdkFocusInitial>
       Descartar
     </button>
   </div>

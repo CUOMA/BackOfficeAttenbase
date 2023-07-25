@@ -1,42 +1,25 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DashboardCreateQuestionFacade } from '../create-question/dashboard-create-question.facade';
+import { QuestionsFacade } from '../dashboard-question.facade';
 
 @Component({
   selector: 'bdc-bo-menu-filter',
   templateUrl: './menu-filter.component.html',
   styleUrls: ['./menu-filter.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuFilterComponent implements OnInit {
-  protected expression = true;
   protected form!: FormGroup;
   protected dateRange!: FormGroup;
-  protected states = ['Publicadas', 'Borradores', 'Archivadas'];
-  protected categories = [
-    '4G UP',
-    'celulares',
-    'compras',
-    'contacto',
-    'equipos liberados',
-    'equipos moviles',
-    'evemtos digitales',
-    'mi movistar',
-    'pagos y facturacion',
-    'productos y servicios',
-  ];
-  protected subCategories = [
-    'consultas de deuda',
-    'consumos',
-    'planes con factura',
-    'llamadas y SMS',
-    'factura digital',
-    'movistar fibra',
-    'planes prepagos',
-    'servicios movistar hogar',
-    'servicios movistar banda ancha',
-  ];
-
-  constructor(private fb: FormBuilder) {}
+  protected states$ = this.createQuestionFacade.selectListStatues();
+  protected listCategories$ = this.createQuestionFacade.selectListCategories();
+  protected listSubcategories$ = this.createQuestionFacade.selectListSubcategories();
+  constructor(
+    private fb: FormBuilder,
+    private createQuestionFacade: DashboardCreateQuestionFacade,
+    private questionsFacade: QuestionsFacade
+  ) {}
 
   ngOnInit(): void {
     this.setUpForm();
@@ -50,12 +33,13 @@ export class MenuFilterComponent implements OnInit {
     this.form = this.fb.group({
       state: [''],
       category: [''],
-      subCategory: [{ value: '', disabled: true }],
+      subcategory: [{ value: '', disabled: true }],
     });
   }
 
-  protected enableSubcategory() {
-    this.form.get('subCategory')?.enable();
+  protected filterCategories(id: number) {
+    this.form.get('subcategory')?.enable();
+    this.createQuestionFacade.dispatchGetListSubcategories(id);
   }
 
   protected applyFilters() {
@@ -66,5 +50,6 @@ export class MenuFilterComponent implements OnInit {
       subcategory: this.form.get('subCategory')?.value,
     };
     alert(JSON.stringify(form));
+    this.questionsFacade.dispatchGetQuestions(form.status, 1);
   }
 }

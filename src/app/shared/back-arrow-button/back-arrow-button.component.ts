@@ -10,6 +10,7 @@ import { DialogUnsavedChangeComponent } from './dialog-unsaved-change/dialog-uns
 export class BackArrowButtonComponent {
   @Input() public routeMap!: string;
   @Input() public showConfirmationModal = false;
+
   private dialog = inject(MatDialog);
   protected unsavedChanges() {
     this.dialog.open(DialogUnsavedChangeComponent);

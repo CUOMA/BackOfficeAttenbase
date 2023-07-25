@@ -4,7 +4,7 @@ import { createQuestionActions } from '../actions/create-question.actions';
 export interface CreateQuestionState {
   metadata?: CreateQuestionMetadata;
   content?: CreateQuestionContent[];
-  date?: CreateQuestionDate;
+  date?: CreateQuestionDate[];
 }
 
 export const initialState: CreateQuestionState = {
@@ -16,12 +16,7 @@ export const initialState: CreateQuestionState = {
     question: 'Crear Pregunta',
   },
   content: [],
-  date: {
-    dateFrom: '',
-    dateTo: '',
-    hourFrom: '',
-    hourTo: '',
-  },
+  date: [],
 };
 
 export const createQuestionReducer = createReducer(

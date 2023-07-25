@@ -1,43 +1,57 @@
 <div class="wrapper">
   <form [formGroup]="form">
-    <p class="date-p">Fecha de última actualización</p>
+    <p class="date-p">Filtros de búsqueda</p>
     <mat-form-field appearance="outline">
-      <mat-label>Fecha inicio y finalización</mat-label>
+      <mat-label>Rango de fecha</mat-label>
       <mat-date-range-input [rangePicker]="picker" [formGroup]="dateRange">
         <input matStartDate placeholder="Inicio" formControlName="start" />
         <input matEndDate placeholder="Finalización" formControlName="end" />
       </mat-date-range-input>
-      <mat-hint>DD/MM/AAAA - DD/MM/AAAA</mat-hint>
+      <mat-hint>DD/MM/AAAA</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Estado</mat-label>
-      <mat-select formControlName="state">
-        <mat-option *ngFor="let state of states" [value]="state">
-          {{ state }}
-        </mat-option>
+      <mat-select multiple formControlName="state">
+        <ng-container *ngIf="states$ | async as states">
+          <mat-option *ngFor="let state of states.data" [value]="state.code">
+            {{ state.name }}
+          </mat-option>
+        </ng-container>
       </mat-select>
     </mat-form-field>
+
     <mat-form-field appearance="outline">
       <mat-label>Categoría</mat-label>
-      <mat-select formControlName="category">
-        <mat-option
-          *ngFor="let category of categories"
-          [value]="category"
-          (click)="enableSubcategory()"
-          >{{ category }}
-        </mat-option>
+      <mat-select multiple formControlName="category">
+        <ng-container *ngIf="listCategories$ | async as listCategories">
+          <mat-option
+            *ngFor="let category of listCategories"
+            [value]="category"
+            (click)="filterCategories(category.id)"
+            >{{ category.name }}
+          </mat-option>
+        </ng-container>
       </mat-select>
     </mat-form-field>
+
     <mat-form-field appearance="outline">
       <mat-label>Subcategoría</mat-label>
-      <mat-select formControlName="subCategory">
-        <mat-option *ngFor="let subCategory of subCategories" [value]="subCategory">
-          {{ subCategory }}
-        </mat-option>
+      <mat-select multiple formControlName="subcategory">
+        <ng-container *ngIf="listSubcategories$ | async as listSubcategories">
+          <ng-container *ngIf="listSubcategories.length; else noSubcategories">
+            <mat-option *ngFor="let subcategory of listSubcategories" [value]="subcategory.id">
+              {{ subcategory.name }}
+            </mat-option>
+          </ng-container>
+          <ng-template #noSubcategories>
+            <mat-option>No hay subcategorías asociadas</mat-option>
+          </ng-template>
+        </ng-container>
       </mat-select>
     </mat-form-field>
+
     <div class="action">
       <button mat-button color="primary" (click)="setUpForm()">Borrar filtros</button>
       <button mat-flat-button color="primary" (click)="applyFilters()">Aplicar</button>

@@ -62,7 +62,7 @@ export const synonymsReducer = createReducer(
     synonymsApiActions.changeOrder,
     (state, order): SynonymsState => ({
       ...state,
-      order,
+      order: order,
     })
   )
 );

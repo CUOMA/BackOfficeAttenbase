@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { categoriesApiActions } from 'src/app/store/actions/categories.actions';
 import { selectCreateQuestionTitle } from 'src/app/store/selectors/create-question.selectors';
 import {
@@ -9,6 +8,7 @@ import {
   selectListCategories,
   selectListSubCategories,
 } from 'src/app/store/selectors/list-categories.selectors';
+import { selectStatuses } from 'src/app/store/selectors/statuses.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ import {
 export class DashboardCreateQuestionFacade {
   constructor(private store: Store) {}
 
-  public dispatchGetListCategories(): void {
+  public dispatchGetListCategories(): any {
     this.store.dispatch(categoriesApiActions.getListCategoriesRequest());
   }
 
@@ -26,6 +26,10 @@ export class DashboardCreateQuestionFacade {
 
   public selectListCategories(): Observable<any> {
     return this.store.select(selectListCategories);
+  }
+
+  public selectListStatues(): Observable<any> {
+    return this.store.select(selectStatuses);
   }
 
   public selectListSubcategories(): Observable<any> {

@@ -53,7 +53,7 @@
             <mat-option
               *ngFor="let category of listCategories"
               (click)="filterSubcategories(category.id)"
-              [value]="category.name">
+              [value]="category">
               {{ category.name }}
             </mat-option>
           </ng-container>
@@ -70,7 +70,9 @@
           <ng-container *ngIf="listSubcategories$ | async as listSubcategories">
             <ng-container *ngIf="listSubcategories.length; else noSubcategories">
               <ng-container *ngFor="let subcategory of listSubcategories">
-                <mat-option [value]="subcategory.name">{{ subcategory.name }}</mat-option>
+                <mat-option (click)="selectedSubcategory(subcategory.id)" [value]="subcategory">{{
+                  subcategory.name
+                }}</mat-option>
               </ng-container>
             </ng-container>
             <ng-template #noSubcategories>

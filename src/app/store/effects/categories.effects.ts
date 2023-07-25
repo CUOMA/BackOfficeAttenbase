@@ -6,7 +6,7 @@ import { catchError, mergeMap, tap, map } from 'rxjs/operators';
 import { CategoriesService } from 'src/app/core/services/categories.service';
 import { categoriesApiActions } from '../actions/categories.actions';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class CategoriesEffects {
   constructor(private actions$: Actions, private categoriesService: CategoriesService) {}
   categories$ = createEffect((): any => {

@@ -5,7 +5,7 @@ import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { CountAsideService } from 'src/app/core/services/count-aside.service';
 import { countAsideApiActions } from '../actions/count-aside.action';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class CountAsideEffects {
   constructor(private actions$: Actions, private countAsideService: CountAsideService) {}
   countAside$ = createEffect((): any => {

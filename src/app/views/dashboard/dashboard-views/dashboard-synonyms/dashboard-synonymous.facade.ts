@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import {
   selectAreSynonymsLoading,
+  selectOrderSynonyms,
   selectSynonym,
 } from 'src/app/store/selectors/synonyms.selectors';
 import { synonymsApiActions } from '../../../../store/actions/synonyms.action';
@@ -23,16 +24,19 @@ export class SynonymousFacade {
     return this.store.select(selectAreSynonymsLoading);
   }
 
-  public dispatchGetSynonyms(page: number): void {
-    this.store.dispatch(synonymsApiActions.getSynonymsRequest({ page: page }));
+  public dispatchGetSynonyms(page: number, order: string): void {
+    this.store.dispatch(synonymsApiActions.getSynonymsRequest({ page: page, order: order }));
   }
 
   public dispatchChangeSynonymsTableOrder(order: string): void {
-    this.store.dispatch(synonymsApiActions.changeOrder(order));
+    this.store.dispatch(synonymsApiActions.changeOrder({ order: order }));
   }
 
   public selectSynonyms(): Observable<any> {
     return this.store.select(selectSynonyms);
+  }
+  public selectOrderSynonyms(): Observable<any> {
+    return this.store.select(selectOrderSynonyms);
   }
 
   public detailSynonym(id: number): Observable<any> {

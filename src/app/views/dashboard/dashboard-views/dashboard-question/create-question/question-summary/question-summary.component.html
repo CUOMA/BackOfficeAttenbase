@@ -4,34 +4,39 @@
     <div class="preview-question">
       <h2 class="preview-question__title">{{ preview.question }}</h2>
       <div class="preview-question__category">
-        <span>{{ preview.category }}</span>
+        <span>{{ preview.category.name }}</span>
         <ng-container *ngIf="preview.subcategory">
           <span class="material-symbols-outlined">chevron_right</span>
-          <span>{{ preview.subcategory }}</span>
+          <span>{{ preview.subcategory.name }}</span>
         </ng-container>
       </div>
       <div class="preview-question__date">
         <div>
-          <strong>Publicación</strong>
-          12/12/22
-          {{ preview.dateFrom | date: 'dd/MM/yy' }}
-          - 00:00
-          {{ preview.hourFrom }}
-        </div>
-        <div>
-          <ng-container *ngIf="true; else noDateTo">
-            <strong>Vencimiento</strong>
-            12/12/22
-            {{ preview.dateTo | date: 'dd/MM/yy' }}
-            - 00:00
-            {{ preview.hourTo }}
+          <ng-container *ngIf="preview.dateFrom; else postNow">
+            <strong>Publicación</strong>
+            {{ preview.dateFrom | date: 'dd/MM/yy' }}
+            -
+            {{ preview.hourFrom }}
           </ng-container>
-          <ng-template #noDateTo class="preview-question__date--no-expiration">
-            Sin vecimiento
+          <ng-template #postNow class="preview-question__date--no-expiration">
+            Publicar ahora
           </ng-template>
         </div>
+        <div>
+          <ng-container>
+            <ng-container *ngIf="preview.dateTo; else noDateTo">
+              <strong>Vencimiento</strong>
+              {{ preview.dateTo | date: 'dd/MM/yy' }}
+              -
+              {{ preview.hourTo }}
+            </ng-container>
+            <ng-template #noDateTo class="preview-question__date--no-expiration">
+              Sin vecimiento
+            </ng-template>
+          </ng-container>
+        </div>
       </div>
-      <hr />
+
       <div class="preview-question__response-data">
         <h5>Alias</h5>
         <ng-container *ngFor="let item of preview.alias">
@@ -54,11 +59,11 @@
         <h5>Preguntas Relacionadas</h5>
         <div class="preview-question__response-data--related-questions">
           <ng-container *ngFor="let item of preview.associatedQuestions">
-            <span>{{ item }}</span>
+            <span>{{ item.name }}</span>
           </ng-container>
         </div>
       </div>
-      <hr />
+
       <div class="action">
         <button
           mat-stroked-button

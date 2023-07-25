@@ -38,20 +38,8 @@ export class DateComponent {
     });
   }
 
-  private loadSavedData(): void {
-    // const storedData = localStorage.getItem('datosFormulario');
-    // if (storedData) {
-    //   const formData = JSON.parse(storedData);
-    //   this.form.patchValue(formData);
-    // }
-  }
-
   protected selectedDate(formDate: any[]) {
     this.createDate = formDate;
-    console.log(this.createDate);
   }
-  protected saveDate() {
-    console.log(this.createDate);
-    this.store.dispatch(createQuestionActions.createDate(this.createDate));
-  }
+  protected saveDate() {}
 }

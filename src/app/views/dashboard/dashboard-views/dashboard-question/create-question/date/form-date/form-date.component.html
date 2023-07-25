@@ -14,7 +14,11 @@
         <mat-datepicker-toggle matIconSuffix [for]="pickerFrom"></mat-datepicker-toggle>
         <mat-datepicker #pickerFrom></mat-datepicker>
       </mat-form-field>
-      <bdc-bo-hour-picker formControlName="hourFrom"></bdc-bo-hour-picker>
+      <mat-form-field appearance="outline">
+        <mat-label> Hora </mat-label>
+        <input formControlName="hourFrom" id="period" type="time" matInput />
+        <mat-icon matSuffix color="primary">schedule</mat-icon>
+      </mat-form-field>
     </div>
   </div>
 
@@ -33,7 +37,12 @@
         <mat-datepicker-toggle matIconSuffix [for]="pickerTo"></mat-datepicker-toggle>
         <mat-datepicker #pickerTo></mat-datepicker>
       </mat-form-field>
-      <bdc-bo-hour-picker formControlName="hourTo"></bdc-bo-hour-picker>
+
+      <mat-form-field appearance="outline">
+        <mat-label> Hora </mat-label>
+        <input formControlName="hourTo" id="period" type="time" matInput />
+        <mat-icon matSuffix color="primary">schedule</mat-icon>
+      </mat-form-field>
     </div>
 
     <mat-checkbox (change)="onCheckboxChange($event)" formControlName="caducity">

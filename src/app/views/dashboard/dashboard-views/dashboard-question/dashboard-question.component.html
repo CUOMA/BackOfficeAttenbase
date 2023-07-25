@@ -8,16 +8,6 @@
     <div class="question-action">
       <h1>Preguntas</h1>
 
-      <nav mat-tab-nav-bar [tabPanel]="tabPanel" [color]="'accent'">
-        <a
-          mat-tab-link
-          *ngFor="let tab of tabs"
-          (click)="selectTab(tab)"
-          [active]="selectedTab.label === tab.label">
-          {{ tab.label }}
-        </a>
-      </nav>
-
       <div class="action">
         <div class="menu">
           <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu">
@@ -40,10 +30,8 @@
       </div>
     </div>
 
-    <mat-tab-nav-panel #tabPanel>
-      <bdc-bo-tabla-question
-        (pageChanged)="handlePageChanged($event)"
-        [questions]="questions"></bdc-bo-tabla-question>
-    </mat-tab-nav-panel>
+    <bdc-bo-tabla-question
+      (pageChanged)="handlePageChanged($event)"
+      [questions]="questions"></bdc-bo-tabla-question>
   </ng-container>
 </div>

@@ -5,7 +5,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { UsersService } from '../../core/services/users.service';
 import { usersApiActions } from '../actions/users.actions';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class UsersEffects {
   constructor(private actions$: Actions, private usersService: UsersService) {}
   users$ = createEffect((): any => {

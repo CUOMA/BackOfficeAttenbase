@@ -6,7 +6,7 @@ import { StatusesResponse } from 'src/app/core/models/statuses-response';
 import { StatusesService } from '../../core/services/statues.service';
 import { statusesApiActions } from '../actions/statuses.action';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class StatusesEffects {
   constructor(private actions$: Actions, private statusesService: StatusesService) {}
 

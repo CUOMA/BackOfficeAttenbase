@@ -2,11 +2,11 @@
   <mat-form-field appearance="outline">
     <mat-label>Preguntas Relacionadas</mat-label>
     <input
-      placeholder="Buscar preguntas relacionadas"
+      placeholder="Escribí y seleccioná preguntas relacionadas"
       [formControl]="multiselect"
       type="text"
       matInput />
-    <mat-hint *ngIf="!open"> Otras preguntas vinculadas la pregunta creada.</mat-hint>
+    <mat-hint *ngIf="!open"> Preguntas publicadas vinculadas la pregunta creada.</mat-hint>
   </mat-form-field>
   <div class="menu" [hidden]="!multiselect.value" [ngClass]="{ openMenu: open }">
     <ng-container *ngIf="questions$ | async as questions">
@@ -25,7 +25,7 @@
   <div class="container-selected-question">
     <div *ngFor="let item of selectedQuestions; let i = index">
       <div class="selected-question">
-        <p>{{ item }}</p>
+        <p>{{ item.name }}</p>
         <button mat-icon-button color="primary" (click)="removeSelectedQuestion(i)">
           <mat-icon class="material-symbols-outlined">delete</mat-icon>
         </button>

@@ -34,6 +34,8 @@ export class MetadataQuestionComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   protected alias: string[] = [];
   protected selectedQuestions: string[] = [];
+  protected idSubcategory!: number;
+  protected idCategory!: number;
 
   constructor(
     private fb: FormBuilder,
@@ -48,6 +50,9 @@ export class MetadataQuestionComponent implements OnInit {
     this.loadFormData();
   }
 
+  protected selectedSubcategory(id: number) {
+    this.idSubcategory = id;
+  }
   private loadFormData(): void {
     const storedForm$ = this.store.select(selectCreateQuestionMetadata);
     storedForm$.subscribe({
@@ -62,8 +67,9 @@ export class MetadataQuestionComponent implements OnInit {
 
   protected filterSubcategories(id: number) {
     this.form.get('subcategory')?.enable();
+    this.idCategory = id;
     this.createQuestionFacade.areSubcategoriesLoading.pipe(takeUntil(this.destroy$));
-    this.createQuestionFacade.dispatchGetListSubcategories(id);
+    this.createQuestionFacade.dispatchGetListSubcategories(this.idCategory);
   }
 
   protected add(event: MatChipInputEvent): void {
@@ -94,7 +100,12 @@ export class MetadataQuestionComponent implements OnInit {
   }
 
   protected saveMetadata() {
-    this.store.dispatch(createQuestionActions.createMetadata(this.form.value));
+    const combinedData = {
+      ...this.form.value,
+      idSubcategory: this.idSubcategory,
+      idCategory: this.idCategory,
+    };
+    this.store.dispatch(createQuestionActions.createMetadata(combinedData));
   }
 
   protected handleSearch(query: any): void {

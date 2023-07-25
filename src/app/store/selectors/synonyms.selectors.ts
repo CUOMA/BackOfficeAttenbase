@@ -9,6 +9,8 @@ export const selectAreSynonymsLoading = createSelector(
 
 export const selectSynonyms = createSelector(selectFeature, state => state.synonyms);
 
+export const selectOrderSynonyms = createSelector(selectFeature, state => state.order);
+
 export const selectSynonym = (id: number) =>
   createSelector(selectFeature, state => {
     return state.synonyms?.data.data.find((category: any) => category.id === +id);
