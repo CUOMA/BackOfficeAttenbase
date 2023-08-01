@@ -24,6 +24,8 @@ import { synonymsFeatureKey, synonymsReducer } from './reducers/synonyms.reducer
 import { UsersReducer, usersFeatureKey } from './reducers/users.reducers';
 import { metaReducers } from './meta.reducers';
 import { environment } from 'src/environments/environment.prod';
+import { profileFeatureKey, profileReducer } from './reducers/profile.reducers';
+import { ProfileEffects } from './effects/profile.effects';
 
 @NgModule({
   imports: [
@@ -37,6 +39,7 @@ import { environment } from 'src/environments/environment.prod';
         [countAsideFeatureKey]: countAsideReducer,
         [createQuestionFeatureKey]: createQuestionReducer,
         [listCategoriesFeatureKey]: listCategoriesReducer,
+        [profileFeatureKey]: profileReducer,
       },
       {
         metaReducers,
@@ -49,6 +52,7 @@ import { environment } from 'src/environments/environment.prod';
       StatusesEffects,
       SynonymsEffects,
       UsersEffects,
+      ProfileEffects,
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 20,

@@ -10,7 +10,6 @@ export class QuestionsService {
   constructor(private httpClient: HttpClient) {}
 
   public getQuestions(pageNumber = 1, status: string): Observable<Questions> {
-    console.log(pageNumber);
     return this.httpClient
       .get<QuestionsResponse>(
         `${environment.apiUrl}questions?limit=10&${status}=true&page=${pageNumber}`
@@ -26,6 +25,10 @@ export class QuestionsService {
     return this.httpClient.post(`${environment.apiUrl}questions/search`, { name: payload });
   }
   public postQuestions(payload: any) {
+    console.log(payload);
     return this.httpClient.post(`${environment.apiUrl}questions`, payload);
+  }
+  public filterQuestions(payload: any) {
+    return this.httpClient.post(`${environment.apiUrl}questions/filter`, payload);
   }
 }

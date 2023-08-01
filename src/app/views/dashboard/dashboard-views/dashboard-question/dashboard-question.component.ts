@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { QuestionsFacade } from './dashboard-question.facade';
-import { TableQuestionComponent } from './table/table-question.component';
 import { DashboardCreateQuestionFacade } from './create-question/dashboard-create-question.facade';
+import { QuestionsFacade } from './dashboard-question.facade';
 
 @Component({
   selector: 'bdc-bo-dashboard-question',
@@ -35,5 +34,9 @@ export class DashboardQuestionComponent implements OnInit {
 
   protected handleSearch(query: string): void {
     this.questionsFacade.dispatchGetQuestionsSearch(query);
+  }
+
+  protected filterQuery(filter: any): void {
+    this.questionsFacade.dispatchGetQuestionsFilter(filter);
   }
 }

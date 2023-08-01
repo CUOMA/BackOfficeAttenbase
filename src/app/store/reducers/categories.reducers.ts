@@ -4,6 +4,7 @@ import { categoriesApiActions } from '../actions/categories.actions';
 export interface CategoriesState {
   areCategoriesLoading: boolean;
   categories: any[];
+  selectCategory?: any;
 }
 
 export interface CategoriesState {
@@ -55,6 +56,28 @@ export const categoriesReducer = createReducer(
   ),
   on(
     categoriesApiActions.deleteCategoriesFailure,
+    (state): CategoriesState => ({
+      ...state,
+      areCategoriesLoading: false,
+    })
+  ),
+  on(
+    categoriesApiActions.getDetailCategoryRequest,
+    (state): CategoriesState => ({
+      ...state,
+      areCategoriesLoading: true,
+    })
+  ),
+  on(
+    categoriesApiActions.getDetailCategorySuccess,
+    (state, payload): CategoriesState => ({
+      ...state,
+      areCategoriesLoading: false,
+      selectCategory: payload,
+    })
+  ),
+  on(
+    categoriesApiActions.getDetailCategoryFailure,
     (state): CategoriesState => ({
       ...state,
       areCategoriesLoading: false,

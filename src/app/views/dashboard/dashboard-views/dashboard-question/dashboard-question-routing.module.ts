@@ -8,6 +8,13 @@ const routes: Routes = [
     component: DashboardQuestionComponent,
   },
   {
+    path: 'detalle',
+    loadChildren: () =>
+      import('./detail-question/detail-question.module').then(
+        m => m.DetailQuestionModule
+      ),
+  },
+  {
     path: 'crear-pregunta',
     loadChildren: () =>
       import('./create-question/dashboard-create-question.module').then(
@@ -23,4 +30,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DashboardQuestionRoutingModule {}
+export class DashboardQuestionRoutingModule { }

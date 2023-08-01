@@ -44,4 +44,19 @@ export class QuestionsEffects {
       })
     );
   });
+
+  filter$ = createEffect((): any => {
+    return this.actions$.pipe(
+      ofType(questionsApiActions.filterQuestionRequest.type),
+      mergeMap((action: Action & { filter: any }) => {
+        console.log(action);
+        return this.questionsService.filterQuestions(action.filter).pipe(
+          map((questions: any) => questionsApiActions.searchSuccess(questions)),
+          catchError(() =>
+            of(questionsApiActions.searchFailure({ error: 'Error on filter question' }))
+          )
+        );
+      })
+    );
+  });
 }

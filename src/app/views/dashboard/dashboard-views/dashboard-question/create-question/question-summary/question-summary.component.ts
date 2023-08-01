@@ -53,9 +53,8 @@ export class QuestionSummaryComponent implements OnInit {
             published_at: data.dateFrom + data.hourFrom,
             archived_at: data.dateTo + data.hourTo,
           };
-          console.log(formData);
-          return this.questionService.postQuestions(formData);
-          // this.deleteLocalStore();
+          this.questionService.postQuestions(formData).subscribe();
+          this.deleteLocalStore();
         })
       )
       .subscribe();

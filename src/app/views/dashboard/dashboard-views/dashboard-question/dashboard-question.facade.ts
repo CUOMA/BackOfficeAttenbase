@@ -45,21 +45,15 @@ export class QuestionsFacade {
     this.store.dispatch(questionsApiActions.searchRequest({ query }));
   }
 
+  public dispatchGetQuestionsFilter(payload: any): void {
+    this.store.dispatch(questionsApiActions.filterQuestionRequest({ filter: payload }));
+  }
   public dispatchGetStatuses(): void {
     this.store.dispatch(statusesApiActions.getStatusesRequest());
   }
 
   public selectQuestions(): Observable<Datum[]> {
-    return combineLatest([this.store.select(selectQuestions), this.getStatusTypes()]).pipe(
-      filter(([questions, statusTypes]) => questions && statusTypes),
-      map(([questions, statusTypes]: [Questions, any]) =>
-        questions.data.map(question => ({
-          ...question,
-          status: statusTypes?.data.find((type: { id: number }) => type.id === question.status_id),
-          total: questions.total,
-        }))
-      )
-    );
+    return this.store.select(selectQuestions);
   }
 
   public selectPaginator(): Observable<Datum[]> {

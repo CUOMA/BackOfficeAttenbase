@@ -15,7 +15,7 @@
       <mat-label>Estado</mat-label>
       <mat-select multiple formControlName="state">
         <ng-container *ngIf="states$ | async as states">
-          <mat-option *ngFor="let state of states.data" [value]="state.code">
+          <mat-option *ngFor="let state of states.data" [value]="state.id">
             {{ state.name }}
           </mat-option>
         </ng-container>
@@ -28,7 +28,7 @@
         <ng-container *ngIf="listCategories$ | async as listCategories">
           <mat-option
             *ngFor="let category of listCategories"
-            [value]="category"
+            [value]="category.id"
             (click)="filterCategories(category.id)"
             >{{ category.name }}
           </mat-option>

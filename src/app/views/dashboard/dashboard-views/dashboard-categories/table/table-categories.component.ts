@@ -80,7 +80,7 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
     );
   }
 
-  openDialog(id: number) {
+  protected openDialog(id: number) {
     this.dialog.open(DialogConfirmDeletionComponent, {
       data: id,
     });
@@ -98,15 +98,15 @@ export class TableCategoriesComponent implements OnChanges, OnInit, AfterViewIni
   }
 
   protected handleOrder() {
-    console.log(this.typeOrder);
     this.typeOrder = this.typeOrder === 'ASC' ? 'DESC' : 'ASC';
     this.categoriesFacade.dispatchGetCategories(1, this.typeOrder);
     this.order.emit(this.typeOrder);
-    console.log(this.typeOrder);
     this.paginator.firstPage();
   }
+
   protected detailCategory(id: number): any {
     this.router.navigate(['/dashboard/categorias/detalle'], { queryParams: { id } });
+    this.categoriesFacade.dispatchSelectIdCategories(id).subscribe();
   }
 
   protected handlePageChanged(pageEvent: PageEvent): void {

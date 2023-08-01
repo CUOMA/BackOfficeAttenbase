@@ -64,6 +64,27 @@ export const questionsReducer = createReducer(
       ...state,
       areQuestionsLoading: false,
     })
+  ),
+  on(questionsApiActions.filterQuestionRequest, (state): QuestionsState => {
+    return {
+      ...state,
+      areQuestionsLoading: true,
+    };
+  }),
+  on(
+    questionsApiActions.filterQuestionSuccess,
+    (state, payload): QuestionsState => ({
+      ...state,
+      areQuestionsLoading: false,
+      questions: payload,
+    })
+  ),
+  on(
+    questionsApiActions.filterQuestionFailure,
+    (state): QuestionsState => ({
+      ...state,
+      areQuestionsLoading: false,
+    })
   )
 );
 

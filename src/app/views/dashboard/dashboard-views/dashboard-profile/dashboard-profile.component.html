@@ -1,156 +1,133 @@
-<div class="wrapper">
-  <div class="d-flex">
-    <h1>Perfil</h1>
-    <button mat-flat-buttoncolor="primary">Primary</button>
+<ng-container *ngIf="profile$ | async as profile">
+  <div class="wrapper">
+    <div class="action">
+      <div class="button-back">
+        <bdc-bo-back-arrow-button [routeMap]="'/dashboard/usuarios'"></bdc-bo-back-arrow-button>
+        <h1>{{ profile.first_name }} {{ profile.last_name }}</h1>
+      </div>
+      <button *ngIf="isReadOnly" mat-flat-button color="primary" (click)="editProfile()">
+        Editar usuarios
+      </button>
+    </div>
+    <form [formGroup]="form" class="form">
+      <mat-form-field appearance="outline" class="form-inputs">
+        <mat-label>Nombre</mat-label>
+        <input
+          [readonly]="isReadOnly"
+          matInput
+          formControlName="firstName"
+          name="firstName"
+          type="text" />
+        <mat-error *ngIf="form.controls['firstName']"
+          >Ingrese un nombre de al menos dos letras.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form-inputs">
+        <mat-label>Apellido</mat-label>
+        <input
+          [readonly]="isReadOnly"
+          matInput
+          formControlName="lastName"
+          name="lastName"
+          type="text" />
+        <mat-error *ngIf="form.controls['lastName']"
+          >Ingrese un apellido de al menos dos letras.
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field appearance="outline" class="form-inputs">
+        <mat-label>Correo electrónico</mat-label>
+        <input
+          matInput
+          [readonly]="isReadOnly"
+          formControlName="email"
+          name="email"
+          type="email"
+          placeholder="attenbase@attenbase.com" />
+        <mat-error
+          *ngIf="form.controls['email'].errors?.['required'] || form.controls['email'].errors?.['email']"
+          >Ingresá un correo electrónico válido. Ej.: attenbase@attenbase.com
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form-inputs">
+        <mat-label>Contraseña</mat-label>
+        <input
+          formControlName="password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          placeholder="" />
+        <button
+          mat-icon-button
+          [color]="
+            form.controls['password'].errors && form.controls['password'].touched
+              ? 'warn'
+              : 'primary'
+          "
+          matSuffix
+          (click)="togglePasswordVisibility($event)">
+          <ng-container *ngIf="hide; else showPassword">
+            <mat-icon svgIcon="eyeText"></mat-icon>
+          </ng-container>
+          <ng-template #showPassword>
+            <mat-icon svgIcon="eyePassword"></mat-icon>
+          </ng-template>
+        </button>
+        <mat-error
+          *ngIf="form.controls['password'].errors?.['required'] && form.controls['password'].touched"
+          >Ingresá una contraseña
+        </mat-error>
+        <mat-error
+          *ngIf="form.controls['password'].errors?.['pattern'] && form.controls['password'].dirty"
+          >Mínimo 8 caracteres, una letra en mayúscula, un número y un caracter especial (ej.:#$%!)
+        </mat-error>
+        <mat-hint
+          >Mínimo 8 caracteres, una letra en mayúscula, un número y un caracter especial(ej.:#$%!)
+        </mat-hint>
+      </mat-form-field>
+      <div>
+        <h3>Rol</h3>
+        <mat-button-toggle-group name="userRol" aria-label="rol">
+          <mat-button-toggle value="administrador">
+            <span class="material-symbols-outlined" id="icon-toggle">check</span>
+            Administrador</mat-button-toggle
+          >
+          <mat-button-toggle value="moderador">
+            <span class="material-symbols-outlined" id="icon-toggle">check</span>
+            Moderador
+          </mat-button-toggle>
+          <mat-button-toggle value="editor">
+            <span class="material-symbols-outlined" id="icon-toggle">check</span>
+            Editor
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <div>
+        <h3>Estados</h3>
+        <mat-button-toggle-group name="userState" aria-label="state">
+          <mat-button-toggle value="activo">
+            <span class="material-symbols-outlined" id="icon-toggle">check</span>
+            Activo</mat-button-toggle
+          >
+          <mat-button-toggle value="inactivo">
+            <span class="material-symbols-outlined" id="icon-toggle">check</span>
+            Inactivo
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <div class="data-profile">
+        <p>Estadísticas de usuario</p>
+        <span><strong>Se unió el</strong> {{ profile.created_at | date: 'dd/MM/yyyy' }}</span>
+        <span><strong>Último login</strong> {{ profile.last_login | date: 'dd/MM/yyyy' }}</span>
+      </div>
+    </form>
+    <div *ngIf="!isReadOnly" class="form-buttons">
+      <button mat-button color="primary" class="mr-10" (click)="noChangeEdit()">Cancelar</button>
+      <button mat-flat-button color="primary" (click)="sendForm()" [disabled]="form.invalid">
+        Guardar
+      </button>
+    </div>
   </div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
-<div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus, perspiciatis
-    necessitatibus quos, omnis aliquam qui, cumque optio non suscipit error numquam magni id quae
-    placeat nam? Neque, molestias exercitationem.
-    <br />
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium explicabo dolorum itaque?
-    Officiis laboriosam non quis repellendus, quod officia dolorem rem id, voluptates nulla nihil
-    veniam accusamus fuga expedita alias! <br />Lorem ipsum dolor sit amet consectetur, adipisicing
-    elit. Reprehenderit nesciunt harum non blanditiis, labore deleniti iure perferendis aspernatur
-    ab unde. Ex repellendus nesciunt, expedita fuga eveniet iusto atque ea unde?<br />Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Eum iure ipsa sequi aliquid, voluptatum obcaecati
-    deleniti quibusdam! Exercitationem aliquam fuga deserunt pariatur voluptatibus recusandae earum
-    rerum minus, fugit accusamus ducimus! <br />
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste amet adipisci reprehenderit
-    accusantium distinctio laboriosam aspernatur ipsa voluptatum, quisquam voluptatibus deleniti
-    quasi ipsam cum! Vel assumenda nesciunt corporis commodi accusamus! <br />
-  </p>
-</div>
+</ng-container>

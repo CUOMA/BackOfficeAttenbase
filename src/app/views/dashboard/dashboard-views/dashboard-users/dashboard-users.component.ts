@@ -1,7 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, OnInit } from '@angular/core';
 import { UsersFacade } from './dashboard-users.facade';
 
 @Component({
@@ -9,7 +6,10 @@ import { UsersFacade } from './dashboard-users.facade';
   templateUrl: './dashboard-users.component.html',
   styleUrls: ['./dashboard-users.component.scss'],
 })
-export class DashboardUsersComponent {
+export class DashboardUsersComponent implements OnInit {
   protected users$ = this.usersFacade.selectUsers();
   constructor(public usersFacade: UsersFacade) {}
+  ngOnInit(): void {
+    this.usersFacade.dispatchGetUsers();
+  }
 }

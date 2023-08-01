@@ -44,12 +44,14 @@ export class MenuFilterComponent implements OnInit {
 
   protected applyFilters() {
     let form = {
-      date: this.dateRange.get('start')?.value + this.dateRange.get('end')?.value,
+      name: '',
+      date_from: this.dateRange.get('start')?.value,
+      date_to: this.dateRange.get('end')?.value,
       status: this.form.get('state')?.value,
-      category: this.form.get('category')?.value,
-      subcategory: this.form.get('subCategory')?.value,
+      categories: this.form.get('category')?.value,
+      subCategories: this.form.get('subcategory')?.value,
     };
     alert(JSON.stringify(form));
-    this.questionsFacade.dispatchGetQuestions(form.status, 1);
+    this.questionsFacade.dispatchGetQuestionsFilter(form);
   }
 }

@@ -6,24 +6,14 @@
   <form [formGroup]="form" class="form">
     <mat-form-field appearance="outline" class="form-inputs">
       <mat-label>Nombre</mat-label>
-      <input
-        matInput
-        formControlName="name"
-        name="name"
-        type="text"
-        placeholder="attenbase@attenbase.com" />
+      <input matInput formControlName="name" name="name" type="text" />
       <mat-error *ngIf="form.controls['name']"
         >Ingrese un nombre de al menos dos letras.
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" class="form-inputs">
       <mat-label>Apellido</mat-label>
-      <input
-        matInput
-        formControlName="useradress"
-        name="useradress"
-        type="text"
-        placeholder="Quito" />
+      <input matInput formControlName="useradress" name="useradress" type="text" />
       <mat-error *ngIf="form.controls['useradress']"
         >Ingrese un apellido de al menos dos letras.
       </mat-error>

@@ -27,6 +27,19 @@ export class CategoriesEffects {
       )
     );
   });
+  detailCategory$ = createEffect((): any => {
+    return this.actions$.pipe(
+      ofType(categoriesApiActions.getDetailCategoryRequest.type),
+      mergeMap((action: Action & { id: number }) =>
+        this.categoriesService.detailCategory(action.id).pipe(
+          map(res => categoriesApiActions.getDetailCategorySuccess(res)),
+          catchError(() =>
+            of((error: any) => of(categoriesApiActions.getDetailCategoryFailure({ error })))
+          )
+        )
+      )
+    );
+  });
   deleteCategory$ = createEffect((): any => {
     return this.actions$.pipe(
       ofType(categoriesApiActions.deleteCategoriesRequest.type),

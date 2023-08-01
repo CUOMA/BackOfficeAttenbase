@@ -9,7 +9,7 @@ export interface CreateQuestionState {
 
 export const initialState: CreateQuestionState = {
   metadata: {
-    alias: undefined,
+    alias: '',
     associatedQuestions: [],
     category: '',
     subcategory: '',

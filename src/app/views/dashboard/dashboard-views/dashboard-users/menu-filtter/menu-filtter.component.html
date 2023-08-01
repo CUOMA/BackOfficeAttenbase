@@ -16,19 +16,7 @@
       <mat-option *ngFor="let rol of rolsList" [value]="rol">{{ rol.value }}</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field class="mt-20" appearance="outline">
-    <mat-label>Clientes habilitados</mat-label>
-    <mat-select [formControl]="clients" multiple>
-      <mat-option class="font-cap" *ngFor="let client of clientsList" [value]="client">{{
-        client.value
-      }}</mat-option>
-    </mat-select>
-    <!-- <mat-select [formGroup]="clientsGroup" multiple>
-      <mat-checkbox formControlName="movistar">Movistar</mat-checkbox>
-      <mat-checkbox formControlName="telefonica">Telefonica</mat-checkbox>
-      <mat-checkbox formControlName="telefonicaIndividuos">Telefonica Individuos</mat-checkbox>
-    </mat-select> -->
-  </mat-form-field>
+
   <div class="filtter-buttons">
     <button mat-button color="primary">borrar filtros</button>
     <button mat-flat-button color="primary" (click)="sendFiltters()">aplicar</button>

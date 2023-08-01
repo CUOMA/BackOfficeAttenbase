@@ -28,7 +28,9 @@ export class CategoriesFacade {
   public dispatchGetCategories(page: number, order: string): any {
     this.store.dispatch(categoriesApiActions.getCategoriesRequest({ page: page, order: order }));
   }
-
+  public dispatchSelectIdCategories(id: any): any {
+    this.store.dispatch(categoriesApiActions.getDetailCategoryRequest({ id: id }));
+  }
   public dispatchDeleteCategory(id: number): any {
     return this.categoriesService.deleteCategory(id);
   }
