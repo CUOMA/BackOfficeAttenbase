@@ -1,1 +1,86 @@
-<p>hola</p>
+<div class="wrapper">
+   <ng-container *ngIf="(preview$ | async) as preview"> 
+    <!-- <h1>{{preview.name}}</h1> -->
+    <p>{{preview | json}}</p>
+  <div class="preview-question">
+    <h2 class="preview-question__title">{{ preview.name }}</h2> 
+    <div class="preview-question__category">
+     <span>{{ preview.category.name }}</span> 
+      <ng-container *ngIf="preview.subcategory">
+            <span class="material-symbols-outlined">chevron_right</span>
+            <span>{{ preview.subcategory.name }}</span>
+          </ng-container> 
+    </div>
+    <div class="preview-question__date">
+      <div>
+        <ng-container *ngIf="preview.dateFrom; else postNow">
+              <strong>Publicación</strong>
+              {{ preview.dateFrom | date: 'dd/MM/yy' }}
+              -
+              {{ preview.hourFrom }}
+            </ng-container>
+        <ng-template #postNow class="preview-question__date--no-expiration">
+          Publicación inmediata
+        </ng-template>
+      </div>
+      <div>
+        <ng-container>
+           <ng-container *ngIf="preview.dateTo; else noDateTo">
+                <strong>Vencimiento</strong>
+                {{ preview.dateTo | date: 'dd/MM/yy' }}
+                -
+                {{ preview.hourTo }}
+              </ng-container> 
+          <ng-template #noDateTo class="preview-question__date--no-expiration">
+            Sin vecimiento
+          </ng-template>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="preview-question__response-data">
+      <h5>Alias</h5>
+     <ng-container *ngFor="let item of preview.alias">
+            <p>{{ item }}</p>
+          </ng-container> 
+    </div>
+    <div class="preview-question__response-data">
+      <h5>Respuesta larga</h5>
+     <div [innerHTML]="preview.resLong"></div> 
+    </div>
+    <div class="preview-question__response-data">
+      <h5>Respuesta corta</h5>
+     <div [innerHTML]="preview.resShort"></div> -->
+    </div>
+    <div class="preview-question__response-data">
+   <h5>Respuesta canal AI</h5>
+          <p>{{ preview }}</p> 
+    </div>
+    <div class="preview-question__response-data">
+      <h5>Preguntas Relacionadas</h5>
+       <!-- <div class="preview-question__response-data--related-questions">
+            <ng-container *ngFor="let item of preview.associatedQuestions">
+              <span>{{ item.name }}</span>
+            </ng-container>
+          </div>  -->
+    </div>
+
+    <!-- <div class="action">
+          <button
+            mat-stroked-button
+            color="primary"
+            [routerLink]="['/dashboard/listado-de-preguntas/crear-pregunta']">
+            Volver atrás
+          </button>
+          <button
+            mat-flat-button
+            [routerLink]="['/dashboard/listado-de-preguntas']"
+            color="primary"
+            (click)="createQuestion()">
+            Publicar
+          </button>
+        </div>
+      </div> -->
+    <!-- </ng-container> -->
+  </div>
+

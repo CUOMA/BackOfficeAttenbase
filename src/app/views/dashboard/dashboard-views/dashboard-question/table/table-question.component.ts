@@ -19,6 +19,7 @@ import { takeUntil } from 'rxjs/operators';
 import { QuestionStatus } from '../../../../../core/models/statuses-response';
 import { QuestionsFacade } from '../dashboard-question.facade';
 import { emptyStateModel } from 'src/app/shared/empty-state/empty-state.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bdc-bo-tabla-question',
@@ -56,7 +57,7 @@ export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource: any;
 
-  constructor(public questionsFacade: QuestionsFacade) {}
+  constructor(public questionsFacade: QuestionsFacade, public router: Router) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['questions'].currentValue) {
@@ -68,6 +69,10 @@ export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges 
     this.areQuestionsLoading$ = this.questionsFacade.areQuestionsLoading.pipe(
       takeUntil(this.destroy$)
     );
+  }
+
+  protected showDetail(path: string) {
+    this.router.navigate(['/dashboard/listado-de-preguntas/', path]);
   }
 
   ngAfterViewInit() {

@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { SharedModule } from 'src/app/shared/shared.module';
-import { DashboardQuestionRoutingModule } from '../dashboard-question-routing.module';
+import { DetailQuestionRoutingModule } from './detail-question-routing.module';
 import { DetailQuestionComponent } from './detail-question.component';
 
 @NgModule({
@@ -11,6 +10,6 @@ import { DetailQuestionComponent } from './detail-question.component';
   declarations: [
     DetailQuestionComponent
   ],
-  imports: [CommonModule, SharedModule, ReactiveFormsModule, DashboardQuestionRoutingModule],
+  imports: [CommonModule, SharedModule, ReactiveFormsModule, DetailQuestionRoutingModule],
 })
 export class DetailQuestionModule { }

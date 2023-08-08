@@ -7,12 +7,12 @@ import { tap, map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class QuestionsService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
-  public getQuestions(pageNumber = 1, status: string): Observable<Questions> {
+  public getQuestions(pageNumber = 1): Observable<Questions> {
     return this.httpClient
       .get<QuestionsResponse>(
-        `${environment.apiUrl}questions?limit=10&${status}=true&page=${pageNumber}`
+        `${environment.apiUrl}questions?limit=10&page=${pageNumber}`
       )
       .pipe(map(res => res.data));
   }
@@ -25,10 +25,12 @@ export class QuestionsService {
     return this.httpClient.post(`${environment.apiUrl}questions/search`, { name: payload });
   }
   public postQuestions(payload: any) {
-    console.log(payload);
     return this.httpClient.post(`${environment.apiUrl}questions`, payload);
   }
   public filterQuestions(payload: any) {
-    return this.httpClient.post(`${environment.apiUrl}questions/filter`, payload);
+    return this.httpClient.post(`${environment.apiUrl}questions/filter`, payload).pipe(map((res: any) => res.data));
+  }
+  public showQuestions(path: any) {
+    return this.httpClient.get(`${environment.apiUrl}questions/${path}`).pipe(map((res: any) => res.data));
   }
 }
