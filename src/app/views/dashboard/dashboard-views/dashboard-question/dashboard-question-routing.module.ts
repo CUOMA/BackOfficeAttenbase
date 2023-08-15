@@ -8,16 +8,6 @@ const routes: Routes = [
     component: DashboardQuestionComponent,
   },
   {
-    path: ':path',
-    loadChildren: () =>
-      import('./detail-question/detail-question.module').then(
-        m => m.DetailQuestionModule
-      ),
-    data: {
-      preload: false,
-    },
-  },
-  {
     path: 'crear-pregunta',
     loadChildren: () =>
       import('./create-question/dashboard-create-question.module').then(
@@ -27,6 +17,17 @@ const routes: Routes = [
       preload: false,
     },
   },
+  {
+    path: ':path',
+    loadChildren: () =>
+      import('./detail-question/detail-question.module').then(
+        m => m.DetailQuestionModule
+      ),
+    data: {
+      preload: false,
+    },
+  },
+
 ];
 
 @NgModule({

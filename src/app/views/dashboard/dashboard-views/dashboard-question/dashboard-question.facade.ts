@@ -23,7 +23,7 @@ export class QuestionsFacade {
   protected color: ThemePalette = 'primary';
   protected mode: MatProgressSpinnerModule = 'indeterminate';
   protected isOpen: boolean = false;
-  constructor(private store: Store) {}
+  constructor(private store: Store) { }
 
   public get areQuestionsLoading(): Observable<boolean> {
     return this.store.select(selectAreQuestionsLoading);
@@ -46,7 +46,14 @@ export class QuestionsFacade {
   }
 
   public dispatchGetQuestionsFilter(payload: any): void {
-    this.store.dispatch(questionsApiActions.filterQuestionRequest({ filter: payload }));
+    this.store.dispatch(questionsApiActions.filterQuestionRequest({
+      categories: payload.categories,
+      date_from: payload.date_from,
+      date_to: payload.date_to,
+      name: payload.name,
+      status: payload.status,
+      subCategories: payload.subCategories,
+    }));
   }
   public dispatchGetStatuses(): void {
     this.store.dispatch(statusesApiActions.getStatusesRequest());

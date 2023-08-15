@@ -16,7 +16,14 @@ export const questionsApiActions = createActionGroup({
     'Search Success': props<Questions>(),
     'Search Failure': props<any>(),
 
-    'Filter Question Request': props<{ filter: any }>(),
+    'Filter Question Request': props<{
+      categories: number[];
+      date_from: string;
+      date_to: string;
+      name: string;
+      status: number[];
+      subCategories: number[];
+    }>(),
     'Filter Question Success': props<Questions>(),
     'Filter Question Failure': props<any>(),
   },

@@ -22,15 +22,20 @@ export class QuestionsService {
   }
 
   public searchQuestion(payload: any) {
-    return this.httpClient.post(`${environment.apiUrl}questions/search`, { name: payload });
+    return this.httpClient.post(`${environment.apiUrl}questions/filter`, { name: payload}).pipe(map((res: any) => res.data));;
   }
   public postQuestions(payload: any) {
     return this.httpClient.post(`${environment.apiUrl}questions`, payload);
   }
   public filterQuestions(payload: any) {
+    console.log(payload)
     return this.httpClient.post(`${environment.apiUrl}questions/filter`, payload).pipe(map((res: any) => res.data));
   }
   public showQuestions(path: any) {
     return this.httpClient.get(`${environment.apiUrl}questions/${path}`).pipe(map((res: any) => res.data));
   }
+}
+
+export interface SearchPayload {
+  name?: string;
 }
