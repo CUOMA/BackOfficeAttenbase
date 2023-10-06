@@ -62,4 +62,18 @@ export class QuestionsEffects {
       })
     );
   });
+  
+  // createQuestion$ = createEffect((): any => {
+  //   return this.actions$.pipe(
+  //     ofType(questionsApiActions.),
+  //     mergeMap((action: Action & { filter: any }) => {
+  //       return this.questionsService.filterQuestions(action.filter).pipe(
+  //         map((questions: any) => questionsApiActions.searchSuccess(questions)),
+  //         catchError(() =>
+  //           of(questionsApiActions.searchFailure({ error: 'Error on filter question' }))
+  //         )
+  //       );
+  //     })
+  //   );
+  // });
 }

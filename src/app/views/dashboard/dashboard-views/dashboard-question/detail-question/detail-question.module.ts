@@ -7,9 +7,7 @@ import { DetailQuestionComponent } from './detail-question.component';
 
 @NgModule({
   providers: [],
-  declarations: [
-    DetailQuestionComponent
-  ],
+  declarations: [DetailQuestionComponent],
   imports: [CommonModule, SharedModule, ReactiveFormsModule, DetailQuestionRoutingModule],
 })
 export class DetailQuestionModule { }

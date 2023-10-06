@@ -4,5 +4,5 @@ export interface Profile {
   email: string;
   password: any;
   password_confirmation: any;
-  locale: any;
+  locale?: any;
 }

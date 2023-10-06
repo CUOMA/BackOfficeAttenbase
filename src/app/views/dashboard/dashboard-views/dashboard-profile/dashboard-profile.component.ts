@@ -19,13 +19,12 @@ export class DashboardProfileComponent implements OnInit {
     password: [
       '',
       [
-        Validators.required,
         Validators.pattern('^(?=.*?[A-Z])(?=.*[0-9])(?=.*?[@#%$!&*])[a-zA-Z0-9@#%$!&*]{8,50}$'),
       ],
     ],
   });
 
-  constructor(private fb: FormBuilder, private profileFacade: profileFacade) {}
+  constructor(private fb: FormBuilder, private profileFacade: profileFacade) { }
   public ngOnInit(): void {
     this.profileFacade.dispachProfile();
     this.initFormValue();
@@ -58,9 +57,7 @@ export class DashboardProfileComponent implements OnInit {
       email: this.form.value.email,
       password: this.form.value.password,
       password_confirmation: this.form.value.password,
-      locale: 'en',
     };
     this.profileFacade.postEditProfile(form).subscribe();
-    console.log(form);
   }
 }

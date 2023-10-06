@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { createQuestionActions } from 'src/app/store/actions/create-question.actions';
 
@@ -9,7 +10,7 @@ import { createQuestionActions } from 'src/app/store/actions/create-question.act
   styleUrls: ['./date.component.scss'],
 })
 export class DateComponent {
-  private store = inject(Store);
+  private dialog = inject(MatDialog);
   protected createDate!: any[];
   protected postOptions = [
     {

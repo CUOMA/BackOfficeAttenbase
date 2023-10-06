@@ -1,15 +1,16 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { DashboardCreateQuestionFacade } from '../dashboard-create-question.facade';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable, combineLatest } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { QuestionsService } from 'src/app/core/services/question.service';
+import { createQuestionActions } from 'src/app/store/actions/create-question.actions';
 import {
   selectCreateQuestionContent,
   selectCreateQuestionDate,
   selectCreateQuestionMetadata,
 } from 'src/app/store/selectors/create-question.selectors';
-import { Observable, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { createQuestionActions } from 'src/app/store/actions/create-question.actions';
-import { QuestionsService } from 'src/app/core/services/question.service';
+import { DashboardCreateQuestionFacade } from '../dashboard-create-question.facade';
 
 @Component({
   selector: 'bdc-bo-question-summary',
@@ -21,6 +22,8 @@ export class QuestionSummaryComponent implements OnInit {
   protected facade = inject(DashboardCreateQuestionFacade);
   protected questionService = inject(QuestionsService);
   protected store = inject(Store);
+  private router = inject(Router);
+
   ngOnInit(): void {
     this.preview$ = combineLatest([
       this.store.select(selectCreateQuestionMetadata),
@@ -36,10 +39,15 @@ export class QuestionSummaryComponent implements OnInit {
     this.preview$
       .pipe(
         map((data: any) => {
-          const formData = {
+          const [published_hour, published_minutes] = data.hourTo.split(':');
+          const published_at = new Date(data.dateTo);
+          published_at.setHours(published_hour, published_minutes);
+          return {
             name: data.question,
             category: data.category.id,
-            subcategory: data.subcategory.id,
+            subcategory: data.subcategory?.id,
+            is_published_immediately: true,
+            read_only: false,
             answers: [
               {
                 long: data.resLong,
@@ -50,27 +58,21 @@ export class QuestionSummaryComponent implements OnInit {
             related_question: [data.associatedQuestions.id],
             is_published: 1,
             is_archived: 0,
-            published_at: data.dateFrom + data.hourFrom,
+            published_at,
             archived_at: data.dateTo + data.hourTo,
-          };
-          this.questionService.postQuestions(formData).subscribe();
-          this.deleteLocalStore();
-        })
+          }
+        }),
+        switchMap(formData => this.questionService.postQuestions(formData))
       )
-      .subscribe();
-
-    // ‘answers.*.long’ => ‘required|string’,
-    // ‘answers.*.short’ => ‘required|string|max:255’,
-    // ‘answers.*.channels.*’ => ‘required|string|max:255’,
-    // //‘sticky’ => ‘required|boolean’,
-    // ‘read_only’ => ‘required|boolean’,
-    // //‘commercial_content’ => ‘required|boolean’,
-    // ‘is_published’ => ‘required|boolean’,
-    // ‘is_archived’ => ‘required|boolean’,
-    // ‘is_published_immediately’ => ‘required_if:is_published,1|nullable|boolean’,
-    // ‘is_archived_immediately’ => ‘required_if:is_archived,1|nullable|boolean’,
-    // // ‘published_at’ => ‘required_if:is_published_immediately,0’,
-    // // ‘archived_at’ => ‘required_if:is_archived_immediately,0’,
+      .subscribe({
+        next: () => {
+          this.deleteLocalStore();
+          this.router.navigateByUrl('dashboard/listado-de-preguntas');
+        },
+        error: (err: any) => {
+          console.error(err);
+        },
+      });
   }
   protected deleteLocalStore(): void {
     this.store.dispatch(

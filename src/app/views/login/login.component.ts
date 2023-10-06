@@ -1,13 +1,13 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { finalize, takeUntil, catchError } from 'rxjs/operators';
-import { LoginPayload } from '../../core/models/login';
-import { LoginFacade } from './login.facade';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Store } from '@ngrx/store';
+import { Observable, Subject } from 'rxjs';
+import { finalize, takeUntil, tap } from 'rxjs/operators';
+import { profileApiActions } from 'src/app/store/actions/profile.action';
+import { LoginPayload } from '../../core/models/login';
 import { selectIsLogginError } from '../../store/selectors/authentication.selectors';
+import { LoginFacade } from './login.facade';
 
 @Component({
   selector: 'bdc-bo-login',
@@ -37,16 +37,24 @@ export class LoginComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private store: Store
-  ) {}
+  ) { }
 
   public ngOnInit(): void {
     this.getEmailFromStorage();
     this.loginFacade.isAuthenticated
-      .pipe(finalize(() => this.router.navigateByUrl('dashboard/listado-de-preguntas')))
+      .pipe(
+        tap(() => {
+          this.store.dispatch(profileApiActions.getProfileRequest());
+        }),
+        finalize(() => this.router.navigateByUrl('dashboard/listado-de-preguntas')))
       .subscribe();
     this.isLogginIn$ = this.loginFacade.isLogginIn.pipe(takeUntil(this.destroy$));
     this.$loginError = this.store.select(selectIsLogginError);
     this.validateForm();
+  }
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private validateForm() {
@@ -60,11 +68,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         });
       },
     });
-  }
-
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   protected togglePasswordVisibility(event: Event): void {

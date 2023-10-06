@@ -90,14 +90,14 @@
       <div>
         <h3>Rol</h3>
         <mat-button-toggle-group name="userRol" aria-label="rol">
+          <mat-button-toggle value="owner">
+            <span class="material-symbols-outlined" id="icon-toggle">check</span>
+            Dueño</mat-button-toggle
+          >
           <mat-button-toggle value="administrador">
             <span class="material-symbols-outlined" id="icon-toggle">check</span>
             Administrador</mat-button-toggle
           >
-          <mat-button-toggle value="moderador">
-            <span class="material-symbols-outlined" id="icon-toggle">check</span>
-            Moderador
-          </mat-button-toggle>
           <mat-button-toggle value="editor">
             <span class="material-symbols-outlined" id="icon-toggle">check</span>
             Editor
@@ -106,8 +106,8 @@
       </div>
       <div>
         <h3>Estados</h3>
-        <mat-button-toggle-group name="userState" aria-label="state">
-          <mat-button-toggle value="activo">
+        <mat-button-toggle-group name="userState" aria-label="state" disabled>
+          <mat-button-toggle value="activo" checked>
             <span class="material-symbols-outlined" id="icon-toggle">check</span>
             Activo</mat-button-toggle
           >

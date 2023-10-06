@@ -3,15 +3,6 @@
   <div class="action">
     <h1>Usuarios</h1>
     <div>
-      <span>
-        <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu" class="mr-10">
-          <mat-icon svgIcon="filter"></mat-icon>
-          Filtros
-        </button>
-        <mat-menu #menu="matMenu" xPosition="before">
-          <bdc-bo-menu-filtter (click)="$event.stopPropagation()"></bdc-bo-menu-filtter>
-        </mat-menu>
-      </span>
       <button mat-flat-button color="primary" [routerLink]="['/dashboard/usuarios/crear-usuario']">
         <mat-icon>add</mat-icon>
         Crear nuevo
