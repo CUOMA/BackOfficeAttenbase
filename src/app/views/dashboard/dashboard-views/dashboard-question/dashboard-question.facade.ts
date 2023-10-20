@@ -63,7 +63,7 @@ export class QuestionsFacade {
     return this.store.select(selectQuestions);
   }
 
-  public selectPaginator(): Observable<Datum[]> {
+  public selectPaginator(): Observable<any> {
     return this.store.select(selectPaginator);
   }
 

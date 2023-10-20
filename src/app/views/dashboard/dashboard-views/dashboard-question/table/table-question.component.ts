@@ -52,6 +52,7 @@ export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges 
   protected color: ThemePalette = 'primary';
   protected mode: MatProgressSpinnerModule = 'indeterminate';
   protected questionStatusTypes$!: Observable<QuestionStatus>;
+  protected paginator$ = this.questionsFacade.selectPaginator();
 
   private destroy$ = new Subject<void>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -77,7 +78,9 @@ export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges 
 
   ngAfterViewInit() {
     this.paginator.pageSize = this.pageSize;
-    this.paginator.length = this.questions[0].total;
+    this.paginator.length = this.questions;
+    this.paginator$.subscribe((res) => console.log(res))
+
   }
 
   protected handlePageChanged(pageEvent: PageEvent): void {

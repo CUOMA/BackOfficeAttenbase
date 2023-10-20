@@ -3,6 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DashboardCreateQuestionFacade } from './create-question/dashboard-create-question.facade';
 import { QuestionsFacade } from './dashboard-question.facade';
+import { selectPaginator } from '../../../../store/selectors/question.selectors';
 
 @Component({
   selector: 'bdc-bo-dashboard-question',
