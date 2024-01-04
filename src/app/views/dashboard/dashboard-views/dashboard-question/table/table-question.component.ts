@@ -45,9 +45,10 @@ export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges 
   };
 
   protected showFirstLastButtons: boolean = true;
-  protected disabled: boolean = false;
-  protected pageIndex: number = 0;
-  protected pageSize: number = 10;
+  protected pageEvent!: PageEvent;
+  protected length!: number;
+  protected pageSize = 10;
+  protected pageIndex = 0;
   protected areQuestionsLoading$!: Observable<boolean>;
   protected color: ThemePalette = 'primary';
   protected mode: MatProgressSpinnerModule = 'indeterminate';
@@ -58,7 +59,7 @@ export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource: any;
 
-  constructor(public questionsFacade: QuestionsFacade, public router: Router) { }
+  constructor(public questionsFacade: QuestionsFacade, public router: Router) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['questions'].currentValue) {
@@ -79,11 +80,11 @@ export class TableQuestionComponent implements OnInit, AfterViewInit, OnChanges 
   ngAfterViewInit() {
     this.paginator.pageSize = this.pageSize;
     this.paginator.length = this.questions;
-    this.paginator$.subscribe((res) => console.log(res))
-
+    this.paginator$.subscribe(res => console.log(res));
   }
 
   protected handlePageChanged(pageEvent: PageEvent): void {
     this.pageChanged.emit(pageEvent);
+    console.log(pageEvent);
   }
 }

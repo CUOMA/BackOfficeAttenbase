@@ -7,7 +7,6 @@
   <ng-container *ngIf="questions$ | async as questions">
     <div class="question-action">
       <h1>Preguntas</h1>
-
       <div class="action">
         <div class="menu">
           <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu">
@@ -32,6 +31,12 @@
 
     <bdc-bo-tabla-question
       (pageChanged)="handlePageChanged($event)"
-      [questions]="questions"></bdc-bo-tabla-question>
+      [questions]="questions.data"></bdc-bo-tabla-question>
+    <mat-paginator
+      (page)="handlePageChanged($event)"
+      [pageIndex]="0"
+      [hidePageSize]="true"
+      [length]="questions.total">
+    </mat-paginator>
   </ng-container>
 </div>

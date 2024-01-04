@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Store } from '@ngrx/store';
-import { Observable, combineLatest } from 'rxjs';
-import { filter, map, withLatestFrom, tap } from 'rxjs/operators';
-import { Datum, Questions } from '../../../../core/models/questions-response';
+import { Observable } from 'rxjs';
+import { Datum } from '../../../../core/models/questions-response';
 import { questionsApiActions } from '../../../../store/actions/question.action';
 import { statusesApiActions } from '../../../../store/actions/statuses.action';
 import {
@@ -23,7 +22,7 @@ export class QuestionsFacade {
   protected color: ThemePalette = 'primary';
   protected mode: MatProgressSpinnerModule = 'indeterminate';
   protected isOpen: boolean = false;
-  constructor(private store: Store) { }
+  constructor(private store: Store) {}
 
   public get areQuestionsLoading(): Observable<boolean> {
     return this.store.select(selectAreQuestionsLoading);
@@ -46,20 +45,23 @@ export class QuestionsFacade {
   }
 
   public dispatchGetQuestionsFilter(payload: any): void {
-    this.store.dispatch(questionsApiActions.filterQuestionRequest({
-      categories: payload.categories,
-      date_from: payload.date_from,
-      date_to: payload.date_to,
-      name: payload.name,
-      status: payload.status,
-      subCategories: payload.subCategories,
-    }));
+    console.log(payload);
+    this.store.dispatch(
+      questionsApiActions.filterQuestionRequest({
+        categories: payload.categories,
+        date_from: payload.date_from,
+        date_to: payload.date_to,
+        name: payload.name,
+        status: payload.status,
+        subCategories: payload.subCategories,
+      })
+    );
   }
   public dispatchGetStatuses(): void {
     this.store.dispatch(statusesApiActions.getStatusesRequest());
   }
 
-  public selectQuestions(): Observable<Datum[]> {
+  public selectQuestions(): Observable<any> {
     return this.store.select(selectQuestions);
   }
 

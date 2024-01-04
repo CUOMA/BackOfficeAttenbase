@@ -41,6 +41,7 @@ export class DateComponent {
 
   protected selectedDate(formDate: any[]) {
     this.createDate = formDate;
+    console.log(this.createDate);
   }
   protected saveDate() {}
 }

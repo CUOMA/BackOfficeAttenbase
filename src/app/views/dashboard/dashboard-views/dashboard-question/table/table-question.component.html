@@ -44,12 +44,6 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-    <mat-paginator
-      (page)="handlePageChanged($event)"
-      [pageIndex]="pageIndex"
-      [disabled]="disabled"
-      [hidePageSize]="true">
-    </mat-paginator>
     <div *ngIf="areQuestionsLoading$ | async" class="overlay">
       <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'" [value]="50">
       </mat-progress-spinner>
@@ -82,11 +76,6 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
     <bdc-bo-empty-state [emptyStateData]="emptyStateData"></bdc-bo-empty-state>
-    <mat-paginator
-      (page)="handlePageChanged($event)"
-      [pageIndex]="pageIndex"
-      [disabled]="disabled"
-      [hidePageSize]="true">
-    </mat-paginator>
+    <mat-paginator> </mat-paginator>
   </div>
 </ng-template>
